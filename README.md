@@ -15,6 +15,7 @@ Platform ini bukan aplikasi penyalur donasi komersial maupun kanal pelaporan dar
 - [Teknologi yang Digunakan](#teknologi-yang-digunakan)
 - [Struktur Database & Wilayah Administratif](#struktur-database--wilayah-administratif)
 - [Sumber Data, Atribusi, & Provenance Data Wilayah](#sumber-data-atribusi--provenance-data-wilayah)
+- [Dokumentasi REST API Wilayah Administratif](#dokumentasi-rest-api-wilayah-administratif)
 - [Struktur Direktori Relevan](#struktur-direktori-relevan)
 - [Persyaratan & Petunjuk Instalasi](#persyaratan--petunjuk-instalasi)
 - [Konfigurasi Database & Menjalankan Aplikasi](#konfigurasi-database--menjalankan-aplikasi)
@@ -60,13 +61,14 @@ TanggapTerang dibangun untuk menyajikan data penanganan bencana yang dapat diper
 | **Integrasi Master Data Wilayah Administratif 4 Tingkat** | Selesai | 91.363 wilayah nasional resmi (Provinsi, Kabupaten, Kecamatan, Desa/Kelurahan) |
 | **Pipeline CLI Import Wilayah Resumable** | Selesai | Arsitektur *Fetch -> Stage -> Validate -> Promote* via `php artisan wilayah:import` |
 | **Normalisasi Kategori Status Batas Wilayah** | Selesai | Pemetaan akurat enum: `definitif`, `indikatif`, `hasil_kesepakatan`, `tidak_terdefinisi` |
-| **Automated Test Suite (Feature & Unit)** | Selesai | 10 test cases, 54 assertions menguji idempotensi, integrasi staging, dan rollback |
+| **REST API Wilayah Administratif 4 Tingkat** | Selesai | REST API read-only hierarkis (Provinsi, Kabupaten, Kecamatan, Desa) dengan pagination dan validasi ketat |
+| **Automated Test Suite (Feature & Unit)** | Selesai | 20 test cases, 183 assertions menguji import staging, enum, integrasi API, dan hierarki parent |
 | **Data Seeder Simulasi Bencana (Tirta Jaya)** | Selesai | Data simulasi idempotent untuk pengujian skenario bencana lokal |
 | **Controller & REST API Respons Bencana** | Direncanakan | Endpoint pengajuan laporan, penanganan tiket, dan pemantauan respons |
 | **Antarmuka Publik & Visualisasi Peta (Leaflet.js)** | Direncanakan | Dashboard peta interaktif berbasis Leaflet dan OpenStreetMap |
 | **Autentikasi & Verifikasi Responden/Relawan** | Direncanakan | Sistem verifikasi identitas lembaga kemanusiaan dan relawan lapangan |
 
-> **Catatan Kejujuran Implementasi:** Repositori saat ini telah menyelesaikan fondasi arsitektur data, model, migrasi, pipeline data wilayah administratif nasional, serta pengujian automated test. Antarmuka pengguna (UI), rute web, dan controller operasional saat ini berada pada tahap perencanaan teknis selanjutnya.
+> **Catatan Kejujuran Implementasi:** Repositori saat ini telah menyelesaikan fondasi arsitektur data, model, migrasi, pipeline import data wilayah nasional, REST API wilayah administratif 4 tingkat, serta rangkaian 20 automated tests. Antarmuka pengguna (UI), rute web, dan controller operasional saat ini berada pada tahap perencanaan teknis selanjutnya.
 
 ---
 
@@ -128,12 +130,232 @@ Tabel `wilayah_administratif` menyimpan status keabsahan batas kartometrik pada 
 
 ---
 
+## Dokumentasi REST API Wilayah Administratif
+
+### 1. Tujuan API
+REST API Wilayah Administratif dirancang sebagai layanan *read-only* untuk mengakses master data 91.363 wilayah administratif Indonesia secara hierarkis bertingkat:
+
+$$\text{Provinsi} \longrightarrow \text{Kabupaten/Kota} \longrightarrow \text{Kecamatan} \longrightarrow \text{Desa/Kelurahan}$$
+
+API ini menjadi fondasi operasional sistem TanggapTerang untuk:
+- Pemilihan lokasi presisi saat warga atau relawan mengajukan laporan kondisi bencana (`LaporanWarga`).
+- Penentuan cakupan wilayah pada tiket konsolidasi kebutuhan logistik (`TiketKebutuhan`).
+- Pemetaan spasial titik posko distribusi logistik (`TitikBantuan`).
+- Agregasi, klasterisasi, dan visualisasi pemantauan bencana berdasarkan batas administratif resmi.
+
+### 2. Daftar Endpoint Utama
+Seluruh rute API menggunakan prefix standar `/api/wilayah`:
+
+| No | Method | Endpoint | Deskripsi | Pagination |
+|:---:|:---:|---|---|:---:|
+| 1 | `GET` | `/api/wilayah/provinsi` | Mengambil seluruh 38 provinsi nasional | Tidak (Data terbatas) |
+| 2 | `GET` | `/api/wilayah/{id}/kabupaten` | Mengambil kabupaten/kota dalam provinsi `{id}` | Tidak |
+| 3 | `GET` | `/api/wilayah/{id}/kecamatan` | Mengambil kecamatan dalam kabupaten/kota `{id}` | Tidak |
+| 4 | `GET` | `/api/wilayah/{id}/desa` | Mengambil desa/kelurahan dalam kecamatan `{id}` | **Ya** (Default 50, Max 100) |
+
+> **PENTING Mengenai Identifier `{id}`:**
+> Parameter `{id}` pada path rute adalah **Primary Key basis data** (`id`, integer auto-increment pada tabel `wilayah_administratif`), **bukan** kode wilayah Kemendagri (`kode_wilayah`). Hal ini menjamin konsistensi integritas relasi foreign key pada arsitektur database.
+
+### 3. Parameter Rute & Query
+
+#### Path Parameter `{id}`
+- Digunakan pada endpoint: `/api/wilayah/{id}/kabupaten`, `/api/wilayah/{id}/kecamatan`, dan `/api/wilayah/{id}/desa`.
+- Tipe data: Integer positif (Primary Key).
+- Validasi: Harus merujuk pada entitas wilayah yang ada dan memiliki `tingkat` parent yang sesuai dengan endpoint terkait.
+
+#### Query Parameter (Khusus Endpoint Desa `/api/wilayah/{id}/desa`)
+| Parameter | Tipe | Wajib | Default | Batasan / Validasi | Keterangan |
+|---|:---:|:---:|:---:|---|---|
+| `page` | Integer | Tidak | `1` | `min:1` | Nomor halaman data |
+| `per_page` | Integer | Tidak | `50` | `min:1`, `max:100` | Jumlah data per halaman |
+
+### 4. Contoh Request & Response JSON
+
+#### A. Mengambil Daftar Provinsi
+- **Request:**
+  ```bash
+  curl -s -X GET "http://localhost:8000/api/wilayah/provinsi" \
+       -H "Accept: application/json"
+  ```
+- **Response Sukses (HTTP 200 OK):**
+  ```json
+  {
+      "success": true,
+      "message": "Data wilayah berhasil diambil.",
+      "data": [
+          {
+              "id": 100378,
+              "kode_wilayah": "11",
+              "kode": "11",
+              "nama": "Aceh",
+              "tingkat": "provinsi",
+              "status_batas": null
+          },
+          {
+              "id": 100389,
+              "kode_wilayah": "32",
+              "kode": "32",
+              "nama": "Jawa Barat",
+              "tingkat": "provinsi",
+              "status_batas": null
+          }
+      ]
+  }
+  ```
+
+#### B. Mengambil Kabupaten/Kota Berdasarkan ID Provinsi
+- **Request (misal: Provinsi Jawa Barat ID `100389`):**
+  ```bash
+  curl -s -X GET "http://localhost:8000/api/wilayah/100389/kabupaten" \
+       -H "Accept: application/json"
+  ```
+- **Response Sukses (HTTP 200 OK):**
+  ```json
+  {
+      "success": true,
+      "message": "Data wilayah berhasil diambil.",
+      "data": [
+          {
+              "id": 100416,
+              "kode_wilayah": "3201",
+              "kode": "3201",
+              "nama": "Kabupaten Bogor",
+              "tingkat": "kabupaten",
+              "status_batas": null
+          }
+      ]
+  }
+  ```
+
+#### C. Mengambil Kecamatan Berdasarkan ID Kabupaten
+- **Request (misal: Kabupaten Bogor ID `100416`):**
+  ```bash
+  curl -s -X GET "http://localhost:8000/api/wilayah/100416/kecamatan" \
+       -H "Accept: application/json"
+  ```
+- **Response Sukses (HTTP 200 OK):**
+  ```json
+  {
+      "success": true,
+      "message": "Data wilayah berhasil diambil.",
+      "data": [
+          {
+              "id": 100930,
+              "kode_wilayah": "320101",
+              "kode": "320101",
+              "nama": "Cibinong",
+              "tingkat": "kecamatan",
+              "status_batas": null
+          }
+      ]
+  }
+  ```
+
+#### D. Mengambil Desa/Kelurahan Berdasarkan ID Kecamatan (Dengan Pagination)
+- **Request (misal: Kecamatan Cibinong ID `100930` dengan parameter halaman):**
+  ```bash
+  curl -s -X GET "http://localhost:8000/api/wilayah/100930/desa?page=1&per_page=50" \
+       -H "Accept: application/json"
+  ```
+- **Response Sukses (HTTP 200 OK):**
+  ```json
+  {
+      "success": true,
+      "message": "Data wilayah berhasil diambil.",
+      "data": [
+          {
+              "id": 108212,
+              "kode_wilayah": "3201011001",
+              "kode": "3201011001",
+              "nama": "Cirimekar",
+              "tingkat": "desa",
+              "status_batas": "definitif"
+          },
+          {
+              "id": 108213,
+              "kode_wilayah": "3201011002",
+              "kode": "3201011002",
+              "nama": "Ciriung",
+              "tingkat": "desa",
+              "status_batas": "indikatif"
+          }
+      ],
+      "pagination": {
+          "current_page": 1,
+          "per_page": 50,
+          "total": 13,
+          "last_page": 1,
+          "from": 1,
+          "to": 13
+      }
+  }
+  ```
+
+#### E. Respon Data Kosong
+Bila parent valid namun tidak memiliki anak wilayah pada database, sistem mengembalikan status 200 dengan array kosong:
+```json
+{
+    "success": true,
+    "message": "Data wilayah berhasil diambil.",
+    "data": []
+}
+```
+
+#### F. Respon Error & Validasi
+
+- **HTTP 404 Not Found (Parent Tidak Ditemukan atau Format ID Salah):**
+  ```json
+  {
+      "success": false,
+      "message": "Wilayah parent tidak ditemukan."
+  }
+  ```
+
+- **HTTP 422 Unprocessable Content (Tingkat Hierarki Parent Tidak Sesuai):**
+  *Contoh jika ID kecamatan dikirimkan ke endpoint kabupaten:*
+  ```json
+  {
+      "success": false,
+      "message": "Wilayah parent harus bertingkat provinsi."
+  }
+  ```
+
+- **HTTP 422 Unprocessable Content (Parameter Pagination Melanggar Batasan):**
+  *Contoh jika per_page diminta lebih dari 100:*
+  ```json
+  {
+      "success": false,
+      "message": "Parameter pagination tidak valid.",
+      "errors": {
+          "per_page": [
+              "Parameter per_page tidak boleh lebih dari 100."
+          ]
+      }
+  }
+  ```
+
+### 5. Ketentuan Pagination & Performa
+1. **Penerapan Terarah:** Pagination hanya diterapkan pada endpoint desa/kelurahan (`/api/wilayah/{id}/desa`). Mengingat satu kecamatan dapat memiliki banyak desa (dan total desa nasional mencapai 83.529), pembatasan per halaman menjaga alokasi memori server dan kecepatan respon.
+2. **Batas Ukuran Halaman:** Parameter `per_page` memiliki nilai default `50` dan batas atas `100`. Nilai di atas 100 akan ditolak oleh validator untuk mencegah serangan denial-of-service melalui over-fetching.
+3. **Pilihan Kolom Eksplisit:** Query API hanya memuat kolom `id`, `kode_wilayah`, `nama`, `tingkat`, dan `status_batas`. Kolom internal seperti `parent_id`, `created_at`, dan `updated_at` tidak diekspos ke klien.
+4. **Optimasi Indeks Database:** Query relasi parent memanfaatkan indeks `wilayah_administratif_parent_id_foreign` yang telah tersedia di MySQL, memastikan eksekusi sub-milidetik tanpa perlu memindai seluruh 91.363 baris tabel.
+
+### 6. Keamanan & Sifat Read-Only
+- Seluruh endpoint API wilayah hanya beroperasi pada metode `GET` (bersifat *read-only*).
+- Tidak ada mekanisme publik untuk memanipulasi, menambah, atau menghapus master data wilayah melalui API.
+- Seluruh input dan query difilter menggunakan query builder Eloquent dengan parameter binding otomatis untuk mencegah SQL injection.
+
+---
+
 ## Struktur Direktori Relevan
 ```
 tanggap-terang/
 ├── app/
 │   ├── Console/Commands/
 │   │   └── ImportWilayahAdministratif.php   # Pipeline CLI Import: Fetch -> Stage -> Validate -> Promote
+│   ├── Http/Controllers/
+│   │   └── Api/
+│   │       └── WilayahController.php        # REST API Controller untuk akses hierarki wilayah administratif
 │   └── Models/
 │       ├── KejadianBencana.php
 │       ├── KonfirmasiPenerimaan.php
@@ -150,9 +372,14 @@ tanggap-terang/
 ├── database/
 │   ├── migrations/                          # Migrasi tabel operasional, wilayah, staging, dan enum
 │   └── seeders/                             # Seeder idempotent simulasi skenario bencana
+├── routes/
+│   ├── api.php                              # Rute REST API wilayah (/api/wilayah/*)
+│   ├── console.php
+│   └── web.php
 ├── tests/
 │   ├── Feature/
-│   │   └── WilayahImportStagingTest.php     # 10 automated test cases (54 assertions)
+│   │   ├── WilayahApiTest.php               # 10 automated test cases (122 assertions) REST API wilayah
+│   │   └── WilayahImportStagingTest.php     # 10 automated test cases (54 assertions) pipeline staging
 │   └── TestCase.php
 ├── resources/
 │   ├── css/app.css                          # Tailwind CSS v4 entrypoint
@@ -255,6 +482,7 @@ tanggap-terang/
 | 2026-10-31 | Eksekusi fetch data wilayah nasional dari API Wilayah Indonesia ke staging | 91.363 record staging terkumpul (7.835 progress berstatus done, 0 gagal) | Belum di-commit |
 | 2026-10-31 | Perbaikan kategori status batas dan ekspansi enum `wilayah_administratif` | Migrasi penambahan `hasil_kesepakatan`, normalisasi cerdas, dan automated test lulus (10 passed, 54 assertions) | Belum di-commit |
 | 2026-10-31 | Eksekusi promote permanen 91.363 master data wilayah administratif ke tabel utama | 38 provinsi, 514 kabupaten, 7.282 kecamatan, 83.529 desa terhubung hierarkis (0 orphan, 100% unik) | Belum di-commit |
+| 2026-11-01 | Implementasi REST API Wilayah Administratif 4 Tingkat (Provinsi, Kabupaten, Kecamatan, Desa) | 4 endpoint bertingkat (`/api/wilayah/provinsi`, `/{id}/kabupaten`, `/{id}/kecamatan`, `/{id}/desa`), validasi hierarki parent, pagination desa, automated tests lulus (20 passed, 183 assertions) | Belum di-commit |
 
 ---
 *Dokumen diperbarui secara berkala sebagai bagian dari standar transparansi pengembangan TanggapTerang.*

@@ -482,7 +482,7 @@ tanggap-terang/
 | 2026-10-31 | Eksekusi fetch data wilayah nasional dari API Wilayah Indonesia ke staging | 91.363 record staging terkumpul (7.835 progress berstatus done, 0 gagal) | Belum di-commit |
 | 2026-10-31 | Perbaikan kategori status batas dan ekspansi enum `wilayah_administratif` | Migrasi penambahan `hasil_kesepakatan`, normalisasi cerdas, dan automated test lulus (10 passed, 54 assertions) | Belum di-commit |
 | 2026-10-31 | Eksekusi promote permanen 91.363 master data wilayah administratif ke tabel utama | 38 provinsi, 514 kabupaten, 7.282 kecamatan, 83.529 desa terhubung hierarkis (0 orphan, 100% unik) | Belum di-commit |
-| 2026-11-01 | Implementasi REST API Wilayah Administratif 4 Tingkat (Provinsi, Kabupaten, Kecamatan, Desa) | 4 endpoint bertingkat (`/api/wilayah/provinsi`, `/{id}/kabupaten`, `/{id}/kecamatan`, `/{id}/desa`), validasi hierarki parent, pagination desa, automated tests lulus (20 passed, 183 assertions) | Belum di-commit |
+| 2026-11-01 | Implementasi REST API Wilayah Administratif 4 Tingkat (Provinsi, Kabupaten, Kecamatan, Desa) | 4 endpoint bertingkat (`/api/wilayah/provinsi`, `/{id}/kabupaten`, `/{id}/kecamatan`, `/{id}/desa`), validasi hierarki parent, pagination desa, automated tests lulus (20 passed, 183 assertions) | `46b9c34` (Implement hierarchical administrative region REST API) |
 
 ---
 *Dokumen diperbarui secara berkala sebagai bagian dari standar transparansi pengembangan TanggapTerang.*

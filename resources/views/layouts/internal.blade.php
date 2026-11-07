@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ $title ?? 'Panel Internal — TanggapTerang' }}</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-tanggap-terang.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo-tanggap-terang.png') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('head')
+</head>
+<body class="bg-[#F8FAFC] text-[#0F172A] antialiased min-h-screen flex flex-col">
+    <!-- Internal Top Command Bar -->
+    <header class="bg-[#0F172A] text-white border-b border-slate-800 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 min-h-[64px] py-2 flex items-center justify-between gap-2 sm:gap-4">
+            <div class="flex items-center gap-2.5 sm:gap-4 min-w-0">
+                <a href="{{ route('internal.dashboard') }}" class="flex items-center gap-2.5 min-w-0">
+                    <img src="{{ asset('images/logo-tanggap-terang.png') }}"
+                         alt="Logo TanggapTerang"
+                         class="h-9 sm:h-10 w-auto object-contain rounded-lg shrink-0">
+                    <div class="min-w-0">
+                        <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                            <span class="font-bold text-sm sm:text-base tracking-tight text-white leading-tight">TanggapTerang</span>
+                            <span class="px-1.5 py-0.5 rounded bg-blue-600 text-white font-telemetry text-[9px] sm:text-[10px] font-bold uppercase leading-none shrink-0">
+                                Internal
+                            </span>
+                        </div>
+                        <p class="hidden xl:block font-telemetry text-[10px] text-slate-400 uppercase tracking-wider truncate mt-0.5">
+                            Pengelolaan Verifikasi &amp; Tindak Lanjut
+                        </p>
+                    </div>
+                </a>
+
+                @php
+                    $internalMenu = $internalMenu ?? '';
+                @endphp
+                <nav class="hidden lg:flex items-center gap-1 ml-2 xl:ml-4 shrink-0" aria-label="Navigasi Internal">
+                    <a href="{{ route('internal.dashboard') }}"
+                       class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'dashboard' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                        Dashboard
+                    </a>
+                    <a href="{{ route('internal.reports.index') }}"
+                       class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'reports' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                        Kelola Laporan
+                    </a>
+                    <a href="{{ route('internal.incidents.index') }}"
+                       class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'incidents' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                        Kelola Kejadian
+                    </a>
+                </nav>
+            </div>
+
+            <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
+                @auth
+                    <div class="hidden lg:flex flex-col items-end">
+                        <span class="text-xs font-bold text-white leading-none">{{ auth()->user()->name }}</span>
+                        <span class="font-telemetry text-[10px] text-amber-400 uppercase tracking-wider mt-0.5">
+                            Role: {{ auth()->user()->role?->label() ?? auth()->user()->role }}
+                        </span>
+                    </div>
+                @endauth
+
+                <a href="{{ route('public.monitor') }}"
+                   class="px-2.5 sm:px-3 py-1.5 rounded border border-slate-600 text-slate-200 hover:bg-slate-800 font-telemetry text-[11px] sm:text-xs font-bold uppercase tracking-wider transition whitespace-nowrap">
+                    <span class="hidden sm:inline">Halaman Publik</span>
+                    <span class="sm:hidden">Publik</span>
+                </a>
+
+                @auth
+                    <form method="POST" action="{{ route('logout') }}" class="shrink-0">
+                        @csrf
+                        <button type="submit" class="px-2.5 sm:px-3 py-1.5 rounded bg-[#DC2626] hover:bg-red-700 text-white font-telemetry text-[11px] sm:text-xs font-bold uppercase tracking-wider transition cursor-pointer whitespace-nowrap">
+                            Keluar
+                        </button>
+                    </form>
+                @endauth
+            </div>
+        </div>
+
+        <!-- Mobile & Tablet Sub-nav + Account Info Bar for Internal (< 1024px) -->
+        <div class="lg:hidden border-t border-slate-800 px-3 sm:px-6 py-2 flex flex-wrap items-center justify-between gap-2">
+            <nav class="flex flex-wrap items-center gap-1.5" aria-label="Navigasi Internal Mobile">
+                <a href="{{ route('internal.dashboard') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'dashboard' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800' }}">Dashboard</a>
+                <a href="{{ route('internal.reports.index') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'reports' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800' }}">Kelola Laporan</a>
+                <a href="{{ route('internal.incidents.index') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'incidents' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800' }}">Kelola Kejadian</a>
+            </nav>
+            @auth
+                <div class="flex items-center gap-1.5 font-telemetry text-[10px] sm:text-[11px] text-slate-300">
+                    <span class="font-bold text-white">{{ auth()->user()->name }}</span>
+                    <span>•</span>
+                    <span class="text-amber-400 uppercase font-bold">Role: {{ auth()->user()->role?->label() ?? auth()->user()->role }}</span>
+                </div>
+            @endauth
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
+        <x-simulation-banner :compact="true" />
+
+        @if(session('success'))
+            <div class="bg-[#ECFDF5] border-l-4 border-[#059669] border-y border-r border-[#6EE7B7] rounded-lg p-4 text-[#065F46] text-sm font-medium" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="bg-[#FEF2F2] border-l-4 border-[#DC2626] border-y border-r border-[#FCA5A5] rounded-lg p-4 text-[#991B1B] text-sm font-medium" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if($errors->any())
+            <div class="bg-[#FEF2F2] border-l-4 border-[#DC2626] border-y border-r border-[#FCA5A5] rounded-lg p-4 text-[#991B1B] text-sm" role="alert">
+                <p class="font-bold mb-1">Periksa kembali input Anda:</p>
+                <ul class="list-disc list-inside space-y-0.5">
+                    @foreach($errors->all() as $err)
+                        <li>{{ $err }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        {{ $slot ?? '' }}
+        @yield('content')
+    </main>
+
+    @stack('scripts')
+</body>
+</html>

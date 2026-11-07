@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\UserRole;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -22,6 +23,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'is_active',
     ];
 
     /**
@@ -44,6 +47,53 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'role' => UserRole::class,
+            'is_active' => 'boolean',
         ];
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->is_active && $this->role === UserRole::Admin;
+    }
+
+    public function canVerify(): bool
+    {
+        return $this->is_active && in_array($this->role, [UserRole::Admin, UserRole::Verifikator], true);
+    }
+
+    public function canManageOperations(): bool
+    {
+        return $this->is_active && in_array($this->role, [UserRole::Admin, UserRole::Operator], true);
+    }
+
+    public function canLinkReportToIncident(): bool
+    {
+        return $this->is_active && in_array($this->role, [UserRole::Admin, UserRole::Operator], true);
+    }
+
+    public function reports(): HasMany
+    {
+        return $this->hasMany(Report::class, 'user_id');
+    }
+
+    public function verifiedReports(): HasMany
+    {
+        return $this->hasMany(Report::class, 'verified_by_user_id');
+    }
+
+    public function createdIncidents(): HasMany
+    {
+        return $this->hasMany(Incident::class, 'created_by_user_id');
+    }
+
+    public function followUpRecords(): HasMany
+    {
+        return $this->hasMany(FollowUpRecord::class, 'user_id');
+    }
+
+    public function verificationHistories(): HasMany
+    {
+        return $this->hasMany(VerificationHistory::class, 'user_id');
     }
 }

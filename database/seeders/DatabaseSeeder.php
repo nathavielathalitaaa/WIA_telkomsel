@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
             ResponsBantuanSeeder::class,
             RiwayatStatusTiketSeeder::class,
             KonfirmasiPenerimaanSeeder::class,
+            SimulationDataSeeder::class,
         ]);
     }
 }

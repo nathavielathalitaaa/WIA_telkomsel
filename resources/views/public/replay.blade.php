@@ -1,0 +1,630 @@
+@extends('layouts.app', [
+    'title' => 'Mode Replay Simulasi Garis Waktu — TanggapTerang',
+    'activeTab' => 'replay',
+])
+
+@php
+    $hasCoordinates = $selectedIncident && $selectedIncident->latitude !== null && $selectedIncident->longitude !== null;
+    $eventsArray = $timelineEvents->values()->all();
+    $firstEventMs = !empty($eventsArray) ? $eventsArray[0]['timestamp_ms'] : 0;
+    $lastEventMs = !empty($eventsArray) ? $eventsArray[count($eventsArray) - 1]['timestamp_ms'] : 0;
+@endphp
+
+@section('content')
+    <!-- Prominent Simulation Warning Header -->
+    <section class="bg-[#0F172A] text-white border border-slate-800 rounded-lg p-5 sm:p-6 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#DC2626] text-white font-telemetry text-xs font-bold uppercase tracking-wider">
+                <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                <span>DEMO SIMULASI — BUKAN DATA REAL-TIME</span>
+            </div>
+            <span class="px-2.5 py-1 rounded bg-slate-800 text-amber-300 border border-slate-700 font-telemetry text-xs font-bold uppercase">
+                Kronologi Berbasis Database
+            </span>
+        </div>
+
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 min-w-0 w-full">
+            <div class="space-y-1.5 max-w-3xl min-w-0">
+                <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight text-white">
+                    Mode Replay Perjalanan Informasi Kejadian
+                </h1>
+                <p class="text-sm text-slate-300 leading-relaxed">
+                    Demonstrasi interaktif bagaimana informasi suatu kejadian berkembang dari waktu ke waktu berdasarkan <strong class="text-white">laporan masyarakat</strong>, <strong class="text-white">rujukan sumber informasi terbuka</strong>, <strong class="text-white">pemeriksaan verifikasi</strong>, dan <strong class="text-white">catatan tindak lanjut tim TanggapTerang</strong> yang tersimpan di database.
+                </p>
+            </div>
+
+            <!-- Incident Selector Form -->
+            @if($incidents->isNotEmpty())
+                <form method="GET" action="{{ route('public.replay') }}" class="w-full max-w-full lg:w-96 min-w-0 shrink-0 bg-slate-900 border border-slate-700 rounded-lg p-3 space-y-2 overflow-hidden">
+                    <label for="incident-selector" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-300">
+                        Pilih Kejadian Simulasi untuk Replay
+                    </label>
+                    <div class="flex items-center gap-2 min-w-0 w-full max-w-full">
+                        <select id="incident-selector"
+                                name="incident"
+                                onchange="this.form.submit()"
+                                class="flex-1 min-w-0 w-full max-w-full min-h-[40px] px-3 py-1.5 bg-white text-[#0F172A] rounded font-medium text-xs truncate focus:outline-none">
+                            @foreach($incidents as $inc)
+                                <option value="{{ $inc->slug }}" @selected($selectedIncident && $selectedIncident->id === $inc->id)>
+                                    {{ $inc->title }} ({{ $inc->reports_count }} laporan, {{ $inc->follow_up_records_count }} tindak lanjut)
+                                </option>
+                            @endforeach
+                        </select>
+                        <button type="submit"
+                                class="px-3 py-1.5 rounded bg-[#2563EB] hover:bg-blue-500 text-white font-telemetry text-xs font-bold uppercase cursor-pointer shrink-0">
+                            Muat
+                        </button>
+                    </div>
+                </form>
+            @endif
+        </div>
+    </section>
+
+    @if(!$selectedIncident)
+        <!-- Empty State when no incidents exist in DB -->
+        <section class="bg-white border border-[#E2E8F0] rounded-lg p-8 text-center space-y-3">
+            <h2 class="text-lg font-bold text-[#0F172A]">Belum Ada Kejadian Simulasi untuk Mode Replay</h2>
+            <p class="text-sm text-slate-600 max-w-md mx-auto">
+                Saat ini belum terdapat data kejadian di dalam database yang dapat ditampilkan pada garis waktu replay.
+            </p>
+            <a href="{{ route('public.monitor') }}"
+               class="px-4 py-2 rounded-lg bg-[#0F172A] text-white font-telemetry text-xs font-bold uppercase inline-flex items-center">
+                Kembali ke Halaman Pantau
+            </a>
+        </section>
+    @else
+        <!-- Insufficient History Notice (Requirement A.7) -->
+        @if(!$hasSufficientHistory)
+            <section class="bg-[#FFFBEB] border-l-4 border-[#D97706] border-y border-r border-[#FCD34D] rounded-lg p-4 text-xs text-[#92400E] space-y-1" role="status">
+                <div class="font-telemetry font-bold uppercase tracking-wider">
+                    Pemberitahuan Riwayat Terbatas
+                </div>
+                <p class="leading-relaxed">
+                    Kejadian <strong>{{ $selectedIncident->title }}</strong> saat ini baru memiliki {{ $timelineEvents->count() }} catatan peristiwa awal dan belum memiliki rangkaian histori laporan, verifikasi, maupun tindak lanjut tambahan yang panjang untuk diputar secara bertahap.
+                </p>
+            </section>
+        @endif
+
+        <!-- Interactive Playback Console & Time Scrubber -->
+        <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-5">
+            <!-- Active Replay Time & Current Statuses Banner -->
+            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-4 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 min-w-0">
+                <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-11 h-11 rounded-lg bg-[#0F172A] text-white flex items-center justify-center font-telemetry font-bold text-sm shrink-0">
+                        <span id="replay-step-badge">1/{{ max(1, count($eventsArray)) }}</span>
+                    </div>
+                    <div class="min-w-0">
+                        <div class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                            Posisi Waktu Replay Saat Ini
+                        </div>
+                        <div id="replay-active-timestamp" class="font-telemetry text-lg sm:text-xl font-bold text-[#0F172A]">
+                            {{ $eventsArray[0]['timestamp_formatted'] ?? '-' }}
+                        </div>
+                        <div id="replay-active-event-title" class="text-xs font-semibold text-[#2563EB] mt-0.5">
+                            {{ $eventsArray[0]['title'] ?? '-' }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Dual Status at Active Replay Time -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 shrink-0">
+                    <div class="bg-white border border-slate-200 rounded-lg px-3.5 py-2">
+                        <span class="font-telemetry text-[10px] font-bold uppercase text-slate-500 block">
+                            1. Status Verifikasi (Saat Waktu Replay)
+                        </span>
+                        <span id="replay-verification-status" class="font-telemetry text-xs font-bold uppercase text-[#2563EB]">
+                            {{ $eventsArray[0]['verification_label'] ?? 'Menunggu Verifikasi' }}
+                        </span>
+                    </div>
+                    <div class="bg-white border border-slate-200 rounded-lg px-3.5 py-2">
+                        <span class="font-telemetry text-[10px] font-bold uppercase text-slate-500 block">
+                            2. Status Tindak Lanjut (Saat Waktu Replay)
+                        </span>
+                        <span id="replay-followup-status" class="font-telemetry text-xs font-bold uppercase text-[#059669]">
+                            {{ $eventsArray[0]['follow_up_label'] ?? 'Belum Ditindaklanjuti' }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Time Range Scrubber Slider -->
+            <div class="space-y-2">
+                <div class="flex flex-wrap items-center justify-between gap-2 font-telemetry text-xs text-slate-600">
+                    <span>Awal: <strong>{{ $eventsArray[0]['timestamp_formatted'] ?? '-' }}</strong></span>
+                    <span class="text-[#0F172A] font-bold uppercase">Geser Slider Waktu untuk Melihat Informasi yang Tercatat Sampai Titik Waktu Tersebut</span>
+                    <span>Akhir: <strong>{{ $eventsArray[count($eventsArray) - 1]['timestamp_formatted'] ?? '-' }}</strong></span>
+                </div>
+
+                <input type="range"
+                       id="replay-time-slider"
+                       min="{{ $firstEventMs }}"
+                       max="{{ max($firstEventMs, $lastEventMs) }}"
+                       value="{{ max($firstEventMs, $lastEventMs) }}"
+                       step="1000"
+                       aria-label="Penggeser Waktu Replay Simulasi"
+                       class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#DC2626]">
+
+                <!-- Clickable Step Markers on Timeline -->
+                <div class="flex flex-wrap items-center justify-between gap-1.5 pt-1">
+                    @foreach($eventsArray as $idx => $ev)
+                        <button type="button"
+                                data-jump-ms="{{ $ev['timestamp_ms'] }}"
+                                data-jump-index="{{ $idx }}"
+                                class="replay-milestone-btn px-2.5 py-1 rounded border border-slate-300 bg-white hover:bg-slate-100 font-telemetry text-[11px] font-bold text-[#0F172A] transition cursor-pointer">
+                            #{{ $ev['step_number'] }} • {{ $ev['time_short'] }} ({{ match($ev['type']) {
+                                'kejadian_awal' => 'Awal',
+                                'laporan_masyarakat' => 'Laporan',
+                                'sumber_terbuka' => 'Sumber',
+                                'verifikasi' => 'Verifikasi',
+                                'tindak_lanjut' => 'Tindak Lanjut',
+                                default => 'Log'
+                            } }})
+                        </button>
+                    @endforeach
+                </div>
+            </div>
+
+            <!-- Play / Pause / Step / Reset Controls -->
+            <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+                <div class="flex flex-wrap items-center gap-2">
+                    <button type="button"
+                            id="btn-replay-reset"
+                            class="px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-[#0F172A] font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px]">
+                        &#8634; Reset ke Awal
+                    </button>
+
+                    <button type="button"
+                            id="btn-replay-prev"
+                            class="px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-[#0F172A] font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px]">
+                        &larr; Tahap Sebelumnya
+                    </button>
+
+                    <button type="button"
+                            id="btn-replay-play"
+                            class="px-5 py-2 rounded-lg bg-[#DC2626] hover:bg-red-700 text-white font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px] inline-flex items-center gap-2">
+                        <span id="btn-replay-play-label">&#9654; Putar Replay</span>
+                    </button>
+
+                    <button type="button"
+                            id="btn-replay-next"
+                            class="px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-[#0F172A] font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px]">
+                        Tahap Berikutnya &rarr;
+                    </button>
+                </div>
+
+                <!-- Playback Speed Controls -->
+                <div class="flex items-center gap-1.5 font-telemetry text-xs">
+                    <span class="text-slate-500 uppercase font-bold mr-1">Kecepatan:</span>
+                    <button type="button" data-speed="1" class="replay-speed-btn px-2.5 py-1 rounded bg-[#0F172A] text-white font-bold cursor-pointer">1x</button>
+                    <button type="button" data-speed="2" class="replay-speed-btn px-2.5 py-1 rounded bg-slate-100 text-slate-700 font-bold cursor-pointer">2x</button>
+                    <button type="button" data-speed="4" class="replay-speed-btn px-2.5 py-1 rounded bg-slate-100 text-slate-700 font-bold cursor-pointer">4x</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Summary Panel (Real DB Counts Accumulated Up to Active Replay Time — No Invented Metrics) -->
+        <section aria-label="Ringkasan Akumulasi Informasi pada Waktu Replay" class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+            <div class="bg-white border border-[#E2E8F0] rounded-lg p-4">
+                <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
+                    Peristiwa Tercatat s/d Waktu Ini
+                </span>
+                <div class="mt-2 flex items-baseline justify-between">
+                    <span id="metric-visible-events" class="font-telemetry text-2xl sm:text-3xl font-bold text-[#0F172A]">
+                        {{ count($eventsArray) }}
+                    </span>
+                    <span class="font-telemetry text-xs text-slate-500">dari {{ count($eventsArray) }} total log</span>
+                </div>
+            </div>
+
+            <div class="bg-white border border-[#E2E8F0] rounded-lg p-4">
+                <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
+                    Laporan Warga Masuk s/d Waktu Ini
+                </span>
+                <div class="mt-2 flex items-baseline justify-between">
+                    <span id="metric-visible-reports" class="font-telemetry text-2xl sm:text-3xl font-bold text-[#2563EB]">
+                        {{ collect($eventsArray)->where('type', 'laporan_masyarakat')->count() }}
+                    </span>
+                    <span class="font-telemetry text-xs text-slate-500">Laporan Masyarakat</span>
+                </div>
+            </div>
+
+            <div class="bg-white border border-[#E2E8F0] rounded-lg p-4">
+                <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
+                    Sumber Terbuka Dirujuk s/d Waktu Ini
+                </span>
+                <div class="mt-2 flex items-baseline justify-between">
+                    <span id="metric-visible-sources" class="font-telemetry text-2xl sm:text-3xl font-bold text-[#D97706]">
+                        {{ collect($eventsArray)->where('type', 'sumber_terbuka')->count() }}
+                    </span>
+                    <span class="font-telemetry text-xs text-slate-500">Rujukan Terbuka</span>
+                </div>
+            </div>
+
+            <div class="bg-white border border-[#E2E8F0] rounded-lg p-4">
+                <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
+                    Catatan Tindak Lanjut s/d Waktu Ini
+                </span>
+                <div class="mt-2 flex items-baseline justify-between">
+                    <span id="metric-visible-followups" class="font-telemetry text-2xl sm:text-3xl font-bold text-[#059669]">
+                        {{ collect($eventsArray)->where('type', 'tindak_lanjut')->count() }}
+                    </span>
+                    <span class="font-telemetry text-xs text-slate-500">Tindak Lanjut Tim</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Grid: Map (Left) & Chronological Event Stream Filtered by Replay Time (Right) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+            <!-- Left Column (5 cols): Incident Info & Map -->
+            <div class="lg:col-span-5 space-y-5">
+                <section class="bg-white border border-[#E2E8F0] rounded-lg overflow-hidden">
+                    <div class="p-4 border-b border-[#E2E8F0] bg-[#F8FAFC] flex items-center justify-between">
+                        <div>
+                            <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                                Peta Lokasi Kejadian &amp; Titik Laporan
+                            </h2>
+                            <p class="text-xs text-slate-500">{{ $selectedIncident->location_name }}</p>
+                        </div>
+                        <x-severity-badge :severity="$selectedIncident->severity" />
+                    </div>
+
+                    @if($hasCoordinates)
+                        <div id="replay-map" class="w-full h-[300px] bg-slate-100 z-10"></div>
+                    @else
+                        <div class="p-6 text-center space-y-2 bg-slate-50">
+                            <p class="text-sm font-bold text-slate-700">Koordinat Peta Tidak Tersedia</p>
+                            <p class="text-xs text-slate-500">
+                                Kejadian ini tidak memiliki koordinat lintang/bujur di database. Sistem tidak menampilkan koordinat palsu.
+                            </p>
+                        </div>
+                    @endif
+
+                    <div class="p-4 border-t border-[#E2E8F0] space-y-2 text-xs text-slate-600">
+                        <div class="flex items-center justify-between">
+                            <span>Kejadian Terpilih:</span>
+                            <a href="{{ route('public.incidents.show', $selectedIncident->slug) }}" class="font-telemetry font-bold text-[#2563EB] hover:underline">
+                                Buka Halaman Detail &rarr;
+                            </a>
+                        </div>
+                        <p class="text-[11px] text-slate-500">
+                            Catatan: Mode replay ini hanya memvisualisasikan catatan laporan, sumber terbuka, verifikasi, dan tindak lanjut yang benar-benar ada pada database.
+                        </p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column (7 cols): Chronological Timeline Events (Filtered by Active Slider Timestamp) -->
+            <div class="lg:col-span-7 space-y-4">
+                <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                        <div>
+                            <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                                Garis Waktu Peristiwa Informasi ({{ $selectedIncident->title }})
+                            </h2>
+                            <p class="text-xs text-slate-500">
+                                Hanya menampilkan peristiwa yang sudah tercatat hingga posisi waktu slider saat ini.
+                            </p>
+                        </div>
+                        <span id="future-hidden-indicator" class="hidden px-2.5 py-1 rounded bg-amber-100 text-amber-800 border border-amber-300 font-telemetry text-[11px] font-bold">
+                            0 peristiwa berikutnya belum tercapai
+                        </span>
+                    </div>
+
+                    <div id="replay-events-container" class="space-y-3">
+                        @foreach($eventsArray as $ev)
+                            @php
+                                $badgeClasses = match($ev['type']) {
+                                    'kejadian_awal' => 'bg-slate-900 text-white',
+                                    'laporan_masyarakat' => 'bg-[#EFF6FF] text-[#2563EB] border border-[#93C5FD]',
+                                    'sumber_terbuka' => 'bg-[#FFFBEB] text-[#D97706] border border-[#FCD34D]',
+                                    'verifikasi' => 'bg-blue-600 text-white',
+                                    'tindak_lanjut' => 'bg-[#ECFDF5] text-[#059669] border border-[#6EE7B7]',
+                                    default => 'bg-slate-100 text-slate-700',
+                                };
+                            @endphp
+                            <article class="replay-event-card border border-[#E2E8F0] rounded-lg p-4 bg-white transition"
+                                     data-event-uid="{{ $ev['uid'] }}"
+                                     data-event-type="{{ $ev['type'] }}"
+                                     data-timestamp-ms="{{ $ev['timestamp_ms'] }}"
+                                     data-step-number="{{ $ev['step_number'] }}">
+                                <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        <span class="w-6 h-6 rounded-full bg-[#0F172A] text-white font-telemetry text-xs font-bold inline-flex items-center justify-center">
+                                            {{ $ev['step_number'] }}
+                                        </span>
+                                        <span class="font-telemetry text-xs font-bold text-[#0F172A]">
+                                            {{ $ev['timestamp_formatted'] }}
+                                        </span>
+                                        <span class="px-2 py-0.5 rounded font-telemetry text-[10px] font-bold uppercase {{ $badgeClasses }}">
+                                            {{ $ev['type_label'] }}
+                                        </span>
+                                    </div>
+                                    <span class="font-telemetry text-[10px] text-slate-500 uppercase">
+                                        Simulasi
+                                    </span>
+                                </div>
+
+                                <h3 class="text-sm sm:text-base font-bold text-[#0F172A]">
+                                    {{ $ev['title'] }}
+                                </h3>
+
+                                <p class="text-xs sm:text-sm text-slate-700 mt-1 leading-relaxed">
+                                    {{ $ev['description'] }}
+                                </p>
+
+                                <div class="mt-2.5 pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 font-telemetry text-xs text-slate-500">
+                                    <span>Sumber / Pencatat: <strong class="text-slate-700">{{ $ev['source_label'] }}</strong></span>
+                                    @if($ev['verification_label'])
+                                        <span class="text-[#2563EB] font-bold">{{ $ev['verification_label'] }}</span>
+                                    @elseif($ev['follow_up_label'])
+                                        <span class="text-[#059669] font-bold">Status Tindak Lanjut: {{ $ev['follow_up_label'] }}</span>
+                                    @endif
+                                </div>
+                            </article>
+                        @endforeach
+                    </div>
+                </section>
+            </div>
+        </div>
+    @endif
+@endsection
+
+@if($selectedIncident && !empty($eventsArray))
+    @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const events = @json($eventsArray);
+            const slider = document.getElementById('replay-time-slider');
+            const stepBadge = document.getElementById('replay-step-badge');
+            const activeTimeEl = document.getElementById('replay-active-timestamp');
+            const activeTitleEl = document.getElementById('replay-active-event-title');
+            const verifStatusEl = document.getElementById('replay-verification-status');
+            const followUpStatusEl = document.getElementById('replay-followup-status');
+
+            const metricEventsEl = document.getElementById('metric-visible-events');
+            const metricReportsEl = document.getElementById('metric-visible-reports');
+            const metricSourcesEl = document.getElementById('metric-visible-sources');
+            const metricFollowUpsEl = document.getElementById('metric-visible-followups');
+            const futureIndicatorEl = document.getElementById('future-hidden-indicator');
+
+            const btnReset = document.getElementById('btn-replay-reset');
+            const btnPrev = document.getElementById('btn-replay-prev');
+            const btnPlay = document.getElementById('btn-replay-play');
+            const btnPlayLabel = document.getElementById('btn-replay-play-label');
+            const btnNext = document.getElementById('btn-replay-next');
+            const milestoneBtns = document.querySelectorAll('.replay-milestone-btn');
+            const speedBtns = document.querySelectorAll('.replay-speed-btn');
+            const eventCards = document.querySelectorAll('.replay-event-card');
+
+            if (!slider || events.length === 0) return;
+
+            // Optional Leaflet map integration
+            let map = null;
+            const reportMarkers = [];
+            @if($hasCoordinates)
+                const mapEl = document.getElementById('replay-map');
+                if (mapEl && typeof window.L !== 'undefined') {
+                    const incLat = {{ (float) $selectedIncident->latitude }};
+                    const incLng = {{ (float) $selectedIncident->longitude }};
+                    map = window.L.map(mapEl, { scrollWheelZoom: false }).setView([incLat, incLng], 14);
+                    window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        maxZoom: 18,
+                        attribution: '&copy; OpenStreetMap contributors'
+                    }).addTo(map);
+
+                    window.L.circleMarker([incLat, incLng], {
+                        radius: 10,
+                        fillColor: '#DC2626',
+                        color: '#FFFFFF',
+                        weight: 3,
+                        opacity: 1,
+                        fillOpacity: 0.95,
+                    }).addTo(map).bindPopup(@json('Titik Kejadian: ' . $selectedIncident->title));
+
+                    events.forEach(ev => {
+                        if (ev.type === 'laporan_masyarakat' && typeof ev.latitude === 'number' && typeof ev.longitude === 'number') {
+                            const m = window.L.circleMarker([ev.latitude, ev.longitude], {
+                                radius: 7,
+                                fillColor: '#2563EB',
+                                color: '#FFFFFF',
+                                weight: 2,
+                                opacity: 1,
+                                fillOpacity: 0.9,
+                            }).bindPopup(`${ev.type_label}: ${ev.title}`);
+                            reportMarkers.push({ timestamp_ms: ev.timestamp_ms, marker: m });
+                        }
+                    });
+                }
+            @endif
+
+            let currentIndex = events.length - 1;
+            let isPlaying = false;
+            let playTimer = null;
+            let speedMultiplier = 1;
+
+            const renderUpToTimestamp = (cutoffMs) => {
+                let latestReachedIndex = 0;
+                let currentVerifLabel = 'Menunggu Verifikasi';
+                let currentFollowUpLabel = 'Belum Ditindaklanjuti';
+                let visibleCount = 0;
+                let reportsCount = 0;
+                let sourcesCount = 0;
+                let followUpsCount = 0;
+
+                events.forEach((ev, idx) => {
+                    if (ev.timestamp_ms <= cutoffMs) {
+                        latestReachedIndex = idx;
+                        visibleCount++;
+                        if (ev.type === 'laporan_masyarakat') reportsCount++;
+                        if (ev.type === 'sumber_terbuka') sourcesCount++;
+                        if (ev.type === 'tindak_lanjut') followUpsCount++;
+
+                        if ((ev.type === 'kejadian_awal' || ev.type === 'verifikasi') && ev.verification_label) {
+                            currentVerifLabel = ev.verification_label;
+                        }
+                        if ((ev.type === 'kejadian_awal' || ev.type === 'tindak_lanjut') && ev.follow_up_label) {
+                            currentFollowUpLabel = ev.follow_up_label;
+                        }
+                    }
+                });
+
+                currentIndex = latestReachedIndex;
+                const activeEv = events[latestReachedIndex];
+
+                if (stepBadge) stepBadge.textContent = `${latestReachedIndex + 1}/${events.length}`;
+                if (activeTimeEl && activeEv) activeTimeEl.textContent = activeEv.timestamp_formatted;
+                if (activeTitleEl && activeEv) activeTitleEl.textContent = `Tahap #${activeEv.step_number}: ${activeEv.title}`;
+                if (verifStatusEl) verifStatusEl.textContent = currentVerifLabel;
+                if (followUpStatusEl) followUpStatusEl.textContent = currentFollowUpLabel;
+
+                if (metricEventsEl) metricEventsEl.textContent = String(visibleCount);
+                if (metricReportsEl) metricReportsEl.textContent = String(reportsCount);
+                if (metricSourcesEl) metricSourcesEl.textContent = String(sourcesCount);
+                if (metricFollowUpsEl) metricFollowUpsEl.textContent = String(followUpsCount);
+
+                const hiddenFutureCount = events.length - visibleCount;
+                if (futureIndicatorEl) {
+                    if (hiddenFutureCount > 0) {
+                        futureIndicatorEl.textContent = `${hiddenFutureCount} peristiwa berikutnya belum terjadi pada waktu ini`;
+                        futureIndicatorEl.classList.remove('hidden');
+                    } else {
+                        futureIndicatorEl.classList.add('hidden');
+                    }
+                }
+
+                // Tampilkan HANYA kartu peristiwa yang sudah tercatat sampai cutoffMs
+                eventCards.forEach(card => {
+                    const cardMs = Number(card.getAttribute('data-timestamp-ms'));
+                    const cardStep = Number(card.getAttribute('data-step-number'));
+                    if (cardMs <= cutoffMs) {
+                        card.classList.remove('hidden');
+                        if (cardStep === latestReachedIndex + 1) {
+                            card.classList.add('ring-2', 'ring-[#0F172A]', 'bg-[#F8FAFC]');
+                        } else {
+                            card.classList.remove('ring-2', 'ring-[#0F172A]', 'bg-[#F8FAFC]');
+                        }
+                    } else {
+                        card.classList.add('hidden');
+                        card.classList.remove('ring-2', 'ring-[#0F172A]', 'bg-[#F8FAFC]');
+                    }
+                });
+
+                // Highlight tombol milestone
+                milestoneBtns.forEach((btn, idx) => {
+                    if (idx === latestReachedIndex) {
+                        btn.classList.add('bg-[#0F172A]', 'text-white');
+                        btn.classList.remove('bg-white', 'text-[#0F172A]');
+                    } else {
+                        btn.classList.remove('bg-[#0F172A]', 'text-white');
+                        btn.classList.add('bg-white', 'text-[#0F172A]');
+                    }
+                });
+
+                // Sinkronkan marker laporan warga pada peta sesuai cutoffMs
+                if (map) {
+                    reportMarkers.forEach(item => {
+                        if (item.timestamp_ms <= cutoffMs) {
+                            if (!map.hasLayer(item.marker)) {
+                                item.marker.addTo(map);
+                            }
+                        } else {
+                            if (map.hasLayer(item.marker)) {
+                                map.removeLayer(item.marker);
+                            }
+                        }
+                    });
+                }
+            };
+
+            const jumpToStepIndex = (idx) => {
+                const clamped = Math.max(0, Math.min(events.length - 1, idx));
+                const targetMs = events[clamped].timestamp_ms;
+                slider.value = String(targetMs);
+                renderUpToTimestamp(targetMs);
+            };
+
+            const stopPlayback = () => {
+                isPlaying = false;
+                if (btnPlayLabel) btnPlayLabel.innerHTML = '&#9654; Putar Replay';
+                if (playTimer) {
+                    clearInterval(playTimer);
+                    playTimer = null;
+                }
+            };
+
+            const startPlayback = () => {
+                if (currentIndex >= events.length - 1) {
+                    jumpToStepIndex(0);
+                }
+                isPlaying = true;
+                if (btnPlayLabel) btnPlayLabel.innerHTML = '&#10074;&#10074; Jeda Replay';
+
+                const delayMs = Math.max(350, Math.round(1400 / speedMultiplier));
+                playTimer = setInterval(() => {
+                    if (currentIndex >= events.length - 1) {
+                        stopPlayback();
+                        return;
+                    }
+                    jumpToStepIndex(currentIndex + 1);
+                }, delayMs);
+            };
+
+            slider.addEventListener('input', (e) => {
+                stopPlayback();
+                renderUpToTimestamp(Number(e.target.value));
+            });
+
+            btnReset?.addEventListener('click', () => {
+                stopPlayback();
+                jumpToStepIndex(0);
+            });
+
+            btnPrev?.addEventListener('click', () => {
+                stopPlayback();
+                jumpToStepIndex(currentIndex - 1);
+            });
+
+            btnNext?.addEventListener('click', () => {
+                stopPlayback();
+                jumpToStepIndex(currentIndex + 1);
+            });
+
+            btnPlay?.addEventListener('click', () => {
+                if (isPlaying) {
+                    stopPlayback();
+                } else {
+                    startPlayback();
+                }
+            });
+
+            milestoneBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    stopPlayback();
+                    const idx = Number(btn.getAttribute('data-jump-index'));
+                    jumpToStepIndex(idx);
+                });
+            });
+
+            speedBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    speedMultiplier = Number(btn.getAttribute('data-speed')) || 1;
+                    speedBtns.forEach(b => {
+                        b.classList.remove('bg-[#0F172A]', 'text-white');
+                        b.classList.add('bg-slate-100', 'text-slate-700');
+                    });
+                    btn.classList.add('bg-[#0F172A]', 'text-white');
+                    btn.classList.remove('bg-slate-100', 'text-slate-700');
+
+                    if (isPlaying) {
+                        stopPlayback();
+                        startPlayback();
+                    }
+                });
+            });
+
+            // Render initial state
+            renderUpToTimestamp(Number(slider.value));
+        });
+    </script>
+    @endpush
+@endif

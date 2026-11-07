@@ -28,4 +28,14 @@ class WilayahAdministratif extends Model
     {
         return $this->hasMany(self::class, 'parent_id');
     }
+
+    public function incidents()
+    {
+        return $this->hasMany(Incident::class, 'wilayah_administratif_id');
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class, 'wilayah_administratif_id');
+    }
 }

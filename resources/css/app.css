@@ -6,6 +6,86 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Public Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-mono: 'Space Grotesk', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+@layer utilities {
+    .font-telemetry {
+        font-family: var(--font-mono);
+        letter-spacing: 0.04em;
+    }
+
+    /* Brand Red-Blue Gradient (DESIGN.md #2563EB Blue 600 <-> #DC2626 Red 600) */
+    .btn-brand-gradient {
+        background-image: linear-gradient(135deg, #DC2626 0%, #2563EB 100%);
+        color: #FFFFFF;
+        border: 1px solid #1E40AF;
+        transition: filter 150ms ease, transform 100ms ease, box-shadow 150ms ease;
+    }
+    .btn-brand-gradient:hover {
+        background-image: linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%);
+        color: #FFFFFF;
+    }
+    .btn-brand-gradient:focus-visible {
+        outline: 2px solid #0F172A;
+        outline-offset: 2px;
+    }
+    .btn-brand-gradient:active {
+        background-image: linear-gradient(135deg, #991B1B 0%, #1E3A8A 100%);
+        transform: translateY(1px);
+    }
+
+    .nav-active-gradient {
+        background-image: linear-gradient(135deg, #DC2626 0%, #2563EB 100%);
+        color: #FFFFFF !important;
+        border: 1px solid #1E40AF;
+        box-shadow: 0 1px 2px 0 rgba(15, 23, 42, 0.18);
+    }
+    .nav-active-gradient:hover {
+        background-image: linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%);
+        color: #FFFFFF !important;
+    }
+    .nav-active-gradient:focus-visible {
+        outline: 2px solid #0F172A;
+        outline-offset: 2px;
+    }
+
+    .brand-gradient-bar {
+        background-image: linear-gradient(90deg, #DC2626 0%, #2563EB 100%);
+    }
+}
+
+@media print {
+    @page {
+        size: A4 portrait;
+        margin: 12mm;
+    }
+    .no-print {
+        display: none !important;
+    }
+    body {
+        background: #ffffff !important;
+        color: #0f172a !important;
+        padding-bottom: 0 !important;
+        font-size: 11pt;
+    }
+    main {
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .print-sheet {
+        box-shadow: none !important;
+        border: 1px solid #cbd5e1 !important;
+        margin: 0 !important;
+        padding: 16px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    table, tr, .print-avoid-break {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
 }

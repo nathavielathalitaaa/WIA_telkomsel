@@ -34,6 +34,7 @@ class PublicSitrepController extends Controller
                 'aidResponses' => fn ($q) => $q->select([
                     'id',
                     'reference_code',
+                    'submission_type',
                     'incident_id',
                     'need_category',
                     'organization_name',
@@ -43,6 +44,10 @@ class PublicSitrepController extends Controller
                     'quantity_label',
                     'target_location',
                     'recorded_at',
+                    'delivered_at',
+                    'verification_status',
+                    'verification_notes',
+                    'verified_at',
                     'status',
                     'confirmed_at',
                 ])->orderByDesc('recorded_at'),

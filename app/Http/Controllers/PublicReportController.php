@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\ConfidenceLevel;
 use App\Enums\VerificationStatus;
+use App\Models\AidResponse;
 use App\Models\Report;
 use App\Models\VerificationHistory;
 use Illuminate\Http\RedirectResponse;
@@ -159,6 +160,10 @@ class PublicReportController extends Controller
                         'quantity_label',
                         'target_location',
                         'recorded_at',
+                        'delivered_at',
+                        'verification_status',
+                        'verification_notes',
+                        'verified_at',
                         'status',
                         'evidence_url',
                         'confirmation_notes',
@@ -170,11 +175,59 @@ class PublicReportController extends Controller
                 ->first();
         }
 
+        $aidResponse = null;
+        if ($searched && ! $report && preg_match('/^[A-Z0-9\-]{6,32}$/', $normalizedTicket)) {
+            $aidResponse = AidResponse::query()
+                ->select([
+                    'id',
+                    'reference_code',
+                    'submission_type',
+                    'incident_id',
+                    'report_id',
+                    'need_category',
+                    'organization_name',
+                    'responder_type',
+                    'allow_public_name',
+                    'aid_item_title',
+                    'aid_description',
+                    'quantity_label',
+                    'target_location',
+                    'wilayah_administratif_id',
+                    'latitude',
+                    'longitude',
+                    'recorded_at',
+                    'delivered_at',
+                    'verification_status',
+                    'verification_notes',
+                    'verified_at',
+                    'verified_by_user_id',
+                    'status',
+                    'evidence_url',
+                    'confirmation_notes',
+                    'confirmed_at',
+                    'confirmed_by_user_id',
+                    'is_simulation',
+                    'created_at',
+                    'updated_at',
+                ])
+                ->where('reference_code', $normalizedTicket)
+                ->with([
+                    'incident.wilayahAdministratif',
+                    'report',
+                    'verifiedBy:id,name',
+                    'confirmedBy:id,name',
+                ])
+                ->first();
+        }
+
         return view('public.track', [
             'ticketQuery' => $normalizedTicket,
             'searched' => $searched,
             'report' => $report,
+            'aidResponse' => $aidResponse,
             'categories' => PublicIncidentController::incidentCategories(),
+            'needCategories' => AidResponse::needCategories(),
+            'responderTypes' => AidResponse::responderTypes(),
         ]);
     }
 }

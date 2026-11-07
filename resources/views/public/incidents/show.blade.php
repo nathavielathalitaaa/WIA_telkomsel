@@ -310,10 +310,23 @@
 
                                 <div class="pt-2 border-t border-slate-200/80 flex flex-wrap items-center justify-between gap-2 text-xs font-telemetry text-slate-500">
                                     <span>Lokasi Laporan: <strong class="text-slate-700">{{ $report->location_name }}</strong></span>
-                                    <a href="{{ route('public.track', ['ticket' => $report->ticket_number]) }}"
-                                       class="text-[#2563EB] hover:underline font-bold">
-                                        Lihat Status Tiket &rarr;
-                                    </a>
+                                    <div class="flex flex-wrap items-center gap-3">
+                                        @php
+                                            $mappedNeedCat = \App\Models\AidResponse::mapReportCategoryToNeedCategory((string) $report->category);
+                                        @endphp
+                                        <a href="{{ route('public.aid-responses.create', ['incident' => $incident->slug, 'report' => $report->id, 'need_category' => $mappedNeedCat, 'submission_type' => 'tawaran_rencana']) }}"
+                                           class="text-emerald-700 hover:underline font-bold">
+                                            + Tawaran Bantuan
+                                        </a>
+                                        <a href="{{ route('public.aid-responses.create', ['incident' => $incident->slug, 'report' => $report->id, 'need_category' => $mappedNeedCat, 'submission_type' => 'laporan_penyerahan']) }}"
+                                           class="text-amber-800 hover:underline font-bold">
+                                            + Lapor Bantuan Diserahkan
+                                        </a>
+                                        <a href="{{ route('public.track', ['ticket' => $report->ticket_number]) }}"
+                                           class="text-[#2563EB] hover:underline font-bold">
+                                            Lihat Status Tiket &rarr;
+                                        </a>
+                                    </div>
                                 </div>
                             </article>
                         @endforeach
@@ -337,13 +350,19 @@
                             </h2>
                         </div>
                         <p class="text-xs text-slate-500 mt-0.5">
-                            Catatan terbuka dukungan bantuan dari komunitas, relawan, dan masyarakat (terpisah dari tindak lanjut internal tim).
+                            Membedakan secara jelas antara <strong>Tawaran / Rencana Bantuan</strong> dan <strong>Laporan Bantuan Sudah Diberikan</strong> (terpisah dari tindak lanjut internal tim).
                         </p>
                     </div>
-                    <a href="{{ route('public.aid-responses.create', ['incident' => $incident->slug]) }}"
-                       class="px-3 py-1.5 rounded-lg btn-brand-gradient font-telemetry text-[11px] font-bold uppercase tracking-wider shadow-xs">
-                        + Catat Respons Bantuan
-                    </a>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <a href="{{ route('public.aid-responses.create', ['incident' => $incident->slug, 'submission_type' => 'tawaran_rencana']) }}"
+                           class="px-3 py-1.5 rounded-lg btn-brand-gradient font-telemetry text-[11px] font-bold uppercase tracking-wider shadow-xs">
+                            + Ajukan Tawaran Bantuan
+                        </a>
+                        <a href="{{ route('public.aid-responses.create', ['incident' => $incident->slug, 'submission_type' => 'laporan_penyerahan']) }}"
+                           class="px-3 py-1.5 rounded-lg bg-[#0F172A] hover:bg-slate-800 text-white font-telemetry text-[11px] font-bold uppercase tracking-wider shadow-xs">
+                            + Laporkan Bantuan Sudah Diberikan
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Ringkasan Terpisah: (1) Kebutuhan Tercatat, (2) Respons Bantuan & Satuan, (3) Stacked Bar 3 Warna Status -->
@@ -407,6 +426,17 @@
                                         @endif
                                     </div>
                                 </div>
+
+                                <div class="pt-1.5 border-t border-slate-200/70 flex flex-wrap items-center justify-between gap-2 font-telemetry text-[10px]">
+                                    <a href="{{ route('public.aid-responses.create', ['incident' => $incident->slug, 'need_category' => $catStat['key'], 'submission_type' => 'tawaran_rencana']) }}"
+                                       class="text-blue-700 hover:underline font-bold">
+                                        + Tawaran Bantuan Kategori Ini
+                                    </a>
+                                    <a href="{{ route('public.aid-responses.create', ['incident' => $incident->slug, 'need_category' => $catStat['key'], 'submission_type' => 'laporan_penyerahan']) }}"
+                                       class="text-emerald-800 hover:underline font-bold">
+                                        + Lapor Bantuan Sudah Diberikan
+                                    </a>
+                                </div>
                             </div>
                         @endforeach
                     </div>
@@ -422,11 +452,18 @@
                 @else
                     <div class="space-y-3">
                         @foreach($incident->aidResponses as $aid)
+                            @php
+                                $aidStatusVal = $aid->status instanceof \BackedEnum ? $aid->status->value : (string) $aid->status;
+                                $isDeliveredSubmission = $aid->isReportedDelivered();
+                            @endphp
                             <article class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-4 space-y-2.5">
                                 <div class="flex flex-wrap items-center justify-between gap-2">
                                     <div class="flex flex-wrap items-center gap-2">
                                         <span class="px-2 py-0.5 rounded bg-slate-900 text-white font-telemetry text-xs font-bold">
                                             {{ $aid->reference_code }}
+                                        </span>
+                                        <span class="px-2 py-0.5 rounded font-telemetry text-[10px] font-bold uppercase {{ $isDeliveredSubmission ? 'bg-indigo-50 text-indigo-900 border border-indigo-200' : 'bg-blue-50 text-blue-800 border border-blue-200' }}">
+                                            {{ $aid->submissionTypeLabel() }}
                                         </span>
                                         <span class="px-2 py-0.5 rounded bg-white border border-slate-200 font-telemetry text-[10px] font-bold uppercase text-slate-700">
                                             {{ $needCategories[$aid->need_category] ?? $aid->need_category }}
@@ -435,7 +472,16 @@
                                             Respons Bantuan Masyarakat
                                         </span>
                                     </div>
-                                    <x-aid-status-badge :status="$aid->status" />
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        <div class="flex items-center gap-1">
+                                            <span class="font-telemetry text-[9px] uppercase font-bold text-slate-500">Pemeriksaan:</span>
+                                            <x-verification-badge :status="$aid->verification_status" />
+                                        </div>
+                                        <div class="flex items-center gap-1">
+                                            <span class="font-telemetry text-[9px] uppercase font-bold text-slate-500">Operasional:</span>
+                                            <x-aid-status-badge :status="$aid->status" />
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
@@ -453,8 +499,14 @@
                                     </p>
                                 @endif
 
-                                @if($aid->confirmation_notes || $aid->evidence_url)
+                                @if($aid->verification_notes || $aid->confirmation_notes || $aid->evidence_url)
                                     <div class="bg-white border border-slate-200 rounded p-2.5 text-xs text-slate-700 space-y-1.5">
+                                        @if($aid->verification_notes)
+                                            <div>
+                                                <strong class="font-telemetry uppercase text-[10px] text-blue-800 block">Catatan Pemeriksaan Verifikator:</strong>
+                                                {{ $aid->verification_notes }}
+                                            </div>
+                                        @endif
                                         @if($aid->confirmation_notes)
                                             <div>
                                                 <strong class="font-telemetry uppercase text-[10px] text-slate-500 block">Catatan Status / Konfirmasi Petugas:</strong>
@@ -478,9 +530,16 @@
                                 <div class="pt-2 border-t border-slate-200/80 flex flex-wrap items-center justify-between gap-2 text-xs font-telemetry text-slate-500">
                                     <span>
                                         Pemberi Respons: <strong class="text-slate-800">{{ $aid->publicResponderName() }}</strong>
-                                        • Tujuan: <strong class="text-slate-700">{{ $aid->target_location }}</strong>
+                                        • Lokasi Penyaluran: <strong class="text-slate-700">{{ $aid->target_location }}</strong>
+                                        @if($aid->report)
+                                            • Tiket Kebutuhan: <strong class="text-blue-700">{{ $aid->report->ticket_number }}</strong>
+                                        @endif
+                                        • <a href="{{ route('public.track', ['ticket' => $aid->reference_code]) }}" class="text-emerald-700 font-bold hover:underline">Lacak Tiket Respons &rarr;</a>
                                     </span>
                                     <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+                                        @if($aid->delivered_at)
+                                            <span class="text-indigo-800">Waktu Penyerahan (Dilaporkan): <strong>{{ $aid->delivered_at->format('d M Y, H:i') }} WIB</strong></span>
+                                        @endif
                                         <span>Dicatat: <strong class="text-slate-700">{{ $aid->recorded_at?->format('d M Y, H:i') }} WIB</strong></span>
                                         @if($aid->confirmed_at)
                                             <span class="text-emerald-700">Dikonfirmasi: <strong>{{ $aid->confirmed_at->format('d M Y, H:i') }} WIB</strong></span>

@@ -100,9 +100,15 @@ class InternalIncidentController extends Controller
             ->orderByDesc('created_at')
             ->get(['id', 'ticket_number', 'title', 'location_name', 'verification_status', 'created_at']);
 
+        $sourceReport = null;
+        if ($request->filled('from_report')) {
+            $sourceReport = Report::with('wilayahAdministratif')->find((int) $request->query('from_report'));
+        }
+
         return view('internal.incidents.create', [
             'categories' => PublicIncidentController::incidentCategories(),
             'unlinkedReports' => $unlinkedReports,
+            'sourceReport' => $sourceReport,
         ]);
     }
 
@@ -213,7 +219,7 @@ class InternalIncidentController extends Controller
             'incidentSources.source',
             'verificationHistories' => fn ($q) => $q->with('user:id,name,role')->orderByDesc('created_at'),
             'followUpRecords' => fn ($q) => $q->with('user:id,name,role')->orderByDesc('action_date')->orderByDesc('created_at'),
-            'aidResponses' => fn ($q) => $q->with('confirmedBy:id,name,role')->orderByDesc('recorded_at'),
+            'aidResponses' => fn ($q) => $q->with(['confirmedBy:id,name,role', 'verifiedBy:id,name,role'])->orderByDesc('recorded_at'),
         ]);
 
         $unlinkedReports = Report::query()
@@ -512,7 +518,59 @@ class InternalIncidentController extends Controller
     }
 
     /**
-     * Perbarui status atau konfirmasi catatan Respons Bantuan Masyarakat (PUT /internal/incidents/{incident}/aid-responses/{aidResponse}).
+     * Perbarui status pemeriksaan/verifikasi respons bantuan (PUT /internal/incidents/{incident}/aid-responses/{aidResponse}/verification).
+     * Hanya untuk Verifikator dan Admin. Operator TIDAK diizinkan (403).
+     */
+    public function updateAidResponseVerification(Request $request, Incident $incident, AidResponse $aidResponse): RedirectResponse
+    {
+        $user = $request->user();
+        if (! $user || ! $user->canVerify()) {
+            abort(403, 'Hanya Verifikator atau Admin yang berwenang memverifikasi respons bantuan.');
+        }
+
+        if ($aidResponse->incident_id !== $incident->id) {
+            abort(404);
+        }
+
+        $verificationStatuses = array_column(VerificationStatus::cases(), 'value');
+
+        $validated = $request->validate([
+            'verification_status' => ['required', 'string', Rule::in($verificationStatuses)],
+            'verification_notes' => ['required', 'string', 'min:5', 'max:1000'],
+        ], [
+            'verification_status.required' => 'Status pemeriksaan respons bantuan wajib dipilih.',
+            'verification_status.in' => 'Status pemeriksaan yang dipilih tidak valid.',
+            'verification_notes.required' => 'Catatan verifikasi respons bantuan wajib diisi.',
+            'verification_notes.min' => 'Catatan verifikasi minimal 5 karakter.',
+        ]);
+
+        $newVerifStatus = VerificationStatus::from($validated['verification_status']);
+
+        DB::transaction(function () use ($aidResponse, $newVerifStatus, $validated, $user) {
+            $updates = [
+                'verification_status' => $newVerifStatus,
+                'verification_notes' => $validated['verification_notes'],
+                'verified_at' => now(),
+                'verified_by_user_id' => $user->id,
+            ];
+
+            // Jika status pemeriksaan diubah menjadi ditolak, batalkan status operasional terkonfirmasi jika ada
+            if ($newVerifStatus === VerificationStatus::Ditolak) {
+                $updates['status'] = AidResponseStatus::Direncanakan;
+                $updates['confirmed_at'] = null;
+                $updates['confirmed_by_user_id'] = null;
+            }
+
+            $aidResponse->update($updates);
+        });
+
+        return redirect()
+            ->route('internal.incidents.edit', $incident)
+            ->with('success', "Status pemeriksaan respons bantuan [{$aidResponse->reference_code}] berhasil diperbarui menjadi {$newVerifStatus->label()}.");
+    }
+
+    /**
+     * Perbarui status atau konfirmasi catatan operasional Respons Bantuan Masyarakat (PUT /internal/incidents/{incident}/aid-responses/{aidResponse}).
      * Hanya untuk Operator dan Admin (Verifikator tidak diizinkan mengubah status operasional bantuan).
      */
     public function updateAidResponse(Request $request, Incident $incident, AidResponse $aidResponse): RedirectResponse
@@ -547,6 +605,21 @@ class InternalIncidentController extends Controller
 
         $newStatus = AidResponseStatus::from($validated['status']);
 
+        // ATURAN 6: Status operasional tidak boleh diset menjadi 'terkonfirmasi' jika status pemeriksaan belum 'terverifikasi'
+        if ($newStatus === AidResponseStatus::Terkonfirmasi) {
+            $currentVerif = $aidResponse->verification_status instanceof VerificationStatus
+                ? $aidResponse->verification_status
+                : VerificationStatus::tryFrom((string) $aidResponse->verification_status);
+
+            if ($currentVerif !== VerificationStatus::Terverifikasi) {
+                return redirect()
+                    ->route('internal.incidents.edit', $incident)
+                    ->withErrors([
+                        'status' => "Respons bantuan [{$aidResponse->reference_code}] belum dapat ditetapkan sebagai 'Penyerahan Dikonfirmasi' karena status pemeriksaan informasi belum 'Terverifikasi' oleh Verifikator (status saat ini: {$aidResponse->verificationStatusLabel()}).",
+                    ]);
+            }
+        }
+
         $evidenceUrl = array_key_exists('evidence_url', $validated)
             ? ($validated['evidence_url'] ?: null)
             : $aidResponse->evidence_url;
@@ -565,7 +638,7 @@ class InternalIncidentController extends Controller
 
         return redirect()
             ->route('internal.incidents.edit', $incident)
-            ->with('success', "Status respons bantuan [{$aidResponse->reference_code}] berhasil diperbarui menjadi {$newStatus->label()}.");
+            ->with('success', "Status operasional respons bantuan [{$aidResponse->reference_code}] berhasil diperbarui menjadi {$newStatus->label()}.");
     }
 
     /**

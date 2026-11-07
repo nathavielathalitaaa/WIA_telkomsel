@@ -228,7 +228,7 @@ class PublicFeaturesTest extends TestCase
         // Tiket tidak ditemukan -> tampilkan pesan aman tanpa membocorkan tiket lain
         $missingResponse = $this->get(route('public.track', ['ticket' => 'RPT-SIM-ZZZZ9999']));
         $missingResponse->assertStatus(200);
-        $missingResponse->assertSee('Nomor Tiket Tidak Ditemukan');
+        $missingResponse->assertSee('Nomor Tiket / Kode Referensi Tidak Ditemukan');
         $missingResponse->assertSee('RPT-SIM-ZZZZ9999');
         $missingResponse->assertDontSee('[SIMULASI] Air meluap masuk pekarangan dan rumah warga RT 02/RW 04');
     }

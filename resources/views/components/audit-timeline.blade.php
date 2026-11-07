@@ -51,6 +51,10 @@
     foreach ($aidResponses as $aid) {
         $aidStatusStr = $aid->status instanceof \BackedEnum ? $aid->status->value : (string) $aid->status;
         $needLabel = \App\Models\AidResponse::needCategories()[$aid->need_category] ?? $aid->need_category;
+        $subTypeLabel = method_exists($aid, 'submissionTypeLabel') ? $aid->submissionTypeLabel() : 'Respons Bantuan Masyarakat';
+        $deliveredLabel = $aid->delivered_at
+            ? ' • Waktu Penyerahan (Dilaporkan): ' . $aid->delivered_at->format('d M Y, H:i') . ' WIB'
+            : '';
         $recordedLabel = $aid->recorded_at ? $aid->recorded_at->format('d M Y, H:i') . ' WIB' : '-';
         $confirmedLabel = $aid->confirmed_at
             ? ' • Dikonfirmasi: ' . $aid->confirmed_at->format('d M Y, H:i') . ' WIB'
@@ -60,10 +64,11 @@
             'category' => 'respons_bantuan',
             'timestamp' => $aid->confirmed_at ?? $aid->recorded_at ?? $aid->created_at,
             'title' => $aid->aid_item_title . ' (' . $aid->quantity_label . ')',
-            'subtitle' => 'Respons Bantuan Masyarakat [' . $aid->reference_code . '] • Kategori: ' . $needLabel . ' • Dicatat: ' . $recordedLabel . $confirmedLabel,
-            'description' => trim(($aid->aid_description ?: 'Respons bantuan masyarakat tercatat.') . ($aid->confirmation_notes ? ' — Catatan: ' . $aid->confirmation_notes : '')),
+            'subtitle' => $subTypeLabel . ' [' . $aid->reference_code . '] • Kategori: ' . $needLabel . $deliveredLabel . ' • Dicatat: ' . $recordedLabel . $confirmedLabel,
+            'description' => trim(($aid->aid_description ?: 'Respons bantuan masyarakat tercatat.') . ($aid->verification_notes ? ' — Verifikasi: ' . $aid->verification_notes : '') . ($aid->confirmation_notes ? ' — Konfirmasi: ' . $aid->confirmation_notes : '')),
             'actor' => $aid->publicResponderName() . ' • Lokasi Tujuan: ' . $aid->target_location,
             'badge_status' => $aidStatusStr,
+            'verification_status' => $aid->verification_status,
             'evidence_url' => $aid->evidence_url,
             'is_simulation' => (bool) $aid->is_simulation,
         ]);
@@ -123,7 +128,12 @@
                     @if($entry['category'] === 'verifikasi')
                         <x-verification-badge :status="$entry['badge_status']" />
                     @elseif($entry['category'] === 'respons_bantuan')
-                        <x-aid-status-badge :status="$entry['badge_status']" />
+                        <div class="flex flex-wrap items-center gap-1.5">
+                            @if(!empty($entry['verification_status']))
+                                <x-verification-badge :status="$entry['verification_status']" />
+                            @endif
+                            <x-aid-status-badge :status="$entry['badge_status']" />
+                        </div>
                     @else
                         <x-followup-badge :status="$entry['badge_status']" />
                     @endif

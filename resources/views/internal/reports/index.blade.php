@@ -5,25 +5,35 @@
 
 @php
     $user = auth()->user();
+    $roleVal = $user->role?->value ?? (string) $user->role;
 @endphp
 
 @section('content')
     <!-- Page Header -->
     <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div class="space-y-1">
-            <div class="flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2">
                 <span class="px-2 py-0.5 rounded bg-[#0F172A] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
-                    Manajemen Laporan Warga
+                    {{ $roleVal === 'verifikator' ? 'Pemeriksaan & Verifikasi Laporan Warga' : ($roleVal === 'operator' ? 'Penautan Laporan Warga ke Kejadian' : 'Manajemen Laporan Warga') }}
+                </span>
+                <span class="px-2 py-0.5 rounded bg-blue-50 text-[#2563EB] border border-blue-200 font-telemetry text-[10px] font-bold uppercase tracking-wider">
+                    Role: {{ $user->role?->label() ?? $user->role }}
                 </span>
                 <span class="font-telemetry text-xs text-slate-500">
                     Total: {{ $reports->total() }} Laporan
                 </span>
             </div>
             <h1 class="text-xl sm:text-2xl font-extrabold text-[#0F172A]">
-                Antrean &amp; Pengelolaan Laporan Masyarakat
+                {{ $roleVal === 'verifikator' ? 'Antrean Pemeriksaan & Verifikasi Laporan Masyarakat' : ($roleVal === 'operator' ? 'Daftar Laporan Masyarakat & Penautan Kejadian' : 'Antrean & Pengelolaan Laporan Masyarakat') }}
             </h1>
             <p class="text-sm text-slate-600">
-                Tinjau laporan masuk, lakukan verifikasi atau penolakan dengan alasan, tandai duplikat, dan hubungkan laporan ke kejadian yang relevan.
+                @if($roleVal === 'verifikator')
+                    Periksa kelengkapan informasi dan bukti laporan warga, lalu tetapkan status <strong>Terverifikasi</strong>, <strong>Duplikat</strong>, atau <strong>Ditolak</strong> beserta alasan audit.
+                @elseif($roleVal === 'operator')
+                    Tinjau laporan warga yang telah masuk dan hubungkan laporan yang relevan ke data kejadian (atau buat kejadian baru dari laporan).
+                @else
+                    Tinjau laporan masuk, lakukan verifikasi atau penolakan dengan alasan, tandai duplikat, dan hubungkan laporan ke kejadian yang relevan.
+                @endif
             </p>
         </div>
 
@@ -175,7 +185,7 @@
                             <td class="py-3.5 px-4 align-top text-right whitespace-nowrap">
                                 <a href="{{ route('internal.reports.show', $report) }}"
                                    class="px-3 py-1.5 rounded bg-[#0F172A] hover:bg-slate-800 text-white font-telemetry text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1">
-                                    <span>Kelola</span>
+                                    <span>{{ $roleVal === 'verifikator' ? 'Verifikasi' : ($roleVal === 'operator' ? 'Tautkan / Tinjau' : 'Kelola') }}</span>
                                     <span>&rarr;</span>
                                 </a>
                             </td>

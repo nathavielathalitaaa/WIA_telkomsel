@@ -363,7 +363,8 @@ class ReplaySitrepAndEndToEndTest extends TestCase
         ]);
 
         $emptyDescAid = \App\Models\AidResponse::where('aid_item_title', 'Tandon Air Bersih Darurat 2000 Liter')->firstOrFail();
-        $postEmptyDesc->assertRedirect(route('public.incidents.show', $incident->slug));
+        $postEmptyDesc->assertRedirect(route('public.track', ['ticket' => $emptyDescAid->reference_code]));
+        $postEmptyDesc->assertSessionHas('created_ticket', $emptyDescAid->reference_code);
         $this->assertNull($emptyDescAid->aid_description);
         $this->assertSame(\App\Enums\AidResponseStatus::Direncanakan, $emptyDescAid->status);
 
@@ -384,7 +385,8 @@ class ReplaySitrepAndEndToEndTest extends TestCase
         ]);
 
         $newAid = \App\Models\AidResponse::where('aid_item_title', 'Pos Pemeriksaan Kesehatan Keliling & Obat Kulit')->firstOrFail();
-        $postAid->assertRedirect(route('public.incidents.show', $incident->slug));
+        $postAid->assertRedirect(route('public.track', ['ticket' => $newAid->reference_code]));
+        $postAid->assertSessionHas('created_ticket', $newAid->reference_code);
 
         $this->assertSame('Layanan pemeriksaan kesehatan warga terdampak genangan.', $newAid->aid_description);
         $this->assertSame(\App\Enums\AidResponseStatus::Direncanakan, $newAid->status);
@@ -404,7 +406,9 @@ class ReplaySitrepAndEndToEndTest extends TestCase
             'quantity_label' => '100 Paket Sembako',
             'target_location' => 'Dapur Umum RW 02',
         ]);
-        $postOrg150->assertRedirect(route('public.incidents.show', $incident->slug));
+        $org150Aid = \App\Models\AidResponse::where('aid_item_title', 'Paket Logistik Dapur Warga 150 Karakter')->firstOrFail();
+        $postOrg150->assertRedirect(route('public.track', ['ticket' => $org150Aid->reference_code]));
+        $postOrg150->assertSessionHas('created_ticket', $org150Aid->reference_code);
         $this->assertDatabaseHas('aid_responses', [
             'aid_item_title' => 'Paket Logistik Dapur Warga 150 Karakter',
             'organization_name' => $org150,
@@ -435,11 +439,35 @@ class ReplaySitrepAndEndToEndTest extends TestCase
         $incidentShow->assertDontSee('dr. Rahmat Hidayat (Rahasia)');
         $incidentShow->assertDontSee('081199887766');
 
-        // E. Pembatasan Role: Verifikator TIDAK diizinkan mengubah status respons bantuan (403 Forbidden)
+        // E. Pembatasan Role: Verifikator TIDAK diizinkan mengubah status operasional respons bantuan (403 Forbidden)
         $this->actingAs($verifikator)->put(route('internal.incidents.aid-responses.update', [$incident, $newAid]), [
             'status' => \App\Enums\AidResponseStatus::DalamPenyaluran->value,
             'confirmation_notes' => 'Percobaan ubah oleh verifikator.',
         ])->assertStatus(403);
+
+        // Operator TIDAK diizinkan memverifikasi respons bantuan (403 Forbidden)
+        $this->actingAs($operator)->put(route('internal.incidents.aid-responses.verification.update', [$incident, $newAid]), [
+            'verification_status' => \App\Enums\VerificationStatus::Terverifikasi->value,
+            'verification_notes' => 'Percobaan verifikasi oleh operator.',
+        ])->assertStatus(403);
+
+        // Operator TIDAK dapat menetapkan status 'terkonfirmasi' jika respons belum diverifikasi oleh Verifikator
+        $this->actingAs($operator)->from(route('internal.incidents.edit', $incident))
+            ->put(route('internal.incidents.aid-responses.update', [$incident, $newAid]), [
+                'status' => \App\Enums\AidResponseStatus::Terkonfirmasi->value,
+                'confirmation_notes' => 'Catatan konfirmasi sebelum diverifikasi.',
+            ])
+            ->assertRedirect(route('internal.incidents.edit', $incident))
+            ->assertSessionHasErrors(['status']);
+
+        // Verifikator memverifikasi respons bantuan terlebih dahulu
+        $this->actingAs($verifikator)->put(route('internal.incidents.aid-responses.verification.update', [$incident, $newAid]), [
+            'verification_status' => \App\Enums\VerificationStatus::Terverifikasi->value,
+            'verification_notes' => 'Data dan penanggung jawab respons bantuan telah divalidasi.',
+        ])->assertRedirect(route('internal.incidents.edit', $incident));
+
+        $newAid->refresh();
+        $this->assertSame(\App\Enums\VerificationStatus::Terverifikasi, $newAid->verification_status);
 
         // D.3: Perubahan ke `terkonfirmasi` tanpa `confirmation_notes` harus ditolak validasi
         $this->actingAs($operator)->from(route('internal.incidents.edit', $incident))

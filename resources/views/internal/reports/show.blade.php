@@ -330,6 +330,19 @@
                             Simpan Keterhubungan Kejadian
                         </button>
                     </form>
+
+                    @if(!$report->incident)
+                        <div class="pt-3 border-t border-slate-200 space-y-2">
+                            <span class="font-telemetry text-[11px] font-bold uppercase text-slate-600 block">
+                                Belum Ada Kejadian yang Sesuai?
+                            </span>
+                            <a href="{{ route('internal.incidents.create', ['from_report' => $report->id]) }}"
+                               class="w-full px-4 py-2.5 rounded-lg border border-emerald-600 bg-emerald-50 hover:bg-emerald-100 text-emerald-950 font-telemetry text-xs font-bold uppercase tracking-wider transition inline-flex items-center justify-center gap-1.5">
+                                <span>+ Buat Kejadian Baru dari Laporan Ini</span>
+                                <span>&rarr;</span>
+                            </a>
+                        </div>
+                    @endif
                 @else
                     <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 text-xs text-slate-600">
                         Role Anda saat ini adalah <strong>{{ $user->role?->label() }}</strong>. Penautan laporan masyarakat ke data kejadian dilakukan oleh <strong>Operator</strong> atau <strong>Admin</strong>.

@@ -552,10 +552,11 @@ class SimulationDataSeeder extends Seeder
         );
 
         // 8. Respons Bantuan Masyarakat / Komunitas (Aid Responses)
-        // Respons 1: Penyerahan Dikonfirmasi (Terkonfirmasi) dengan nama organisasi publik
+        // Respons 1: Laporan Bantuan Sudah Diberikan -> Terverifikasi (Pemeriksaan) -> Penyerahan Dikonfirmasi (Operasional)
         AidResponse::updateOrCreate(
             ['reference_code' => 'RSP-SIM-7M2K8N4Q'],
             [
+                'submission_type' => AidResponse::SUBMISSION_LAPORAN_PENYERAHAN,
                 'incident_id' => $incident1->id,
                 'report_id' => $report1->id,
                 'need_category' => 'logistik_pangan',
@@ -572,6 +573,11 @@ class SimulationDataSeeder extends Seeder
                 'latitude' => -6.4916000,
                 'longitude' => 106.7979000,
                 'recorded_at' => now()->subHours(4),
+                'delivered_at' => now()->subHours(5),
+                'verification_status' => VerificationStatus::Terverifikasi,
+                'verification_notes' => 'Informasi jenis bantuan, lokasi, dan bukti penyerahan telah diperiksa oleh Verifikator dan dinyatakan valid.',
+                'verified_at' => now()->subHours(3),
+                'verified_by_user_id' => $verifikator->id,
                 'status' => AidResponseStatus::Terkonfirmasi,
                 'evidence_url' => 'https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=800&q=80',
                 'confirmation_notes' => 'Penyerahan bantuan telah dikonfirmasi bersama perwakilan pengurus RT 02/RW 04 disertai dokumentasi serah terima.',
@@ -581,10 +587,11 @@ class SimulationDataSeeder extends Seeder
             ]
         );
 
-        // Respons 2: Dalam Penyaluran dengan opsi Anonim (allow_public_name = false)
+        // Respons 2: Tawaran / Rencana Bantuan -> Terverifikasi (Pemeriksaan) -> Dalam Penyaluran (Operasional)
         AidResponse::updateOrCreate(
             ['reference_code' => 'RSP-SIM-9V5P3W6X'],
             [
+                'submission_type' => AidResponse::SUBMISSION_TAWARAN_RENCANA,
                 'incident_id' => $incident1->id,
                 'report_id' => $report1->id,
                 'need_category' => 'air_bersih_sanitasi',
@@ -601,6 +608,11 @@ class SimulationDataSeeder extends Seeder
                 'latitude' => -6.4921000,
                 'longitude' => 106.7982000,
                 'recorded_at' => now()->subHours(2),
+                'delivered_at' => null,
+                'verification_status' => VerificationStatus::Terverifikasi,
+                'verification_notes' => 'Tawaran penyaluran air bersih divalidasi sesuai kebutuhan mendesak warga RT 03.',
+                'verified_at' => now()->subHours(2),
+                'verified_by_user_id' => $verifikator->id,
                 'status' => AidResponseStatus::DalamPenyaluran,
                 'evidence_url' => null,
                 'confirmation_notes' => 'Armada roda tiga sedang menuju titik kumpul RT 03 di luar jalur genangan.',
@@ -610,10 +622,11 @@ class SimulationDataSeeder extends Seeder
             ]
         );
 
-        // Respons 3: Direncanakan pada Kejadian 2 (Longsor Puncak)
+        // Respons 3: Tawaran / Rencana Bantuan -> Menunggu Verifikasi (Pemeriksaan) -> Direncanakan (Operasional)
         AidResponse::updateOrCreate(
             ['reference_code' => 'RSP-SIM-2H8R4Y7L'],
             [
+                'submission_type' => AidResponse::SUBMISSION_TAWARAN_RENCANA,
                 'incident_id' => $incident2->id,
                 'report_id' => $report4->id,
                 'need_category' => 'evakuasi_penyelamatan',
@@ -630,6 +643,11 @@ class SimulationDataSeeder extends Seeder
                 'latitude' => -6.6980000,
                 'longitude' => 106.9459000,
                 'recorded_at' => now()->subHours(6),
+                'delivered_at' => null,
+                'verification_status' => VerificationStatus::MenungguVerifikasi,
+                'verification_notes' => null,
+                'verified_at' => null,
+                'verified_by_user_id' => null,
                 'status' => AidResponseStatus::Direncanakan,
                 'evidence_url' => null,
                 'confirmation_notes' => null,
@@ -639,10 +657,11 @@ class SimulationDataSeeder extends Seeder
             ]
         );
 
-        // Respons 4: Penyerahan Dikonfirmasi pada Kejadian 3 (Pohon Tumbang Cibinong)
+        // Respons 4: Laporan Bantuan Sudah Diberikan -> Terverifikasi (Pemeriksaan) -> Penyerahan Dikonfirmasi (Operasional)
         AidResponse::updateOrCreate(
             ['reference_code' => 'RSP-SIM-5T9C3K2P'],
             [
+                'submission_type' => AidResponse::SUBMISSION_LAPORAN_PENYERAHAN,
                 'incident_id' => $incident3->id,
                 'report_id' => null,
                 'need_category' => 'pemulihan_akses',
@@ -659,6 +678,11 @@ class SimulationDataSeeder extends Seeder
                 'latitude' => -6.4816000,
                 'longitude' => 106.8328000,
                 'recorded_at' => now()->subHours(22),
+                'delivered_at' => now()->subHours(23),
+                'verification_status' => VerificationStatus::Terverifikasi,
+                'verification_notes' => 'Klaim pembersihan ranting pohon oleh warga telah diperiksa dan dikonfirmasi dengan dokumentasi lapangan.',
+                'verified_at' => now()->subHours(21),
+                'verified_by_user_id' => $verifikator->id,
                 'status' => AidResponseStatus::Terkonfirmasi,
                 'evidence_url' => null,
                 'confirmation_notes' => 'Dikonfirmasi selesai bersama warga di lokasi; jalur sudah bersih dari ranting pohon.',

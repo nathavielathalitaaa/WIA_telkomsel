@@ -15,6 +15,34 @@
 </head>
 <body class="bg-[#F8FAFC] text-[#0F172A] antialiased min-h-screen flex flex-col">
     <!-- Internal Top Command Bar -->
+    @php
+        $internalMenu = $internalMenu ?? '';
+        $currentUser = auth()->user();
+        $roleValue = $currentUser?->role?->value ?? (string) ($currentUser?->role ?? '');
+        $roleLabel = $currentUser?->role?->label() ?? ucfirst($roleValue ?: 'Internal');
+        $canOperate = $currentUser?->canManageOperations() ?? false;
+
+        [$roleBadgeClass, $headerSubtitle, $reportsMenuLabel, $incidentsMenuLabel] = match ($roleValue) {
+            'verifikator' => [
+                'bg-blue-600 text-white border border-blue-400',
+                'Pemeriksaan & Verifikasi Informasi',
+                'Verifikasi Laporan',
+                'Verifikasi Kejadian',
+            ],
+            'operator' => [
+                'bg-emerald-600 text-white border border-emerald-400',
+                'Pengelolaan Kejadian, Penautan, & Tindak Lanjut',
+                'Penautan Laporan',
+                'Operasional Kejadian',
+            ],
+            default => [
+                'bg-amber-500 text-slate-950 border border-amber-300',
+                'Pengelolaan Sistem, Verifikasi, & Operasional',
+                'Kelola Laporan',
+                'Kelola Kejadian',
+            ],
+        };
+    @endphp
     <header class="bg-[#0F172A] text-white border-b border-slate-800 sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 min-h-[64px] py-2 flex items-center justify-between gap-2 sm:gap-4">
             <div class="flex items-center gap-2.5 sm:gap-4 min-w-0">
@@ -25,19 +53,16 @@
                     <div class="min-w-0">
                         <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
                             <span class="font-bold text-sm sm:text-base tracking-tight text-white leading-tight">TanggapTerang</span>
-                            <span class="px-1.5 py-0.5 rounded bg-blue-600 text-white font-telemetry text-[9px] sm:text-[10px] font-bold uppercase leading-none shrink-0">
-                                Internal
+                            <span class="px-1.5 py-0.5 rounded font-telemetry text-[9px] sm:text-[10px] font-bold uppercase leading-none shrink-0 {{ $roleBadgeClass }}">
+                                {{ $roleLabel }}
                             </span>
                         </div>
                         <p class="hidden xl:block font-telemetry text-[10px] text-slate-400 uppercase tracking-wider truncate mt-0.5">
-                            Pengelolaan Verifikasi &amp; Tindak Lanjut
+                            {{ $headerSubtitle }}
                         </p>
                     </div>
                 </a>
 
-                @php
-                    $internalMenu = $internalMenu ?? '';
-                @endphp
                 <nav class="hidden lg:flex items-center gap-1 ml-2 xl:ml-4 shrink-0" aria-label="Navigasi Internal">
                     <a href="{{ route('internal.dashboard') }}"
                        class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'dashboard' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
@@ -45,12 +70,18 @@
                     </a>
                     <a href="{{ route('internal.reports.index') }}"
                        class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'reports' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
-                        Kelola Laporan
+                        {{ $reportsMenuLabel }}
                     </a>
                     <a href="{{ route('internal.incidents.index') }}"
                        class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'incidents' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
-                        Kelola Kejadian
+                        {{ $incidentsMenuLabel }}
                     </a>
+                    @if($canOperate)
+                        <a href="{{ route('internal.incidents.create') }}"
+                           class="ml-1 px-2.5 py-1.5 rounded border border-emerald-500/70 bg-emerald-950/60 hover:bg-emerald-900 text-emerald-200 font-telemetry text-[11px] font-bold uppercase tracking-wider transition whitespace-nowrap">
+                            + Buat Kejadian
+                        </a>
+                    @endif
                 </nav>
             </div>
 
@@ -59,7 +90,7 @@
                     <div class="hidden lg:flex flex-col items-end">
                         <span class="text-xs font-bold text-white leading-none">{{ auth()->user()->name }}</span>
                         <span class="font-telemetry text-[10px] text-amber-400 uppercase tracking-wider mt-0.5">
-                            Role: {{ auth()->user()->role?->label() ?? auth()->user()->role }}
+                            Role: {{ $roleLabel }}
                         </span>
                     </div>
                 @endauth
@@ -85,14 +116,17 @@
         <div class="lg:hidden border-t border-slate-800 px-3 sm:px-6 py-2 flex flex-wrap items-center justify-between gap-2">
             <nav class="flex flex-wrap items-center gap-1.5" aria-label="Navigasi Internal Mobile">
                 <a href="{{ route('internal.dashboard') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'dashboard' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800' }}">Dashboard</a>
-                <a href="{{ route('internal.reports.index') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'reports' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800' }}">Kelola Laporan</a>
-                <a href="{{ route('internal.incidents.index') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'incidents' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800' }}">Kelola Kejadian</a>
+                <a href="{{ route('internal.reports.index') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'reports' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800' }}">{{ $reportsMenuLabel }}</a>
+                <a href="{{ route('internal.incidents.index') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'incidents' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800' }}">{{ $incidentsMenuLabel }}</a>
+                @if($canOperate)
+                    <a href="{{ route('internal.incidents.create') }}" class="px-2.5 py-1 rounded border border-emerald-500/70 bg-emerald-950/60 text-emerald-200 font-telemetry text-[11px] font-bold uppercase whitespace-nowrap">+ Buat Kejadian</a>
+                @endif
             </nav>
             @auth
                 <div class="flex items-center gap-1.5 font-telemetry text-[10px] sm:text-[11px] text-slate-300">
                     <span class="font-bold text-white">{{ auth()->user()->name }}</span>
                     <span>•</span>
-                    <span class="text-amber-400 uppercase font-bold">Role: {{ auth()->user()->role?->label() ?? auth()->user()->role }}</span>
+                    <span class="text-amber-400 uppercase font-bold">Role: {{ $roleLabel }}</span>
                 </div>
             @endauth
         </div>

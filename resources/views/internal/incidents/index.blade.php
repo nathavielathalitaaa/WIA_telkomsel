@@ -5,25 +5,35 @@
 
 @php
     $user = auth()->user();
+    $roleVal = $user->role?->value ?? (string) $user->role;
 @endphp
 
 @section('content')
     <!-- Page Header -->
     <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div class="space-y-1">
-            <div class="flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2">
                 <span class="px-2 py-0.5 rounded bg-[#0F172A] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
-                    Manajemen Kejadian
+                    {{ $roleVal === 'verifikator' ? 'Verifikasi Kejadian & Sumber Terbuka' : ($roleVal === 'operator' ? 'Operasional Kejadian & Respons Bantuan' : 'Manajemen Kejadian') }}
+                </span>
+                <span class="px-2 py-0.5 rounded bg-blue-50 text-[#2563EB] border border-blue-200 font-telemetry text-[10px] font-bold uppercase tracking-wider">
+                    Role: {{ $user->role?->label() ?? $user->role }}
                 </span>
                 <span class="font-telemetry text-xs text-slate-500">
                     Total: {{ $incidents->total() }} Kejadian
                 </span>
             </div>
             <h1 class="text-xl sm:text-2xl font-extrabold text-[#0F172A]">
-                Daftar &amp; Pengelolaan Informasi Kejadian
+                {{ $roleVal === 'verifikator' ? 'Daftar Kejadian — Pemeriksaan Verifikasi & Sumber Rujukan' : ($roleVal === 'operator' ? 'Daftar Kejadian — Tindak Lanjut Operasional & Respons Bantuan' : 'Daftar & Pengelolaan Informasi Kejadian') }}
             </h1>
             <p class="text-sm text-slate-600">
-                Kelola informasi kejadian, pisahkan status verifikasi informasi dengan status tindak lanjut tim, tambahkan sumber terbuka, dan hubungkan laporan warga.
+                @if($roleVal === 'verifikator')
+                    Periksa dan tetapkan status verifikasi kejadian serta tambahkan rujukan sumber informasi terbuka.
+                @elseif($roleVal === 'operator')
+                    Perbarui rincian kejadian, catat perkembangan tindak lanjut operasional, serta periksa dan konfirmasi respons bantuan masyarakat.
+                @else
+                    Kelola informasi kejadian, pisahkan status verifikasi informasi dengan status tindak lanjut tim, tambahkan sumber terbuka, dan konfirmasi respons bantuan.
+                @endif
             </p>
         </div>
 
@@ -175,6 +185,7 @@
                                 <div>{{ $incident->reports_count }} Laporan Warga</div>
                                 <div>{{ $incident->sources_count }} Sumber Terbuka</div>
                                 <div>{{ $incident->follow_up_records_count }} Catatan Tindak Lanjut</div>
+                                <div class="text-emerald-800 font-semibold">{{ $incident->aid_responses_count ?? 0 }} Respons Bantuan</div>
                             </td>
 
                             <td class="py-3.5 px-4 align-top text-right whitespace-nowrap space-x-1.5">
@@ -185,7 +196,7 @@
                                 </a>
                                 <a href="{{ route('internal.incidents.edit', $incident) }}"
                                    class="px-3 py-1.5 rounded bg-[#0F172A] hover:bg-slate-800 text-white font-telemetry text-xs font-bold uppercase inline-flex items-center gap-1">
-                                    <span>Kelola</span>
+                                    <span>{{ $roleVal === 'verifikator' ? 'Verifikasi & Tinjau' : ($roleVal === 'operator' ? 'Kelola Operasional' : 'Kelola') }}</span>
                                     <span>&rarr;</span>
                                 </a>
                             </td>

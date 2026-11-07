@@ -135,6 +135,10 @@ Route::prefix('internal')
             ->middleware('role:admin,operator')
             ->name('incidents.sources.store');
 
+        Route::put('/incidents/{incident}/aid-responses/{aidResponse}/verification', [InternalIncidentController::class, 'updateAidResponseVerification'])
+            ->middleware('role:admin,verifikator')
+            ->name('incidents.aid-responses.verification.update');
+
         Route::put('/incidents/{incident}/aid-responses/{aidResponse}', [InternalIncidentController::class, 'updateAidResponse'])
             ->middleware('role:admin,operator')
             ->name('incidents.aid-responses.update');

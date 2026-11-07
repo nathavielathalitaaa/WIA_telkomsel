@@ -166,7 +166,7 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 pt-1 items-end">
                 <!-- Incident Category Filter -->
-                <div class="sm:col-span-4">
+                <div class="sm:col-span-3">
                     <label for="filter-type" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-1">
                         Jenis Kejadian
                     </label>
@@ -181,7 +181,7 @@
                 </div>
 
                 <!-- Severity Filter -->
-                <div class="sm:col-span-4">
+                <div class="sm:col-span-3">
                     <label for="filter-severity" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-1">
                         Tingkat Dampak
                     </label>
@@ -197,20 +197,37 @@
                     </select>
                 </div>
 
+                <!-- Aid Response Status Filter -->
+                <div class="sm:col-span-3">
+                    <label for="filter-aid-status" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-1">
+                        Status Respons Bantuan
+                    </label>
+                    <select id="filter-aid-status"
+                            name="aid_status"
+                            class="w-full min-h-[42px] px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg text-sm text-[#0F172A] focus:outline-none focus:border-[#0F172A]">
+                        <option value="">Semua Status Respons</option>
+                        @foreach(\App\Enums\AidResponseStatus::cases() as $aCase)
+                            <option value="{{ $aCase->value }}" @selected(($filters['aid_status'] ?? '') === $aCase->value)>
+                                {{ $aCase->label() }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <!-- Filter Actions -->
-                <div class="sm:col-span-4 flex items-center justify-end gap-2">
+                <div class="sm:col-span-3 flex items-center justify-end gap-2">
                     @if(array_filter($filters))
                         <a href="{{ route('public.monitor') }}"
-                           class="px-3.5 py-2.5 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-slate-700 font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center">
-                            Reset Filter
+                           class="px-3 py-2.5 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-slate-700 font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center">
+                            Reset
                         </a>
                     @endif
                     <button type="submit"
-                            class="px-5 py-2.5 rounded-lg bg-[#0F172A] hover:bg-slate-800 text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center gap-1.5">
+                            class="px-4 py-2.5 rounded-lg bg-[#0F172A] hover:bg-slate-800 text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center gap-1.5">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
                         </svg>
-                        <span>Terapkan Filter</span>
+                        <span>Filter</span>
                     </button>
                 </div>
             </div>
@@ -360,11 +377,16 @@
                 </p>
             </div>
 
-            <div class="shrink-0">
-                <a href="{{ route('public.aid-responses.create') }}"
-                   class="px-4 py-2.5 rounded-lg btn-brand-gradient font-telemetry text-xs font-bold uppercase tracking-wider min-h-[42px] inline-flex items-center gap-1.5 shadow-xs">
+            <div class="shrink-0 flex flex-wrap items-center gap-2">
+                <a href="{{ route('public.aid-responses.create', ['submission_type' => 'tawaran_rencana']) }}"
+                   class="px-3.5 py-2 rounded-lg btn-brand-gradient font-telemetry text-xs font-bold uppercase tracking-wider min-h-[42px] inline-flex items-center gap-1.5 shadow-xs">
                     <span class="font-extrabold text-sm leading-none">+</span>
-                    <span>Catat Respons Bantuan Baru</span>
+                    <span>Ajukan Tawaran Bantuan</span>
+                </a>
+                <a href="{{ route('public.aid-responses.create', ['submission_type' => 'laporan_penyerahan']) }}"
+                   class="px-3.5 py-2 rounded-lg bg-[#0F172A] hover:bg-slate-800 text-white font-telemetry text-xs font-bold uppercase tracking-wider min-h-[42px] inline-flex items-center gap-1.5 shadow-xs">
+                    <span class="font-extrabold text-sm leading-none">+</span>
+                    <span>Laporkan Bantuan Sudah Diberikan</span>
                 </a>
             </div>
         </div>
@@ -561,9 +583,21 @@
                         </thead>
                         <tbody class="divide-y divide-slate-200 text-xs">
                             @foreach($publicAidResponses as $aid)
+                                @php
+                                    $aidStatusVal = $aid->status instanceof \BackedEnum ? $aid->status->value : (string) $aid->status;
+                                    $isDeliveredSubmission = $aid->isReportedDelivered();
+                                @endphp
                                 <tr class="hover:bg-slate-50 align-top">
                                     <td class="py-3 px-3 whitespace-nowrap space-y-1">
                                         <span class="font-telemetry font-bold text-[#0F172A] block">{{ $aid->reference_code }}</span>
+                                        <span class="px-1.5 py-0.5 rounded font-telemetry text-[10px] font-bold uppercase inline-block {{ $isDeliveredSubmission ? 'bg-indigo-50 text-indigo-900 border border-indigo-200' : 'bg-blue-50 text-blue-800 border border-blue-200' }}">
+                                            {{ $aid->submissionTypeLabel() }}
+                                        </span>
+                                        @if($aid->delivered_at)
+                                            <div class="font-telemetry text-[11px] text-indigo-800">
+                                                <span class="font-semibold">Diserahkan (Dilaporkan):</span> {{ $aid->delivered_at->format('d M Y, H:i') }} WIB
+                                            </div>
+                                        @endif
                                         <div class="font-telemetry text-[11px] text-slate-600">
                                             <span class="text-slate-500">Dicatat:</span> {{ $aid->recorded_at?->format('d M Y, H:i') }} WIB
                                         </div>
@@ -583,7 +617,12 @@
                                                 {{ $aid->incident->title }}
                                             </a>
                                         @endif
-                                        <span class="text-slate-600 block mt-0.5">Tujuan: {{ $aid->target_location }}</span>
+                                        <span class="text-slate-600 block mt-0.5">Lokasi: {{ $aid->target_location }}</span>
+                                        @if($aid->report)
+                                            <span class="font-telemetry text-[11px] text-slate-500 block mt-0.5">
+                                                Rujukan Tiket: <strong class="text-slate-700">{{ $aid->report->ticket_number }}</strong>
+                                            </span>
+                                        @endif
                                     </td>
                                     <td class="py-3 px-3">
                                         <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 font-telemetry text-[10px] font-bold uppercase inline-block mb-1">
@@ -602,7 +641,21 @@
                                         </span>
                                     </td>
                                     <td class="py-3 px-3 space-y-1.5">
-                                        <x-aid-status-badge :status="$aid->status" />
+                                        <div class="space-y-1">
+                                            <div class="flex items-center gap-1">
+                                                <span class="font-telemetry text-[9px] uppercase font-bold text-slate-500">Pemeriksaan:</span>
+                                                <x-verification-badge :status="$aid->verification_status" />
+                                            </div>
+                                            <div class="flex items-center gap-1">
+                                                <span class="font-telemetry text-[9px] uppercase font-bold text-slate-500">Operasional:</span>
+                                                <x-aid-status-badge :status="$aid->status" />
+                                            </div>
+                                        </div>
+                                        @if($isDeliveredSubmission && $aidStatusVal !== 'terkonfirmasi')
+                                            <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-telemetry text-[10px] font-bold uppercase block">
+                                                Dilaporkan Sudah Diserahkan • Menunggu Pemeriksaan Petugas
+                                            </span>
+                                        @endif
                                         @if($aid->confirmation_notes)
                                             <p class="text-[11px] text-slate-600 max-w-xs leading-snug">
                                                 {{ $aid->confirmation_notes }}
@@ -619,6 +672,13 @@
                                                 </a>
                                             </div>
                                         @endif
+                                        <div class="pt-0.5">
+                                            <a href="{{ route('public.track', ['ticket' => $aid->reference_code]) }}"
+                                               class="inline-flex items-center gap-1 font-telemetry text-[11px] font-bold text-emerald-700 hover:text-emerald-900 hover:underline">
+                                                <span>Lacak Tiket Respons</span>
+                                                <span aria-hidden="true">&rarr;</span>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

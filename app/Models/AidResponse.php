@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\AidResponseStatus;
+use App\Enums\VerificationStatus;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,8 +16,12 @@ class AidResponse extends Model
 
     protected $table = 'aid_responses';
 
+    public const SUBMISSION_TAWARAN_RENCANA = 'tawaran_rencana';
+    public const SUBMISSION_LAPORAN_PENYERAHAN = 'laporan_penyerahan';
+
     protected $fillable = [
         'reference_code',
+        'submission_type',
         'incident_id',
         'report_id',
         'need_category',
@@ -33,7 +38,12 @@ class AidResponse extends Model
         'latitude',
         'longitude',
         'recorded_at',
+        'delivered_at',
         'status',
+        'verification_status',
+        'verification_notes',
+        'verified_at',
+        'verified_by_user_id',
         'evidence_url',
         'confirmation_notes',
         'confirmed_at',
@@ -56,10 +66,148 @@ class AidResponse extends Model
             'latitude' => 'decimal:7',
             'longitude' => 'decimal:7',
             'recorded_at' => 'datetime',
+            'delivered_at' => 'datetime',
+            'verified_at' => 'datetime',
             'confirmed_at' => 'datetime',
+            'verification_status' => VerificationStatus::class,
             'status' => AidResponseStatus::class,
             'is_simulation' => 'boolean',
         ];
+    }
+
+    /**
+     * Daftar status pemeriksaan / verifikasi respons bantuan.
+     *
+     * @return array<string, string>
+     */
+    public static function verificationStatuses(): array
+    {
+        return [
+            VerificationStatus::MenungguVerifikasi->value => 'Menunggu Verifikasi',
+            VerificationStatus::Terverifikasi->value => 'Terverifikasi',
+            VerificationStatus::Ditolak->value => 'Ditolak',
+        ];
+    }
+
+    /**
+     * Daftar status operasional respons bantuan.
+     *
+     * @return array<string, string>
+     */
+    public static function operationalStatuses(): array
+    {
+        return [
+            AidResponseStatus::Direncanakan->value => 'Direncanakan',
+            AidResponseStatus::DalamPenyaluran->value => 'Dalam Penyaluran',
+            AidResponseStatus::Terkonfirmasi->value => 'Penyerahan Dikonfirmasi',
+        ];
+    }
+
+    /**
+     * Label manusiawi untuk status pemeriksaan informasi.
+     */
+    public function verificationStatusLabel(): string
+    {
+        if ($this->verification_status instanceof VerificationStatus) {
+            return $this->verification_status->label();
+        }
+
+        return self::verificationStatuses()[(string) $this->verification_status]
+            ?? ucfirst(str_replace('_', ' ', (string) $this->verification_status));
+    }
+
+    /**
+     * Label manusiawi untuk status operasional bantuan.
+     */
+    public function operationalStatusLabel(): string
+    {
+        if ($this->status instanceof AidResponseStatus) {
+            return $this->status->label();
+        }
+
+        return self::operationalStatuses()[(string) $this->status]
+            ?? ucfirst(str_replace('_', ' ', (string) $this->status));
+    }
+
+    public function isVerified(): bool
+    {
+        $val = $this->verification_status instanceof VerificationStatus
+            ? $this->verification_status->value
+            : (string) $this->verification_status;
+
+        return $val === VerificationStatus::Terverifikasi->value;
+    }
+
+    public function isRejected(): bool
+    {
+        $val = $this->verification_status instanceof VerificationStatus
+            ? $this->verification_status->value
+            : (string) $this->verification_status;
+
+        return $val === VerificationStatus::Ditolak->value;
+    }
+
+    public function isPendingVerification(): bool
+    {
+        $val = $this->verification_status instanceof VerificationStatus
+            ? $this->verification_status->value
+            : (string) $this->verification_status;
+
+        return $val === VerificationStatus::MenungguVerifikasi->value;
+    }
+
+    /**
+     * Apakah status operasional sudah Penyerahan Dikonfirmasi.
+     */
+    public function isConfirmed(): bool
+    {
+        $val = $this->status instanceof AidResponseStatus
+            ? $this->status->value
+            : (string) $this->status;
+
+        return $val === AidResponseStatus::Terkonfirmasi->value;
+    }
+
+    /**
+     * Apakah status operasional sedang Dalam Penyaluran.
+     */
+    public function isDelivering(): bool
+    {
+        $val = $this->status instanceof AidResponseStatus
+            ? $this->status->value
+            : (string) $this->status;
+
+        return $val === AidResponseStatus::DalamPenyaluran->value;
+    }
+
+    /**
+     * Daftar jenis aktivitas pencatatan respons bantuan publik.
+     *
+     * @return array<string, string>
+     */
+    public static function submissionTypes(): array
+    {
+        return [
+            self::SUBMISSION_TAWARAN_RENCANA => 'Tawaran / Rencana Bantuan',
+            self::SUBMISSION_LAPORAN_PENYERAHAN => 'Laporan Bantuan Sudah Diberikan',
+        ];
+    }
+
+    /**
+     * Label manusiawi untuk jenis pencatatan respons bantuan.
+     */
+    public function submissionTypeLabel(): string
+    {
+        return self::submissionTypes()[$this->submission_type ?? self::SUBMISSION_TAWARAN_RENCANA]
+            ?? 'Tawaran / Rencana Bantuan';
+    }
+
+    /**
+     * Apakah entri ini dilaporkan sebagai bantuan yang sudah diberikan di lokasi.
+     */
+    public function isReportedDelivered(): bool
+    {
+        return ($this->submission_type ?? self::SUBMISSION_TAWARAN_RENCANA) === self::SUBMISSION_LAPORAN_PENYERAHAN;
     }
 
     /**
@@ -160,6 +308,11 @@ class AidResponse extends Model
     public function confirmedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'confirmed_by_user_id');
+    }
+
+    public function verifiedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'verified_by_user_id');
     }
 
     public function scopeSimulation(Builder $query, bool $isSimulation = true): Builder

@@ -46,10 +46,30 @@ class PublicAidResponseController extends Controller
 
         $selectedReportId = $request->filled('report') ? (int) $request->query('report') : null;
 
+        $selectedSubmissionType = trim((string) $request->query('submission_type', AidResponse::SUBMISSION_TAWARAN_RENCANA));
+        if (! array_key_exists($selectedSubmissionType, AidResponse::submissionTypes())) {
+            $selectedSubmissionType = AidResponse::SUBMISSION_TAWARAN_RENCANA;
+        }
+
+        $selectedNeedCategory = trim((string) $request->query('need_category', ''));
+        if ($selectedNeedCategory !== '' && ! array_key_exists($selectedNeedCategory, AidResponse::needCategories())) {
+            $selectedNeedCategory = '';
+        }
+
+        if ($selectedNeedCategory === '' && $selectedReportId !== null && $selectedIncident) {
+            $matchedReport = $selectedIncident->reports->firstWhere('id', $selectedReportId);
+            if ($matchedReport) {
+                $selectedNeedCategory = AidResponse::mapReportCategoryToNeedCategory((string) $matchedReport->category);
+            }
+        }
+
         return view('public.aid-responses.create', [
             'incidents' => $incidents,
             'selectedIncident' => $selectedIncident,
             'selectedReportId' => $selectedReportId,
+            'selectedSubmissionType' => $selectedSubmissionType,
+            'selectedNeedCategory' => $selectedNeedCategory,
+            'submissionTypes' => AidResponse::submissionTypes(),
             'needCategories' => AidResponse::needCategories(),
             'responderTypes' => AidResponse::responderTypes(),
         ]);
@@ -59,15 +79,18 @@ class PublicAidResponseController extends Controller
      * Simpan Catatan Respons Bantuan Baru Tanpa Akun Internal (POST /aid-responses)
      *
      * Catatan penting:
-     * Pengiriman dari formulir publik SELALU berstatus awal `Direncanakan` (direncanakan)
-     * dan tidak pernah langsung menjadi `Terkonfirmasi` tanpa pemeriksaan/konfirmasi.
+     * Baik "Tawaran / Rencana Bantuan" maupun "Laporan Bantuan Sudah Diberikan" dari formulir publik
+     * SELALU berstatus awal `Direncanakan` (direncanakan / belum terkonfirmasi)
+     * dan tidak pernah langsung menjadi `Terkonfirmasi` tanpa pemeriksaan/konfirmasi petugas internal.
      */
     public function store(Request $request): RedirectResponse
     {
         $needCategoryKeys = array_keys(AidResponse::needCategories());
         $responderTypeKeys = array_keys(AidResponse::responderTypes());
+        $submissionTypeKeys = array_keys(AidResponse::submissionTypes());
 
         $validated = $request->validate([
+            'submission_type' => ['nullable', 'string', 'max:40', Rule::in($submissionTypeKeys)],
             'incident_id' => ['required', 'integer', 'exists:incidents,id'],
             'report_id' => ['nullable', 'integer', 'exists:reports,id'],
             'need_category' => ['required', 'string', 'max:100', Rule::in($needCategoryKeys)],
@@ -80,10 +103,16 @@ class PublicAidResponseController extends Controller
             'aid_description' => ['nullable', 'string', 'max:2000'],
             'quantity_label' => ['required', 'string', 'min:2', 'max:150'],
             'target_location' => ['required', 'string', 'min:5', 'max:255'],
+            'delivered_at' => [
+                Rule::requiredIf(fn () => $request->input('submission_type') === AidResponse::SUBMISSION_LAPORAN_PENYERAHAN),
+                'nullable',
+                'date',
+            ],
             'latitude' => ['nullable', 'numeric', 'between:-90,90', 'required_with:longitude'],
             'longitude' => ['nullable', 'numeric', 'between:-180,180', 'required_with:latitude'],
             'evidence_url' => ['nullable', 'url:http,https', 'max:255'],
         ], [
+            'submission_type.in' => 'Jenis pencatatan respons bantuan tidak valid.',
             'incident_id.required' => 'Kejadian terkait wajib dipilih.',
             'incident_id.exists' => 'Kejadian yang dipilih tidak ditemukan.',
             'need_category.required' => 'Kategori kebutuhan / bantuan wajib dipilih.',
@@ -97,10 +126,17 @@ class PublicAidResponseController extends Controller
             'quantity_label.required' => 'Jumlah atau kapasitas bantuan wajib diisi.',
             'target_location.required' => 'Lokasi atau wilayah tujuan penyaluran wajib diisi.',
             'target_location.min' => 'Lokasi tujuan minimal 5 karakter.',
+            'delivered_at.required' => 'Waktu penyerahan bantuan wajib diisi untuk laporan bantuan yang sudah diberikan.',
+            'delivered_at.date' => 'Format waktu penyerahan bantuan tidak valid.',
             'evidence_url.url' => 'Tautan dokumentasi harus berupa URL HTTP/HTTPS yang valid.',
         ]);
 
         $incident = Incident::findOrFail($validated['incident_id']);
+
+        $submissionType = $validated['submission_type'] ?? AidResponse::SUBMISSION_TAWARAN_RENCANA;
+        if (! in_array($submissionType, $submissionTypeKeys, true)) {
+            $submissionType = AidResponse::SUBMISSION_TAWARAN_RENCANA;
+        }
 
         // Pastikan report_id (jika diisi) memang milik incident tersebut
         $reportId = $validated['report_id'] ?? null;
@@ -115,6 +151,7 @@ class PublicAidResponseController extends Controller
 
         $aidResponse = AidResponse::create([
             'reference_code' => AidResponse::generateUniqueReferenceCode(true),
+            'submission_type' => $submissionType,
             'incident_id' => $incident->id,
             'report_id' => $reportId,
             'need_category' => $validated['need_category'],
@@ -131,7 +168,9 @@ class PublicAidResponseController extends Controller
             'latitude' => $validated['latitude'] ?? $incident->latitude,
             'longitude' => $validated['longitude'] ?? $incident->longitude,
             'recorded_at' => now(),
-            // Selalu dimulai dengan status Direncanakan untuk kiriman publik
+            'delivered_at' => $validated['delivered_at'] ?? null,
+            // Selalu dimulai dengan status Menunggu Verifikasi (pemeriksaan) dan Direncanakan (operasional)
+            'verification_status' => VerificationStatus::MenungguVerifikasi,
             'status' => AidResponseStatus::Direncanakan,
             'evidence_url' => $validated['evidence_url'] ?? null,
             'confirmation_notes' => null,
@@ -140,11 +179,14 @@ class PublicAidResponseController extends Controller
             'is_simulation' => true,
         ]);
 
+        $typeLabel = $aidResponse->submissionTypeLabel();
+
         return redirect()
-            ->route('public.incidents.show', $incident->slug)
+            ->route('public.track', ['ticket' => $aidResponse->reference_code])
+            ->with('created_ticket', $aidResponse->reference_code)
             ->with(
                 'success',
-                "Respons bantuan berhasil dicatat dengan kode referensi {$aidResponse->reference_code} (Status awal: Direncanakan). Perubahan menjadi Dalam Penyaluran atau Penyerahan Dikonfirmasi dilakukan setelah pembaruan bukti/konfirmasi."
+                "{$typeLabel} berhasil dicatat dengan kode referensi {$aidResponse->reference_code}. Status awal pemeriksaan: Menunggu Verifikasi, status operasional: Direncanakan. Anda dapat memantau perkembangan statusnya di halaman ini."
             );
     }
 }

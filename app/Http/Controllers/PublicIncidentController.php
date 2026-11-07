@@ -48,6 +48,8 @@ class PublicIncidentController extends Controller
         $incidentType = trim((string) $request->query('incident_type', ''));
         $severity = trim((string) $request->query('severity', ''));
         $locationFilter = trim((string) $request->query('wilayah', ''));
+        $aidStatus = trim((string) $request->query('aid_status', ''));
+        $aidVerification = trim((string) $request->query('aid_verification', ''));
 
         $baseQuery = Incident::query()
             ->with(['wilayahAdministratif'])
@@ -98,6 +100,14 @@ class PublicIncidentController extends Controller
                         });
                 });
             }
+        }
+
+        if ($aidStatus !== '' && AidResponseStatus::tryFrom($aidStatus)) {
+            $baseQuery->whereHas('aidResponses', fn ($q) => $q->where('status', $aidStatus));
+        }
+
+        if ($aidVerification !== '' && VerificationStatus::tryFrom($aidVerification)) {
+            $baseQuery->whereHas('aidResponses', fn ($q) => $q->where('verification_status', $aidVerification));
         }
 
         // Ambil daftar marker dari query terfilter HANYA jika koordinat tersedia (jangan buat koordinat palsu)
@@ -186,10 +196,11 @@ class PublicIncidentController extends Controller
             })
             ->values();
 
-        $publicAidResponses = AidResponse::query()
+        $aidResponsesQuery = AidResponse::query()
             ->select([
                 'id',
                 'reference_code',
+                'submission_type',
                 'incident_id',
                 'report_id',
                 'need_category',
@@ -204,6 +215,10 @@ class PublicIncidentController extends Controller
                 'latitude',
                 'longitude',
                 'recorded_at',
+                'delivered_at',
+                'verification_status',
+                'verification_notes',
+                'verified_at',
                 'status',
                 'evidence_url',
                 'confirmation_notes',
@@ -217,8 +232,17 @@ class PublicIncidentController extends Controller
                 'incident:id,title,slug,location_name',
                 'report:id,ticket_number,title',
             ])
-            ->orderByDesc('recorded_at')
-            ->get();
+            ->orderByDesc('recorded_at');
+
+        if ($aidStatus !== '' && AidResponseStatus::tryFrom($aidStatus)) {
+            $aidResponsesQuery->where('status', $aidStatus);
+        }
+
+        if ($aidVerification !== '' && VerificationStatus::tryFrom($aidVerification)) {
+            $aidResponsesQuery->where('verification_status', $aidVerification);
+        }
+
+        $publicAidResponses = $aidResponsesQuery->get();
 
         $mapAidResponses = $publicAidResponses
             ->filter(fn (AidResponse $aid) => $aid->latitude !== null && $aid->longitude !== null)
@@ -227,8 +251,14 @@ class PublicIncidentController extends Controller
                     ? $aid->status
                     : AidResponseStatus::tryFrom((string) $aid->status);
 
+                $verifEnum = $aid->verification_status instanceof VerificationStatus
+                    ? $aid->verification_status
+                    : VerificationStatus::tryFrom((string) $aid->verification_status);
+
                 return [
                     'reference_code' => $aid->reference_code,
+                    'submission_type' => $aid->submission_type ?? AidResponse::SUBMISSION_TAWARAN_RENCANA,
+                    'submission_type_label' => $aid->submissionTypeLabel(),
                     'aid_item_title' => $aid->aid_item_title,
                     'quantity_label' => $aid->quantity_label,
                     'responder_name' => $aid->publicResponderName(),
@@ -236,6 +266,8 @@ class PublicIncidentController extends Controller
                     'target_location' => $aid->target_location,
                     'latitude' => (float) $aid->latitude,
                     'longitude' => (float) $aid->longitude,
+                    'verification_status' => $verifEnum?->value ?? (string) $aid->verification_status,
+                    'verification_label' => $verifEnum?->label() ?? (string) $aid->verification_status,
                     'status_value' => $statusEnum?->value ?? (string) $aid->status,
                     'status_label' => $statusEnum?->label() ?? (string) $aid->status,
                     'incident_title' => $aid->incident?->title,
@@ -249,24 +281,39 @@ class PublicIncidentController extends Controller
             ->paginate(8)
             ->withQueryString();
 
-        // Ringkasan jumlah kejadian & respons bantuan berdasarkan data di database
+        $hasActiveFilter = (bool) array_filter([$search, $verificationStatus, $followUpStatus, $incidentType, $severity, $locationFilter, $aidStatus, $aidVerification]);
+
+        // Ringkasan jumlah kejadian & respons bantuan konsisten dengan filter aktif
         $summary = [
-            'total_incidents' => Incident::where('verification_status', '!=', VerificationStatus::Ditolak->value)->count(),
-            'terverifikasi' => Incident::where('verification_status', VerificationStatus::Terverifikasi->value)->count(),
-            'dalam_pemeriksaan' => Incident::where('verification_status', VerificationStatus::MenungguVerifikasi->value)->count(),
-            'sedang_ditindaklanjuti' => Incident::whereIn('follow_up_status', [
+            'is_filtered' => $hasActiveFilter,
+            'total_incidents' => (clone $baseQuery)->count(),
+            'terverifikasi' => (clone $baseQuery)->where('verification_status', VerificationStatus::Terverifikasi->value)->count(),
+            'dalam_pemeriksaan' => (clone $baseQuery)->where('verification_status', VerificationStatus::MenungguVerifikasi->value)->count(),
+            'sedang_ditindaklanjuti' => (clone $baseQuery)->whereIn('follow_up_status', [
                 FollowUpStatus::SedangDitindaklanjuti->value,
                 FollowUpStatus::Dipantau->value,
             ])->count(),
-            'kritis_tinggi' => Incident::whereIn('severity', [
+            'kritis_tinggi' => (clone $baseQuery)->whereIn('severity', [
                 IncidentSeverity::Kritis->value,
                 IncidentSeverity::Tinggi->value,
-            ])->where('verification_status', '!=', VerificationStatus::Ditolak->value)->count(),
-            'total_reports' => Report::where('verification_status', '!=', VerificationStatus::Ditolak->value)->count(),
+            ])->count(),
+            'total_reports' => Report::whereIn('incident_id', $filteredIncidentIds)->where('verification_status', '!=', VerificationStatus::Ditolak->value)->count(),
             'total_sources' => Source::count(),
             'total_aid_responses' => $publicAidResponses->count(),
             'confirmed_aid_responses' => $publicAidResponses->filter(
                 fn (AidResponse $a) => ($a->status instanceof AidResponseStatus ? $a->status->value : (string) $a->status) === AidResponseStatus::Terkonfirmasi->value
+            )->count(),
+            'planned_aid_responses' => $publicAidResponses->filter(
+                fn (AidResponse $a) => ($a->status instanceof AidResponseStatus ? $a->status->value : (string) $a->status) === AidResponseStatus::Direncanakan->value
+            )->count(),
+            'delivering_aid_responses' => $publicAidResponses->filter(
+                fn (AidResponse $a) => ($a->status instanceof AidResponseStatus ? $a->status->value : (string) $a->status) === AidResponseStatus::DalamPenyaluran->value
+            )->count(),
+            'verified_aid_responses' => $publicAidResponses->filter(
+                fn (AidResponse $a) => ($a->verification_status instanceof VerificationStatus ? $a->verification_status->value : (string) $a->verification_status) === VerificationStatus::Terverifikasi->value
+            )->count(),
+            'pending_aid_responses' => $publicAidResponses->filter(
+                fn (AidResponse $a) => ($a->verification_status instanceof VerificationStatus ? $a->verification_status->value : (string) $a->verification_status) === VerificationStatus::MenungguVerifikasi->value
             )->count(),
         ];
 
@@ -305,6 +352,8 @@ class PublicIncidentController extends Controller
                 'incident_type' => $incidentType,
                 'severity' => $severity,
                 'wilayah' => $locationFilter,
+                'aid_status' => $aidStatus,
+                'aid_verification' => $aidVerification,
             ],
         ]);
     }
@@ -351,6 +400,7 @@ class PublicIncidentController extends Controller
                     $query->select([
                         'id',
                         'reference_code',
+                        'submission_type',
                         'incident_id',
                         'report_id',
                         'need_category',
@@ -365,6 +415,10 @@ class PublicIncidentController extends Controller
                         'latitude',
                         'longitude',
                         'recorded_at',
+                        'delivered_at',
+                        'verification_status',
+                        'verification_notes',
+                        'verified_at',
                         'status',
                         'evidence_url',
                         'confirmation_notes',
@@ -420,7 +474,9 @@ class PublicIncidentController extends Controller
             ->where('verification_status', '!=', VerificationStatus::Ditolak->value);
 
         $aidQuery = AidResponse::query()
-            ->select(['id', 'incident_id', 'need_category', 'quantity_label', 'status']);
+            ->select(['id', 'incident_id', 'submission_type', 'need_category', 'quantity_label', 'status', 'verification_status'])
+            // Respons yang ditolak pada pemeriksaan tidak dihitung sebagai respons valid
+            ->where('verification_status', '!=', VerificationStatus::Ditolak->value);
 
         if ($incidentId !== null) {
             $reportsQuery->where('incident_id', $incidentId);
@@ -438,6 +494,14 @@ class PublicIncidentController extends Controller
 
             $catResponses = $aidResponses->where('need_category', $key);
             $responsesTotal = $catResponses->count();
+
+            $tawaranRencanaCount = $catResponses->filter(
+                fn (AidResponse $a) => ! $a->isReportedDelivered()
+            )->count();
+
+            $laporanPenyerahanCount = $catResponses->filter(
+                fn (AidResponse $a) => $a->isReportedDelivered()
+            )->count();
 
             $direncanakanCount = $catResponses->filter(
                 fn (AidResponse $a) => ($a->status instanceof AidResponseStatus ? $a->status->value : (string) $a->status) === AidResponseStatus::Direncanakan->value
@@ -483,6 +547,8 @@ class PublicIncidentController extends Controller
                 'label' => $label,
                 'needs_count' => $needsCount,
                 'responses_total' => $responsesTotal,
+                'tawaran_rencana_count' => $tawaranRencanaCount,
+                'laporan_penyerahan_count' => $laporanPenyerahanCount,
                 'direncanakan_count' => $direncanakanCount,
                 'dalam_penyaluran_count' => $dalamPenyaluranCount,
                 'terkonfirmasi_count' => $terkonfirmasiCount,

@@ -300,116 +300,253 @@
                             Respons Bantuan Masyarakat Tercatat ({{ $incident->aidResponses->count() }})
                         </h2>
                         <p class="text-xs text-slate-500">
-                            Konfirmasi status penyaluran atau penyerahan bantuan berdasarkan catatan lapangan dan tautan bukti dokumentasi.
+                            Pemisahan tegas antara <strong>Pemeriksaan &amp; Validasi Informasi</strong> (Verifikator &amp; Admin) dan <strong>Status Penyaluran &amp; Konfirmasi Lapangan</strong> (Operator &amp; Admin).
                         </p>
                     </div>
-                    <span class="px-2 py-0.5 rounded font-telemetry text-[10px] font-bold uppercase {{ $user->canManageOperations() ? 'bg-emerald-100 text-[#059669]' : 'bg-slate-100 text-slate-500' }}">
-                        Wewenang: Operator &amp; Admin
-                    </span>
+                    <div class="flex flex-wrap items-center gap-1.5 font-telemetry text-[10px] font-bold uppercase">
+                        <span class="px-2 py-0.5 rounded bg-blue-50 text-[#2563EB] border border-blue-200">
+                            Verifikasi: Verifikator &amp; Admin
+                        </span>
+                        <span class="px-2 py-0.5 rounded bg-emerald-50 text-[#059669] border border-emerald-200">
+                            Operasional: Operator &amp; Admin
+                        </span>
+                    </div>
                 </div>
 
                 @forelse($incident->aidResponses as $aid)
-                    <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-4 space-y-3">
-                        <div class="flex flex-wrap items-center justify-between gap-2">
+                    @php
+                        $aidStatusVal = $aid->status instanceof \BackedEnum ? $aid->status->value : (string) $aid->status;
+                        $aidVerifVal = $aid->verification_status instanceof \BackedEnum ? $aid->verification_status->value : (string) $aid->verification_status;
+                        $isDeliveredSubmission = $aid->isReportedDelivered();
+                        $isAidVerified = $aid->isVerified();
+                    @endphp
+                    <div class="bg-[#F8FAFC] border border-[#CBD5E1] rounded-lg p-4 space-y-3.5">
+                        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-2.5">
                             <div class="flex flex-wrap items-center gap-2">
                                 <span class="px-2 py-0.5 rounded bg-slate-900 text-white font-telemetry text-xs font-bold">
                                     {{ $aid->reference_code }}
+                                </span>
+                                <span class="px-2 py-0.5 rounded font-telemetry text-[10px] font-bold uppercase {{ $isDeliveredSubmission ? 'bg-indigo-50 text-indigo-900 border border-indigo-200' : 'bg-blue-50 text-blue-800 border border-blue-200' }}">
+                                    {{ $aid->submissionTypeLabel() }}
                                 </span>
                                 <span class="text-xs font-bold text-[#0F172A]">
                                     {{ $aid->aid_item_title }} ({{ $aid->quantity_label }})
                                 </span>
                             </div>
-                            <x-aid-status-badge :status="$aid->status" />
+                            <div class="flex flex-wrap items-center gap-2">
+                                <div class="flex items-center gap-1">
+                                    <span class="font-telemetry text-[9px] uppercase font-bold text-slate-500">Pemeriksaan:</span>
+                                    <x-verification-badge :status="$aid->verification_status" />
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <span class="font-telemetry text-[9px] uppercase font-bold text-slate-500">Operasional:</span>
+                                    <x-aid-status-badge :status="$aid->status" />
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="text-xs text-slate-600 space-y-0.5">
+                        <!-- Data Informasi Bantuan -->
+                        <div class="text-xs text-slate-600 space-y-1">
+                            <div>
+                                <strong>Jenis Aktivitas:</strong> {{ $aid->submissionTypeLabel() }}
+                                @if($aid->report)
+                                    • <strong>Rujukan Tiket Laporan:</strong> <span class="font-telemetry text-blue-700 font-bold">{{ $aid->report->ticket_number }}</span>
+                                @endif
+                            </div>
                             <div>
                                 <strong>Organisasi/Komunitas:</strong> {{ $aid->organization_name }}
                                 <span class="text-slate-500">({{ $aid->allow_public_name ? 'Tampil Publik' : 'Anonim di Publik' }})</span>
+                                • <strong>Kategori Kebutuhan:</strong> {{ \App\Models\AidResponse::needCategories()[$aid->need_category] ?? $aid->need_category }}
                             </div>
                             <div>
-                                <strong>Kontak Internal:</strong> {{ $aid->contact_name ?: '-' }} / {{ $aid->contact_info ?: '-' }}
+                                <strong>Kontak Internal (Rahasia):</strong> {{ $aid->contact_name ?: '-' }} / {{ $aid->contact_info ?: '-' }}
                             </div>
                             <div>
-                                <strong>Lokasi Tujuan:</strong> {{ $aid->target_location }}
+                                <strong>Lokasi Penyaluran / Tujuan:</strong> {{ $aid->target_location }}
                             </div>
+                            @if($aid->aid_description)
+                                <div>
+                                    <strong>Keterangan Pemberi Respons:</strong> {{ $aid->aid_description }}
+                                </div>
+                            @endif
                             <div class="font-telemetry text-[11px] text-slate-500 pt-0.5">
+                                @if($aid->delivered_at)
+                                    <span class="text-indigo-800 font-semibold">Waktu Penyerahan (Dilaporkan): {{ $aid->delivered_at->format('d M Y, H:i') }} WIB</span> •
+                                @endif
                                 Dicatat: {{ $aid->recorded_at?->format('d M Y, H:i') }} WIB
+                                @if($aid->verified_at)
+                                    • Diperiksa: {{ $aid->verified_at->format('d M Y, H:i') }} WIB ({{ $aid->verifiedBy?->name ?? 'Verifikator' }})
+                                @endif
                                 @if($aid->confirmed_at)
-                                    • Dikonfirmasi: {{ $aid->confirmed_at->format('d M Y, H:i') }} WIB
-                                    @if($aid->confirmedBy)
-                                        oleh {{ $aid->confirmedBy->name }}
-                                    @endif
+                                    • Dikonfirmasi: {{ $aid->confirmed_at->format('d M Y, H:i') }} WIB ({{ $aid->confirmedBy?->name ?? 'Operator' }})
                                 @endif
                             </div>
                         </div>
 
-                        @if($user->canManageOperations())
-                            <form method="POST" action="{{ route('internal.incidents.aid-responses.update', [$incident, $aid]) }}" class="space-y-2.5 pt-2 border-t border-slate-200">
-                                @csrf
-                                @method('PUT')
-
-                                <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 items-end">
-                                    <div class="sm:col-span-4">
-                                        <label class="block font-telemetry text-[10px] font-bold uppercase text-slate-600 mb-1">
-                                            Status Respons <span class="text-[#DC2626]">*</span>
-                                        </label>
-                                        <select name="status" class="w-full min-h-[36px] px-2.5 py-1 bg-white border border-[#CBD5E1] rounded text-xs text-[#0F172A]">
-                                            @foreach(\App\Enums\AidResponseStatus::cases() as $aCase)
-                                                <option value="{{ $aCase->value }}" @selected(($aid->status?->value ?? $aid->status) === $aCase->value)>
-                                                    {{ $aCase->label() }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="sm:col-span-8">
-                                        <label class="block font-telemetry text-[10px] font-bold uppercase text-slate-600 mb-1">
-                                            Catatan Konfirmasi / Perkembangan (Wajib jika Penyerahan Dikonfirmasi)
-                                        </label>
-                                        <input type="text"
-                                               name="confirmation_notes"
-                                               value="{{ $aid->confirmation_notes }}"
-                                               placeholder="Catatan bukti serah terima / perkembangan lapangan..."
-                                               class="w-full min-h-[36px] px-2.5 py-1 bg-white border border-[#CBD5E1] rounded text-xs text-[#0F172A]">
-                                    </div>
+                        <!-- 2 Panel Terpisah: Panel Verifikasi dan Panel Operasional -->
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 pt-2">
+                            <!-- PANEL 1: PEMERIKSAAN & VERIFIKASI INFORMASI (Verifikator & Admin) -->
+                            <div class="bg-white border {{ $user->canVerify() ? 'border-blue-300' : 'border-slate-200' }} rounded-lg p-3.5 space-y-2.5">
+                                <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                                    <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-blue-900">
+                                        1. Pemeriksaan &amp; Verifikasi Informasi
+                                    </span>
+                                    <span class="px-1.5 py-0.5 rounded font-telemetry text-[9px] font-bold uppercase {{ $user->canVerify() ? 'bg-blue-100 text-blue-800' : 'bg-slate-100 text-slate-500' }}">
+                                        {{ $user->canVerify() ? 'Bisa Diubah' : 'Baca Saja' }}
+                                    </span>
                                 </div>
 
-                                <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 items-end">
-                                    <div class="sm:col-span-9">
-                                        <label class="block font-telemetry text-[10px] font-bold uppercase text-slate-600 mb-1">
-                                            Tautan Bukti Dokumentasi (`evidence_url` — Opsional, Format URL Valid)
-                                        </label>
-                                        <input type="url"
-                                               name="evidence_url"
-                                               value="{{ $aid->evidence_url }}"
-                                               placeholder="https://contoh-sumber.id/dokumentasi-serah-terima"
-                                               class="w-full min-h-[36px] px-2.5 py-1 bg-white border border-[#CBD5E1] rounded text-xs text-[#0F172A]">
-                                    </div>
+                                @if($user->canVerify())
+                                    <form method="POST" action="{{ route('internal.incidents.aid-responses.verification.update', [$incident, $aid]) }}" class="space-y-2">
+                                        @csrf
+                                        @method('PUT')
 
-                                    <div class="sm:col-span-3">
-                                        <button type="submit" class="w-full min-h-[36px] px-3 py-1.5 rounded bg-[#0F172A] hover:bg-slate-800 text-white font-telemetry text-[11px] font-bold uppercase cursor-pointer">
-                                            Simpan Status
+                                        <div>
+                                            <label class="block font-telemetry text-[10px] font-bold uppercase text-slate-600 mb-1">
+                                                Status Pemeriksaan <span class="text-[#DC2626]">*</span>
+                                            </label>
+                                            <select name="verification_status" class="w-full min-h-[36px] px-2.5 py-1 bg-white border border-[#CBD5E1] rounded text-xs text-[#0F172A] focus:outline-none focus:border-blue-500">
+                                                @foreach(\App\Enums\VerificationStatus::cases() as $vCase)
+                                                    <option value="{{ $vCase->value }}" @selected($aidVerifVal === $vCase->value)>
+                                                        {{ $vCase->label() }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label class="block font-telemetry text-[10px] font-bold uppercase text-slate-600 mb-1">
+                                                Catatan Verifikator <span class="text-[#DC2626]">*</span>
+                                            </label>
+                                            <textarea name="verification_notes"
+                                                      rows="2"
+                                                      required
+                                                      placeholder="Catatan hasil verifikasi keabsahan informasi pemberi bantuan..."
+                                                      class="w-full px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded text-xs text-[#0F172A] focus:outline-none focus:border-blue-500">{{ old('verification_notes', $aid->verification_notes) }}</textarea>
+                                        </div>
+
+                                        <button type="submit" class="w-full min-h-[34px] px-3 py-1 rounded bg-[#2563EB] hover:bg-blue-700 text-white font-telemetry text-[10px] font-bold uppercase cursor-pointer transition">
+                                            Simpan Verifikasi Informasi
                                         </button>
+                                    </form>
+                                @else
+                                    <div class="text-xs text-slate-600 space-y-1 pt-1">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="text-slate-500">Status Pemeriksaan:</span>
+                                            <x-verification-badge :status="$aid->verification_status" />
+                                        </div>
+                                        <div>
+                                            <strong>Catatan Verifikator:</strong>
+                                            <p class="text-slate-700 italic mt-0.5">{{ $aid->verification_notes ?: 'Belum ada catatan verifikasi khusus.' }}</p>
+                                        </div>
+                                        @if($aid->verifiedBy)
+                                            <div class="text-[11px] text-slate-500 font-telemetry">
+                                                Diverifikasi oleh: {{ $aid->verifiedBy->name }} ({{ $aid->verified_at?->format('d M Y, H:i') }} WIB)
+                                            </div>
+                                        @endif
+                                        <p class="text-[10px] text-slate-400 font-telemetry italic pt-1">
+                                            Wewenang penetapan status pemeriksaan berada pada Verifikator &amp; Admin.
+                                        </p>
                                     </div>
-                                </div>
-                            </form>
-                        @else
-                            <div class="pt-2 border-t border-slate-200 text-xs text-slate-500 space-y-1">
-                                @if($aid->confirmation_notes)
-                                    <div><strong>Catatan Petugas:</strong> {{ $aid->confirmation_notes }}</div>
                                 @endif
-                                @if($aid->evidence_url)
-                                    <div>
-                                        <strong>Tautan Bukti:</strong>
-                                        <a href="{{ $aid->evidence_url }}" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] underline">{{ $aid->evidence_url }}</a>
-                                    </div>
-                                @endif
-                                <div class="italic text-[11px] text-slate-500">
-                                    Akun Verifikator hanya dapat melihat respons bantuan. Pembaruan status penyaluran &amp; konfirmasi hanya dapat dilakukan oleh Operator atau Admin.
-                                </div>
                             </div>
-                        @endif
+
+                            <!-- PANEL 2: PENGELOLAAN STATUS OPERASIONAL BANTUAN (Operator & Admin) -->
+                            <div class="bg-white border {{ $user->canManageOperations() ? 'border-emerald-300' : 'border-slate-200' }} rounded-lg p-3.5 space-y-2.5">
+                                <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                                    <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-emerald-900">
+                                        2. Status Penyaluran &amp; Konfirmasi Operasional
+                                    </span>
+                                    <span class="px-1.5 py-0.5 rounded font-telemetry text-[9px] font-bold uppercase {{ $user->canManageOperations() ? 'bg-emerald-100 text-[#059669]' : 'bg-slate-100 text-slate-500' }}">
+                                        {{ $user->canManageOperations() ? 'Bisa Diubah' : 'Baca Saja' }}
+                                    </span>
+                                </div>
+
+                                @if($user->canManageOperations())
+                                    @if(!$isAidVerified)
+                                        <div class="p-2 bg-amber-50 border border-amber-200 rounded text-[11px] text-amber-900">
+                                            <strong>Pemberitahuan:</strong> Status <em>Penyerahan Dikonfirmasi</em> hanya dapat ditetapkan setelah status pemeriksaan dinyatakan <strong>Terverifikasi</strong> oleh Tim Verifikator.
+                                        </div>
+                                    @endif
+
+                                    <form method="POST" action="{{ route('internal.incidents.aid-responses.update', [$incident, $aid]) }}" class="space-y-2">
+                                        @csrf
+                                        @method('PUT')
+
+                                        <div>
+                                            <label class="block font-telemetry text-[10px] font-bold uppercase text-slate-600 mb-1">
+                                                Status Operasional <span class="text-[#DC2626]">*</span>
+                                            </label>
+                                            <select name="status" class="w-full min-h-[36px] px-2.5 py-1 bg-white border border-[#CBD5E1] rounded text-xs text-[#0F172A] focus:outline-none focus:border-emerald-500">
+                                                @foreach(\App\Enums\AidResponseStatus::cases() as $aCase)
+                                                    <option value="{{ $aCase->value }}"
+                                                            @selected($aidStatusVal === $aCase->value)
+                                                            @disabled($aCase === \App\Enums\AidResponseStatus::Terkonfirmasi && !$isAidVerified)>
+                                                        {{ $aCase->label() }}
+                                                        @if($aCase === \App\Enums\AidResponseStatus::Terkonfirmasi && !$isAidVerified)
+                                                            (Perlu Verifikasi Verifikator)
+                                                        @endif
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label class="block font-telemetry text-[10px] font-bold uppercase text-slate-600 mb-1">
+                                                Catatan Konfirmasi / Lapangan
+                                            </label>
+                                            <input type="text"
+                                                   name="confirmation_notes"
+                                                   value="{{ old('confirmation_notes', $aid->confirmation_notes) }}"
+                                                   placeholder="Catatan serah terima / perkembangan lapangan..."
+                                                   class="w-full min-h-[36px] px-2.5 py-1 bg-white border border-[#CBD5E1] rounded text-xs text-[#0F172A] focus:outline-none focus:border-emerald-500">
+                                        </div>
+
+                                        <div>
+                                            <label class="block font-telemetry text-[10px] font-bold uppercase text-slate-600 mb-1">
+                                                Tautan Bukti Dokumentasi (URL Valid)
+                                            </label>
+                                            <input type="url"
+                                                   name="evidence_url"
+                                                   value="{{ old('evidence_url', $aid->evidence_url) }}"
+                                                   placeholder="https://contoh-sumber.id/dokumentasi-penyerahan"
+                                                   class="w-full min-h-[36px] px-2.5 py-1 bg-white border border-[#CBD5E1] rounded text-xs text-[#0F172A] focus:outline-none focus:border-emerald-500">
+                                        </div>
+
+                                        <button type="submit" class="w-full min-h-[34px] px-3 py-1 rounded bg-[#0F172A] hover:bg-slate-800 text-white font-telemetry text-[10px] font-bold uppercase cursor-pointer transition">
+                                            Simpan Status Operasional
+                                        </button>
+                                    </form>
+                                @else
+                                    <div class="text-xs text-slate-600 space-y-1.5 pt-1">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="text-slate-500">Status Operasional:</span>
+                                            <x-aid-status-badge :status="$aid->status" />
+                                        </div>
+                                        @if($aid->confirmation_notes)
+                                            <div>
+                                                <strong>Catatan Lapangan:</strong>
+                                                <p class="text-slate-700 italic mt-0.5">{{ $aid->confirmation_notes }}</p>
+                                            </div>
+                                        @endif
+                                        @if($aid->evidence_url)
+                                            <div>
+                                                <strong>Tautan Dokumentasi:</strong>
+                                                <a href="{{ $aid->evidence_url }}" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] underline break-all block">{{ $aid->evidence_url }}</a>
+                                            </div>
+                                        @endif
+                                        @if($aid->confirmedBy)
+                                            <div class="text-[11px] text-slate-500 font-telemetry">
+                                                Dikonfirmasi oleh: {{ $aid->confirmedBy->name }} ({{ $aid->confirmed_at?->format('d M Y, H:i') }} WIB)
+                                            </div>
+                                        @endif
+                                        <p class="text-[10px] text-slate-400 font-telemetry italic pt-1">
+                                            Wewenang pengelolaan status operasional berada pada Operator &amp; Admin.
+                                        </p>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 @empty
                     <p class="text-xs text-slate-500">Belum ada respons bantuan masyarakat yang tercatat pada kejadian ini.</p>

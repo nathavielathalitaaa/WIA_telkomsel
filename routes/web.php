@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\Auth\InternalAuthController;
+use App\Http\Controllers\Internal\IntelligenceCenterController;
 use App\Http\Controllers\Internal\InternalDashboardController;
 use App\Http\Controllers\Internal\InternalIncidentController;
 use App\Http\Controllers\Internal\InternalReportController;
 use App\Http\Controllers\PublicAidResponseController;
+use App\Http\Controllers\PublicDataSourceController;
 use App\Http\Controllers\PublicIncidentController;
 use App\Http\Controllers\PublicReplayController;
 use App\Http\Controllers\PublicReportController;
@@ -49,6 +51,12 @@ Route::get('/sitrep', [PublicSitrepController::class, 'index'])
 
 Route::get('/welcome', [PublicSitrepController::class, 'welcome'])
     ->name('public.welcome');
+
+Route::get('/sumber-data', [PublicDataSourceController::class, 'index'])
+    ->name('public.sources.index');
+
+Route::get('/sumber-data/records/{record}', [PublicDataSourceController::class, 'show'])
+    ->name('public.sources.show');
 
 /*
 |--------------------------------------------------------------------------
@@ -142,4 +150,28 @@ Route::prefix('internal')
         Route::put('/incidents/{incident}/aid-responses/{aidResponse}', [InternalIncidentController::class, 'updateAidResponse'])
             ->middleware('role:admin,operator')
             ->name('incidents.aid-responses.update');
+
+        // Pusat Intelijen Sumber Data (Khusus Administrator)
+        Route::prefix('intelligence')
+            ->name('intelligence.')
+            ->middleware('role:admin')
+            ->group(function () {
+                Route::get('/', [IntelligenceCenterController::class, 'index'])
+                    ->name('index');
+
+                Route::post('/fetch/{provider}', [IntelligenceCenterController::class, 'fetch'])
+                    ->name('fetch');
+
+                Route::get('/records/{record}', [IntelligenceCenterController::class, 'showRecord'])
+                    ->name('records.show');
+
+                Route::get('/comparisons', [IntelligenceCenterController::class, 'comparisons'])
+                    ->name('comparisons');
+
+                Route::post('/comparisons', [IntelligenceCenterController::class, 'storeComparison'])
+                    ->name('comparisons.store');
+
+                Route::get('/logs', [IntelligenceCenterController::class, 'logs'])
+                    ->name('logs');
+            });
     });

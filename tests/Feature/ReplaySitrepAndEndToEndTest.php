@@ -21,7 +21,7 @@ class ReplaySitrepAndEndToEndTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * 1, 2, 3, & 4. /replay dapat dibuka, menampilkan label wajib DEMO SIMULASI,
+     * 1, 2, 3, & 4. /replay dapat dibuka, menampilkan banner Mode Simulasi Prototype,
      *               hanya menampilkan histori kejadian yang dipilih, dan terurut berdasarkan waktu.
      */
     public function test_replay_page_loads_selected_incident_history_sorted_chronologically(): void
@@ -34,7 +34,8 @@ class ReplaySitrepAndEndToEndTest extends TestCase
         $response = $this->get(route('public.replay', ['incident' => $incident1->slug]));
 
         $response->assertStatus(200);
-        $response->assertSee('DEMO SIMULASI — BUKAN DATA REAL-TIME');
+        $response->assertSee('Mode Simulasi Prototype');
+        $response->assertDontSee('DEMO SIMULASI — BUKAN DATA REAL-TIME');
         $response->assertSee($incident1->title);
 
         // Menampilkan laporan dan tindak lanjut milik incident1

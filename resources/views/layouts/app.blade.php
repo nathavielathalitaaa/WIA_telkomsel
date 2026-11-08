@@ -13,7 +13,11 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('head')
 </head>
-<body class="bg-[#F8FAFC] text-[#0F172A] antialiased min-h-screen flex flex-col pb-20 lg:pb-0">
+<body class="bg-[#F8FAFC] text-[#0F172A] antialiased min-h-screen flex flex-col pb-20 lg:pb-0"
+      @if(session('success')) data-flash-success="{{ session('success') }}" @endif
+      @if(session('error')) data-flash-error="{{ session('error') }}" @endif>
+    <!-- Toast Notification Container -->
+    <div id="tanggap-toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2.5 max-w-sm pointer-events-none" aria-live="polite"></div>
     <!-- Sticky Institutional Top Header -->
     <header class="sticky top-0 z-40 bg-white border-b border-[#E2E8F0] no-print">
         <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
@@ -47,19 +51,23 @@
             <nav class="hidden lg:flex items-center gap-1" aria-label="Navigasi Utama">
                 <a href="{{ route('public.monitor') }}"
                    class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'pantau' ? 'nav-active-gradient' : 'text-slate-600 hover:bg-slate-100 hover:text-[#0F172A]' }}">
-                    1. Pantau
+                    Pantau
                 </a>
                 <a href="{{ route('public.track') }}"
                    class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'lacak' ? 'nav-active-gradient' : 'text-slate-600 hover:bg-slate-100 hover:text-[#0F172A]' }}">
-                    2. Lacak Tiket
+                    Lacak Tiket
                 </a>
                 <a href="{{ $replayHref }}"
                    class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'replay' ? 'nav-active-gradient' : 'text-slate-600 hover:bg-slate-100 hover:text-[#0F172A]' }}">
-                    3. Replay Simulasi
+                    Replay Simulasi
                 </a>
                 <a href="{{ $sitrepHref }}"
                    class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'laporan' ? 'nav-active-gradient' : 'text-slate-600 hover:bg-slate-100 hover:text-[#0F172A]' }}">
-                    4. Laporan SitRep
+                    Laporan SitRep
+                </a>
+                <a href="{{ route('public.sources.index') }}"
+                   class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'sumber_data' ? 'nav-active-gradient' : 'text-slate-600 hover:bg-slate-100 hover:text-[#0F172A]' }}">
+                    Sumber Data
                 </a>
             </nav>
 
@@ -110,54 +118,45 @@
         @yield('content')
     </main>
 
-    <!-- Institutional Footer -->
-    <footer class="bg-white border-t border-[#E2E8F0] mt-12 py-6 no-print">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-            <div class="flex items-center gap-2.5">
-                <img src="{{ asset('images/logo-tanggap-terang.png') }}"
-                     alt="Logo TanggapTerang"
-                     class="h-7 w-auto object-contain shrink-0">
-                <span>
-                    <strong class="text-[#0F172A]">TanggapTerang</strong> — Prototype Pengumpulan &amp; Penyajian Informasi Kejadian Masyarakat &amp; Sumber Terbuka.
-                </span>
-            </div>
-            <div class="flex items-center gap-4 font-telemetry">
-                <a href="{{ $welcomeHref }}" class="hover:text-[#0F172A] underline">Tentang Prototype</a>
-                <span>•</span>
-                <span>Data Simulasi • Multimedia In Action 2026</span>
-            </div>
-        </div>
-    </footer>
+    <!-- Institutional Public Footer -->
+    <x-public-footer />
 
-    <!-- Mobile Bottom Navigation Bar (4 Main Tabs) -->
-    <nav class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white border-t border-[#E2E8F0] h-16 grid grid-cols-4 p-1 gap-1 no-print" aria-label="Navigasi Bawah Mobile">
+    <!-- Mobile Bottom Navigation Bar (5 Main Tabs) -->
+    <nav class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white border-t border-[#E2E8F0] h-16 grid grid-cols-5 p-1 gap-1 no-print" aria-label="Navigasi Bawah Mobile">
         <a href="{{ route('public.monitor') }}"
            class="flex flex-col items-center justify-center gap-0.5 rounded-lg min-h-[48px] transition {{ $activeTab === 'pantau' ? 'nav-active-gradient font-bold' : 'text-slate-600 hover:bg-slate-100' }}">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
             </svg>
-            <span class="font-telemetry text-[10px] uppercase tracking-wider">Pantau</span>
+            <span class="font-telemetry text-[9px] uppercase tracking-wider">Pantau</span>
         </a>
         <a href="{{ route('public.track') }}"
            class="flex flex-col items-center justify-center gap-0.5 rounded-lg min-h-[48px] transition {{ $activeTab === 'lacak' ? 'nav-active-gradient font-bold' : 'text-slate-600 hover:bg-slate-100' }}">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
             </svg>
-            <span class="font-telemetry text-[10px] uppercase tracking-wider">Lacak</span>
+            <span class="font-telemetry text-[9px] uppercase tracking-wider">Lacak</span>
         </a>
         <a href="{{ $replayHref }}"
            class="flex flex-col items-center justify-center gap-0.5 rounded-lg min-h-[48px] transition {{ $activeTab === 'replay' ? 'nav-active-gradient font-bold' : 'text-slate-600 hover:bg-slate-100' }}">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
-            <span class="font-telemetry text-[10px] uppercase tracking-wider">Replay</span>
+            <span class="font-telemetry text-[9px] uppercase tracking-wider">Replay</span>
         </a>
         <a href="{{ $sitrepHref }}"
            class="flex flex-col items-center justify-center gap-0.5 rounded-lg min-h-[48px] transition {{ $activeTab === 'laporan' ? 'nav-active-gradient font-bold' : 'text-slate-600 hover:bg-slate-100' }}">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
-            <span class="font-telemetry text-[10px] uppercase tracking-wider">Laporan</span>
+            <span class="font-telemetry text-[9px] uppercase tracking-wider">Laporan</span>
+        </a>
+        <a href="{{ route('public.sources.index') }}"
+           class="flex flex-col items-center justify-center gap-0.5 rounded-lg min-h-[48px] transition {{ $activeTab === 'sumber_data' ? 'nav-active-gradient font-bold' : 'text-slate-600 hover:bg-slate-100' }}">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
+            </svg>
+            <span class="font-telemetry text-[9px] uppercase tracking-wider">Sumber Data</span>
         </a>
     </nav>
 

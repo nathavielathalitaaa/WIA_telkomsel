@@ -96,4 +96,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(VerificationHistory::class, 'user_id');
     }
+
+    public function intelligenceComparisons(): HasMany
+    {
+        return $this->hasMany(IntelligenceComparison::class, 'user_id');
+    }
 }

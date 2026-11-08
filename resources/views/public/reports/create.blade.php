@@ -95,6 +95,16 @@
                                     <option value="{{ $key }}" @selected(old('category') === $key)>{{ $label }}</option>
                                 @endforeach
                             </select>
+                            <div class="flex flex-wrap items-center gap-1.5 mt-2">
+                                <span class="text-[10px] font-telemetry uppercase text-slate-400 font-bold">Pilihan Cepat:</span>
+                                @foreach(array_slice($categories, 0, 4, true) as $key => $label)
+                                    <button type="button"
+                                            class="btn-report-cat-pill px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 font-telemetry text-[11px] transition cursor-pointer"
+                                            data-category="{{ $key }}">
+                                        {{ $label }}
+                                    </button>
+                                @endforeach
+                            </div>
                             @error('category')
                                 <p class="mt-1 text-xs font-semibold text-[#DC2626]">{{ $message }}</p>
                             @enderror
@@ -408,6 +418,17 @@
             }
             latInput.value = '';
             lngInput.value = '';
+        });
+
+        document.querySelectorAll('.btn-report-cat-pill').forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const catSelect = document.getElementById('category');
+                if (catSelect) {
+                    catSelect.value = btn.getAttribute('data-category');
+                    catSelect.dispatchEvent(new Event('change'));
+                    catSelect.focus();
+                }
+            });
         });
     });
 </script>

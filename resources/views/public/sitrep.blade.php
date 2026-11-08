@@ -26,8 +26,9 @@
 
             <div class="flex flex-wrap items-center gap-2.5 shrink-0">
                 <button type="button"
-                        onclick="window.print()"
-                        class="px-5 py-2.5 rounded-lg bg-[#DC2626] hover:bg-red-700 text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center gap-2 cursor-pointer">
+                        onclick="if(window.TanggapToast) window.TanggapToast.info('Mempersiapkan dokumen cetak / dialog PDF...', 'Cetak SitRep'); window.print();"
+                        data-tooltip="Cetak atau simpan dokumen SitRep sebagai PDF"
+                        class="px-5 py-2.5 rounded-lg bg-[#DC2626] hover:bg-red-700 text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center gap-2 cursor-pointer shadow-xs active:scale-95">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
                     </svg>
@@ -163,15 +164,18 @@
                 </div>
 
                 <div class="grid grid-cols-3 gap-2.5 text-center">
-                    <div class="bg-white border border-[#93C5FD] rounded p-2.5">
+                    <div class="bg-white border border-[#93C5FD] rounded p-2.5 card-interactive"
+                         data-tooltip="Jumlah kejadian dengan validasi terverifikasi">
                         <span class="font-telemetry text-[10px] font-bold uppercase text-[#1E40AF] block">Terverifikasi</span>
                         <span class="font-telemetry text-2xl font-bold text-[#2563EB]">{{ $stats['terverifikasi'] }}</span>
                     </div>
-                    <div class="bg-white border border-[#FCD34D] rounded p-2.5">
+                    <div class="bg-white border border-[#FCD34D] rounded p-2.5 card-interactive"
+                         data-tooltip="Kejadian sedang dalam pemeriksaan tim verifikator">
                         <span class="font-telemetry text-[10px] font-bold uppercase text-[#92400E] block">Menunggu Verifikasi</span>
                         <span class="font-telemetry text-2xl font-bold text-[#D97706]">{{ $stats['menunggu_verifikasi'] }}</span>
                     </div>
-                    <div class="bg-white border border-[#CBD5E1] rounded p-2.5">
+                    <div class="bg-white border border-[#CBD5E1] rounded p-2.5 card-interactive"
+                         data-tooltip="Total laporan masyarakat yang telah ditautkan ke kejadian">
                         <span class="font-telemetry text-[10px] font-bold uppercase text-slate-600 block">Laporan Terhubung</span>
                         <span class="font-telemetry text-2xl font-bold text-[#0F172A]">{{ $stats['connected_reports'] }}</span>
                     </div>
@@ -190,19 +194,23 @@
                 </div>
 
                 <div class="grid grid-cols-4 gap-2 text-center">
-                    <div class="bg-white border border-slate-300 rounded p-2">
+                    <div class="bg-white border border-slate-300 rounded p-2 card-interactive"
+                         data-tooltip="Kejadian belum ada tindakan pemantauan lanjutan">
                         <span class="font-telemetry text-[9px] font-bold uppercase text-slate-600 block">Belum Ditindaklanjuti</span>
                         <span class="font-telemetry text-xl font-bold text-slate-800">{{ $stats['belum_ditindaklanjuti'] }}</span>
                     </div>
-                    <div class="bg-white border border-[#FCD34D] rounded p-2">
+                    <div class="bg-white border border-[#FCD34D] rounded p-2 card-interactive"
+                         data-tooltip="Kejadian sedang dalam koordinasi &amp; pemantauan aktif">
                         <span class="font-telemetry text-[9px] font-bold uppercase text-[#92400E] block">Sedang Ditindaklanjuti</span>
                         <span class="font-telemetry text-xl font-bold text-[#D97706]">{{ $stats['sedang_ditindaklanjuti'] }}</span>
                     </div>
-                    <div class="bg-white border border-[#93C5FD] rounded p-2">
+                    <div class="bg-white border border-[#93C5FD] rounded p-2 card-interactive"
+                         data-tooltip="Perkembangan terus dipantau secara berkala">
                         <span class="font-telemetry text-[9px] font-bold uppercase text-[#1E40AF] block">Dipantau</span>
                         <span class="font-telemetry text-xl font-bold text-[#2563EB]">{{ $stats['dipantau'] }}</span>
                     </div>
-                    <div class="bg-white border border-[#6EE7B7] rounded p-2">
+                    <div class="bg-white border border-[#6EE7B7] rounded p-2 card-interactive"
+                         data-tooltip="Penanganan informasi kejadian dinyatakan selesai">
                         <span class="font-telemetry text-[9px] font-bold uppercase text-[#065F46] block">Selesai</span>
                         <span class="font-telemetry text-xl font-bold text-[#059669]">{{ $stats['selesai'] }}</span>
                     </div>
@@ -244,7 +252,7 @@
                         </thead>
                         <tbody class="divide-y divide-slate-200">
                             @foreach($incidents as $idx => $incident)
-                                <tr class="align-top print-avoid-break {{ $idx % 2 === 1 ? 'bg-slate-50/60' : 'bg-white' }}">
+                                <tr class="align-top print-avoid-break hover:bg-blue-50/40 transition-colors {{ $idx % 2 === 1 ? 'bg-slate-50/60' : 'bg-white' }}">
                                     <td class="py-3 px-3 font-telemetry font-bold text-[#0F172A]">
                                         {{ $idx + 1 }}
                                     </td>

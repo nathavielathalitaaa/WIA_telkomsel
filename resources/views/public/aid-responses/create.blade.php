@@ -217,8 +217,16 @@
                                    value="{{ old('aid_item_title') }}"
                                    required
                                    maxlength="255"
-                                   placeholder="Contoh: Paket Makanan Siap Saji & Air Mineral"
+                                   placeholder="Contoh: Air Bersih, Nasi Bungkus, Obat-obatan, Sembako"
                                    class="w-full min-h-[44px] px-3.5 py-2 bg-white border {{ $errors->has('aid_item_title') ? 'border-[#DC2626]' : 'border-[#CBD5E1]' }} rounded-lg text-sm text-[#0F172A]">
+                            <div class="flex flex-wrap items-center gap-1.5 mt-2">
+                                <span class="text-[10px] font-telemetry uppercase text-slate-400 font-bold">Pilihan Cepat:</span>
+                                <button type="button" class="btn-example-aid btn-aid-quick-pill px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 font-telemetry text-[11px] transition cursor-pointer" data-fill="Air Bersih">Air Bersih</button>
+                                <button type="button" class="btn-example-aid btn-aid-quick-pill px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 font-telemetry text-[11px] transition cursor-pointer" data-fill="Nasi Bungkus">Nasi Bungkus</button>
+                                <button type="button" class="btn-example-aid btn-aid-quick-pill px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 font-telemetry text-[11px] transition cursor-pointer" data-fill="Obat-obatan">Obat-obatan</button>
+                                <button type="button" class="btn-example-aid btn-aid-quick-pill px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 font-telemetry text-[11px] transition cursor-pointer" data-fill="Paket Sembako">Paket Sembako</button>
+                                <button type="button" class="btn-example-aid btn-aid-quick-pill px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 font-telemetry text-[11px] transition cursor-pointer" data-fill="Tenda Darurat">Tenda Darurat</button>
+                            </div>
                             @error('aid_item_title')
                                 <p class="mt-1 text-xs font-semibold text-[#DC2626]">{{ $message }}</p>
                             @enderror
@@ -551,6 +559,18 @@
         radios.forEach((radio) => {
             radio.addEventListener('change', (e) => {
                 syncSubmissionMode(e.target.value);
+            });
+        });
+
+        const exampleBtns = document.querySelectorAll('.btn-example-aid');
+        const aidInput = document.getElementById('aid_item_title');
+        exampleBtns.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const fillVal = btn.getAttribute('data-fill');
+                if (aidInput && fillVal) {
+                    aidInput.value = fillVal;
+                    aidInput.focus();
+                }
             });
         });
     });

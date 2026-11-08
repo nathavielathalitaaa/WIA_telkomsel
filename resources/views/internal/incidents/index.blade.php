@@ -141,7 +141,7 @@
                 </thead>
                 <tbody class="divide-y divide-slate-100 text-sm">
                     @forelse($incidents as $incident)
-                        <tr class="hover:bg-slate-50 transition">
+                        <tr class="hover:bg-slate-50/80 transition-colors">
                             <td class="py-3.5 px-4 align-top max-w-md">
                                 <div class="flex items-center gap-1.5 mb-1">
                                     @if($incident->is_simulation)

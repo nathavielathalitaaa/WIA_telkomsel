@@ -172,44 +172,52 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-            <div class="bg-white border border-[#E2E8F0] rounded-lg p-4 flex flex-col justify-between">
+            <a href="{{ route('internal.reports.index') }}"
+               data-tooltip="Buka seluruh daftar laporan masuk"
+               class="bg-white border border-[#E2E8F0] rounded-lg p-4 flex flex-col justify-between card-interactive cursor-pointer group">
                 <div class="flex items-center justify-between">
-                    <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-500">Total Laporan Masuk</span>
+                    <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-500 group-hover:text-[#0F172A] transition-colors">Total Laporan Masuk</span>
                     <span class="px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 font-telemetry text-[10px] font-bold uppercase">Simulasi</span>
                 </div>
                 <div class="mt-3 flex items-baseline justify-between">
                     <span class="font-telemetry text-3xl font-bold text-[#0F172A]">{{ $stats['total_reports'] }}</span>
                     <span class="text-xs text-slate-500">{{ $stats['unlinked_reports'] }} belum terhubung</span>
                 </div>
-            </div>
+            </a>
 
-            <div class="bg-white border-l-4 border-[#D97706] border-y border-r border-[#FCD34D] rounded-lg p-4 flex flex-col justify-between">
+            <a href="{{ route('internal.reports.index', ['verification_status' => 'menunggu_verifikasi']) }}"
+               data-tooltip="Periksa antrean laporan yang menunggu verifikasi"
+               class="bg-white border-l-4 border-[#D97706] border-y border-r border-[#FCD34D] rounded-lg p-4 flex flex-col justify-between card-interactive cursor-pointer group">
                 <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#92400E]">Menunggu Verifikasi</span>
                 <div class="mt-3 flex items-baseline justify-between">
                     <span class="font-telemetry text-3xl font-bold text-[#D97706]">{{ $stats['pending_reports'] }}</span>
-                    <a href="{{ route('internal.reports.index', ['verification_status' => 'menunggu_verifikasi']) }}" class="font-telemetry text-xs font-bold text-[#92400E] hover:underline">
+                    <span class="font-telemetry text-xs font-bold text-[#92400E] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
                         Periksa &rarr;
-                    </a>
+                    </span>
                 </div>
-            </div>
+            </a>
 
-            <div class="bg-white border-l-4 border-[#2563EB] border-y border-r border-[#93C5FD] rounded-lg p-4 flex flex-col justify-between">
+            <a href="{{ route('internal.reports.index', ['verification_status' => 'terverifikasi']) }}"
+               data-tooltip="Buka daftar laporan yang sudah terverifikasi"
+               class="bg-white border-l-4 border-[#2563EB] border-y border-r border-[#93C5FD] rounded-lg p-4 flex flex-col justify-between card-interactive cursor-pointer group">
                 <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#1E40AF]">Laporan Terverifikasi</span>
                 <div class="mt-3 flex items-baseline justify-between">
                     <span class="font-telemetry text-3xl font-bold text-[#2563EB]">{{ $stats['verified_reports'] }}</span>
-                    <a href="{{ route('internal.reports.index', ['verification_status' => 'terverifikasi']) }}" class="font-telemetry text-xs font-bold text-[#1E40AF] hover:underline">
+                    <span class="font-telemetry text-xs font-bold text-[#1E40AF] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
                         Filter &rarr;
-                    </a>
+                    </span>
                 </div>
-            </div>
+            </a>
 
-            <div class="bg-white border-l-4 border-[#DC2626] border-y border-r border-[#FCA5A5] rounded-lg p-4 flex flex-col justify-between">
+            <a href="{{ route('internal.reports.index', ['verification_status' => 'ditolak']) }}"
+               data-tooltip="Buka daftar laporan yang ditolak atau duplikat"
+               class="bg-white border-l-4 border-[#DC2626] border-y border-r border-[#FCA5A5] rounded-lg p-4 flex flex-col justify-between card-interactive cursor-pointer group">
                 <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#991B1B]">Laporan Ditolak / Duplikat</span>
                 <div class="mt-3 flex items-baseline justify-between">
                     <span class="font-telemetry text-3xl font-bold text-[#DC2626]">{{ $stats['rejected_reports'] }}</span>
                     <span class="font-telemetry text-xs text-slate-600">+ {{ $stats['duplicate_reports'] }} Duplikat</span>
                 </div>
-            </div>
+            </a>
         </div>
     </section>
 
@@ -236,43 +244,51 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-            <div class="bg-white border border-[#E2E8F0] rounded-lg p-4 flex flex-col justify-between">
-                <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-500">Total Kejadian</span>
+            <a href="{{ route('internal.incidents.index') }}"
+               data-tooltip="Buka seluruh daftar kejadian bencana"
+               class="bg-white border border-[#E2E8F0] rounded-lg p-4 flex flex-col justify-between card-interactive cursor-pointer group">
+                <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-500 group-hover:text-[#0F172A] transition-colors">Total Kejadian</span>
                 <div class="mt-3 flex items-baseline justify-between">
                     <span class="font-telemetry text-3xl font-bold text-[#0F172A]">{{ $stats['total_incidents'] }}</span>
                     <span class="font-telemetry text-xs text-slate-500">{{ $stats['pending_incidents'] ?? 0 }} menunggu verifikasi</span>
                 </div>
-            </div>
+            </a>
 
-            <div class="bg-white border border-[#E2E8F0] rounded-lg p-4 flex flex-col justify-between">
-                <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-600">Belum Ditindaklanjuti</span>
+            <a href="{{ route('internal.incidents.index', ['follow_up_status' => 'belum_ditindaklanjuti']) }}"
+               data-tooltip="Filter kejadian yang belum ada catatan tindak lanjut"
+               class="bg-white border border-[#E2E8F0] rounded-lg p-4 flex flex-col justify-between card-interactive cursor-pointer group">
+                <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-600 group-hover:text-[#0F172A] transition-colors">Belum Ditindaklanjuti</span>
                 <div class="mt-3 flex items-baseline justify-between">
                     <span class="font-telemetry text-3xl font-bold text-slate-800">{{ $stats['unhandled_incidents'] }}</span>
-                    <a href="{{ route('internal.incidents.index', ['follow_up_status' => 'belum_ditindaklanjuti']) }}" class="font-telemetry text-xs font-bold text-slate-700 hover:underline">
+                    <span class="font-telemetry text-xs font-bold text-slate-700 group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
                         Filter &rarr;
-                    </a>
+                    </span>
                 </div>
-            </div>
+            </a>
 
-            <div class="bg-white border-l-4 border-[#D97706] border-y border-r border-[#FCD34D] rounded-lg p-4 flex flex-col justify-between">
+            <a href="{{ route('internal.incidents.index', ['follow_up_status' => 'sedang_ditindaklanjuti']) }}"
+               data-tooltip="Filter kejadian yang sedang dalam penanganan aktif"
+               class="bg-white border-l-4 border-[#D97706] border-y border-r border-[#FCD34D] rounded-lg p-4 flex flex-col justify-between card-interactive cursor-pointer group">
                 <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#92400E]">Sedang Ditindaklanjuti / Dipantau</span>
                 <div class="mt-3 flex items-baseline justify-between">
                     <span class="font-telemetry text-3xl font-bold text-[#D97706]">{{ $stats['active_followup_incidents'] }}</span>
-                    <a href="{{ route('internal.incidents.index', ['follow_up_status' => 'sedang_ditindaklanjuti']) }}" class="font-telemetry text-xs font-bold text-[#92400E] hover:underline">
+                    <span class="font-telemetry text-xs font-bold text-[#92400E] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
                         Filter &rarr;
-                    </a>
+                    </span>
                 </div>
-            </div>
+            </a>
 
-            <div class="bg-white border-l-4 border-[#059669] border-y border-r border-[#6EE7B7] rounded-lg p-4 flex flex-col justify-between">
+            <a href="{{ route('internal.incidents.index', ['follow_up_status' => 'selesai']) }}"
+               data-tooltip="Filter kejadian yang telah selesai ditindaklanjuti"
+               class="bg-white border-l-4 border-[#059669] border-y border-r border-[#6EE7B7] rounded-lg p-4 flex flex-col justify-between card-interactive cursor-pointer group">
                 <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#065F46]">Kejadian Selesai</span>
                 <div class="mt-3 flex items-baseline justify-between">
                     <span class="font-telemetry text-3xl font-bold text-[#059669]">{{ $stats['completed_incidents'] }}</span>
-                    <a href="{{ route('internal.incidents.index', ['follow_up_status' => 'selesai']) }}" class="font-telemetry text-xs font-bold text-[#065F46] hover:underline">
+                    <span class="font-telemetry text-xs font-bold text-[#065F46] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
                         Filter &rarr;
-                    </a>
+                    </span>
                 </div>
-            </div>
+            </a>
         </div>
     </section>
 
@@ -293,37 +309,45 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-            <div class="bg-white border border-[#E2E8F0] rounded-lg p-4 flex flex-col justify-between">
-                <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-500">Total Respons Tercatat</span>
+            <a href="{{ route('internal.incidents.index') }}"
+               data-tooltip="Buka daftar kejadian untuk mengelola respons bantuan"
+               class="bg-white border border-[#E2E8F0] rounded-lg p-4 flex flex-col justify-between card-interactive cursor-pointer group">
+                <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-500 group-hover:text-[#0F172A] transition-colors">Total Respons Tercatat</span>
                 <div class="mt-3 flex items-baseline justify-between">
                     <span class="font-telemetry text-3xl font-bold text-[#0F172A]">{{ $stats['total_aid_responses'] ?? 0 }}</span>
                     <span class="font-telemetry text-xs text-slate-500">Entri publik</span>
                 </div>
-            </div>
+            </a>
 
-            <div class="bg-white border-l-4 border-[#2563EB] border-y border-r border-[#93C5FD] rounded-lg p-4 flex flex-col justify-between">
+            <a href="{{ route('internal.incidents.index') }}"
+               data-tooltip="Lihat komitmen dan rencana bantuan masuk"
+               class="bg-white border-l-4 border-[#2563EB] border-y border-r border-[#93C5FD] rounded-lg p-4 flex flex-col justify-between card-interactive cursor-pointer group">
                 <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#1E40AF]">Tawaran / Rencana Bantuan</span>
                 <div class="mt-3 flex items-baseline justify-between">
                     <span class="font-telemetry text-3xl font-bold text-[#2563EB]">{{ $stats['tawaran_rencana_count'] ?? 0 }}</span>
                     <span class="font-telemetry text-xs text-slate-500">Inisiatif / komitmen</span>
                 </div>
-            </div>
+            </a>
 
-            <div class="bg-white border-l-4 border-indigo-600 border-y border-r border-indigo-200 rounded-lg p-4 flex flex-col justify-between">
+            <a href="{{ route('internal.incidents.index') }}"
+               data-tooltip="Lihat laporan bantuan yang sudah diserahkan di lapangan"
+               class="bg-white border-l-4 border-indigo-600 border-y border-r border-indigo-200 rounded-lg p-4 flex flex-col justify-between card-interactive cursor-pointer group">
                 <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-indigo-900">Laporan Bantuan Sudah Diberikan</span>
                 <div class="mt-3 flex items-baseline justify-between">
                     <span class="font-telemetry text-3xl font-bold text-indigo-700">{{ $stats['laporan_penyerahan_count'] ?? 0 }}</span>
                     <span class="font-telemetry text-xs text-slate-500">Dilaporkan diserahkan</span>
                 </div>
-            </div>
+            </a>
 
-            <div class="bg-white border-l-4 border-[#059669] border-y border-r border-[#6EE7B7] rounded-lg p-4 flex flex-col justify-between">
+            <a href="{{ route('internal.incidents.index') }}"
+               data-tooltip="Lihat bantuan yang telah terkonfirmasi oleh petugas"
+               class="bg-white border-l-4 border-[#059669] border-y border-r border-[#6EE7B7] rounded-lg p-4 flex flex-col justify-between card-interactive cursor-pointer group">
                 <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#065F46]">Penyerahan Dikonfirmasi</span>
                 <div class="mt-3 flex items-baseline justify-between">
                     <span class="font-telemetry text-3xl font-bold text-[#059669]">{{ $stats['confirmed_aid_responses'] ?? 0 }}</span>
                     <span class="font-telemetry text-xs text-amber-800 font-semibold">{{ $stats['unconfirmed_aid_responses'] ?? 0 }} menunggu konfirmasi</span>
                 </div>
-            </div>
+            </a>
         </div>
     </section>
 

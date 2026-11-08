@@ -40,8 +40,19 @@
         </div>
     </nav>
 
+    <!-- Desktop Sticky Section Quick Nav -->
+    <div class="hidden lg:flex items-center gap-2 p-1.5 bg-white border border-[#CBD5E1] rounded-lg shadow-2xs font-telemetry text-xs">
+        <span class="px-2 font-bold uppercase tracking-wider text-slate-400">Navigasi Halaman:</span>
+        <a href="#section-ringkasan" class="px-3 py-1.5 rounded text-slate-700 hover:bg-slate-100 font-bold transition">Ringkasan</a>
+        <a href="#section-peta" class="px-3 py-1.5 rounded text-slate-700 hover:bg-slate-100 font-bold transition">Peta Titik</a>
+        <a href="#section-sumber" class="px-3 py-1.5 rounded text-slate-700 hover:bg-slate-100 font-bold transition">Sumber Rujukan ({{ $incident->sources->count() }})</a>
+        <a href="#section-laporan" class="px-3 py-1.5 rounded text-slate-700 hover:bg-slate-100 font-bold transition">Laporan Warga ({{ $incident->reports->count() }})</a>
+        <a href="#section-bantuan" class="px-3 py-1.5 rounded text-slate-700 hover:bg-slate-100 font-bold transition">Respons Bantuan ({{ $incident->aidResponses->count() }})</a>
+        <a href="#section-timeline" class="px-3 py-1.5 rounded text-slate-700 hover:bg-slate-100 font-bold transition">Garis Waktu Audit</a>
+    </div>
+
     <!-- Primary Incident Header Card -->
-    <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 sm:p-6 space-y-5">
+    <section id="section-ringkasan" class="bg-white border border-[#E2E8F0] rounded-lg p-5 sm:p-6 space-y-5">
         <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4">
             <div class="flex flex-wrap items-center gap-2">
                 @if($incident->is_simulation)
@@ -165,15 +176,24 @@
         <!-- Left Column (5 cols) -->
         <div class="lg:col-span-5 space-y-5 min-w-0">
             <!-- Incident Location Map -->
-            <section class="bg-white border border-[#E2E8F0] rounded-lg overflow-hidden">
+            <section id="section-peta" class="bg-white border border-[#E2E8F0] rounded-lg overflow-hidden">
                 <div class="p-4 border-b border-[#E2E8F0] bg-[#F8FAFC] flex items-center justify-between">
                     <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                         Peta Titik Kejadian
                     </h2>
                     @if($hasCoordinates)
-                        <span class="font-telemetry text-[11px] text-slate-600">
-                            {{ number_format((float) $incident->latitude, 4) }}, {{ number_format((float) $incident->longitude, 4) }}
-                        </span>
+                        <div class="flex items-center gap-2">
+                            <button type="button"
+                                    id="btn-recenter-incident-map"
+                                    class="px-2 py-1 rounded bg-white border border-slate-300 hover:bg-slate-50 text-[10px] font-telemetry font-bold text-[#0F172A] cursor-pointer inline-flex items-center gap-1 transition"
+                                    data-tooltip="Pusatkan kembali tampilan peta ke titik koordinat kejadian">
+                                <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
+                                <span>Pusatkan</span>
+                            </button>
+                            <span class="font-telemetry text-[11px] text-slate-600">
+                                {{ number_format((float) $incident->latitude, 4) }}, {{ number_format((float) $incident->longitude, 4) }}
+                            </span>
+                        </div>
                     @endif
                 </div>
 
@@ -190,7 +210,7 @@
             </section>
 
             <!-- Connected Open Sources -->
-            <section class="bg-white border border-[#E2E8F0] rounded-lg p-4 sm:p-5 space-y-4">
+            <section id="section-sumber" class="bg-white border border-[#E2E8F0] rounded-lg p-4 sm:p-5 space-y-4">
                 <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                     <div>
                         <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
@@ -261,7 +281,7 @@
         <!-- Right Column (7 cols): Connected Citizen Reports & Public Audit Timeline -->
         <div class="lg:col-span-7 space-y-5 min-w-0">
             <!-- Connected Citizen Reports (Sanitized — NO Reporter PII) -->
-            <section class="bg-white border border-[#E2E8F0] rounded-lg p-4 sm:p-5 space-y-4">
+            <section id="section-laporan" class="bg-white border border-[#E2E8F0] rounded-lg p-4 sm:p-5 space-y-4">
                 <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
                     <div>
                         <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
@@ -335,7 +355,7 @@
             </section>
 
             <!-- Respons Bantuan Masyarakat / Komunitas (Terpisah dari Tindak Lanjut Internal) -->
-            <section class="bg-white border border-[#E2E8F0] rounded-lg p-4 sm:p-5 space-y-4">
+            <section id="section-bantuan" class="bg-white border border-[#E2E8F0] rounded-lg p-4 sm:p-5 space-y-4">
                 <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
                     <div>
                         <div class="flex flex-wrap items-center gap-2">
@@ -568,7 +588,7 @@
             </section>
 
             <!-- Public Verification, Follow-Up & Aid Response Audit Timeline -->
-            <section class="bg-white border border-[#E2E8F0] rounded-lg p-4 sm:p-5 space-y-4">
+            <section id="section-timeline" class="bg-white border border-[#E2E8F0] rounded-lg p-4 sm:p-5 space-y-4">
                 <div class="border-b border-slate-100 pb-3">
                     <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                         Riwayat Verifikasi, Tindak Lanjut Internal, &amp; Respons Bantuan
@@ -638,6 +658,13 @@
                     fillOpacity: 0.95,
                 }).addTo(map).bindPopup(pt.label);
             });
+
+            const recenterBtn = document.getElementById('btn-recenter-incident-map');
+            if (recenterBtn) {
+                recenterBtn.addEventListener('click', () => {
+                    map.setView([lat, lng], 14, { animate: true });
+                });
+            }
         });
     </script>
     @endpush

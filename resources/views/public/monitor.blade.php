@@ -44,55 +44,67 @@
         </div>
     </section>
 
-    <!-- Bento Summary Cards (Database Simulation Metrics) -->
+    <!-- Bento Summary Cards (Database Simulation Metrics - Interactive Click-to-Filter) -->
     <section aria-label="Ringkasan Data Kejadian Simulasi" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-        <div class="bg-white border border-[#E2E8F0] rounded-lg p-3.5 flex flex-col justify-between">
+        <a href="{{ route('public.monitor') }}"
+           class="card-interactive bg-white border border-[#E2E8F0] hover:border-slate-400 rounded-lg p-3.5 flex flex-col justify-between cursor-pointer transition block"
+           data-tooltip="Klik untuk menampilkan seluruh kejadian tanpa filter">
             <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500">Total Kejadian</span>
             <div class="mt-2 flex items-baseline justify-between">
                 <span class="font-telemetry text-2xl font-bold text-[#0F172A]">{{ $summary['total_incidents'] }}</span>
                 <span class="font-telemetry text-[10px] text-slate-500 uppercase">Simulasi</span>
             </div>
-        </div>
+        </a>
 
-        <div class="bg-white border border-[#93C5FD] rounded-lg p-3.5 flex flex-col justify-between">
+        <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['verification_status' => 'terverifikasi'])) }}"
+           class="card-interactive bg-white border border-[#93C5FD] hover:border-[#2563EB] rounded-lg p-3.5 flex flex-col justify-between cursor-pointer transition block {{ request('verification_status') === 'terverifikasi' ? 'ring-2 ring-[#2563EB] bg-blue-50/40' : '' }}"
+           data-tooltip="Klik untuk menyaring hanya kejadian yang berstatus Terverifikasi">
             <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-[#2563EB]">Terverifikasi</span>
             <div class="mt-2 flex items-baseline justify-between">
                 <span class="font-telemetry text-2xl font-bold text-[#2563EB]">{{ $summary['terverifikasi'] }}</span>
                 <span class="font-telemetry text-[10px] text-[#1E40AF] uppercase">Valid</span>
             </div>
-        </div>
+        </a>
 
-        <div class="bg-white border border-[#FCD34D] rounded-lg p-3.5 flex flex-col justify-between">
+        <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['verification_status' => 'menunggu_verifikasi'])) }}"
+           class="card-interactive bg-white border border-[#FCD34D] hover:border-[#D97706] rounded-lg p-3.5 flex flex-col justify-between cursor-pointer transition block {{ request('verification_status') === 'menunggu_verifikasi' ? 'ring-2 ring-[#D97706] bg-amber-50/40' : '' }}"
+           data-tooltip="Klik untuk menyaring kejadian yang masih Dalam Pemeriksaan">
             <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-[#D97706]">Dalam Pemeriksaan</span>
             <div class="mt-2 flex items-baseline justify-between">
                 <span class="font-telemetry text-2xl font-bold text-[#D97706]">{{ $summary['dalam_pemeriksaan'] }}</span>
                 <span class="font-telemetry text-[10px] text-[#92400E] uppercase">Tinjauan</span>
             </div>
-        </div>
+        </a>
 
-        <div class="bg-white border border-[#6EE7B7] rounded-lg p-3.5 flex flex-col justify-between">
+        <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['follow_up_status' => 'sedang_ditindaklanjuti'])) }}"
+           class="card-interactive bg-white border border-[#6EE7B7] hover:border-[#059669] rounded-lg p-3.5 flex flex-col justify-between cursor-pointer transition block {{ request('follow_up_status') === 'sedang_ditindaklanjuti' ? 'ring-2 ring-[#059669] bg-emerald-50/40' : '' }}"
+           data-tooltip="Klik untuk menyaring kejadian yang Sedang Ditindaklanjuti">
             <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-[#059669]">Ditindaklanjuti</span>
             <div class="mt-2 flex items-baseline justify-between">
                 <span class="font-telemetry text-2xl font-bold text-[#059669]">{{ $summary['sedang_ditindaklanjuti'] }}</span>
                 <span class="font-telemetry text-[10px] text-[#065F46] uppercase">Aktif/Pantau</span>
             </div>
-        </div>
+        </a>
 
-        <div class="bg-white border border-[#FCA5A5] rounded-lg p-3.5 flex flex-col justify-between">
-            <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-[#DC2626]">Dampak Tinggi/Kritis</span>
+        <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['severity' => 'kritis'])) }}"
+           class="card-interactive bg-white border border-[#FCA5A5] hover:border-[#DC2626] rounded-lg p-3.5 flex flex-col justify-between cursor-pointer transition block {{ request('severity') === 'kritis' ? 'ring-2 ring-[#DC2626] bg-red-50/40' : '' }}"
+           data-tooltip="Klik untuk menyaring kejadian dengan dampak Kritis / Prioritas tinggi">
+            <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-[#DC2626]">Dampak Kritis</span>
             <div class="mt-2 flex items-baseline justify-between">
                 <span class="font-telemetry text-2xl font-bold text-[#DC2626]">{{ $summary['kritis_tinggi'] }}</span>
                 <span class="font-telemetry text-[10px] text-[#991B1B] uppercase">Prioritas</span>
             </div>
-        </div>
+        </a>
 
-        <div class="bg-white border border-[#E2E8F0] rounded-lg p-3.5 flex flex-col justify-between">
+        <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['aid_status' => 'terkonfirmasi'])) }}"
+           class="card-interactive bg-white border border-[#E2E8F0] hover:border-emerald-500 rounded-lg p-3.5 flex flex-col justify-between cursor-pointer transition block {{ request('aid_status') === 'terkonfirmasi' ? 'ring-2 ring-emerald-500 bg-emerald-50/40' : '' }}"
+           data-tooltip="Klik untuk menyaring kejadian yang memiliki Respons Bantuan Terkonfirmasi">
             <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500">Respons Bantuan</span>
             <div class="mt-2 flex items-baseline justify-between">
                 <span class="font-telemetry text-lg font-bold text-[#0F172A]">{{ $summary['total_aid_responses'] ?? 0 }} ({{ $summary['confirmed_aid_responses'] ?? 0 }} Sah)</span>
                 <span class="font-telemetry text-[10px] text-emerald-700 uppercase">Masyarakat</span>
             </div>
-        </div>
+        </a>
     </section>
 
     <!-- Search & Filter Bar -->
@@ -733,6 +745,7 @@
         const aidLayer = window.L.layerGroup().addTo(map);
 
         const bounds = [];
+        const incidentMarkersMap = new Map();
 
         markersData.forEach((item) => {
             if (typeof item.latitude !== 'number' || typeof item.longitude !== 'number') {
@@ -748,6 +761,8 @@
                 opacity: 1,
                 fillOpacity: 0.92,
             }).addTo(incidentsLayer);
+
+            incidentMarkersMap.set(String(item.id), marker);
 
             const popupHtml = `
                 <div style="min-width: 220px; font-family: 'Public Sans', sans-serif; color: #0F172A;">
@@ -765,9 +780,14 @@
                         <div><strong>Tindak Lanjut Tim:</strong> ${item.follow_up_label}</div>
                         <div><strong>Laporan:</strong> ${item.reports_count} | <strong>Respons Bantuan:</strong> ${item.aid_responses_count || 0}</div>
                     </div>
-                    <a href="${item.url}" style="display: inline-block; width: 100%; text-align: center; background: #0F172A; color: #FFFFFF; text-decoration: none; padding: 6px 10px; border-radius: 6px; font-family: 'Space Grotesk', monospace; font-size: 11px; font-weight: 700; text-transform: uppercase;">
-                        Lihat Detail Kejadian &rarr;
-                    </a>
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                        <button type="button" class="btn-popup-sidepanel" data-incident-id="${item.id}" style="display: block; width: 100%; text-align: center; background: #F1F5F9; color: #0F172A; border: 1px solid #CBD5E1; padding: 6px 10px; border-radius: 6px; font-family: 'Space Grotesk', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; cursor: pointer;">
+                            Buka Panel Cepat &rarr;
+                        </button>
+                        <a href="${item.url}" style="display: inline-block; width: 100%; text-align: center; background: #0F172A; color: #FFFFFF; text-decoration: none; padding: 6px 10px; border-radius: 6px; font-family: 'Space Grotesk', monospace; font-size: 11px; font-weight: 700; text-transform: uppercase;">
+                            Lihat Detail Kejadian &rarr;
+                        </a>
+                    </div>
                 </div>
             `;
 
@@ -855,6 +875,30 @@
         } else if (bounds.length > 1) {
             map.fitBounds(bounds, { padding: [36, 36], maxZoom: 13 });
         }
+
+        // Inisialisasi Cross-Highlighting antara Card & Marker Peta
+        const incidentCards = Array.from(document.querySelectorAll('.incident-card[data-incident-id]'));
+        if (window.MapCrossHighlight) {
+            window.MapCrossHighlight.init({
+                map,
+                incidentMarkers: incidentMarkersMap,
+                incidentCards,
+            });
+        }
+
+        map.on('popupopen', (e) => {
+            const btn = e.popup.getElement()?.querySelector('.btn-popup-sidepanel');
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    const id = btn.getAttribute('data-incident-id');
+                    const card = incidentCards.find(c => c.getAttribute('data-incident-id') === id);
+                    const marker = incidentMarkersMap.get(id);
+                    if (card && window.MapCrossHighlight) {
+                        window.MapCrossHighlight.openIncidentSidepanel(card, marker);
+                    }
+                });
+            }
+        });
 
         // Layer Filter Buttons
         const layerButtons = document.querySelectorAll('.map-layer-btn');

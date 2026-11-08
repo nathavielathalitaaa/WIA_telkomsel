@@ -22,7 +22,21 @@
     $aidResponsesCount = $incident->aid_responses_count ?? $incident->aidResponses?->count() ?? 0;
 @endphp
 
-<article class="bg-white border {{ $borderClass }} rounded-lg p-4 sm:p-5 relative overflow-hidden flex flex-col justify-between gap-4 transition hover:border-slate-300">
+<article class="incident-card card-interactive bg-white border {{ $borderClass }} rounded-lg p-4 sm:p-5 relative overflow-hidden flex flex-col justify-between gap-4"
+         data-incident-id="{{ $incident->id }}"
+         data-incident-slug="{{ $incident->slug }}"
+         data-incident-title="{{ $incident->title }}"
+         data-incident-type="{{ $typeLabel }}"
+         data-incident-location="{{ $incident->location_name }}"
+         data-incident-verification="{{ $incident->verification_status?->label() ?? $incident->verification_status }}"
+         data-incident-followup="{{ $incident->follow_up_status?->label() ?? $incident->follow_up_status }}"
+         data-incident-reports="{{ $reportsCount }}"
+         data-incident-aid="{{ $aidResponsesCount }}"
+         data-incident-url="{{ route('public.incidents.show', $incident->slug) }}"
+         @if($incident->latitude !== null && $incident->longitude !== null)
+             data-lat="{{ $incident->latitude }}"
+             data-lng="{{ $incident->longitude }}"
+         @endif>
     <div class="absolute top-0 left-0 bottom-0 w-1.5 {{ $stripeColor }}"></div>
 
     <div class="pl-2 flex flex-col gap-3">
@@ -117,13 +131,32 @@
         </div>
 
         @if($showActions)
-            <div class="flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                @if($incident->latitude !== null && $incident->longitude !== null)
+                    <button type="button"
+                            class="btn-focus-map hidden sm:inline-flex items-center gap-1 px-2.5 py-1.5 rounded border border-blue-200 bg-blue-50/60 hover:bg-blue-100 text-blue-800 text-xs font-telemetry font-bold transition cursor-pointer"
+                            data-tooltip="Pusatkan dan sorot lokasi kejadian pada peta interaktif">
+                        <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span>Peta</span>
+                    </button>
+                @endif
+                <button type="button"
+                        class="btn-quick-preview hidden md:inline-flex items-center gap-1 px-2.5 py-1.5 rounded border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-telemetry font-bold transition cursor-pointer"
+                        data-tooltip="Buka ringkasan cepat kejadian di panel samping tanpa pindah halaman">
+                    <span>Panel Cepat</span>
+                </button>
                 @if(\Illuminate\Support\Facades\Route::has('public.sitrep'))
-                    <a href="{{ route('public.sitrep', ['incident' => $incident->slug]) }}" class="px-3 py-1.5 rounded border border-slate-300 text-xs font-telemetry font-bold text-[#0F172A] hover:bg-slate-100 transition">
+                    <a href="{{ route('public.sitrep', ['incident' => $incident->slug]) }}"
+                       class="px-2.5 sm:px-3 py-1.5 rounded border border-slate-300 text-xs font-telemetry font-bold text-[#0F172A] hover:bg-slate-100 transition"
+                       data-tooltip="Lihat Situation Report (SitRep) formal kejadian ini">
                         SitRep
                     </a>
                 @endif
-                <a href="{{ route('public.incidents.show', $incident->slug) }}" class="px-3.5 py-1.5 rounded bg-[#0F172A] text-white text-xs font-telemetry font-bold hover:bg-slate-800 transition inline-flex items-center gap-1">
+                <a href="{{ route('public.incidents.show', $incident->slug) }}"
+                   class="px-3 sm:px-3.5 py-1.5 rounded bg-[#0F172A] text-white text-xs font-telemetry font-bold hover:bg-slate-800 transition inline-flex items-center gap-1">
                     <span>Lihat Detail</span>
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>

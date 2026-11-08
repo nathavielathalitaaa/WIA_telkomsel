@@ -11,13 +11,9 @@
 @endphp
 
 @section('content')
-    <!-- Prominent Simulation Warning Header -->
+    <!-- Replay Console Header -->
     <section class="bg-[#0F172A] text-white border border-slate-800 rounded-lg p-5 sm:p-6 space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-2">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#DC2626] text-white font-telemetry text-xs font-bold uppercase tracking-wider">
-                <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
-                <span>DEMO SIMULASI — BUKAN DATA REAL-TIME</span>
-            </div>
             <span class="px-2.5 py-1 rounded bg-slate-800 text-amber-300 border border-slate-700 font-telemetry text-xs font-bold uppercase">
                 Kronologi Berbasis Database
             </span>
@@ -150,7 +146,8 @@
                         <button type="button"
                                 data-jump-ms="{{ $ev['timestamp_ms'] }}"
                                 data-jump-index="{{ $idx }}"
-                                class="replay-milestone-btn px-2.5 py-1 rounded border border-slate-300 bg-white hover:bg-slate-100 font-telemetry text-[11px] font-bold text-[#0F172A] transition cursor-pointer">
+                                data-tooltip="Lompat ke tahap #{{ $ev['step_number'] }}: {{ $ev['title'] }}"
+                                class="replay-milestone-btn px-2.5 py-1 rounded border border-slate-300 bg-white hover:bg-slate-100 font-telemetry text-[11px] font-bold text-[#0F172A] transition cursor-pointer hover:shadow-xs active:scale-95">
                             #{{ $ev['step_number'] }} • {{ $ev['time_short'] }} ({{ match($ev['type']) {
                                 'kejadian_awal' => 'Awal',
                                 'laporan_masyarakat' => 'Laporan',
@@ -169,25 +166,29 @@
                 <div class="flex flex-wrap items-center gap-2">
                     <button type="button"
                             id="btn-replay-reset"
-                            class="px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-[#0F172A] font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px]">
+                            data-tooltip="Kembalikan replay ke awal timeline"
+                            class="px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-[#0F172A] font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px] transition active:scale-95">
                         &#8634; Reset ke Awal
                     </button>
 
                     <button type="button"
                             id="btn-replay-prev"
-                            class="px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-[#0F172A] font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px]">
+                            data-tooltip="Mundur satu peristiwa ke belakang"
+                            class="px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-[#0F172A] font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px] transition active:scale-95">
                         &larr; Tahap Sebelumnya
                     </button>
 
                     <button type="button"
                             id="btn-replay-play"
-                            class="px-5 py-2 rounded-lg bg-[#DC2626] hover:bg-red-700 text-white font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px] inline-flex items-center gap-2">
+                            data-tooltip="Mulai / jeda simulasi otomatis"
+                            class="px-5 py-2 rounded-lg bg-[#DC2626] hover:bg-red-700 text-white font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px] inline-flex items-center gap-2 transition active:scale-95 shadow-xs">
                         <span id="btn-replay-play-label">&#9654; Putar Replay</span>
                     </button>
 
                     <button type="button"
                             id="btn-replay-next"
-                            class="px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-[#0F172A] font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px]">
+                            data-tooltip="Maju satu peristiwa ke depan"
+                            class="px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-[#0F172A] font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px] transition active:scale-95">
                         Tahap Berikutnya &rarr;
                     </button>
                 </div>
@@ -195,16 +196,17 @@
                 <!-- Playback Speed Controls -->
                 <div class="flex items-center gap-1.5 font-telemetry text-xs">
                     <span class="text-slate-500 uppercase font-bold mr-1">Kecepatan:</span>
-                    <button type="button" data-speed="1" class="replay-speed-btn px-2.5 py-1 rounded bg-[#0F172A] text-white font-bold cursor-pointer">1x</button>
-                    <button type="button" data-speed="2" class="replay-speed-btn px-2.5 py-1 rounded bg-slate-100 text-slate-700 font-bold cursor-pointer">2x</button>
-                    <button type="button" data-speed="4" class="replay-speed-btn px-2.5 py-1 rounded bg-slate-100 text-slate-700 font-bold cursor-pointer">4x</button>
+                    <button type="button" data-speed="1" data-tooltip="Kecepatan normal (1x)" class="replay-speed-btn px-2.5 py-1 rounded bg-[#0F172A] text-white font-bold cursor-pointer transition">1x</button>
+                    <button type="button" data-speed="2" data-tooltip="Kecepatan 2x" class="replay-speed-btn px-2.5 py-1 rounded bg-slate-100 text-slate-700 font-bold cursor-pointer transition hover:bg-slate-200">2x</button>
+                    <button type="button" data-speed="4" data-tooltip="Kecepatan 4x" class="replay-speed-btn px-2.5 py-1 rounded bg-slate-100 text-slate-700 font-bold cursor-pointer transition hover:bg-slate-200">4x</button>
                 </div>
             </div>
         </section>
 
         <!-- Dynamic Summary Panel (Real DB Counts Accumulated Up to Active Replay Time — No Invented Metrics) -->
         <section aria-label="Ringkasan Akumulasi Informasi pada Waktu Replay" class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
-            <div class="bg-white border border-[#E2E8F0] rounded-lg p-4">
+            <div class="bg-white border border-[#E2E8F0] rounded-lg p-4 card-interactive"
+                 data-tooltip="Total log peristiwa yang telah diputar">
                 <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
                     Peristiwa Tercatat s/d Waktu Ini
                 </span>
@@ -216,7 +218,8 @@
                 </div>
             </div>
 
-            <div class="bg-white border border-[#E2E8F0] rounded-lg p-4">
+            <div class="bg-white border border-[#E2E8F0] rounded-lg p-4 card-interactive"
+                 data-tooltip="Laporan masuk sampai waktu ini">
                 <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
                     Laporan Warga Masuk s/d Waktu Ini
                 </span>
@@ -228,7 +231,8 @@
                 </div>
             </div>
 
-            <div class="bg-white border border-[#E2E8F0] rounded-lg p-4">
+            <div class="bg-white border border-[#E2E8F0] rounded-lg p-4 card-interactive"
+                 data-tooltip="Rujukan sumber terbuka yang dicatat">
                 <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
                     Sumber Terbuka Dirujuk s/d Waktu Ini
                 </span>
@@ -240,7 +244,8 @@
                 </div>
             </div>
 
-            <div class="bg-white border border-[#E2E8F0] rounded-lg p-4">
+            <div class="bg-white border border-[#E2E8F0] rounded-lg p-4 card-interactive"
+                 data-tooltip="Aksi dan tindak lanjut tim lapangan">
                 <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
                     Catatan Tindak Lanjut s/d Waktu Ini
                 </span>
@@ -500,6 +505,9 @@
                         card.classList.remove('hidden');
                         if (cardStep === latestReachedIndex + 1) {
                             card.classList.add('ring-2', 'ring-[#0F172A]', 'bg-[#F8FAFC]');
+                            if (window.innerWidth >= 1024 && !isPlaying) {
+                                card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            }
                         } else {
                             card.classList.remove('ring-2', 'ring-[#0F172A]', 'bg-[#F8FAFC]');
                         }

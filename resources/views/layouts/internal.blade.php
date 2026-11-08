@@ -13,7 +13,11 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('head')
 </head>
-<body class="bg-[#F8FAFC] text-[#0F172A] antialiased min-h-screen flex flex-col">
+<body class="bg-[#F8FAFC] text-[#0F172A] antialiased min-h-screen flex flex-col"
+      @if(session('success')) data-flash-success="{{ session('success') }}" @endif
+      @if(session('error')) data-flash-error="{{ session('error') }}" @endif>
+    <!-- Toast Notification Container -->
+    <div id="tanggap-toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2.5 max-w-sm pointer-events-none" aria-live="polite"></div>
     <!-- Internal Top Command Bar -->
     @php
         $internalMenu = $internalMenu ?? '';
@@ -76,6 +80,12 @@
                        class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'incidents' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
                         {{ $incidentsMenuLabel }}
                     </a>
+                    @if($currentUser?->isAdmin())
+                        <a href="{{ route('internal.intelligence.index') }}"
+                           class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'intelligence' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                            Pusat Intelijen
+                        </a>
+                    @endif
                     @if($canOperate)
                         <a href="{{ route('internal.incidents.create') }}"
                            class="ml-1 px-2.5 py-1.5 rounded border border-emerald-500/70 bg-emerald-950/60 hover:bg-emerald-900 text-emerald-200 font-telemetry text-[11px] font-bold uppercase tracking-wider transition whitespace-nowrap">
@@ -118,6 +128,9 @@
                 <a href="{{ route('internal.dashboard') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'dashboard' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800' }}">Dashboard</a>
                 <a href="{{ route('internal.reports.index') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'reports' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800' }}">{{ $reportsMenuLabel }}</a>
                 <a href="{{ route('internal.incidents.index') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'incidents' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800' }}">{{ $incidentsMenuLabel }}</a>
+                @if($currentUser?->isAdmin())
+                    <a href="{{ route('internal.intelligence.index') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'intelligence' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800' }}">Intelijen</a>
+                @endif
                 @if($canOperate)
                     <a href="{{ route('internal.incidents.create') }}" class="px-2.5 py-1 rounded border border-emerald-500/70 bg-emerald-950/60 text-emerald-200 font-telemetry text-[11px] font-bold uppercase whitespace-nowrap">+ Buat Kejadian</a>
                 @endif
@@ -162,6 +175,9 @@
         {{ $slot ?? '' }}
         @yield('content')
     </main>
+
+    <!-- Internal Footer -->
+    <x-internal-footer />
 
     @stack('scripts')
 </body>

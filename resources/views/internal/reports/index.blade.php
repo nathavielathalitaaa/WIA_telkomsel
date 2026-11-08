@@ -118,10 +118,11 @@
                 </thead>
                 <tbody class="divide-y divide-slate-100 text-sm">
                     @forelse($reports as $report)
-                        <tr class="hover:bg-slate-50 transition">
+                        <tr class="hover:bg-slate-50/80 transition-colors">
                             <td class="py-3.5 px-4 align-top whitespace-nowrap">
                                 <a href="{{ route('internal.reports.show', $report) }}"
-                                   class="px-2 py-0.5 rounded bg-[#0F172A] text-white font-telemetry text-xs font-bold inline-block">
+                                   data-tooltip="Buka detail laporan {{ $report->ticket_number }}"
+                                   class="px-2 py-0.5 rounded bg-[#0F172A] text-white font-telemetry text-xs font-bold inline-block hover:bg-slate-800 transition">
                                     {{ $report->ticket_number }}
                                 </a>
                                 @if($report->is_simulation)

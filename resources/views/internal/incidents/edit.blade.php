@@ -88,7 +88,7 @@
                 </div>
 
                 @if($user->canManageOperations())
-                    <form method="POST" action="{{ route('internal.incidents.update', $incident) }}" class="space-y-4">
+                    <form method="POST" action="{{ route('internal.incidents.update', $incident) }}" data-warn-unsaved="true" class="space-y-4">
                         @csrf
                         @method('PUT')
 

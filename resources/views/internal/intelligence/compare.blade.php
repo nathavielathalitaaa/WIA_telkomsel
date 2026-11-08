@@ -125,13 +125,13 @@
                         Slot Waktu Identik Lainnya yang Tersedia (8 Jam Terakhir / Mendatang)
                     </h4>
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px]">
-                        @foreach($weatherComparison['matched_slots'] as $slot)
+                        @foreach($weatherComparison['matched_slots'] as $matchedSlot)
                             <div class="bg-white p-2 rounded border border-slate-200">
-                                <span class="font-bold font-telemetry text-slate-800 block text-[10px]">{{ $slot['time_wib'] }} WIB</span>
+                                <span class="font-bold font-telemetry text-slate-800 block text-[10px]">{{ $matchedSlot['time_wib'] }} WIB</span>
                                 <div class="text-slate-600 mt-0.5">
-                                    <span class="text-blue-700 font-medium">BMKG:</span> {{ $slot['bmkg_temp'] }}
+                                    <span class="text-blue-700 font-medium">BMKG:</span> {{ $matchedSlot['bmkg_temp'] }}
                                     <span class="text-slate-400">|</span>
-                                    <span class="text-purple-700 font-medium">OM:</span> {{ $slot['om_temp'] }}
+                                    <span class="text-purple-700 font-medium">OM:</span> {{ $matchedSlot['om_temp'] }}
                                 </div>
                             </div>
                         @endforeach

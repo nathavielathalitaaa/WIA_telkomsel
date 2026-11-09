@@ -10,6 +10,7 @@ use App\Enums\VerificationStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\PublicIncidentController;
 use App\Models\AidResponse;
+use App\Models\AuditLog;
 use App\Models\FollowUpRecord;
 use App\Models\Incident;
 use App\Models\IncidentSource;
@@ -201,6 +202,19 @@ class InternalIncidentController extends Controller
             return $incident;
         });
 
+        AuditLog::record(
+            activityType: 'incident.create',
+            description: "Kejadian baru \"{$incident->title}\" dibuat oleh {$user->name} ({$user->role?->label()}).",
+            actor: $user,
+            subject: $incident,
+            subjectLabel: $incident->title,
+            metadata: [
+                'incident_type' => $incident->incident_type,
+                'severity' => $incident->severity,
+                'location_name' => $incident->location_name,
+            ]
+        );
+
         return redirect()
             ->route('internal.incidents.edit', $incident)
             ->with('success', "Kejadian baru \"{$incident->title}\" berhasil dibuat.");
@@ -306,6 +320,20 @@ class InternalIncidentController extends Controller
             }
         });
 
+        AuditLog::record(
+            activityType: 'incident.update',
+            description: "Informasi kejadian \"{$incident->title}\" diperbarui oleh {$user->name}.",
+            actor: $user,
+            subject: $incident,
+            subjectLabel: $incident->title,
+            metadata: [
+                'title' => $incident->title,
+                'incident_type' => $incident->incident_type,
+                'severity' => $incident->severity,
+                'location_name' => $incident->location_name,
+            ]
+        );
+
         return redirect()
             ->route('internal.incidents.edit', $incident)
             ->with('success', 'Informasi kejadian berhasil diperbarui.');
@@ -353,6 +381,18 @@ class InternalIncidentController extends Controller
             ]);
         });
 
+        AuditLog::record(
+            activityType: 'incident.verification_update',
+            description: "Status verifikasi kejadian \"{$incident->title}\" diubah menjadi {$validated['verification_status']} oleh {$user->name}. Catatan: {$validated['reason']}",
+            actor: $user,
+            subject: $incident,
+            subjectLabel: $incident->title,
+            metadata: [
+                'verification_status' => $validated['verification_status'],
+                'reason' => $validated['reason'],
+            ]
+        );
+
         return redirect()
             ->route('internal.incidents.edit', $incident)
             ->with('success', 'Status verifikasi kejadian berhasil diperbarui dan dicatat dalam histori.');
@@ -399,6 +439,18 @@ class InternalIncidentController extends Controller
                 'is_simulation' => (bool) $incident->is_simulation,
             ]);
         });
+
+        AuditLog::record(
+            activityType: 'incident.follow_up_update',
+            description: "Status tindak lanjut kejadian \"{$incident->title}\" diubah menjadi {$validated['follow_up_status']} oleh {$user->name}. Catatan: {$validated['notes']}",
+            actor: $user,
+            subject: $incident,
+            subjectLabel: $incident->title,
+            metadata: [
+                'follow_up_status' => $validated['follow_up_status'],
+                'notes' => $validated['notes'],
+            ]
+        );
 
         return redirect()
             ->route('internal.incidents.edit', $incident)
@@ -451,6 +503,19 @@ class InternalIncidentController extends Controller
                 ]);
             }
         });
+
+        AuditLog::record(
+            activityType: 'incident.follow_up_record_add',
+            description: "Catatan tindak lanjut \"{$validated['action_title']}\" ditambahkan pada kejadian \"{$incident->title}\" oleh {$user->name}.",
+            actor: $user,
+            subject: $incident,
+            subjectLabel: $incident->title,
+            metadata: [
+                'action_title' => $validated['action_title'],
+                'status' => $validated['status'],
+                'action_date' => $validated['action_date'],
+            ]
+        );
 
         return redirect()
             ->route('internal.incidents.edit', $incident)
@@ -512,6 +577,18 @@ class InternalIncidentController extends Controller
             ]);
         });
 
+        AuditLog::record(
+            activityType: 'incident.source_add',
+            description: "Sumber informasi \"{$validated['headline']}\" ditautkan pada kejadian \"{$incident->title}\" oleh {$user->name}.",
+            actor: $user,
+            subject: $incident,
+            subjectLabel: $incident->title,
+            metadata: [
+                'headline' => $validated['headline'],
+                'reference_url' => $validated['reference_url'] ?? null,
+            ]
+        );
+
         return redirect()
             ->route('internal.incidents.edit', $incident)
             ->with('success', 'Sumber informasi terbuka berhasil ditautkan ke kejadian.');
@@ -563,6 +640,19 @@ class InternalIncidentController extends Controller
 
             $aidResponse->update($updates);
         });
+
+        AuditLog::record(
+            activityType: 'aid.verify',
+            description: "Status pemeriksaan respons bantuan [{$aidResponse->reference_code}] diperbarui menjadi {$newVerifStatus->label()} oleh {$user->name}. Catatan: {$validated['verification_notes']}",
+            actor: $user,
+            subject: $aidResponse,
+            subjectLabel: $aidResponse->reference_code,
+            metadata: [
+                'incident_id' => $incident->id,
+                'verification_status' => $newVerifStatus->value,
+                'verification_notes' => $validated['verification_notes'],
+            ]
+        );
 
         return redirect()
             ->route('internal.incidents.edit', $incident)
@@ -635,6 +725,19 @@ class InternalIncidentController extends Controller
             'confirmed_at' => $newStatus === AidResponseStatus::Terkonfirmasi ? now() : null,
             'confirmed_by_user_id' => $newStatus === AidResponseStatus::Terkonfirmasi ? $user->id : null,
         ]);
+
+        AuditLog::record(
+            activityType: 'aid.update',
+            description: "Status operasional respons bantuan [{$aidResponse->reference_code}] diperbarui menjadi {$newStatus->label()} oleh {$user->name}." . ($confirmationNotes ? " Catatan: {$confirmationNotes}" : ''),
+            actor: $user,
+            subject: $aidResponse,
+            subjectLabel: $aidResponse->reference_code,
+            metadata: [
+                'incident_id' => $incident->id,
+                'status' => $newStatus->value,
+                'evidence_url' => $evidenceUrl,
+            ]
+        );
 
         return redirect()
             ->route('internal.incidents.edit', $incident)

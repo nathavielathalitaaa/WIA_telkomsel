@@ -50,6 +50,7 @@ class PublicIncidentController extends Controller
         $locationFilter = trim((string) $request->query('wilayah', ''));
         $aidStatus = trim((string) $request->query('aid_status', ''));
         $aidVerification = trim((string) $request->query('aid_verification', ''));
+        $sourceMode = trim((string) $request->query('source_mode', ''));
 
         $baseQuery = Incident::query()
             ->with(['wilayahAdministratif'])
@@ -58,6 +59,12 @@ class PublicIncidentController extends Controller
                 'sources',
                 'aidResponses',
             ]);
+
+        if ($sourceMode === 'historical') {
+            $baseQuery->where('is_simulation', false);
+        } elseif ($sourceMode === 'simulation') {
+            $baseQuery->where('is_simulation', true);
+        }
 
         if ($search !== '') {
             $baseQuery->where(function ($q) use ($search) {
@@ -178,7 +185,7 @@ class PublicIncidentController extends Controller
             ->get()
             ->map(function (Report $rep) {
                 $needKey = AidResponse::mapReportCategoryToNeedCategory((string) $rep->category);
-                $needLabel = AidResponse::needCategories()[$needKey] ?? $needKey;
+                $needLabel = AidResponse::categoryLabel($needKey);
                 $vStatus = $rep->verification_status instanceof VerificationStatus
                     ? $rep->verification_status
                     : VerificationStatus::tryFrom((string) $rep->verification_status);
@@ -262,7 +269,7 @@ class PublicIncidentController extends Controller
                     'aid_item_title' => $aid->aid_item_title,
                     'quantity_label' => $aid->quantity_label,
                     'responder_name' => $aid->publicResponderName(),
-                    'need_category_label' => AidResponse::needCategories()[$aid->need_category] ?? $aid->need_category,
+                    'need_category_label' => AidResponse::categoryLabel($aid->need_category),
                     'target_location' => $aid->target_location,
                     'latitude' => (float) $aid->latitude,
                     'longitude' => (float) $aid->longitude,
@@ -281,12 +288,14 @@ class PublicIncidentController extends Controller
             ->paginate(8)
             ->withQueryString();
 
-        $hasActiveFilter = (bool) array_filter([$search, $verificationStatus, $followUpStatus, $incidentType, $severity, $locationFilter, $aidStatus, $aidVerification]);
+        $hasActiveFilter = (bool) array_filter([$search, $verificationStatus, $followUpStatus, $incidentType, $severity, $locationFilter, $aidStatus, $aidVerification, $sourceMode]);
 
         // Ringkasan jumlah kejadian & respons bantuan konsisten dengan filter aktif
         $summary = [
             'is_filtered' => $hasActiveFilter,
             'total_incidents' => (clone $baseQuery)->count(),
+            'historical_incidents' => (clone $baseQuery)->where('is_simulation', false)->count(),
+            'simulation_incidents' => (clone $baseQuery)->where('is_simulation', true)->count(),
             'terverifikasi' => (clone $baseQuery)->where('verification_status', VerificationStatus::Terverifikasi->value)->count(),
             'dalam_pemeriksaan' => (clone $baseQuery)->where('verification_status', VerificationStatus::MenungguVerifikasi->value)->count(),
             'sedang_ditindaklanjuti' => (clone $baseQuery)->whereIn('follow_up_status', [
@@ -354,6 +363,7 @@ class PublicIncidentController extends Controller
                 'wilayah' => $locationFilter,
                 'aid_status' => $aidStatus,
                 'aid_verification' => $aidVerification,
+                'source_mode' => $sourceMode,
             ],
         ]);
     }
@@ -492,7 +502,9 @@ class PublicIncidentController extends Controller
                 fn (Report $r) => AidResponse::mapReportCategoryToNeedCategory((string) $r->category) === $key
             )->count();
 
-            $catResponses = $aidResponses->where('need_category', $key);
+            $catResponses = $aidResponses->filter(
+                fn (AidResponse $a) => AidResponse::normalizeCategory($a->need_category) === $key
+            );
             $responsesTotal = $catResponses->count();
 
             $tawaranRencanaCount = $catResponses->filter(

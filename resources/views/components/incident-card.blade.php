@@ -47,6 +47,11 @@
                     <span class="px-2 py-0.5 rounded bg-slate-900 text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
                         Data Simulasi
                     </span>
+                @else
+                    <span class="px-2 py-0.5 rounded bg-blue-900 text-white font-telemetry text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
+                        <svg class="w-3 h-3 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        Data Historis (BNPB)
+                    </span>
                 @endif
                 <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 font-telemetry text-[11px] font-bold uppercase tracking-wider">
                     {{ $typeLabel }}
@@ -55,7 +60,7 @@
             </div>
 
             <time datetime="{{ $incident->occurred_at?->toIso8601String() }}" class="font-telemetry text-xs text-slate-500 font-semibold">
-                {{ $incident->occurred_at?->diffForHumans() ?? '-' }}
+                {{ $incident->occurred_at?->format('d M Y') ?? '-' }}
             </time>
         </div>
 
@@ -84,23 +89,16 @@
             {{ $incident->description }}
         </p>
 
-        <!-- Dual Status Separation Box (Verification vs Follow-up) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded p-2.5 flex flex-col gap-1">
-                <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-slate-500">
-                    1. Status Verifikasi Informasi
-                </span>
-                <div>
-                    <x-verification-badge :status="$incident->verification_status" />
-                </div>
+        <!-- Status Row: Verifikasi & Tindak Lanjut -->
+        <div class="flex flex-wrap items-center gap-2 pt-0.5">
+            <div class="flex items-center gap-1.5 text-xs font-telemetry">
+                <span class="text-slate-500 font-medium">Verifikasi:</span>
+                <x-verification-badge :status="$incident->verification_status" />
             </div>
-            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded p-2.5 flex flex-col gap-1">
-                <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-slate-500">
-                    2. Status Tindak Lanjut Tim
-                </span>
-                <div>
-                    <x-followup-badge :status="$incident->follow_up_status" />
-                </div>
+            <span class="text-slate-300 hidden sm:inline">•</span>
+            <div class="flex items-center gap-1.5 text-xs font-telemetry">
+                <span class="text-slate-500 font-medium">Tindak Lanjut:</span>
+                <x-followup-badge :status="$incident->follow_up_status" />
             </div>
         </div>
     </div>
@@ -108,26 +106,46 @@
     <!-- Card Footer: Counts & Actions -->
     <div class="pl-2 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
         <div class="flex flex-wrap items-center gap-x-3 gap-y-1 font-telemetry text-xs text-slate-600">
-            <span class="inline-flex items-center gap-1 font-semibold">
-                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                </svg>
-                {{ $reportsCount }} Laporan Warga
-            </span>
-            <span class="text-slate-300">|</span>
-            <span class="inline-flex items-center gap-1 font-semibold">
-                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
-                </svg>
-                {{ $sourcesCount }} Sumber Terbuka
-            </span>
-            <span class="text-slate-300">|</span>
-            <span class="inline-flex items-center gap-1 font-semibold text-blue-700">
-                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                </svg>
-                {{ $aidResponsesCount }} Respons Bantuan
-            </span>
+            @if(!$incident->is_simulation)
+                <span class="inline-flex items-center gap-1 font-semibold text-blue-900">
+                    <svg class="w-4 h-4 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                    </svg>
+                    Arsip Resmi DIBI
+                </span>
+                <span class="text-slate-300">|</span>
+                <span class="inline-flex items-center gap-1 font-semibold text-slate-700">
+                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+                    </svg>
+                    {{ $sourcesCount }} Sumber Terbuka
+                </span>
+                <span class="text-slate-300">|</span>
+                <span class="inline-flex items-center gap-1 font-semibold text-slate-500">
+                    Data Riil (Tanpa Laporan Fiktif)
+                </span>
+            @else
+                <span class="inline-flex items-center gap-1 font-semibold">
+                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    {{ $reportsCount }} Laporan Warga
+                </span>
+                <span class="text-slate-300">|</span>
+                <span class="inline-flex items-center gap-1 font-semibold">
+                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+                    </svg>
+                    {{ $sourcesCount }} Sumber Terbuka
+                </span>
+                <span class="text-slate-300">|</span>
+                <span class="inline-flex items-center gap-1 font-semibold text-blue-700">
+                    <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                    </svg>
+                    {{ $aidResponsesCount }} Respons Bantuan
+                </span>
+            @endif
         </div>
 
         @if($showActions)

@@ -12,9 +12,21 @@
                     <span class="px-2 py-0.5 rounded bg-[#0F172A] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
                         Dokumen Ringkasan Informasi (SitRep)
                     </span>
-                    <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300 font-telemetry text-[10px] font-bold uppercase tracking-wider">
-                        Data Simulasi Prototype
-                    </span>
+                    @if($selectedIncident)
+                        @if(!$selectedIncident->is_simulation)
+                            <span class="px-2 py-0.5 rounded bg-blue-900 text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
+                                Data Kejadian Historis BNPB (DIBI)
+                            </span>
+                        @else
+                            <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300 font-telemetry text-[10px] font-bold uppercase tracking-wider">
+                                Data Simulasi Prototype
+                            </span>
+                        @endif
+                    @else
+                        <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-900 border border-blue-300 font-telemetry text-[10px] font-bold uppercase tracking-wider">
+                            Data Gabungan: {{ $stats['historical_incidents'] ?? 0 }} Historis BNPB • {{ $stats['simulation_incidents'] ?? 0 }} Simulasi
+                        </span>
+                    @endif
                 </div>
                 <h1 class="text-xl sm:text-2xl font-extrabold text-[#0F172A]">
                     Laporan Ringkasan Situasi Kejadian &amp; Tindak Lanjut
@@ -46,12 +58,21 @@
                 <select id="sitrep-incident"
                         name="incident"
                         class="w-full min-h-[42px] px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg text-xs text-[#0F172A]">
-                    <option value="">Semua Kejadian Tercatat</option>
-                    @foreach($allIncidentOptions as $opt)
-                        <option value="{{ $opt->slug }}" @selected($filters['incident'] === $opt->slug)>
-                            {{ $opt->title }}
-                        </option>
-                    @endforeach
+                    <option value="">Semua Kejadian Tercatat (Historis &amp; Simulasi)</option>
+                    <optgroup label="Data Historis Resmi BNPB (DIBI)">
+                        @foreach($allIncidentOptions->where('is_simulation', false) as $opt)
+                            <option value="{{ $opt->slug }}" @selected($filters['incident'] === $opt->slug)>
+                                [HISTORIS] {{ $opt->title }}
+                            </option>
+                        @endforeach
+                    </optgroup>
+                    <optgroup label="Skenario Simulasi Prototipe">
+                        @foreach($allIncidentOptions->where('is_simulation', true) as $opt)
+                            <option value="{{ $opt->slug }}" @selected($filters['incident'] === $opt->slug)>
+                                [SIMULASI] {{ $opt->title }}
+                            </option>
+                        @endforeach
+                    </optgroup>
                 </select>
             </div>
 
@@ -119,9 +140,21 @@
                         <span class="px-2 py-0.5 rounded bg-[#0F172A] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
                             TanggapTerang — Laporan Ringkasan Situasi (SitRep)
                         </span>
-                        <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-400 font-telemetry text-[10px] font-bold uppercase tracking-wider">
-                            DATA SIMULASI PROTOTYPE
-                        </span>
+                        @if($selectedIncident)
+                            @if(!$selectedIncident->is_simulation)
+                                <span class="px-2 py-0.5 rounded bg-blue-900 text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
+                                    DATA HISTORIS (BNPB / DIBI)
+                                </span>
+                            @else
+                                <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-400 font-telemetry text-[10px] font-bold uppercase tracking-wider">
+                                    DATA SIMULASI PROTOTYPE
+                                </span>
+                            @endif
+                        @else
+                            <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-900 border border-blue-300 font-telemetry text-[10px] font-bold uppercase tracking-wider">
+                                DATA HISTORIS BNPB ({{ $stats['historical_incidents'] ?? 0 }}) &amp; SIMULASI ({{ $stats['simulation_incidents'] ?? 0 }})
+                            </span>
+                        @endif
                     </div>
                     <h2 class="text-xl sm:text-2xl font-extrabold text-[#0F172A] tracking-tight">
                         Ringkasan Informasi Kejadian &amp; Status Tindak Lanjut Tim TanggapTerang
@@ -159,7 +192,7 @@
                         1. Ringkasan Berdasarkan Status Verifikasi Informasi
                     </h3>
                     <span class="font-telemetry text-xs font-bold text-[#0F172A]">
-                        Total: {{ $stats['total_incidents'] }} Kejadian
+                        Total: {{ $stats['total_incidents'] }} Kejadian ({{ $stats['historical_incidents'] ?? 0 }} Historis, {{ $stats['simulation_incidents'] ?? 0 }} Sim)
                     </span>
                 </div>
 
@@ -264,7 +297,9 @@
                                         <div class="font-telemetry text-[10px] uppercase text-slate-500">
                                             Jenis: {{ $categories[$incident->incident_type] ?? $incident->incident_type }}
                                             @if($incident->is_simulation)
-                                                • [DATA SIMULASI]
+                                                • <span class="text-slate-800 font-bold">[DATA SIMULASI]</span>
+                                            @else
+                                                • <span class="text-blue-800 font-bold">[DATA HISTORIS BNPB]</span>
                                             @endif
                                         </div>
                                         <p class="text-slate-600 leading-relaxed">

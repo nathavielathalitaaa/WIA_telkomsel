@@ -7,7 +7,7 @@
                 Mode Simulasi Prototype
             </span>
             <p class="font-medium leading-snug text-[#78350F]">
-                Seluruh kejadian dan laporan pada halaman ini adalah <strong>data simulasi</strong>. TanggapTerang menyajikan informasi kejadian &amp; tindak lanjut dokumentasi, <strong>bukan layanan distribusi bantuan</strong> atau pusat komando darurat.
+                Bagian ini memuat data simulasi untuk memperlihatkan alur kerja sistem. Untuk keadaan darurat nyata, selalu hubungi nomor darurat resmi instansi terkait.
             </p>
         </div>
     </div>

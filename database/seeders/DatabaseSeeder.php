@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
             RiwayatStatusTiketSeeder::class,
             KonfirmasiPenerimaanSeeder::class,
             SimulationDataSeeder::class,
+            HistoricalBnpbDisasterSeeder::class,
         ]);
     }
 }

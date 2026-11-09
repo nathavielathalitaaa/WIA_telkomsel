@@ -59,6 +59,11 @@
                     <span class="px-2.5 py-1 rounded bg-[#0F172A] text-white font-telemetry text-xs font-bold uppercase tracking-wider">
                         Data Simulasi
                     </span>
+                @else
+                    <span class="px-2.5 py-1 rounded bg-blue-900 text-white font-telemetry text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        Data Historis Resmi (Pusdatin BNPB / DIBI)
+                    </span>
                 @endif
                 <span class="px-2.5 py-1 rounded bg-slate-100 text-slate-800 border border-slate-300 font-telemetry text-xs font-bold uppercase tracking-wider">
                     {{ $typeLabel }}
@@ -78,6 +83,22 @@
                 </span>
             </div>
         </div>
+
+        @if(!$incident->is_simulation)
+            <div class="bg-blue-50/70 border border-blue-200 rounded-lg p-3.5 flex items-start gap-2.5 text-xs text-blue-950">
+                <svg class="w-4 h-4 text-blue-700 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <div class="space-y-0.5">
+                    <div class="font-telemetry font-bold uppercase tracking-wider text-blue-900">
+                        Atribusi Sumber Data Kejadian Historis (BNPB / DIBI)
+                    </div>
+                    <p class="leading-relaxed text-slate-700">
+                        Informasi kejadian ini tercatat secara resmi pada arsip <strong>Pusat Data, Informasi dan Komunikasi Kebencanaan (Pusdatin) BNPB</strong> melalui portal <strong>Data Informasi Bencana Indonesia (DIBI)</strong>. Sesuai prinsip integritas data kebencanaan, informasi ini tidak dihubungkan secara otomatis dengan laporan masyarakat atau catatan respons crowdsourcing fiktif.
+                    </p>
+                </div>
+            </div>
+        @endif
 
         <div class="space-y-3">
             <h1 class="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#0F172A] leading-tight">
@@ -134,40 +155,61 @@
             </div>
         </div>
 
-        <!-- Dual Separated Status Panel: Verification vs Follow-up -->
+        @php
+            $vStatusVal = $incident->verification_status instanceof \BackedEnum ? $incident->verification_status->value : (string) $incident->verification_status;
+            $fStatusVal = $incident->follow_up_status instanceof \BackedEnum ? $incident->follow_up_status->value : (string) $incident->follow_up_status;
+
+            if ($vStatusVal === 'menunggu_verifikasi') {
+                $incidentStep = 2; // Pemeriksaan Awal
+            } elseif ($fStatusVal === 'selesai') {
+                $incidentStep = 5; // Dikonfirmasi
+            } elseif (in_array($fStatusVal, ['sedang_ditindaklanjuti', 'dipantau'])) {
+                $incidentStep = 4; // Ditindaklanjuti
+            } elseif ($vStatusVal === 'terverifikasi') {
+                $incidentStep = 3; // Diverifikasi
+            } else {
+                $incidentStep = 1;
+            }
+        @endphp
+
+        <!-- Alur Penanganan Kejadian Faktual -->
+        <x-response-pipeline
+            :activeStep="$incidentStep"
+            title="Posisi Penanganan Kejadian pada Alur Respons"
+            subtitle="Menunjukkan progres faktual pemrosesan kejadian dari verifikasi awal hingga konfirmasi bukti penanganan" />
+
+        <!-- Status Verifikasi & Tindak Lanjut -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
             <!-- Panel 1: Status Verifikasi Informasi -->
-            <div class="bg-[#F8FAFC] border-l-4 border-[#2563EB] border-y border-r border-[#E2E8F0] rounded-lg p-4 space-y-2 min-w-0">
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2 min-w-0">
                 <div class="flex flex-wrap items-center justify-between gap-2">
-                    <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                    <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-800">
                         1. Status Verifikasi Informasi
                     </span>
                     <x-verification-badge :status="$incident->verification_status" />
                 </div>
                 <p class="text-xs text-slate-600 leading-relaxed">
-                    Menunjukkan hasil pemeriksaan tim verifikator TanggapTerang terhadap konsistensi laporan warga dan rujukan sumber informasi terbuka.
+                    Hasil pemeriksaan tim verifikator atas kebenaran laporan warga dan kesesuaian data sumber terbuka.
                 </p>
             </div>
 
             <!-- Panel 2: Status Tindak Lanjut Tim TanggapTerang -->
-            <div class="bg-[#F8FAFC] border-l-4 border-[#059669] border-y border-r border-[#E2E8F0] rounded-lg p-4 space-y-2 min-w-0">
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2 min-w-0">
                 <div class="flex flex-wrap items-center justify-between gap-2">
-                    <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                    <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-800">
                         2. Status Tindak Lanjut Tim TanggapTerang
                     </span>
                     <x-followup-badge :status="$incident->follow_up_status" />
                 </div>
                 <p class="text-xs text-slate-600 leading-relaxed">
-                    Mencatat perkembangan pemantauan, peninjauan informasi, dan dokumentasi oleh tim internal TanggapTerang.
+                    Catatan perkembangan pemantauan dan dokumentasi tim TanggapTerang di lapangan.
                 </p>
             </div>
         </div>
 
-        <!-- Mandatory Institutional Notice regarding Follow-Up -->
-        <div class="bg-[#EFF6FF] border border-[#93C5FD] rounded-lg p-3.5 text-xs text-[#1E40AF] leading-relaxed">
-            <strong class="font-telemetry uppercase tracking-wider">Catatan Transparansi Tindak Lanjut:</strong>
-            Status tindak lanjut di atas merupakan catatan internal tim TanggapTerang dalam memverifikasi dan mendokumentasikan informasi kejadian.
-            <strong>Ketiadaan catatan tindak lanjut pada TanggapTerang tidak berarti instansi atau pihak berwenang eksternal tidak sedang menangani kejadian di lapangan.</strong>
+        <div class="bg-blue-50/60 border border-blue-200/80 rounded-xl p-3.5 text-xs text-blue-950 leading-relaxed flex items-start gap-2">
+            <span class="font-semibold shrink-0">Catatan:</span>
+            <span>Ketiadaan catatan tindak lanjut pada TanggapTerang tidak berarti instansi atau pihak berwenang eksternal tidak sedang menangani kejadian di lapangan.</span>
         </div>
     </section>
 
@@ -299,8 +341,12 @@
                 @if($incident->reports->isEmpty())
                     <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-6 text-center space-y-2">
                         <p class="text-sm font-semibold text-slate-700">Belum Ada Laporan Masyarakat yang Terhubung</p>
-                        <p class="text-xs text-slate-500">
-                            Kejadian ini dicatat melalui pemantauan sumber terbuka atau laporan warga masih dalam antrean penautan.
+                        <p class="text-xs text-slate-500 max-w-md mx-auto">
+                            @if(!$incident->is_simulation)
+                                Kejadian ini bersumber dari data arsip historis resmi BNPB / DIBI. Laporan warga crowdsourcing tidak dihubungkan untuk menjaga integritas data riil.
+                            @else
+                                Kejadian ini dicatat melalui pemantauan sumber terbuka atau laporan warga masih dalam antrean penautan.
+                            @endif
                         </p>
                     </div>
                 @else
@@ -465,8 +511,12 @@
                 @if($incident->aidResponses->isEmpty())
                     <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-5 text-center space-y-2">
                         <p class="text-sm font-semibold text-slate-700">Belum Ada Respons Bantuan Tercatat pada Kejadian Ini</p>
-                        <p class="text-xs text-slate-500">
-                            Ketiadaan catatan pada tabel ini hanya menunjukkan belum adanya respons bantuan yang dilaporkan ke dalam sistem TanggapTerang.
+                        <p class="text-xs text-slate-500 max-w-md mx-auto">
+                            @if(!$incident->is_simulation)
+                                Kejadian historis resmi tidak mencatat respons bantuan relawan crowdsourcing pada sistem prototype ini. Penanganan darurat telah diselesaikan oleh BNPB/BPBD.
+                            @else
+                                Ketiadaan catatan pada tabel ini hanya menunjukkan belum adanya respons bantuan yang dilaporkan ke dalam sistem TanggapTerang.
+                            @endif
                         </p>
                     </div>
                 @else
@@ -486,7 +536,7 @@
                                             {{ $aid->submissionTypeLabel() }}
                                         </span>
                                         <span class="px-2 py-0.5 rounded bg-white border border-slate-200 font-telemetry text-[10px] font-bold uppercase text-slate-700">
-                                            {{ $needCategories[$aid->need_category] ?? $aid->need_category }}
+                                            {{ \App\Models\AidResponse::categoryLabel($aid->need_category) }}
                                         </span>
                                         <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 font-telemetry text-[10px] font-bold uppercase">
                                             Respons Bantuan Masyarakat

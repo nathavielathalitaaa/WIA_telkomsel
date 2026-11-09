@@ -5,104 +5,122 @@
 
 @section('content')
     <!-- Page Header & Primary CTA -->
-    <section class="bg-white border border-[#E2E8F0] rounded-lg p-4 sm:p-6 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+    <section class="bg-white border border-[#E2E8F0] rounded-xl p-4 sm:p-6 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 shadow-2xs">
         <div class="space-y-1.5">
-            <div class="flex flex-wrap items-center gap-2">
-                <span class="px-2 py-0.5 rounded bg-[#0F172A] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
-                    Pemantauan Publik
-                </span>
-                <span class="font-telemetry text-xs text-slate-500 font-semibold uppercase tracking-wider">
-                    Diperbarui: {{ now()->format('d M Y, H:i') }} WIB
+            <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse"></span>
+                <span class="font-telemetry text-xs text-slate-500 font-bold uppercase tracking-wider">
+                    Papan Pemantauan Bencana
                 </span>
             </div>
-            <h1 class="text-xl sm:text-2xl font-extrabold text-[#0F172A] tracking-tight">
-                Peta &amp; Daftar Informasi Kejadian Masyarakat
+            <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                Peta Sebaran &amp; Perkembangan Respons
             </h1>
-            <p class="text-sm text-slate-600 max-w-3xl leading-relaxed">
-                Menyajikan informasi kejadian yang dikumpulkan dari laporan masyarakat dan sumber informasi terbuka, lengkap dengan pemisahan antara <strong class="text-[#0F172A]">Status Verifikasi Informasi</strong> dan <strong class="text-[#0F172A]">Status Tindak Lanjut Tim TanggapTerang</strong>.
+            <p class="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
+                Pantau sebaran kejadian bencana, laporan kebutuhan warga, dan tindak lanjut di lapangan secara terpadu.
             </p>
         </div>
 
         <div class="flex flex-wrap items-center gap-2 shrink-0">
             <a href="{{ route('public.track') }}"
-               class="px-3.5 py-2.5 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-[#0F172A] font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center gap-1.5">
+               class="px-3.5 py-2.5 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-[#0F172A] font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center gap-1.5 shadow-2xs">
                 <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                 </svg>
                 <span>Lacak Tiket</span>
             </a>
             <a href="{{ route('public.aid-responses.create') }}"
-               class="px-3.5 py-2.5 rounded-lg border border-blue-300 bg-blue-50 hover:bg-blue-100 text-blue-900 font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center gap-1.5">
+               class="px-3.5 py-2.5 rounded-lg border border-blue-300 bg-blue-50 hover:bg-blue-100 text-blue-900 font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center gap-1.5 shadow-2xs">
                 <span class="font-extrabold text-sm leading-none">+</span>
-                <span>Catat Respons Bantuan</span>
+                <span>Catat Bantuan</span>
             </a>
             <a href="{{ route('public.reports.create') }}"
                class="px-4 py-2.5 rounded-lg btn-brand-gradient font-telemetry text-xs font-bold uppercase tracking-wider min-h-[44px] inline-flex items-center gap-1.5 shadow-xs">
                 <span class="font-extrabold text-sm leading-none">+</span>
-                <span>Kirim Laporan Masyarakat</span>
+                <span>Kirim Laporan Warga</span>
             </a>
         </div>
     </section>
 
-    <!-- Bento Summary Cards (Database Simulation Metrics - Interactive Click-to-Filter) -->
-    <section aria-label="Ringkasan Data Kejadian Simulasi" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+    <!-- Data Source Transparency Banner -->
+    <section class="bg-blue-50/80 border border-blue-200 rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs shadow-2xs">
+        <div class="flex items-center gap-2.5 min-w-0">
+            <span class="w-2 h-2 rounded-full bg-blue-600 shrink-0"></span>
+            <p class="text-slate-700 leading-snug">
+                <strong>Sumber Data:</strong> Arsip resmi <strong>Pusdatin BNPB (DIBI 2022–2024)</strong> &amp; skenario simulasi terpisah.
+            </p>
+        </div>
+        <div class="flex items-center gap-2 shrink-0 font-telemetry text-xs">
+            <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['source_mode' => 'historical'])) }}"
+               class="px-3 py-1.5 rounded-lg border {{ request('source_mode') === 'historical' ? 'bg-blue-900 text-white border-blue-900 shadow-xs' : 'bg-white hover:bg-blue-50 text-blue-950 border-blue-200' }} font-bold transition">
+                {{ $summary['historical_incidents'] ?? 0 }} Data Historis
+            </a>
+            <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['source_mode' => 'simulation'])) }}"
+               class="px-3 py-1.5 rounded-lg border {{ request('source_mode') === 'simulation' ? 'bg-slate-900 text-white border-slate-900 shadow-xs' : 'bg-white hover:bg-slate-50 text-slate-800 border-slate-300' }} font-bold transition">
+                {{ $summary['simulation_incidents'] ?? 0 }} Simulasi
+            </a>
+        </div>
+    </section>
+
+    <!-- Summary Metrics Bar (Cohesive & Scannable) -->
+    <section aria-label="Ringkasan Data Kejadian" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         <a href="{{ route('public.monitor') }}"
-           class="card-interactive bg-white border border-[#E2E8F0] hover:border-slate-400 rounded-lg p-3.5 flex flex-col justify-between cursor-pointer transition block"
-           data-tooltip="Klik untuk menampilkan seluruh kejadian tanpa filter">
-            <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500">Total Kejadian</span>
+           class="bg-white border border-slate-200 hover:border-slate-300 hover:shadow-xs rounded-xl p-3.5 flex flex-col justify-between transition {{ empty(request()->except('page')) ? 'ring-2 ring-slate-900 bg-slate-50' : '' }}"
+           title="Tampilkan seluruh kejadian tanpa filter">
+            <span class="font-telemetry text-[11px] font-semibold text-slate-500">Total Kejadian</span>
             <div class="mt-2 flex items-baseline justify-between">
-                <span class="font-telemetry text-2xl font-bold text-[#0F172A]">{{ $summary['total_incidents'] }}</span>
-                <span class="font-telemetry text-[10px] text-slate-500 uppercase">Simulasi</span>
+                <span class="font-telemetry text-2xl font-bold text-slate-900">{{ $summary['total_incidents'] }}</span>
+                <span class="font-telemetry text-[10px] text-slate-400 font-medium">{{ $summary['historical_incidents'] ?? 0 }} Riil • {{ $summary['simulation_incidents'] ?? 0 }} Sim</span>
+            </div>
+        </a>
+
+        <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['source_mode' => 'historical'])) }}"
+           class="bg-white border border-slate-200 hover:border-slate-300 hover:shadow-xs rounded-xl p-3.5 flex flex-col justify-between transition {{ request('source_mode') === 'historical' ? 'ring-2 ring-blue-700 bg-blue-50/40 border-blue-300' : '' }}"
+           title="Saring kejadian riil dari Arsip BNPB (DIBI)">
+            <span class="font-telemetry text-[11px] font-semibold text-slate-600">Historis BNPB</span>
+            <div class="mt-2 flex items-baseline justify-between">
+                <span class="font-telemetry text-2xl font-bold text-blue-900">{{ $summary['historical_incidents'] ?? 0 }}</span>
+                <span class="font-telemetry text-[10px] text-blue-700 font-medium">Resmi DIBI</span>
+            </div>
+        </a>
+
+        <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['source_mode' => 'simulation'])) }}"
+           class="bg-white border border-slate-200 hover:border-slate-300 hover:shadow-xs rounded-xl p-3.5 flex flex-col justify-between transition {{ request('source_mode') === 'simulation' ? 'ring-2 ring-slate-800 bg-slate-50 border-slate-400' : '' }}"
+           title="Saring skenario simulasi alur">
+            <span class="font-telemetry text-[11px] font-semibold text-slate-600">Simulasi Alur</span>
+            <div class="mt-2 flex items-baseline justify-between">
+                <span class="font-telemetry text-2xl font-bold text-slate-800">{{ $summary['simulation_incidents'] ?? 0 }}</span>
+                <span class="font-telemetry text-[10px] text-slate-500 font-medium">Pengujian</span>
             </div>
         </a>
 
         <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['verification_status' => 'terverifikasi'])) }}"
-           class="card-interactive bg-white border border-[#93C5FD] hover:border-[#2563EB] rounded-lg p-3.5 flex flex-col justify-between cursor-pointer transition block {{ request('verification_status') === 'terverifikasi' ? 'ring-2 ring-[#2563EB] bg-blue-50/40' : '' }}"
-           data-tooltip="Klik untuk menyaring hanya kejadian yang berstatus Terverifikasi">
-            <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-[#2563EB]">Terverifikasi</span>
+           class="bg-white border border-slate-200 hover:border-slate-300 hover:shadow-xs rounded-xl p-3.5 flex flex-col justify-between transition {{ request('verification_status') === 'terverifikasi' ? 'ring-2 ring-blue-600 bg-blue-50/30 border-blue-300' : '' }}"
+           title="Saring kejadian terverifikasi">
+            <span class="font-telemetry text-[11px] font-semibold text-slate-600">Terverifikasi</span>
             <div class="mt-2 flex items-baseline justify-between">
-                <span class="font-telemetry text-2xl font-bold text-[#2563EB]">{{ $summary['terverifikasi'] }}</span>
-                <span class="font-telemetry text-[10px] text-[#1E40AF] uppercase">Valid</span>
-            </div>
-        </a>
-
-        <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['verification_status' => 'menunggu_verifikasi'])) }}"
-           class="card-interactive bg-white border border-[#FCD34D] hover:border-[#D97706] rounded-lg p-3.5 flex flex-col justify-between cursor-pointer transition block {{ request('verification_status') === 'menunggu_verifikasi' ? 'ring-2 ring-[#D97706] bg-amber-50/40' : '' }}"
-           data-tooltip="Klik untuk menyaring kejadian yang masih Dalam Pemeriksaan">
-            <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-[#D97706]">Dalam Pemeriksaan</span>
-            <div class="mt-2 flex items-baseline justify-between">
-                <span class="font-telemetry text-2xl font-bold text-[#D97706]">{{ $summary['dalam_pemeriksaan'] }}</span>
-                <span class="font-telemetry text-[10px] text-[#92400E] uppercase">Tinjauan</span>
+                <span class="font-telemetry text-2xl font-bold text-blue-700">{{ $summary['terverifikasi'] }}</span>
+                <span class="font-telemetry text-[10px] text-blue-600 font-medium">Valid</span>
             </div>
         </a>
 
         <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['follow_up_status' => 'sedang_ditindaklanjuti'])) }}"
-           class="card-interactive bg-white border border-[#6EE7B7] hover:border-[#059669] rounded-lg p-3.5 flex flex-col justify-between cursor-pointer transition block {{ request('follow_up_status') === 'sedang_ditindaklanjuti' ? 'ring-2 ring-[#059669] bg-emerald-50/40' : '' }}"
-           data-tooltip="Klik untuk menyaring kejadian yang Sedang Ditindaklanjuti">
-            <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-[#059669]">Ditindaklanjuti</span>
+           class="bg-white border border-slate-200 hover:border-slate-300 hover:shadow-xs rounded-xl p-3.5 flex flex-col justify-between transition {{ request('follow_up_status') === 'sedang_ditindaklanjuti' ? 'ring-2 ring-emerald-600 bg-emerald-50/30 border-emerald-300' : '' }}"
+           title="Saring kejadian sedang ditindaklanjuti">
+            <span class="font-telemetry text-[11px] font-semibold text-slate-600">Ditindaklanjuti</span>
             <div class="mt-2 flex items-baseline justify-between">
-                <span class="font-telemetry text-2xl font-bold text-[#059669]">{{ $summary['sedang_ditindaklanjuti'] }}</span>
-                <span class="font-telemetry text-[10px] text-[#065F46] uppercase">Aktif/Pantau</span>
-            </div>
-        </a>
-
-        <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['severity' => 'kritis'])) }}"
-           class="card-interactive bg-white border border-[#FCA5A5] hover:border-[#DC2626] rounded-lg p-3.5 flex flex-col justify-between cursor-pointer transition block {{ request('severity') === 'kritis' ? 'ring-2 ring-[#DC2626] bg-red-50/40' : '' }}"
-           data-tooltip="Klik untuk menyaring kejadian dengan dampak Kritis / Prioritas tinggi">
-            <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-[#DC2626]">Dampak Kritis</span>
-            <div class="mt-2 flex items-baseline justify-between">
-                <span class="font-telemetry text-2xl font-bold text-[#DC2626]">{{ $summary['kritis_tinggi'] }}</span>
-                <span class="font-telemetry text-[10px] text-[#991B1B] uppercase">Prioritas</span>
+                <span class="font-telemetry text-2xl font-bold text-emerald-700">{{ $summary['sedang_ditindaklanjuti'] }}</span>
+                <span class="font-telemetry text-[10px] text-emerald-600 font-medium">Aktif</span>
             </div>
         </a>
 
         <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['aid_status' => 'terkonfirmasi'])) }}"
-           class="card-interactive bg-white border border-[#E2E8F0] hover:border-emerald-500 rounded-lg p-3.5 flex flex-col justify-between cursor-pointer transition block {{ request('aid_status') === 'terkonfirmasi' ? 'ring-2 ring-emerald-500 bg-emerald-50/40' : '' }}"
-           data-tooltip="Klik untuk menyaring kejadian yang memiliki Respons Bantuan Terkonfirmasi">
-            <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500">Respons Bantuan</span>
+           class="bg-white border border-slate-200 hover:border-slate-300 hover:shadow-xs rounded-xl p-3.5 flex flex-col justify-between transition {{ request('aid_status') === 'terkonfirmasi' ? 'ring-2 ring-emerald-600 bg-emerald-50/30 border-emerald-300' : '' }}"
+           title="Saring kejadian dengan respons bantuan terkonfirmasi">
+            <span class="font-telemetry text-[11px] font-semibold text-slate-600">Respons Bantuan</span>
             <div class="mt-2 flex items-baseline justify-between">
-                <span class="font-telemetry text-lg font-bold text-[#0F172A]">{{ $summary['total_aid_responses'] ?? 0 }} ({{ $summary['confirmed_aid_responses'] ?? 0 }} Sah)</span>
-                <span class="font-telemetry text-[10px] text-emerald-700 uppercase">Masyarakat</span>
+                <span class="font-telemetry text-2xl font-bold text-slate-900">{{ $summary['total_aid_responses'] ?? 0 }}</span>
+                <span class="font-telemetry text-[10px] text-emerald-700 font-medium">{{ $summary['confirmed_aid_responses'] ?? 0 }} Sah</span>
             </div>
         </a>
     </section>
@@ -193,14 +211,14 @@
                 </div>
 
                 <!-- Severity Filter -->
-                <div class="sm:col-span-3">
+                <div class="sm:col-span-2">
                     <label for="filter-severity" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-1">
-                        Tingkat Dampak
+                        Dampak
                     </label>
                     <select id="filter-severity"
                             name="severity"
                             class="w-full min-h-[42px] px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg text-sm text-[#0F172A] focus:outline-none focus:border-[#0F172A]">
-                        <option value="">Semua Tingkat Dampak</option>
+                        <option value="">Semua Dampak</option>
                         @foreach(\App\Enums\IncidentSeverity::cases() as $sCase)
                             <option value="{{ $sCase->value }}" @selected($filters['severity'] === $sCase->value)>
                                 {{ $sCase->label() }}
@@ -210,14 +228,14 @@
                 </div>
 
                 <!-- Aid Response Status Filter -->
-                <div class="sm:col-span-3">
+                <div class="sm:col-span-2">
                     <label for="filter-aid-status" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-1">
-                        Status Respons Bantuan
+                        Respons Bantuan
                     </label>
                     <select id="filter-aid-status"
                             name="aid_status"
                             class="w-full min-h-[42px] px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg text-sm text-[#0F172A] focus:outline-none focus:border-[#0F172A]">
-                        <option value="">Semua Status Respons</option>
+                        <option value="">Semua Respons</option>
                         @foreach(\App\Enums\AidResponseStatus::cases() as $aCase)
                             <option value="{{ $aCase->value }}" @selected(($filters['aid_status'] ?? '') === $aCase->value)>
                                 {{ $aCase->label() }}
@@ -226,16 +244,30 @@
                     </select>
                 </div>
 
+                <!-- Data Source / Simulation Filter -->
+                <div class="sm:col-span-3">
+                    <label for="filter-source-mode" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-1">
+                        Cakupan Data
+                    </label>
+                    <select id="filter-source-mode"
+                            name="source_mode"
+                            class="w-full min-h-[42px] px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg text-sm text-[#0F172A] focus:outline-none focus:border-[#0F172A]">
+                        <option value="">Semua Data (Historis &amp; Simulasi)</option>
+                        <option value="historical" @selected(($filters['source_mode'] ?? '') === 'historical')>Data Historis Resmi (BNPB / DIBI)</option>
+                        <option value="simulation" @selected(($filters['source_mode'] ?? '') === 'simulation')>Skenario Simulasi Prototipe</option>
+                    </select>
+                </div>
+
                 <!-- Filter Actions -->
-                <div class="sm:col-span-3 flex items-center justify-end gap-2">
+                <div class="sm:col-span-2 flex items-center justify-end gap-2">
                     @if(array_filter($filters))
                         <a href="{{ route('public.monitor') }}"
-                           class="px-3 py-2.5 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-slate-700 font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center">
+                           class="px-2.5 py-2.5 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-slate-700 font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center">
                             Reset
                         </a>
                     @endif
                     <button type="submit"
-                            class="px-4 py-2.5 rounded-lg bg-[#0F172A] hover:bg-slate-800 text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center gap-1.5">
+                            class="w-full px-3 py-2.5 rounded-lg bg-[#0F172A] hover:bg-slate-800 text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center justify-center gap-1.5 cursor-pointer">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
                         </svg>
@@ -366,39 +398,37 @@
     <!-- Diagram Alur Transparansi Informasi & Klasifikasi Sumber Data -->
     <x-transparency-flow-diagram />
 
-    <!-- Visualisasi Terpisah: Kebutuhan Tercatat, Respons Bantuan Masyarakat, & Status Respons -->
-    <section aria-label="Transparansi Kebutuhan dan Respons Bantuan Masyarakat" class="bg-white border border-[#E2E8F0] rounded-lg p-4 sm:p-6 space-y-6">
-        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-slate-200 pb-4">
+    <!-- Transparansi Kebutuhan dan Respons Bantuan (4 Kategori) -->
+    <section aria-label="Transparansi Kebutuhan dan Respons Bantuan Masyarakat" class="bg-white border border-slate-200 rounded-xl p-5 sm:p-6 space-y-6">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-slate-100 pb-4">
             <div class="space-y-1">
-                <div class="flex flex-wrap items-center gap-2">
-                    <span class="px-2 py-0.5 rounded bg-blue-50 text-blue-800 border border-blue-200 font-telemetry text-[10px] font-bold uppercase tracking-wider">
-                        Laporan Warga
+                <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 font-telemetry text-[11px] font-semibold">
+                        4 Kategori Utama
                     </span>
-                    <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 font-telemetry text-[10px] font-bold uppercase tracking-wider">
-                        Respons Bantuan Masyarakat
-                    </span>
+                    <span class="text-xs text-slate-400">•</span>
                     <span class="font-telemetry text-xs text-slate-500">
-                        Transparansi Kebutuhan &amp; Respons Bantuan Tercatat
+                        Pencatatan Berbasis Laporan Warga
                     </span>
                 </div>
-                <h2 class="text-lg sm:text-xl font-extrabold text-[#0F172A] tracking-tight">
-                    Pemantauan Kebutuhan Tercatat, Respons Bantuan Masyarakat, &amp; Status Penyaluran
+                <h2 class="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+                    Kebutuhan Mendesak &amp; Penyaluran Bantuan
                 </h2>
-                <p class="text-xs sm:text-sm text-slate-600 max-w-3xl leading-relaxed">
-                    Visualisasi faktual yang memisahkan jumlah laporan kebutuhan warga, jumlah entri serta rincian satuan respons bantuan masyarakat/komunitas, dan proporsi status respons bantuan yang tercatat di sistem TanggapTerang.
+                <p class="text-xs sm:text-sm text-slate-500 max-w-2xl leading-relaxed">
+                    Ringkasan kebutuhan dari laporan warga dan pemantauan respons bantuan pada kategori: <strong>Kesehatan</strong>, <strong>Makan dan Minum</strong>, <strong>Bansos</strong>, dan <strong>Evakuasi</strong>.
                 </p>
             </div>
 
             <div class="shrink-0 flex flex-wrap items-center gap-2">
                 <a href="{{ route('public.aid-responses.create', ['submission_type' => 'tawaran_rencana']) }}"
-                   class="px-3.5 py-2 rounded-lg btn-brand-gradient font-telemetry text-xs font-bold uppercase tracking-wider min-h-[42px] inline-flex items-center gap-1.5 shadow-xs">
-                    <span class="font-extrabold text-sm leading-none">+</span>
-                    <span>Ajukan Tawaran Bantuan</span>
+                   class="px-3.5 py-2 rounded-lg btn-brand-gradient font-telemetry text-xs font-semibold tracking-wide min-h-[40px] inline-flex items-center gap-1.5 shadow-xs transition">
+                    <span class="font-bold text-sm leading-none">+</span>
+                    <span>Ajukan Bantuan</span>
                 </a>
                 <a href="{{ route('public.aid-responses.create', ['submission_type' => 'laporan_penyerahan']) }}"
-                   class="px-3.5 py-2 rounded-lg bg-[#0F172A] hover:bg-slate-800 text-white font-telemetry text-xs font-bold uppercase tracking-wider min-h-[42px] inline-flex items-center gap-1.5 shadow-xs">
-                    <span class="font-extrabold text-sm leading-none">+</span>
-                    <span>Laporkan Bantuan Sudah Diberikan</span>
+                   class="px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-telemetry text-xs font-semibold tracking-wide min-h-[40px] inline-flex items-center gap-1.5 shadow-xs transition">
+                    <span class="font-bold text-sm leading-none">+</span>
+                    <span>Konfirmasi Penyerahan</span>
                 </a>
             </div>
         </div>
@@ -412,8 +442,8 @@
         <!-- 3 Bagian Visualisasi Terpisah -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
             <!-- BAGIAN 1: KEBUTUHAN TERCATAT -->
-            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-4 space-y-3">
-                <div class="border-b border-slate-200 pb-2.5">
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
+                <div class="border-b border-slate-200/80 pb-2.5">
                     <div class="flex items-center justify-between gap-2">
                         <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-900 font-telemetry text-[10px] font-bold uppercase">
                             1. Laporan Warga
@@ -449,8 +479,8 @@
             </div>
 
             <!-- BAGIAN 2: RESPONS BANTUAN TERCATAT & RINCIAN SATUAN TERPISAH -->
-            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-4 space-y-3">
-                <div class="border-b border-slate-200 pb-2.5">
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
+                <div class="border-b border-slate-200/80 pb-2.5">
                     <div class="flex items-center justify-between gap-2">
                         <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 font-telemetry text-[10px] font-bold uppercase">
                             2. Respons Bantuan Masyarakat
@@ -461,7 +491,7 @@
                         Respons Bantuan Tercatat per Kategori
                     </h3>
                     <p class="text-[11px] text-slate-600 mt-0.5">
-                        Jumlah entri respons dan rincian kapasitas/satuan ditampilkan terpisah tanpa menjumlahkan lintas satuan.
+                        Rincian bantuan dicatat sesuai satuan aslinya tanpa digabung lintas satuan.
                     </p>
                 </div>
 
@@ -497,8 +527,8 @@
             </div>
 
             <!-- BAGIAN 3: STATUS RESPONS BANTUAN (STACKED BAR 3 WARNA) -->
-            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-4 space-y-3">
-                <div class="border-b border-slate-200 pb-2.5">
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
+                <div class="border-b border-slate-200/80 pb-2.5">
                     <div class="flex items-center justify-between gap-2">
                         <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-telemetry text-[10px] font-bold uppercase">
                             3. Proporsi Status Respons
@@ -638,7 +668,7 @@
                                     </td>
                                     <td class="py-3 px-3">
                                         <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 font-telemetry text-[10px] font-bold uppercase inline-block mb-1">
-                                            {{ $needCategories[$aid->need_category] ?? $aid->need_category }}
+                                            {{ \App\Models\AidResponse::categoryLabel($aid->need_category) }}
                                         </span>
                                         <strong class="text-[#0F172A] block">{{ $aid->aid_item_title }}</strong>
                                         <span class="font-telemetry text-[11px] text-slate-600">Satuan/Kuantitas: {{ $aid->quantity_label }}</span>
@@ -701,12 +731,12 @@
 
             <div class="bg-[#FFFBEB] border border-[#FCD34D] rounded-lg p-3 text-xs text-[#92400E] space-y-1">
                 <div>
-                    <strong class="font-telemetry uppercase">Catatan Transparansi &amp; Cakupan Data:</strong>
-                    Data di atas hanya menampilkan kebutuhan dan respons bantuan yang telah dilaporkan/dicatat di dalam TanggapTerang, dan tidak merepresentasikan keseluruhan bantuan yang berada di lapangan.
+                    <strong class="font-telemetry uppercase">Cakupan Data:</strong>
+                    Tabel ini hanya menampilkan kebutuhan dan respons yang tercatat di TanggapTerang, bukan total seluruh bantuan yang ada di lapangan.
                 </div>
                 <div>
-                    <strong class="font-telemetry uppercase">Keterangan Bukti Dokumentasi:</strong>
-                    Tautan dokumentasi yang diinput tidak otomatis membuktikan bantuan telah diterima secara menyeluruh di lapangan; status yang tampil merupakan catatan konfirmasi administratif oleh petugas TanggapTerang.
+                    <strong class="font-telemetry uppercase">Dokumentasi Lapangan:</strong>
+                    Tautan bukti memperlihatkan dokumentasi serah terima yang telah diperiksa petugas, bukan jaminan bahwa seluruh bantuan sudah tersalurkan ke semua warga.
                 </div>
             </div>
         </div>
@@ -752,22 +782,33 @@
                 return;
             }
 
-            const color = severityColorMap[item.severity] || '#0F172A';
+            const isHistorical = !item.is_simulation;
+            const sourceBadge = isHistorical
+                ? '<span style="background: #1E3A8A; color: #FFFFFF; padding: 2px 6px; border-radius: 4px; font-family: \'Space Grotesk\', monospace; font-size: 9px; font-weight: 700; text-transform: uppercase;">HISTORIS BNPB</span>'
+                : '<span style="background: #0F172A; color: #FFFFFF; padding: 2px 6px; border-radius: 4px; font-family: \'Space Grotesk\', monospace; font-size: 9px; font-weight: 700; text-transform: uppercase;">SIMULASI</span>';
+
             const marker = window.L.circleMarker([item.latitude, item.longitude], {
-                radius: 9,
+                radius: isHistorical ? 10 : 9,
                 fillColor: color,
-                color: '#FFFFFF',
-                weight: 2.5,
+                color: isHistorical ? '#1E3A8A' : '#FFFFFF',
+                weight: isHistorical ? 3 : 2.5,
                 opacity: 1,
                 fillOpacity: 0.92,
             }).addTo(incidentsLayer);
 
             incidentMarkersMap.set(String(item.id), marker);
 
+            const reportMetaHtml = isHistorical
+                ? '<div><strong>Sumber Resmi:</strong> Arsip BNPB (DIBI)</div><div><strong>Keterangan:</strong> Riwayat Bencana Nyata (Tanpa Laporan Fiktif)</div>'
+                : `<div><strong>Verifikasi:</strong> ${item.verification_label}</div><div><strong>Tindak Lanjut Tim:</strong> ${item.follow_up_label}</div><div><strong>Laporan:</strong> ${item.reports_count} | <strong>Respons Bantuan:</strong> ${item.aid_responses_count || 0}</div>`;
+
             const popupHtml = `
-                <div style="min-width: 220px; font-family: 'Public Sans', sans-serif; color: #0F172A;">
-                    <div style="font-family: 'Space Grotesk', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; color: #475569; margin-bottom: 4px;">
-                        [KEJADIAN] • ${item.incident_type}
+                <div style="min-width: 230px; font-family: 'Public Sans', sans-serif; color: #0F172A;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 4px;">
+                        <span style="font-family: 'Space Grotesk', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; color: #475569;">
+                            ${item.incident_type}
+                        </span>
+                        ${sourceBadge}
                     </div>
                     <div style="font-size: 14px; font-weight: 700; line-height: 1.3; margin-bottom: 4px;">
                         ${item.title}
@@ -776,9 +817,7 @@
                         ${item.location_name}${item.wilayah_nama ? ' • ' + item.wilayah_nama : ''}
                     </div>
                     <div style="font-family: 'Space Grotesk', monospace; font-size: 11px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 6px; margin-bottom: 8px;">
-                        <div><strong>Verifikasi:</strong> ${item.verification_label}</div>
-                        <div><strong>Tindak Lanjut Tim:</strong> ${item.follow_up_label}</div>
-                        <div><strong>Laporan:</strong> ${item.reports_count} | <strong>Respons Bantuan:</strong> ${item.aid_responses_count || 0}</div>
+                        ${reportMetaHtml}
                     </div>
                     <div style="display: flex; flex-direction: column; gap: 4px;">
                         <button type="button" class="btn-popup-sidepanel" data-incident-id="${item.id}" style="display: block; width: 100%; text-align: center; background: #F1F5F9; color: #0F172A; border: 1px solid #CBD5E1; padding: 6px 10px; border-radius: 6px; font-family: 'Space Grotesk', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; cursor: pointer;">

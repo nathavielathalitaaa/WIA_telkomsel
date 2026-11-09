@@ -38,7 +38,7 @@
                     Catat Tawaran Bantuan atau Laporan Bantuan yang Sudah Diberikan
                 </h1>
                 <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                    Gunakan formulir ini untuk <strong>(A) mengajukan tawaran/rencana bantuan</strong> terhadap kebutuhan kejadian, atau <strong>(B) melaporkan bantuan yang sudah diserahkan di lapangan</strong> agar diperiksa dan dikonfirmasi oleh petugas berwenang TanggapTerang.
+                    Catat tawaran bantuan yang direncanakan atau laporkan bantuan yang sudah diserahkan di lokasi kejadian untuk diperiksa oleh petugas.
                 </p>
             </div>
 

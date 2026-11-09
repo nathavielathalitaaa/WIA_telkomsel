@@ -33,7 +33,7 @@
                     Formulir Pelaporan Kejadian Masyarakat
                 </h1>
                 <p class="text-sm text-slate-600 leading-relaxed">
-                    Laporkan kejadian yang Anda amati di lapangan. Laporan yang masuk akan mendapatkan <strong>nomor tiket unik</strong> dan diperiksa terlebih dahulu oleh tim verifikator TanggapTerang sebelum dihubungkan ke data kejadian publik.
+                    Sampaikan kejadian dan kondisi di sekitar Anda. Laporan akan menerima nomor tiket untuk memantau proses pemeriksaan dan tindak lanjut tim.
                 </p>
             </div>
 
@@ -298,7 +298,7 @@
 
                     <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3 text-xs text-slate-600">
                         <strong class="text-[#0F172A] font-telemetry uppercase">Jaminan Privasi Pelapor:</strong>
-                        Nama dan kontak pelapor bersifat opsional, hanya dapat dilihat oleh petugas verifikator internal, dan <strong>tidak pernah ditampilkan pada halaman publik maupun halaman pelacakan tiket</strong>.
+                        Nama dan kontak pelapor bersifat opsional dan hanya dapat dilihat oleh petugas verifikator. Data ini <strong>tidak pernah ditampilkan ke publik maupun halaman pelacakan tiket</strong>.
                     </div>
                 </div>
 
@@ -321,29 +321,46 @@
         <!-- Right Sidebar: Reporting Guidelines & Scope Notice (4 cols) -->
         <aside class="lg:col-span-4 space-y-4">
             <div class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-3">
-                <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
-                    Alur Pemrosesan Laporan Warga
-                </h2>
+                <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                    <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                        Mekanisme Alur Laporan Warga
+                    </h2>
+                    <span class="font-telemetry text-[10px] text-slate-400 font-bold uppercase">5 Tahap</span>
+                </div>
                 <ol class="space-y-3 text-xs text-slate-600">
                     <li class="flex items-start gap-2.5">
-                        <span class="w-5 h-5 rounded-full bg-amber-100 text-amber-800 font-telemetry font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
+                        <span class="w-5 h-5 rounded-full bg-amber-100 text-amber-800 font-telemetry font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">1</span>
                         <div>
-                            <strong class="text-[#0F172A] block">Penerbitan Nomor Tiket Unik</strong>
-                            Laporan Anda langsung memperoleh kode tiket acak (contoh: <code>RPT-SIM-8K4M9P2X</code>) dengan status awal <strong>Menunggu Verifikasi</strong>.
+                            <strong class="text-[#0F172A] block">1. Laporan Masuk &amp; Tiket Acak</strong>
+                            Laporan langsung memperoleh kode tiket acak non-sekuensial (contoh: <code>RPT-SIM-8K4M9P2X</code>) berstatus <strong>Menunggu Verifikasi</strong>.
                         </div>
                     </li>
                     <li class="flex items-start gap-2.5">
-                        <span class="w-5 h-5 rounded-full bg-blue-100 text-blue-800 font-telemetry font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
+                        <span class="w-5 h-5 rounded-full bg-blue-100 text-blue-800 font-telemetry font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">2</span>
                         <div>
-                            <strong class="text-[#0F172A] block">Pemeriksaan Tim Verifikator</strong>
-                            Laporan baru tidak otomatis tampil sebagai kejadian terverifikasi sebelum diperiksa kesesuaiannya dengan laporan lain dan sumber terbuka.
+                            <strong class="text-[#0F172A] block">2. Pemeriksaan Berkas Awal</strong>
+                            Tim Verifikator memeriksa kejelasan data, tanggal kejadian, deskripsi, dan kelengkapan lokasi administratif.
                         </div>
                     </li>
                     <li class="flex items-start gap-2.5">
-                        <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-800 font-telemetry font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
+                        <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-800 font-telemetry font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">3</span>
                         <div>
-                            <strong class="text-[#0F172A] block">Penautan ke Kejadian &amp; Catatan Tindak Lanjut</strong>
-                            Laporan yang valid akan dihubungkan dengan kejadian terkait dan dapat dipantau riwayatnya melalui menu <strong>Lacak Tiket</strong>.
+                            <strong class="text-[#0F172A] block">3. Verifikasi Silang Sumber Terbuka</strong>
+                            Data dicocokkan dengan rujukan resmi BMKG, PetaBencana, berita terpercaya, dan laporan warga sekitar sebelum disahkan.
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-2.5">
+                        <span class="w-5 h-5 rounded-full bg-cyan-100 text-cyan-800 font-telemetry font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">4</span>
+                        <div>
+                            <strong class="text-[#0F172A] block">4. Penautan &amp; Kebutuhan Ditindaklanjuti</strong>
+                            Laporan sah ditautkan ke kejadian dan kebutuhan diklasifikasikan (Kesehatan, Makan/Minum, Bansos, Evakuasi).
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-2.5">
+                        <span class="w-5 h-5 rounded-full bg-slate-100 text-slate-800 font-telemetry font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">5</span>
+                        <div>
+                            <strong class="text-[#0F172A] block">5. Konfirmasi Berdasarkan Bukti</strong>
+                            Penanganan atau penyerahan bantuan disahkan setelah ada bukti dokumentasi yang terverifikasi petugas.
                         </div>
                     </li>
                 </ol>

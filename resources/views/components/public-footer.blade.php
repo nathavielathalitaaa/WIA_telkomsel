@@ -46,28 +46,28 @@
                         <a href="{{ route('public.track') }}"
                            class="inline-flex items-center gap-1.5 text-slate-600 hover:text-[#2563EB] focus:outline-hidden focus:text-[#2563EB] transition-colors py-0.5">
                             <span class="text-slate-400">&rsaquo;</span>
-                            <span>Lacak Respons</span>
+                            <span>Lacak Tiket &amp; Respons</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('public.replay') }}"
                            class="inline-flex items-center gap-1.5 text-slate-600 hover:text-[#2563EB] focus:outline-hidden focus:text-[#2563EB] transition-colors py-0.5">
                             <span class="text-slate-400">&rsaquo;</span>
-                            <span>Replay Simulasi</span>
+                            <span>Linimasa (Replay)</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('public.sitrep') }}"
                            class="inline-flex items-center gap-1.5 text-slate-600 hover:text-[#2563EB] focus:outline-hidden focus:text-[#2563EB] transition-colors py-0.5">
                             <span class="text-slate-400">&rsaquo;</span>
-                            <span>Laporan SitRep</span>
+                            <span>Ringkasan SitRep</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('public.sources.index') }}"
                            class="inline-flex items-center gap-1.5 text-slate-600 hover:text-[#2563EB] focus:outline-hidden focus:text-[#2563EB] transition-colors py-0.5">
                             <span class="text-slate-400">&rsaquo;</span>
-                            <span>Transparansi Sumber Data</span>
+                            <span>Tentang Sumber Data</span>
                         </a>
                     </li>
                     <li>

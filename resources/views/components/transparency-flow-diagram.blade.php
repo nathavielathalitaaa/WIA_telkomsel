@@ -24,7 +24,7 @@
     <!-- Deskripsi Pengantar Alur -->
     <div class="px-4 py-3 bg-slate-50 border-b border-slate-200 text-xs text-slate-600 leading-relaxed">
         <p>
-            TanggapTerang mengelola informasi dari laporan masyarakat, referensi terbuka, dan layanan API eksternal. Setiap informasi ditampilkan berdasarkan asal sumber, waktu pengambilan, serta status pengelolaannya agar penilai dan masyarakat dapat menelusuri dasar informasi yang disajikan.
+            TanggapTerang menampilkan asal sumber, waktu pembaruan, dan status verifikasi agar seluruh informasi dapat ditelusuri secara terbuka.
         </p>
     </div>
 

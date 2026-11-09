@@ -16,7 +16,7 @@
                         Prototype Kompetisi Multimedia In Action 2026
                     </span>
                     <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-200 border border-slate-700 font-telemetry text-xs font-bold uppercase tracking-wider">
-                        Data Simulasi Terstruktur
+                        Data Historis BNPB &amp; Simulasi Terstruktur
                     </span>
                 </div>
                 <p class="font-telemetry text-xs text-slate-300 uppercase tracking-wider">
@@ -27,10 +27,10 @@
 
         <div class="max-w-3xl space-y-3">
             <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight">
-                TanggapTerang: Pengumpulan &amp; Penyajian Informasi Kejadian Berbasis Laporan Masyarakat dan Sumber Terbuka
+                Papan Transparansi dan Koordinasi Informasi Kebencanaan
             </h1>
             <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
-                TanggapTerang dirancang untuk memudahkan masyarakat menemukan informasi kejadian di sekitarnya, mengorganisasi laporan warga berdasarkan kejadian dan lokasi administratif, menampilkan rujukan sumber informasi terbuka beserta status verifikasinya, serta mencatat perkembangan tindak lanjut informasi oleh tim internal.
+                TanggapTerang menghubungkan laporan warga, kebutuhan di lokasi bencana, dan catatan perkembangan respons tim dalam satu tempat. Terlihat sebarannya, terlacak prosesnya, dan terukur penanganannya.
             </p>
         </div>
 
@@ -54,6 +54,9 @@
             </a>
         </div>
     </section>
+
+    <!-- Mekanisme Penanganan Laporan & Respons Faktual -->
+    <x-response-pipeline />
 
     <!-- Diagram Alur Transparansi & Klasifikasi Sumber Data -->
     <x-transparency-flow-diagram />
@@ -110,9 +113,9 @@
                 </p>
             </div>
             <div class="bg-[#FFFBEB] border border-[#FCD34D] rounded-lg p-4 space-y-1.5 text-[#92400E]">
-                <strong class="text-[#0F172A] block">Bukan Layanan Distribusi Bantuan atau Pusat Komando</strong>
+                <strong class="text-[#0F172A] block">Sumber Kejadian Nyata &amp; Batasan Simulasi</strong>
                 <p>
-                    Prototype ini menggunakan data simulasi ({{ $summary['incidents_count'] }} kejadian, {{ $summary['reports_count'] }} laporan warga, dan {{ $summary['sources_count'] }} sumber informasi terbuka). Sistem ini bukan platform distribusi bantuan logistik dan tidak mengklaim integrasi langsung dengan sistem komando instansi eksternal.
+                    Kejadian bencana riil ({{ $summary['historical_count'] }} kejadian) bersumber dari arsip resmi <strong>Pusdatin BNPB (DIBI)</strong>. Modul simulasi ({{ $summary['simulation_count'] }} skenario, {{ $summary['reports_count'] }} laporan warga) disediakan terpisah untuk demonstrasi alur tanpa mencampurkan data fiktif ke statistik riil.
                 </p>
             </div>
         </div>

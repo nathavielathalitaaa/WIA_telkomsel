@@ -85,6 +85,14 @@
                            class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'intelligence' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
                             Pusat Intelijen
                         </a>
+                        <a href="{{ route('internal.users.index') }}"
+                           class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'users' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                            Direktori Akun
+                        </a>
+                        <a href="{{ route('internal.audit-logs.index') }}"
+                           class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'audit-logs' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                            Audit Log
+                        </a>
                     @endif
                     @if($canOperate)
                         <a href="{{ route('internal.incidents.create') }}"
@@ -97,12 +105,16 @@
 
             <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
                 @auth
-                    <div class="hidden lg:flex flex-col items-end">
-                        <span class="text-xs font-bold text-white leading-none">{{ auth()->user()->name }}</span>
+                    <a href="{{ route('internal.profile.show') }}"
+                       class="hidden lg:flex flex-col items-end px-2.5 py-1 rounded hover:bg-slate-800 transition {{ $internalMenu === 'profile' ? 'ring-1 ring-amber-400 bg-slate-800' : '' }}"
+                       title="Kelola Profil Akun">
+                        <span class="text-xs font-bold text-white leading-none flex items-center gap-1">
+                            <span>👤</span> {{ auth()->user()->name }}
+                        </span>
                         <span class="font-telemetry text-[10px] text-amber-400 uppercase tracking-wider mt-0.5">
                             Role: {{ $roleLabel }}
                         </span>
-                    </div>
+                    </a>
                 @endauth
 
                 <a href="{{ route('public.monitor') }}"
@@ -130,7 +142,10 @@
                 <a href="{{ route('internal.incidents.index') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'incidents' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800' }}">{{ $incidentsMenuLabel }}</a>
                 @if($currentUser?->isAdmin())
                     <a href="{{ route('internal.intelligence.index') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'intelligence' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800' }}">Intelijen</a>
+                    <a href="{{ route('internal.users.index') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'users' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800' }}">Akun</a>
+                    <a href="{{ route('internal.audit-logs.index') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'audit-logs' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800' }}">Audit Log</a>
                 @endif
+                <a href="{{ route('internal.profile.show') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'profile' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800' }}">Profil</a>
                 @if($canOperate)
                     <a href="{{ route('internal.incidents.create') }}" class="px-2.5 py-1 rounded border border-emerald-500/70 bg-emerald-950/60 text-emerald-200 font-telemetry text-[11px] font-bold uppercase whitespace-nowrap">+ Buat Kejadian</a>
                 @endif

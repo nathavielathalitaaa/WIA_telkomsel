@@ -2,9 +2,12 @@
 
 use App\Http\Controllers\Auth\InternalAuthController;
 use App\Http\Controllers\Internal\IntelligenceCenterController;
+use App\Http\Controllers\Internal\InternalAuditLogController;
 use App\Http\Controllers\Internal\InternalDashboardController;
 use App\Http\Controllers\Internal\InternalIncidentController;
+use App\Http\Controllers\Internal\InternalProfileController;
 use App\Http\Controllers\Internal\InternalReportController;
+use App\Http\Controllers\Internal\InternalUserController;
 use App\Http\Controllers\PublicAidResponseController;
 use App\Http\Controllers\PublicDataSourceController;
 use App\Http\Controllers\PublicIncidentController;
@@ -174,4 +177,34 @@ Route::prefix('internal')
                 Route::get('/logs', [IntelligenceCenterController::class, 'logs'])
                     ->name('logs');
             });
+
+        // Profil Akun Tim Internal (Semua Peran Internal)
+        Route::get('/profile', [InternalProfileController::class, 'show'])
+            ->name('profile.show');
+
+        Route::put('/profile', [InternalProfileController::class, 'update'])
+            ->name('profile.update');
+
+        Route::put('/profile/password', [InternalProfileController::class, 'updatePassword'])
+            ->name('profile.password.update');
+
+        // Direktori & Manajemen Akun Tim Internal (Khusus Administrator)
+        Route::prefix('users')
+            ->name('users.')
+            ->middleware('role:admin')
+            ->group(function () {
+                Route::get('/', [InternalUserController::class, 'index'])
+                    ->name('index');
+
+                Route::post('/', [InternalUserController::class, 'store'])
+                    ->name('store');
+
+                Route::put('/{user}', [InternalUserController::class, 'update'])
+                    ->name('update');
+            });
+
+        // Audit Log Aktivitas Tim Internal (Khusus Administrator)
+        Route::get('/audit-logs', [InternalAuditLogController::class, 'index'])
+            ->middleware('role:admin')
+            ->name('audit-logs.index');
     });

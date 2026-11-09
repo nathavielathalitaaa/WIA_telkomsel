@@ -6,6 +6,7 @@ use App\Enums\ConfidenceLevel;
 use App\Enums\VerificationStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\PublicIncidentController;
+use App\Models\AuditLog;
 use App\Models\Incident;
 use App\Models\Report;
 use App\Models\VerificationHistory;
@@ -129,6 +130,18 @@ class InternalReportController extends Controller
             ]);
         });
 
+        AuditLog::record(
+            activityType: 'report.verify',
+            description: "Laporan {$report->ticket_number} diverifikasi oleh {$user->name}. Catatan: {$validated['reason']}",
+            actor: $user,
+            subject: $report,
+            subjectLabel: $report->ticket_number,
+            metadata: [
+                'confidence_level' => $validated['confidence_level'] ?? $report->confidence_level,
+                'reason' => $validated['reason'],
+            ]
+        );
+
         return redirect()
             ->route('internal.reports.show', $report)
             ->with('success', "Laporan {$report->ticket_number} berhasil diverifikasi.");
@@ -175,6 +188,17 @@ class InternalReportController extends Controller
             ]);
         });
 
+        AuditLog::record(
+            activityType: 'report.reject',
+            description: "Laporan {$report->ticket_number} ditolak oleh {$user->name}. Alasan: {$validated['reason']}",
+            actor: $user,
+            subject: $report,
+            subjectLabel: $report->ticket_number,
+            metadata: [
+                'reason' => $validated['reason'],
+            ]
+        );
+
         return redirect()
             ->route('internal.reports.show', $report)
             ->with('success', "Laporan {$report->ticket_number} ditandai sebagai Ditolak dan alasan penolakan telah dicatat.");
@@ -219,6 +243,17 @@ class InternalReportController extends Controller
                 'is_simulation' => (bool) $report->is_simulation,
             ]);
         });
+
+        AuditLog::record(
+            activityType: 'report.duplicate',
+            description: "Laporan {$report->ticket_number} ditandai sebagai Duplikat oleh {$user->name}. Catatan: {$validated['reason']}",
+            actor: $user,
+            subject: $report,
+            subjectLabel: $report->ticket_number,
+            metadata: [
+                'reason' => $validated['reason'],
+            ]
+        );
 
         return redirect()
             ->route('internal.reports.show', $report)
@@ -267,6 +302,19 @@ class InternalReportController extends Controller
                 'is_simulation' => (bool) $report->is_simulation,
             ]);
         });
+
+        AuditLog::record(
+            activityType: 'report.link_incident',
+            description: "Laporan {$report->ticket_number} dihubungkan ke kejadian [{$incident->title}] oleh {$user->name}." . (! empty($validated['notes']) ? " Catatan: {$validated['notes']}" : ''),
+            actor: $user,
+            subject: $report,
+            subjectLabel: $report->ticket_number,
+            metadata: [
+                'incident_id' => $incident->id,
+                'incident_title' => $incident->title,
+                'notes' => $validated['notes'] ?? null,
+            ]
+        );
 
         return redirect()
             ->route('internal.reports.show', $report)

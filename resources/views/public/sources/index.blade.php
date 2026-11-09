@@ -85,13 +85,13 @@
                     Prinsip Transparansi &amp; Integritas Data Eksternal
                 </h2>
                 <p>
-                    1. <strong>Bukan Otomatis Kejadian Terverifikasi:</strong> Rekaman dari API eksternal disajikan sebagai rujukan terbuka dan intelijen situasi, dan <em>tidak secara otomatis</em> ditetapkan sebagai insiden bencana resmi TanggapTerang sebelum melalui verifikasi silang tim internal.
+                    1. <strong>Rujukan Situasi, Bukan Status Otomatis:</strong> Data dari API eksternal disajikan sebagai rujukan terbuka dan pembanding situasi. Data ini tidak otomatis ditetapkan sebagai kejadian resmi sebelum melalui verifikasi silang tim.
                 </p>
                 <p>
-                    2. <strong>Kejujuran Status Integrasi:</strong> Provider <strong>BNPB</strong> berstatus <strong>Belum Terintegrasi</strong> karena audit teknis membuktikan endpoint dataset kejadian terbuka yang valid belum tersedia. TanggapTerang tidak mengarang data kejadian palsu atas nama BNPB. Status provider <strong>GDELT</strong> mengikuti hasil fetch aktual (terkendala batas laju / timeout).
+                    2. <strong>Kejujuran Status Integrasi:</strong> Layanan <strong>BNPB</strong> berstatus <strong>Belum Terintegrasi</strong> karena endpoint data terbuka belum tersedia secara publik. TanggapTerang tidak mengarang data atas nama BNPB. Status layanan <strong>GDELT</strong> mengikuti hasil penarikan aktual.
                 </p>
                 <p>
-                    3. <strong>Pemisahan Data Aman:</strong> Seluruh detail teknis sensitif seperti <code>raw_payload</code>, kunci otorisasi, dan parameter internal dilindungi khusus Administrator dan tidak pernah diekspos ke publik.
+                    3. <strong>Pemisahan Data Teknis:</strong> Rincian teknis seperti muatan mentah (<em>raw payload</em>) dan parameter internal dilindungi untuk akses administrator dan tidak ditampilkan ke publik.
                 </p>
             </div>
         </div>

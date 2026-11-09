@@ -50,7 +50,7 @@
 
     foreach ($aidResponses as $aid) {
         $aidStatusStr = $aid->status instanceof \BackedEnum ? $aid->status->value : (string) $aid->status;
-        $needLabel = \App\Models\AidResponse::needCategories()[$aid->need_category] ?? $aid->need_category;
+        $needLabel = \App\Models\AidResponse::categoryLabel($aid->need_category);
         $subTypeLabel = method_exists($aid, 'submissionTypeLabel') ? $aid->submissionTypeLabel() : 'Respons Bantuan Masyarakat';
         $deliveredLabel = $aid->delivered_at
             ? ' • Waktu Penyerahan (Dilaporkan): ' . $aid->delivered_at->format('d M Y, H:i') . ' WIB'

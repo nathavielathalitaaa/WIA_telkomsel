@@ -52,7 +52,7 @@ class PublicAidResponseController extends Controller
         }
 
         $selectedNeedCategory = trim((string) $request->query('need_category', ''));
-        if ($selectedNeedCategory !== '' && ! array_key_exists($selectedNeedCategory, AidResponse::needCategories())) {
+        if ($selectedNeedCategory !== '' && ! in_array($selectedNeedCategory, AidResponse::allNeedCategoryKeys(), true)) {
             $selectedNeedCategory = '';
         }
 
@@ -85,7 +85,7 @@ class PublicAidResponseController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $needCategoryKeys = array_keys(AidResponse::needCategories());
+        $needCategoryKeys = AidResponse::allNeedCategoryKeys();
         $responderTypeKeys = array_keys(AidResponse::responderTypes());
         $submissionTypeKeys = array_keys(AidResponse::submissionTypes());
 

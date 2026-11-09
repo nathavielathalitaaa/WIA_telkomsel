@@ -19,6 +19,11 @@ class AidResponse extends Model
     public const SUBMISSION_TAWARAN_RENCANA = 'tawaran_rencana';
     public const SUBMISSION_LAPORAN_PENYERAHAN = 'laporan_penyerahan';
 
+    public const CATEGORY_KESEHATAN = 'kesehatan';
+    public const CATEGORY_MAKAN_MINUM = 'makan_minum';
+    public const CATEGORY_BANSOS = 'bansos';
+    public const CATEGORY_EVAKUASI = 'evakuasi';
+
     protected $fillable = [
         'reference_code',
         'submission_type',
@@ -242,19 +247,63 @@ class AidResponse extends Model
     }
 
     /**
-     * Daftar kategori kebutuhan / bantuan standar untuk pengelompokan kebutuhan dan respons bantuan.
+     * Daftar 4 kategori kebutuhan & bantuan standar sesuai arahan evaluasi mentoring.
      *
      * @return array<string, string>
      */
     public static function needCategories(): array
     {
         return [
-            'logistik_pangan' => 'Logistik & Pangan Siap Saji',
-            'air_bersih_sanitasi' => 'Air Bersih & Sanitasi',
-            'kesehatan_medis' => 'Layanan Kesehatan & Obat-obatan',
-            'perlengkapan_pengungsian' => 'Perlengkapan Warga & Tempat Singgah',
-            'evakuasi_penyelamatan' => 'Dukungan Evakuasi & Peralatan Lapangan',
-            'pemulihan_akses' => 'Pembersihan Material & Pemulihan Akses',
+            self::CATEGORY_KESEHATAN => 'Kesehatan',
+            self::CATEGORY_MAKAN_MINUM => 'Makan dan Minum',
+            self::CATEGORY_BANSOS => 'Bansos',
+            self::CATEGORY_EVAKUASI => 'Evakuasi',
+        ];
+    }
+
+    /**
+     * Normalisasi string kategori (termasuk legacy keys) ke 4 kategori standar.
+     */
+    public static function normalizeCategory(?string $category): string
+    {
+        return match ($category) {
+            'kesehatan', 'kesehatan_medis', 'medis', 'obat' => self::CATEGORY_KESEHATAN,
+            'makan_minum', 'logistik_pangan', 'air_bersih_sanitasi', 'pangan', 'air_bersih' => self::CATEGORY_MAKAN_MINUM,
+            'bansos', 'perlengkapan_pengungsian', 'pemulihan_akses', 'logistik' => self::CATEGORY_BANSOS,
+            'evakuasi', 'evakuasi_penyelamatan', 'penyelamatan', 'pencarian' => self::CATEGORY_EVAKUASI,
+            default => self::CATEGORY_BANSOS,
+        };
+    }
+
+    /**
+     * Dapatkan label manusiawi untuk suatu kategori kebutuhan.
+     */
+    public static function categoryLabel(?string $category): string
+    {
+        $normalized = self::normalizeCategory($category);
+
+        return self::needCategories()[$normalized] ?? 'Bansos';
+    }
+
+    /**
+     * Seluruh kunci kategori valid yang diterima formulir (standar + legacy).
+     *
+     * @return array<int, string>
+     */
+    public static function allNeedCategoryKeys(): array
+    {
+        return [
+            self::CATEGORY_KESEHATAN,
+            self::CATEGORY_MAKAN_MINUM,
+            self::CATEGORY_BANSOS,
+            self::CATEGORY_EVAKUASI,
+            // Legacy keys untuk kompatibilitas data/seeder lama
+            'logistik_pangan',
+            'air_bersih_sanitasi',
+            'kesehatan_medis',
+            'perlengkapan_pengungsian',
+            'evakuasi_penyelamatan',
+            'pemulihan_akses',
         ];
     }
 
@@ -275,18 +324,16 @@ class AidResponse extends Model
     }
 
     /**
-     * Memetakan kategori laporan warga (Report::$category) ke kategori kebutuhan standar.
+     * Memetakan kategori laporan warga (Report::$category) ke 4 kategori kebutuhan standar.
      */
     public static function mapReportCategoryToNeedCategory(string $reportCategory): string
     {
         return match ($reportCategory) {
-            'korban_terdampak', 'warga_terdampak', 'banjir' => 'logistik_pangan',
-            'kebutuhan_mendesak', 'air_bersih' => 'air_bersih_sanitasi',
-            'kesehatan', 'medis' => 'kesehatan_medis',
-            'angin_kencang', 'pengungsian' => 'perlengkapan_pengungsian',
-            'longsor', 'evakuasi' => 'evakuasi_penyelamatan',
-            'penutupan_akses_jalan', 'kerusakan_infrastruktur' => 'pemulihan_akses',
-            default => 'logistik_pangan',
+            'kesehatan', 'medis', 'korban_luka' => self::CATEGORY_KESEHATAN,
+            'korban_terdampak', 'warga_terdampak', 'banjir', 'air_bersih', 'logistik_pangan' => self::CATEGORY_MAKAN_MINUM,
+            'kebutuhan_mendesak', 'angin_kencang', 'pengungsian', 'kerusakan_infrastruktur', 'penutupan_akses_jalan', 'bansos' => self::CATEGORY_BANSOS,
+            'longsor', 'evakuasi', 'terisolir', 'evakuasi_penyelamatan' => self::CATEGORY_EVAKUASI,
+            default => self::CATEGORY_MAKAN_MINUM,
         };
     }
 

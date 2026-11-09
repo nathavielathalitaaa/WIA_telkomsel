@@ -356,7 +356,7 @@
                             <div>
                                 <strong>Organisasi/Komunitas:</strong> {{ $aid->organization_name }}
                                 <span class="text-slate-500">({{ $aid->allow_public_name ? 'Tampil Publik' : 'Anonim di Publik' }})</span>
-                                • <strong>Kategori Kebutuhan:</strong> {{ \App\Models\AidResponse::needCategories()[$aid->need_category] ?? $aid->need_category }}
+                                • <strong>Kategori Kebutuhan:</strong> {{ \App\Models\AidResponse::categoryLabel($aid->need_category) }}
                             </div>
                             <div>
                                 <strong>Kontak Internal (Rahasia):</strong> {{ $aid->contact_name ?: '-' }} / {{ $aid->contact_info ?: '-' }}

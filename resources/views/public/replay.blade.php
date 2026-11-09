@@ -15,17 +15,17 @@
     <section class="bg-[#0F172A] text-white border border-slate-800 rounded-lg p-5 sm:p-6 space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-2">
             <span class="px-2.5 py-1 rounded bg-slate-800 text-amber-300 border border-slate-700 font-telemetry text-xs font-bold uppercase">
-                Kronologi Berbasis Database
+                Linimasa Berbasis Data Riil &amp; Simulasi
             </span>
         </div>
 
         <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 min-w-0 w-full">
             <div class="space-y-1.5 max-w-3xl min-w-0">
                 <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight text-white">
-                    Mode Replay Perjalanan Informasi Kejadian
+                    Linimasa Perkembangan Kejadian
                 </h1>
                 <p class="text-sm text-slate-300 leading-relaxed">
-                    Demonstrasi interaktif bagaimana informasi suatu kejadian berkembang dari waktu ke waktu berdasarkan <strong class="text-white">laporan masyarakat</strong>, <strong class="text-white">rujukan sumber informasi terbuka</strong>, <strong class="text-white">pemeriksaan verifikasi</strong>, dan <strong class="text-white">catatan tindak lanjut tim TanggapTerang</strong> yang tersimpan di database.
+                    Putar kembali urutan kejadian dari waktu ke waktu: mulai dari <strong class="text-white">waktu kejadian riil</strong>, konfirmasi <strong class="text-white">sumber resmi BNPB</strong>, hasil <strong class="text-white">verifikasi data</strong>, hingga <strong class="text-white">catatan tindak lanjut</strong> di lapangan.
                 </p>
             </div>
 
@@ -33,18 +33,27 @@
             @if($incidents->isNotEmpty())
                 <form method="GET" action="{{ route('public.replay') }}" class="w-full max-w-full lg:w-96 min-w-0 shrink-0 bg-slate-900 border border-slate-700 rounded-lg p-3 space-y-2 overflow-hidden">
                     <label for="incident-selector" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-300">
-                        Pilih Kejadian Simulasi untuk Replay
+                        Pilih Kejadian untuk Mode Replay
                     </label>
                     <div class="flex items-center gap-2 min-w-0 w-full max-w-full">
                         <select id="incident-selector"
                                 name="incident"
                                 onchange="this.form.submit()"
                                 class="flex-1 min-w-0 w-full max-w-full min-h-[40px] px-3 py-1.5 bg-white text-[#0F172A] rounded font-medium text-xs truncate focus:outline-none">
-                            @foreach($incidents as $inc)
-                                <option value="{{ $inc->slug }}" @selected($selectedIncident && $selectedIncident->id === $inc->id)>
-                                    {{ $inc->title }} ({{ $inc->reports_count }} laporan, {{ $inc->follow_up_records_count }} tindak lanjut)
-                                </option>
-                            @endforeach
+                            <optgroup label="Data Historis Resmi BNPB (DIBI)">
+                                @foreach($incidents->where('is_simulation', false) as $inc)
+                                    <option value="{{ $inc->slug }}" @selected($selectedIncident && $selectedIncident->id === $inc->id)>
+                                        [HISTORIS] {{ $inc->title }}
+                                    </option>
+                                @endforeach
+                            </optgroup>
+                            <optgroup label="Skenario Simulasi Prototipe">
+                                @foreach($incidents->where('is_simulation', true) as $inc)
+                                    <option value="{{ $inc->slug }}" @selected($selectedIncident && $selectedIncident->id === $inc->id)>
+                                        [SIMULASI] {{ $inc->title }} ({{ $inc->reports_count }} lap, {{ $inc->follow_up_records_count }} tindak)
+                                    </option>
+                                @endforeach
+                            </optgroup>
                         </select>
                         <button type="submit"
                                 class="px-3 py-1.5 rounded bg-[#2563EB] hover:bg-blue-500 text-white font-telemetry text-xs font-bold uppercase cursor-pointer shrink-0">
@@ -55,6 +64,18 @@
             @endif
         </div>
     </section>
+
+    @if($selectedIncident && !$selectedIncident->is_simulation)
+        <section class="bg-blue-50/80 border border-blue-200 rounded-lg p-3.5 flex items-start gap-2.5 text-xs text-blue-950">
+            <svg class="w-4 h-4 text-blue-700 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <div>
+                <strong class="font-bold text-blue-900">Mode Replay Data Kejadian Riil (Pusdatin BNPB):</strong>
+                Garis waktu di bawah ini merekonstruksi catatan riil dari arsip <strong>Data Informasi Bencana Indonesia (DIBI)</strong> Badan Nasional Penanggulangan Bencana. Kejadian historis ini tidak dihubungkan dengan laporan warga crowdsourcing untuk menjaga integritas data riil.
+            </div>
+        </section>
+    @endif
 
     @if(!$selectedIncident)
         <!-- Empty State when no incidents exist in DB -->

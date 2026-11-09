@@ -50,10 +50,10 @@
                     Pelacakan Tiket Laporan Warga
                 </span>
                 <h1 class="text-xl sm:text-2xl font-extrabold text-[#0F172A]">
-                    Lacak Status Laporan Berdasarkan Nomor Tiket
+                    Lacak Status Laporan &amp; Respons Bantuan
                 </h1>
                 <p class="text-sm text-slate-600">
-                    Masukkan kode tiket unik yang Anda terima saat mengirim laporan untuk melihat status verifikasi dan keterhubungannya dengan kejadian.
+                    Masukkan kode tiket untuk melihat perkembangan verifikasi dan tindak lanjut laporan Anda.
                 </p>
             </div>
             <a href="{{ route('public.reports.create') }}"
@@ -136,17 +136,38 @@
                     Nomor Tiket / Kode Referensi Tidak Ditemukan
                 </h2>
                 <p class="text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
-                    Kami tidak menemukan laporan warga atau respons bantuan yang sesuai dengan kode tiket <code class="font-telemetry font-bold text-[#0F172A] bg-slate-100 px-1.5 py-0.5 rounded">{{ $ticketQuery }}</code>. Pastikan penulisan karakter tiket sudah benar dan lengkap.
+                    Kode tiket <code class="font-telemetry font-bold text-[#0F172A] bg-slate-100 px-1.5 py-0.5 rounded">{{ $ticketQuery }}</code> tidak ditemukan di dalam sistem. Periksa kembali huruf dan angka pada kode tiket Anda.
                 </p>
                 <p class="text-xs text-slate-500 max-w-md mx-auto">
-                    Demi melindungi privasi pelapor dan pemberi respons, sistem hanya menampilkan data jika nomor tiket cocok secara tepat.
+                    Informasi hanya ditampilkan jika kode tiket dimasukkan secara tepat untuk melindungi privasi.
                 </p>
             </section>
         @elseif($aidResponse)
             @php
-                $needLabel = $needCategories[$aidResponse->need_category] ?? $aidResponse->need_category;
+                $needLabel = \App\Models\AidResponse::categoryLabel($aidResponse->need_category);
                 $isDeliveredSubmission = $aidResponse->isReportedDelivered();
+
+                $aStatus = $aidResponse->status instanceof \BackedEnum ? $aidResponse->status->value : (string) $aidResponse->status;
+                $aVerif = $aidResponse->verification_status instanceof \BackedEnum ? $aidResponse->verification_status->value : (string) $aidResponse->verification_status;
+
+                if ($aStatus === 'terkonfirmasi') {
+                    $aidStep = 5;
+                } elseif ($aStatus === 'dalam_penyaluran') {
+                    $aidStep = 4;
+                } elseif ($aVerif === 'terverifikasi') {
+                    $aidStep = 3;
+                } elseif ($aVerif === 'menunggu_verifikasi') {
+                    $aidStep = 2;
+                } else {
+                    $aidStep = 1;
+                }
             @endphp
+
+            <!-- Progress Alur Respons Bantuan -->
+            <x-response-pipeline
+                :activeStep="$aidStep"
+                title="Progres Penanganan Respons Bantuan Ini"
+                subtitle="Tahapan dari pencatatan respons bantuan, pemeriksaan petugas, verifikasi bukti, hingga konfirmasi penyerahan" />
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
                 <!-- Left Column (7 cols): Aid Response Details & Dual Status -->
@@ -326,7 +347,7 @@
 
                         <div class="bg-slate-50 border border-slate-200 rounded p-3 text-xs text-slate-600">
                             <strong class="font-telemetry uppercase text-slate-700">Perlindungan Privasi:</strong>
-                            Kontak pribadi pemberi respons disembunyikan pada halaman pelacakan publik ini.
+                            Kontak pribadi pemberi respons dirahasiakan dan tidak ditampilkan ke publik.
                         </div>
                     </section>
 
@@ -411,7 +432,27 @@
         @else
             @php
                 $categoryLabel = $categories[$report->category] ?? ucwords(str_replace('_', ' ', $report->category));
+                $rVerif = $report->verification_status instanceof \BackedEnum ? $report->verification_status->value : (string) ($report->verification_status ?? '');
+                $rFollowUp = $report->incident?->follow_up_status instanceof \BackedEnum ? $report->incident->follow_up_status->value : (string) ($report->incident?->follow_up_status ?? '');
+
+                if ($report->incident && $rFollowUp === 'selesai') {
+                    $reportStep = 5;
+                } elseif ($report->incident && in_array($rFollowUp, ['sedang_ditindaklanjuti', 'dipantau'])) {
+                    $reportStep = 4;
+                } elseif ($rVerif === 'terverifikasi') {
+                    $reportStep = 3;
+                } elseif ($rVerif === 'menunggu_verifikasi') {
+                    $reportStep = 2;
+                } else {
+                    $reportStep = 1;
+                }
             @endphp
+
+            <!-- Progress Alur Penanganan Laporan Warga -->
+            <x-response-pipeline
+                :activeStep="$reportStep"
+                title="Progres Penanganan Laporan Warga Ini"
+                subtitle="Tahapan dari penerimaan laporan, pemeriksaan awal, verifikasi silang, penautan kejadian, hingga konfirmasi penyelesaian" />
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
                 <!-- Left Column (7 cols): Report Summary & Linked Incident -->
@@ -501,7 +542,7 @@
 
                         <div class="bg-slate-50 border border-slate-200 rounded p-3 text-xs text-slate-600">
                             <strong class="font-telemetry uppercase text-slate-700">Perlindungan Privasi:</strong>
-                            Data pribadi dan nomor kontak pelapor disembunyikan pada halaman pelacakan publik ini.
+                            Nama dan nomor kontak pelapor dirahasiakan untuk melindungi privasi warga.
                         </div>
                     </section>
 
@@ -566,7 +607,7 @@
                             </div>
                         @else
                             <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-4 text-xs text-slate-600 leading-relaxed">
-                                Laporan ini saat ini berdiri sendiri dan belum dihubungkan ke kejadian tertentu. Tim verifikator TanggapTerang akan memeriksa apakah laporan ini berkaitan dengan kejadian yang sudah ada atau memerlukan pembuatan data kejadian baru.
+                                Laporan ini belum ditautkan ke kejadian tertentu. Tim verifikator sedang memeriksa kesesuaian laporan dengan kejadian aktif di sekitarnya.
                             </div>
                         @endif
                     </section>

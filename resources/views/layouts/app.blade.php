@@ -34,7 +34,7 @@
                         </span>
                     </div>
                     <p class="hidden sm:block font-telemetry text-[11px] text-slate-500 uppercase tracking-wider truncate mt-0.5">
-                        Informasi Kejadian &amp; Catatan Tindak Lanjut
+                        Terlihat, Terlacak, dan Terukur • Papan Transparansi Respons Bencana
                     </p>
                 </div>
             </a>
@@ -59,15 +59,15 @@
                 </a>
                 <a href="{{ $replayHref }}"
                    class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'replay' ? 'nav-active-gradient' : 'text-slate-600 hover:bg-slate-100 hover:text-[#0F172A]' }}">
-                    Replay Simulasi
+                    Linimasa
                 </a>
                 <a href="{{ $sitrepHref }}"
                    class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'laporan' ? 'nav-active-gradient' : 'text-slate-600 hover:bg-slate-100 hover:text-[#0F172A]' }}">
-                    Laporan SitRep
+                    SitRep
                 </a>
                 <a href="{{ route('public.sources.index') }}"
                    class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'sumber_data' ? 'nav-active-gradient' : 'text-slate-600 hover:bg-slate-100 hover:text-[#0F172A]' }}">
-                    Sumber Data
+                    Tentang Data
                 </a>
             </nav>
 
@@ -114,49 +114,44 @@
             </div>
         @endif
 
-        {{ $slot ?? '' }}
+        @if(isset($slot) && (is_string($slot) || $slot instanceof \Illuminate\Contracts\Support\Htmlable))
+            {{ $slot }}
+        @endif
         @yield('content')
     </main>
 
     <!-- Institutional Public Footer -->
     <x-public-footer />
 
-    <!-- Mobile Bottom Navigation Bar (5 Main Tabs) -->
-    <nav class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white border-t border-[#E2E8F0] h-16 grid grid-cols-5 p-1 gap-1 no-print" aria-label="Navigasi Bawah Mobile">
+    <!-- Mobile Bottom Navigation Bar (4 Main Public Tabs) -->
+    <nav class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white border-t border-[#E2E8F0] h-16 grid grid-cols-4 p-1 gap-1 no-print" aria-label="Navigasi Bawah Mobile">
         <a href="{{ route('public.monitor') }}"
            class="flex flex-col items-center justify-center gap-0.5 rounded-lg min-h-[48px] transition {{ $activeTab === 'pantau' ? 'nav-active-gradient font-bold' : 'text-slate-600 hover:bg-slate-100' }}">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
             </svg>
-            <span class="font-telemetry text-[9px] uppercase tracking-wider">Pantau</span>
+            <span class="font-telemetry text-[10px] uppercase tracking-wider font-bold">Pantau</span>
         </a>
         <a href="{{ route('public.track') }}"
            class="flex flex-col items-center justify-center gap-0.5 rounded-lg min-h-[48px] transition {{ $activeTab === 'lacak' ? 'nav-active-gradient font-bold' : 'text-slate-600 hover:bg-slate-100' }}">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
             </svg>
-            <span class="font-telemetry text-[9px] uppercase tracking-wider">Lacak</span>
+            <span class="font-telemetry text-[10px] uppercase tracking-wider font-bold">Lacak</span>
         </a>
         <a href="{{ $replayHref }}"
            class="flex flex-col items-center justify-center gap-0.5 rounded-lg min-h-[48px] transition {{ $activeTab === 'replay' ? 'nav-active-gradient font-bold' : 'text-slate-600 hover:bg-slate-100' }}">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
-            <span class="font-telemetry text-[9px] uppercase tracking-wider">Replay</span>
+            <span class="font-telemetry text-[10px] uppercase tracking-wider font-bold">Replay</span>
         </a>
         <a href="{{ $sitrepHref }}"
            class="flex flex-col items-center justify-center gap-0.5 rounded-lg min-h-[48px] transition {{ $activeTab === 'laporan' ? 'nav-active-gradient font-bold' : 'text-slate-600 hover:bg-slate-100' }}">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
-            <span class="font-telemetry text-[9px] uppercase tracking-wider">Laporan</span>
-        </a>
-        <a href="{{ route('public.sources.index') }}"
-           class="flex flex-col items-center justify-center gap-0.5 rounded-lg min-h-[48px] transition {{ $activeTab === 'sumber_data' ? 'nav-active-gradient font-bold' : 'text-slate-600 hover:bg-slate-100' }}">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
-            </svg>
-            <span class="font-telemetry text-[9px] uppercase tracking-wider">Sumber Data</span>
+            <span class="font-telemetry text-[10px] uppercase tracking-wider font-bold">Laporan</span>
         </a>
     </nav>
 

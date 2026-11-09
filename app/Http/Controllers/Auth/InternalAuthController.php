@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\AuditLog;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -71,6 +72,15 @@ class InternalAuthController extends Controller
         Auth::login($user, $request->boolean('remember'));
         $request->session()->regenerate();
 
+        AuditLog::record(
+            activityType: 'auth.login',
+            description: "Pengguna {$user->name} ({$user->role?->label()}) berhasil masuk ke sesi internal.",
+            actor: $user,
+            subject: $user,
+            subjectLabel: $user->email,
+            metadata: ['email' => $user->email, 'role' => $user->role?->value]
+        );
+
         return redirect()->intended(route('internal.dashboard'))
             ->with('success', "Selamat datang, {$user->name} ({$user->role?->label()}).");
     }
@@ -80,6 +90,19 @@ class InternalAuthController extends Controller
      */
     public function logout(Request $request): RedirectResponse
     {
+        $user = Auth::guard('web')->user();
+
+        if ($user) {
+            AuditLog::record(
+                activityType: 'auth.logout',
+                description: "Pengguna {$user->name} ({$user->role?->label()}) keluar dari sesi internal.",
+                actor: $user,
+                subject: $user,
+                subjectLabel: $user->email,
+                metadata: ['email' => $user->email, 'role' => $user->role?->value]
+            );
+        }
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();

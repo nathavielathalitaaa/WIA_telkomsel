@@ -104,6 +104,8 @@ class PublicSitrepController extends Controller
         // Hitung statistik SitRep langsung dari hasil query database
         $stats = [
             'total_incidents' => $incidents->count(),
+            'historical_incidents' => $incidents->where('is_simulation', false)->count(),
+            'simulation_incidents' => $incidents->where('is_simulation', true)->count(),
             'terverifikasi' => $incidents->filter(
                 fn (Incident $i) => ($i->verification_status?->value ?? $i->verification_status) === VerificationStatus::Terverifikasi->value
             )->count(),
@@ -142,12 +144,14 @@ class PublicSitrepController extends Controller
         $allIncidentOptions = Incident::query()
             ->where('verification_status', '!=', VerificationStatus::Ditolak->value)
             ->orderByDesc('occurred_at')
-            ->get(['id', 'title', 'slug']);
+            ->get(['id', 'title', 'slug', 'is_simulation']);
 
+        $selectedIncident = $incidentSlug !== '' ? $incidents->firstWhere('slug', $incidentSlug) : null;
         $lastUpdatedAt = $incidents->max('updated_at') ?? now();
 
         return view('public.sitrep', [
             'incidents' => $incidents,
+            'selectedIncident' => $selectedIncident,
             'stats' => $stats,
             'availableLocations' => $availableLocations,
             'allIncidentOptions' => $allIncidentOptions,
@@ -171,6 +175,8 @@ class PublicSitrepController extends Controller
     {
         $summary = [
             'incidents_count' => Incident::where('verification_status', '!=', VerificationStatus::Ditolak->value)->count(),
+            'historical_count' => Incident::where('verification_status', '!=', VerificationStatus::Ditolak->value)->where('is_simulation', false)->count(),
+            'simulation_count' => Incident::where('verification_status', '!=', VerificationStatus::Ditolak->value)->where('is_simulation', true)->count(),
             'reports_count' => Report::where('verification_status', '!=', VerificationStatus::Ditolak->value)->count(),
             'sources_count' => Source::count(),
         ];

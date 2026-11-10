@@ -1,5 +1,5 @@
 <!-- Internal Footer Component - TanggapTerang -->
-<footer class="bg-white border-t border-[#E2E8F0] mt-12 py-5 text-slate-600 no-print" role="contentinfo">
+<footer class="bg-white border-t border-slate-100 mt-12 py-5 text-slate-600 no-print" role="contentinfo">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-3 text-xs">
         <div class="flex flex-wrap items-center justify-center md:justify-start gap-2.5 text-center md:text-left">
             <img src="{{ asset('images/logo-tanggap-terang.png') }}"

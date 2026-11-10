@@ -48,7 +48,7 @@
         };
     @endphp
     <header class="bg-[#0F172A] text-white border-b border-slate-800 sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 min-h-[64px] py-2 flex items-center justify-between gap-2 sm:gap-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[64px] py-2 flex items-center justify-between gap-2 sm:gap-4">
             <div class="flex items-center gap-2.5 sm:gap-4 min-w-0">
                 <a href="{{ route('internal.dashboard') }}" class="flex items-center gap-2.5 min-w-0">
                     <img src="{{ asset('images/logo-tanggap-terang.png') }}"
@@ -135,7 +135,7 @@
         </div>
 
         <!-- Mobile & Tablet Sub-nav + Account Info Bar for Internal (< 1024px) -->
-        <div class="lg:hidden border-t border-slate-800 px-3 sm:px-6 py-2 flex flex-wrap items-center justify-between gap-2">
+        <div class="lg:hidden border-t border-slate-800 px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center justify-between gap-2">
             <nav class="flex flex-wrap items-center gap-1.5" aria-label="Navigasi Internal Mobile">
                 <a href="{{ route('internal.dashboard') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'dashboard' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800' }}">Dashboard</a>
                 <a href="{{ route('internal.reports.index') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'reports' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800' }}">{{ $reportsMenuLabel }}</a>
@@ -160,8 +160,8 @@
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
+    <!-- Main Content (Consistent Global Container) -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
         <x-simulation-banner :compact="true" />
 
         @if(session('success'))

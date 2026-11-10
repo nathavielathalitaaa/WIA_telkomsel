@@ -41,7 +41,7 @@
     </nav>
 
     <!-- Desktop Sticky Section Quick Nav -->
-    <div class="hidden lg:flex items-center gap-2 p-1.5 bg-white border border-[#CBD5E1] rounded-lg shadow-2xs font-telemetry text-xs">
+    <div class="hidden lg:flex items-center gap-2 p-1.5 bg-white rounded-xl shadow-xs border border-slate-100/90 font-telemetry text-xs">
         <span class="px-2 font-bold uppercase tracking-wider text-slate-400">Navigasi Halaman:</span>
         <a href="#section-ringkasan" class="px-3 py-1.5 rounded text-slate-700 hover:bg-slate-100 font-bold transition">Ringkasan</a>
         <a href="#section-peta" class="px-3 py-1.5 rounded text-slate-700 hover:bg-slate-100 font-bold transition">Peta Titik</a>
@@ -52,7 +52,7 @@
     </div>
 
     <!-- Primary Incident Header Card -->
-    <section id="section-ringkasan" class="bg-white border border-[#E2E8F0] rounded-lg p-5 sm:p-6 space-y-5">
+    <section id="section-ringkasan" class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 sm:p-6 space-y-5">
         <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4">
             <div class="flex flex-wrap items-center gap-2">
                 @if($incident->is_simulation)
@@ -106,7 +106,7 @@
             </h1>
 
             <!-- Administrative Location Info -->
-            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                 <div class="space-y-1">
                     <div class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-slate-500">
                         Lokasi Kejadian &amp; Wilayah Administratif
@@ -218,8 +218,8 @@
         <!-- Left Column (5 cols) -->
         <div class="lg:col-span-5 space-y-5 min-w-0">
             <!-- Incident Location Map -->
-            <section id="section-peta" class="bg-white border border-[#E2E8F0] rounded-lg overflow-hidden">
-                <div class="p-4 border-b border-[#E2E8F0] bg-[#F8FAFC] flex items-center justify-between">
+            <section id="section-peta" class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
+                <div class="p-4 border-b border-slate-100 bg-[#F8FAFC] flex items-center justify-between">
                     <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                         Peta Titik Kejadian
                     </h2>
@@ -252,7 +252,7 @@
             </section>
 
             <!-- Connected Open Sources -->
-            <section id="section-sumber" class="bg-white border border-[#E2E8F0] rounded-lg p-4 sm:p-5 space-y-4">
+            <section id="section-sumber" class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-4 sm:p-5 space-y-4">
                 <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                     <div>
                         <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
@@ -268,13 +268,13 @@
                 </div>
 
                 @if($incident->incidentSources->isEmpty())
-                    <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-4 text-xs text-slate-500 text-center">
+                    <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-4 text-xs text-slate-500 text-center">
                         Belum ada rujukan sumber informasi terbuka eksternal yang ditautkan pada kejadian ini.
                     </div>
                 @else
                     <div class="space-y-3">
                         @foreach($incident->incidentSources as $incSource)
-                            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3.5 space-y-2">
+                            <div class="bg-[#F8FAFC] border border-slate-100/90 rounded-xl p-3.5 space-y-2">
                                 <div class="flex flex-wrap items-center justify-between gap-2">
                                     @if($incSource->source)
                                         <x-source-badge :type="$incSource->source->source_type" :isSimulation="(bool) $incSource->source->is_simulation" />
@@ -323,7 +323,7 @@
         <!-- Right Column (7 cols): Connected Citizen Reports & Public Audit Timeline -->
         <div class="lg:col-span-7 space-y-5 min-w-0">
             <!-- Connected Citizen Reports (Sanitized — NO Reporter PII) -->
-            <section id="section-laporan" class="bg-white border border-[#E2E8F0] rounded-lg p-4 sm:p-5 space-y-4">
+            <section id="section-laporan" class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-4 sm:p-5 space-y-4">
                 <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
                     <div>
                         <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
@@ -339,7 +339,7 @@
                 </div>
 
                 @if($incident->reports->isEmpty())
-                    <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-6 text-center space-y-2">
+                    <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-6 text-center space-y-2">
                         <p class="text-sm font-semibold text-slate-700">Belum Ada Laporan Masyarakat yang Terhubung</p>
                         <p class="text-xs text-slate-500 max-w-md mx-auto">
                             @if(!$incident->is_simulation)
@@ -352,7 +352,7 @@
                 @else
                     <div class="space-y-3">
                         @foreach($incident->reports as $report)
-                            <article class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-4 space-y-2.5">
+                            <article class="bg-[#F8FAFC] border border-slate-100/90 rounded-xl p-4 space-y-2.5">
                                 <div class="flex flex-wrap items-center justify-between gap-2">
                                     <div class="flex flex-wrap items-center gap-2">
                                         <span class="px-2 py-0.5 rounded bg-[#0F172A] text-white font-telemetry text-xs font-bold">
@@ -401,7 +401,7 @@
             </section>
 
             <!-- Respons Bantuan Masyarakat / Komunitas (Terpisah dari Tindak Lanjut Internal) -->
-            <section id="section-bantuan" class="bg-white border border-[#E2E8F0] rounded-lg p-4 sm:p-5 space-y-4">
+            <section id="section-bantuan" class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-4 sm:p-5 space-y-4">
                 <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
                     <div>
                         <div class="flex flex-wrap items-center gap-2">
@@ -438,9 +438,9 @@
                     );
                 @endphp
                 @if($activeIncidentStats->isNotEmpty())
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-none sm:grid sm:grid-cols-2">
                         @foreach($activeIncidentStats as $catStat)
-                            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3.5 space-y-2.5">
+                            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3.5 space-y-2.5 w-[84vw] max-w-[340px] shrink-0 snap-start sm:w-auto">
                                 <div class="flex items-center justify-between gap-2 border-b border-slate-200/80 pb-1.5">
                                     <span class="text-xs font-bold text-[#0F172A]">{{ $catStat['label'] }}</span>
                                     <span class="font-telemetry text-[10px] font-semibold text-blue-800">
@@ -509,7 +509,7 @@
                 @endif
 
                 @if($incident->aidResponses->isEmpty())
-                    <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-5 text-center space-y-2">
+                    <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-5 text-center space-y-2">
                         <p class="text-sm font-semibold text-slate-700">Belum Ada Respons Bantuan Tercatat pada Kejadian Ini</p>
                         <p class="text-xs text-slate-500 max-w-md mx-auto">
                             @if(!$incident->is_simulation)
@@ -526,7 +526,7 @@
                                 $aidStatusVal = $aid->status instanceof \BackedEnum ? $aid->status->value : (string) $aid->status;
                                 $isDeliveredSubmission = $aid->isReportedDelivered();
                             @endphp
-                            <article class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-4 space-y-2.5">
+                            <article class="bg-[#F8FAFC] border border-slate-100/90 rounded-xl p-4 space-y-2.5">
                                 <div class="flex flex-wrap items-center justify-between gap-2">
                                     <div class="flex flex-wrap items-center gap-2">
                                         <span class="px-2 py-0.5 rounded bg-slate-900 text-white font-telemetry text-xs font-bold">
@@ -625,7 +625,7 @@
                     </div>
                 @endif
 
-                <div class="bg-[#FFFBEB] border border-[#FCD34D] rounded-lg p-3 text-xs text-[#92400E] space-y-1">
+                <div class="bg-[#FFFBEB] border border-amber-200/90 rounded-xl p-3.5 text-xs text-[#92400E] space-y-1">
                     <div>
                         <strong class="font-telemetry uppercase">Keterbatasan Cakupan Data:</strong>
                         Data ini hanya mencakup kebutuhan dan respons bantuan yang tercatat pada TanggapTerang.
@@ -638,7 +638,7 @@
             </section>
 
             <!-- Public Verification, Follow-Up & Aid Response Audit Timeline -->
-            <section id="section-timeline" class="bg-white border border-[#E2E8F0] rounded-lg p-4 sm:p-5 space-y-4">
+            <section id="section-timeline" class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-4 sm:p-5 space-y-4">
                 <div class="border-b border-slate-100 pb-3">
                     <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                         Riwayat Verifikasi, Tindak Lanjut Internal, &amp; Respons Bantuan

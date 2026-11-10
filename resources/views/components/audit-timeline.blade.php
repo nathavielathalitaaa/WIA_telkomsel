@@ -78,7 +78,7 @@
 @endphp
 
 @if($sortedEntries->isEmpty())
-    <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-6 text-center text-sm text-slate-500">
+    <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-6 text-center text-sm text-slate-500">
         Belum ada riwayat perubahan verifikasi, catatan tindak lanjut internal, maupun respons bantuan yang tercatat.
     </div>
 @else
@@ -106,7 +106,7 @@
                     ],
                 };
             @endphp
-            <div class="relative bg-white border border-[#E2E8F0] rounded-lg p-4">
+            <div class="relative bg-white rounded-xl shadow-xs border border-slate-100/90 p-4">
                 <!-- Timeline Bullet -->
                 <div class="absolute -left-[22px] top-4 w-4 h-4 rounded-full border-2 border-white shadow-xs {{ $bulletColor }}"></div>
 

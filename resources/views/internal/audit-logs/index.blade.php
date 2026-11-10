@@ -39,28 +39,28 @@
     </div>
 
     <!-- Metric Summary Cards -->
-    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
-        <div class="bg-white rounded-xl border border-slate-200 p-4">
+    <div class="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-none sm:grid sm:grid-cols-5">
+        <div class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 w-[165px] shrink-0 snap-start sm:w-auto">
             <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-telemetry block">Total Aktivitas</span>
             <span class="text-2xl font-black text-slate-900 mt-1 block font-telemetry">{{ number_format($stats['total']) }}</span>
             <span class="text-[10px] text-slate-400 font-telemetry">Sejak awal pencatatan</span>
         </div>
-        <div class="bg-white rounded-xl border border-slate-200 p-4">
+        <div class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 w-[165px] shrink-0 snap-start sm:w-auto">
             <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-600 font-telemetry block">Hari Ini</span>
             <span class="text-2xl font-black text-emerald-600 mt-1 block font-telemetry">{{ number_format($stats['today']) }}</span>
             <span class="text-[10px] text-emerald-700 font-telemetry">Aktivitas 24 jam terakhir</span>
         </div>
-        <div class="bg-white rounded-xl border border-slate-200 p-4">
+        <div class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 w-[165px] shrink-0 snap-start sm:w-auto">
             <span class="text-[10px] font-bold uppercase tracking-wider text-amber-600 font-telemetry block">Aksi Admin</span>
             <span class="text-2xl font-black text-amber-700 mt-1 block font-telemetry">{{ number_format($stats['admin_actions']) }}</span>
             <span class="text-[10px] text-slate-400 font-telemetry">Pengelolaan sistem & intelijen</span>
         </div>
-        <div class="bg-white rounded-xl border border-slate-200 p-4">
+        <div class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 w-[165px] shrink-0 snap-start sm:w-auto">
             <span class="text-[10px] font-bold uppercase tracking-wider text-blue-600 font-telemetry block">Aksi Verifikator</span>
             <span class="text-2xl font-black text-blue-700 mt-1 block font-telemetry">{{ number_format($stats['verifikator_actions']) }}</span>
             <span class="text-[10px] text-slate-400 font-telemetry">Verifikasi laporan & bantuan</span>
         </div>
-        <div class="bg-white rounded-xl border border-slate-200 p-4 col-span-2 sm:col-span-1">
+        <div class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 w-[165px] shrink-0 snap-start sm:w-auto">
             <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-600 font-telemetry block">Aksi Operator</span>
             <span class="text-2xl font-black text-emerald-700 mt-1 block font-telemetry">{{ number_format($stats['operator_actions']) }}</span>
             <span class="text-[10px] text-slate-400 font-telemetry">Operasional kejadian & tindak lanjut</span>
@@ -68,7 +68,7 @@
     </div>
 
     <!-- Filter Form -->
-    <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-xs">
+    <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-4">
         <form method="GET" action="{{ route('internal.audit-logs.index') }}" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 text-xs">
             <div class="lg:col-span-4">
                 <label for="q" class="block font-semibold text-slate-700 mb-1">Pencarian</label>
@@ -142,7 +142,7 @@
     </div>
 
     <!-- Table Audit Log -->
-    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+    <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
         @if($logs->isEmpty())
             <div class="p-12 text-center space-y-2">
                 <span class="text-3xl block">🔍</span>

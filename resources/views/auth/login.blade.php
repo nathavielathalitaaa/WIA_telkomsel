@@ -6,7 +6,7 @@
 @section('content')
     <div class="max-w-4xl mx-auto py-4 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         <!-- Left Column: Login Card (7 cols) -->
-        <section class="lg:col-span-7 bg-white border border-[#E2E8F0] rounded-lg p-6 sm:p-8 space-y-6">
+        <section class="lg:col-span-7 bg-white rounded-2xl shadow-xs border border-slate-100/90 p-6 sm:p-8 space-y-6">
             <div class="border-b border-slate-100 pb-4 space-y-3">
                 <div class="flex items-center gap-3.5">
                     <img src="{{ asset('images/logo-tanggap-terang.png') }}"
@@ -96,20 +96,20 @@
 
         <!-- Right Column: Role Information & Public Access Notice (5 cols) -->
         <aside class="lg:col-span-5 space-y-4">
-            <div class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-3">
+            <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-3">
                 <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                     Pembagian Peran Tim Internal
                 </h2>
                 <div class="space-y-2.5 text-xs text-slate-600">
-                    <div class="p-3 rounded bg-[#F8FAFC] border border-[#E2E8F0]">
+                    <div class="p-3 rounded-xl bg-[#F8FAFC] border border-slate-100">
                         <strong class="font-telemetry uppercase text-[#2563EB] block">1. Verifikator</strong>
                         Memeriksa laporan masyarakat yang masuk, memverifikasi, menolak dengan alasan, atau menandai laporan duplikat, serta memperbarui status verifikasi kejadian.
                     </div>
-                    <div class="p-3 rounded bg-[#F8FAFC] border border-[#E2E8F0]">
+                    <div class="p-3 rounded-xl bg-[#F8FAFC] border border-slate-100">
                         <strong class="font-telemetry uppercase text-[#059669] block">2. Operator</strong>
                         Membuat dan memperbarui data kejadian, menghubungkan laporan ke kejadian, menambahkan sumber informasi terbuka, serta mencatat tindak lanjut.
                     </div>
-                    <div class="p-3 rounded bg-[#F8FAFC] border border-[#E2E8F0]">
+                    <div class="p-3 rounded-xl bg-[#F8FAFC] border border-slate-100">
                         <strong class="font-telemetry uppercase text-[#0F172A] block">3. Administrator</strong>
                         Memiliki kewenangan penuh atas pengelolaan verifikasi laporan maupun pengelolaan kejadian dan tindak lanjut.
                     </div>

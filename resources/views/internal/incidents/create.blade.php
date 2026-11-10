@@ -11,7 +11,7 @@
         </a>
     </nav>
 
-    <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 sm:p-6 space-y-6 max-w-4xl">
+    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 sm:p-6 space-y-6 max-w-4xl">
         <div class="border-b border-slate-100 pb-4 space-y-1">
             <span class="px-2 py-0.5 rounded bg-[#0F172A] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
                 Pencatatan Kejadian Baru (Wewenang Operator &amp; Admin)
@@ -154,7 +154,7 @@
 
             <!-- Hubungkan Laporan Masyarakat yang Belum Terhubung -->
             @if($unlinkedReports->isNotEmpty())
-                <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-4 space-y-2.5">
+                <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-4 space-y-2.5">
                     <div class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                         Hubungkan Laporan Masyarakat yang Relevan (Opsional)
                     </div>

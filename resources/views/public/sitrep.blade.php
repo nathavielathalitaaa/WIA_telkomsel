@@ -5,7 +5,7 @@
 
 @section('content')
     <!-- Interactive Filter & Print Toolbar (Hidden on Print) -->
-    <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-4 no-print">
+    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4 no-print">
         <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-slate-100 pb-4">
             <div class="space-y-1">
                 <div class="flex flex-wrap items-center gap-2">
@@ -128,7 +128,7 @@
     </section>
 
     <!-- Printable SitRep Document Sheet -->
-    <article class="bg-white border border-[#CBD5E1] rounded-lg p-6 sm:p-8 space-y-6 print-sheet">
+    <article class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-6 sm:p-8 space-y-6 print-sheet">
         <!-- Document Institutional Header (Strictly TanggapTerang — NO fake BNPB/BPBD authorship) -->
         <header class="border-b-2 border-[#0F172A] pb-5 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
             <div class="flex items-start gap-3.5 sm:gap-4">
@@ -165,7 +165,7 @@
                 </div>
             </div>
 
-            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3 font-telemetry text-xs text-slate-700 shrink-0 space-y-1">
+            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3 font-telemetry text-xs text-slate-700 shrink-0 space-y-1">
                 <div>
                     <span class="text-[10px] uppercase text-slate-500 block">Waktu Pembuatan Laporan:</span>
                     <strong>{{ $generatedAt->format('d M Y, H:i') }} WIB</strong>
@@ -186,7 +186,7 @@
         <!-- Dual Summary Section: Verification Status Counts vs Follow-Up Status Counts -->
         <section class="grid grid-cols-1 md:grid-cols-2 gap-4 print-avoid-break">
             <!-- Box 1: Ringkasan Berdasarkan Status Verifikasi Informasi -->
-            <div class="bg-[#F8FAFC] border border-[#CBD5E1] rounded-lg p-4 space-y-3">
+            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-4 space-y-3">
                 <div class="flex items-center justify-between border-b border-slate-200 pb-2">
                     <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                         1. Ringkasan Berdasarkan Status Verifikasi Informasi
@@ -196,18 +196,18 @@
                     </span>
                 </div>
 
-                <div class="grid grid-cols-3 gap-2.5 text-center">
-                    <div class="bg-white border border-[#93C5FD] rounded p-2.5 card-interactive"
+                <div class="flex overflow-x-auto snap-x snap-mandatory gap-2.5 pb-1 -mx-2 px-2 sm:mx-0 sm:px-0 scrollbar-none sm:grid sm:grid-cols-3 text-center">
+                    <div class="bg-white border border-[#93C5FD] rounded-lg p-2.5 card-interactive w-[130px] shrink-0 snap-start sm:w-auto"
                          data-tooltip="Jumlah kejadian dengan validasi terverifikasi">
                         <span class="font-telemetry text-[10px] font-bold uppercase text-[#1E40AF] block">Terverifikasi</span>
                         <span class="font-telemetry text-2xl font-bold text-[#2563EB]">{{ $stats['terverifikasi'] }}</span>
                     </div>
-                    <div class="bg-white border border-[#FCD34D] rounded p-2.5 card-interactive"
+                    <div class="bg-white border border-[#FCD34D] rounded-lg p-2.5 card-interactive w-[130px] shrink-0 snap-start sm:w-auto"
                          data-tooltip="Kejadian sedang dalam pemeriksaan tim verifikator">
                         <span class="font-telemetry text-[10px] font-bold uppercase text-[#92400E] block">Menunggu Verifikasi</span>
                         <span class="font-telemetry text-2xl font-bold text-[#D97706]">{{ $stats['menunggu_verifikasi'] }}</span>
                     </div>
-                    <div class="bg-white border border-[#CBD5E1] rounded p-2.5 card-interactive"
+                    <div class="bg-white border border-slate-200 rounded-lg p-2.5 card-interactive w-[130px] shrink-0 snap-start sm:w-auto"
                          data-tooltip="Total laporan masyarakat yang telah ditautkan ke kejadian">
                         <span class="font-telemetry text-[10px] font-bold uppercase text-slate-600 block">Laporan Terhubung</span>
                         <span class="font-telemetry text-2xl font-bold text-[#0F172A]">{{ $stats['connected_reports'] }}</span>
@@ -216,7 +216,7 @@
             </div>
 
             <!-- Box 2: Ringkasan Berdasarkan Status Tindak Lanjut Internal TanggapTerang -->
-            <div class="bg-[#F8FAFC] border border-[#CBD5E1] rounded-lg p-4 space-y-3">
+            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-4 space-y-3">
                 <div class="flex items-center justify-between border-b border-slate-200 pb-2">
                     <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                         2. Ringkasan Status Tindak Lanjut Tim TanggapTerang
@@ -226,23 +226,23 @@
                     </span>
                 </div>
 
-                <div class="grid grid-cols-4 gap-2 text-center">
-                    <div class="bg-white border border-slate-300 rounded p-2 card-interactive"
+                <div class="flex overflow-x-auto snap-x snap-mandatory gap-2 pb-1 -mx-2 px-2 sm:mx-0 sm:px-0 scrollbar-none sm:grid sm:grid-cols-4 text-center">
+                    <div class="bg-white border border-slate-300 rounded-lg p-2 card-interactive w-[125px] shrink-0 snap-start sm:w-auto"
                          data-tooltip="Kejadian belum ada tindakan pemantauan lanjutan">
                         <span class="font-telemetry text-[9px] font-bold uppercase text-slate-600 block">Belum Ditindaklanjuti</span>
                         <span class="font-telemetry text-xl font-bold text-slate-800">{{ $stats['belum_ditindaklanjuti'] }}</span>
                     </div>
-                    <div class="bg-white border border-[#FCD34D] rounded p-2 card-interactive"
+                    <div class="bg-white border border-[#FCD34D] rounded-lg p-2 card-interactive w-[125px] shrink-0 snap-start sm:w-auto"
                          data-tooltip="Kejadian sedang dalam koordinasi &amp; pemantauan aktif">
                         <span class="font-telemetry text-[9px] font-bold uppercase text-[#92400E] block">Sedang Ditindaklanjuti</span>
                         <span class="font-telemetry text-xl font-bold text-[#D97706]">{{ $stats['sedang_ditindaklanjuti'] }}</span>
                     </div>
-                    <div class="bg-white border border-[#93C5FD] rounded p-2 card-interactive"
+                    <div class="bg-white border border-[#93C5FD] rounded-lg p-2 card-interactive w-[125px] shrink-0 snap-start sm:w-auto"
                          data-tooltip="Perkembangan terus dipantau secara berkala">
                         <span class="font-telemetry text-[9px] font-bold uppercase text-[#1E40AF] block">Dipantau</span>
                         <span class="font-telemetry text-xl font-bold text-[#2563EB]">{{ $stats['dipantau'] }}</span>
                     </div>
-                    <div class="bg-white border border-[#6EE7B7] rounded p-2 card-interactive"
+                    <div class="bg-white border border-[#6EE7B7] rounded-lg p-2 card-interactive w-[125px] shrink-0 snap-start sm:w-auto"
                          data-tooltip="Penanganan informasi kejadian dinyatakan selesai">
                         <span class="font-telemetry text-[9px] font-bold uppercase text-[#065F46] block">Selesai</span>
                         <span class="font-telemetry text-xl font-bold text-[#059669]">{{ $stats['selesai'] }}</span>
@@ -263,7 +263,7 @@
             </div>
 
             @if($incidents->isEmpty())
-                <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-8 text-center space-y-2">
+                <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-8 text-center space-y-2">
                     <h4 class="text-base font-bold text-[#0F172A]">Tidak Ada Data Kejadian pada Kriteria Ini</h4>
                     <p class="text-xs text-slate-600">
                         Belum terdapat kejadian yang sesuai dengan filter wilayah, kejadian, atau rentang tanggal yang dipilih.
@@ -370,7 +370,7 @@
         </section>
 
         <!-- Mandatory Data Limitations & Institutional Scope Footnote -->
-        <footer class="bg-[#F8FAFC] border border-[#CBD5E1] rounded-lg p-4 space-y-2 text-xs text-slate-700 print-avoid-break">
+        <footer class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-4 space-y-2 text-xs text-slate-700 print-avoid-break">
             <div class="font-telemetry font-bold uppercase tracking-wider text-[#0F172A]">
                 Catatan Keterbatasan Data &amp; Ruang Lingkup TanggapTerang
             </div>

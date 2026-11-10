@@ -25,7 +25,7 @@
     </nav>
 
     <!-- Header Summary with Dual Separated Statuses -->
-    <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-4">
+    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-2">
             <div class="flex flex-wrap items-center gap-2">
                 @if($incident->is_simulation)
@@ -48,7 +48,7 @@
         </h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="bg-[#F8FAFC] border-l-4 border-[#2563EB] border-y border-r border-[#E2E8F0] rounded-lg p-3.5 flex items-center justify-between">
+            <div class="bg-[#F8FAFC] border-l-4 border-[#2563EB] border-y border-r border-slate-100 rounded-xl p-3.5 flex items-center justify-between">
                 <div>
                     <span class="font-telemetry text-[10px] font-bold uppercase text-slate-500 block">
                         1. Status Verifikasi Informasi
@@ -58,7 +58,7 @@
                 <x-verification-badge :status="$incident->verification_status" />
             </div>
 
-            <div class="bg-[#F8FAFC] border-l-4 border-[#059669] border-y border-r border-[#E2E8F0] rounded-lg p-3.5 flex items-center justify-between">
+            <div class="bg-[#F8FAFC] border-l-4 border-[#059669] border-y border-r border-slate-100 rounded-xl p-3.5 flex items-center justify-between">
                 <div>
                     <span class="font-telemetry text-[10px] font-bold uppercase text-slate-500 block">
                         2. Status Tindak Lanjut Tim
@@ -74,7 +74,7 @@
         <!-- Left Column (7 cols): Incident Info Form, Connected Reports, Sources, & Complete Audit Trail -->
         <div class="lg:col-span-7 space-y-5">
             <!-- Section 1: Edit Informasi Kejadian & Tautkan Laporan (Operator & Admin) -->
-            <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-4">
+            <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                 <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                     <div>
                         <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
@@ -196,7 +196,7 @@
                         </div>
 
                         @if($unlinkedReports->isNotEmpty())
-                            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3.5 space-y-2">
+                            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3.5 space-y-2">
                                 <span class="font-telemetry text-[11px] font-bold uppercase text-[#0F172A] block">
                                     Tautkan Laporan Masyarakat Mandiri ke Kejadian Ini:
                                 </span>
@@ -231,7 +231,7 @@
             </section>
 
             <!-- Section 2: Connected Citizen Reports -->
-            <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-3">
+            <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-3">
                 <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                     <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                         Laporan Masyarakat Terhubung ({{ $incident->reports->count() }})
@@ -242,7 +242,7 @@
                 </div>
 
                 @forelse($incident->reports as $rep)
-                    <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3.5 flex flex-wrap items-center justify-between gap-2">
+                    <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-2">
                         <div>
                             <div class="flex items-center gap-2">
                                 <a href="{{ route('internal.reports.show', $rep) }}"
@@ -267,7 +267,7 @@
             </section>
 
             <!-- Section 3: Connected Open Sources -->
-            <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-3">
+            <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-3">
                 <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                     <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                         Sumber Informasi Terbuka Terhubung ({{ $incident->incidentSources->count() }})
@@ -275,7 +275,7 @@
                 </div>
 
                 @forelse($incident->incidentSources as $incSource)
-                    <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3.5 space-y-1">
+                    <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3.5 space-y-1">
                         <div class="flex items-center justify-between">
                             @if($incSource->source)
                                 <x-source-badge :type="$incSource->source->source_type" :isSimulation="(bool) $incSource->source->is_simulation" />
@@ -293,7 +293,7 @@
             </section>
 
             <!-- Section 3B: Kelola & Konfirmasi Respons Bantuan Masyarakat -->
-            <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-4">
+            <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                 <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
                     <div>
                         <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
@@ -559,7 +559,7 @@
             </section>
 
             <!-- Section 4: Complete Internal Audit Trail -->
-            <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-4">
+            <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                 <div class="border-b border-slate-100 pb-3">
                     <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                         Riwayat Verifikasi, Tindak Lanjut, &amp; Respons Bantuan (Mode Internal)
@@ -578,7 +578,7 @@
         <!-- Right Column (5 cols): Role-Gated Action Panels -->
         <div class="lg:col-span-5 space-y-5">
             <!-- Panel A: Status Verifikasi Kejadian (Verifikator & Admin) -->
-            <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-4">
+            <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                 <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                     <div>
                         <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#2563EB]">
@@ -640,7 +640,7 @@
             </section>
 
             <!-- Panel B: Status Tindak Lanjut Kejadian (Operator & Admin) -->
-            <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-4">
+            <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                 <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                     <div>
                         <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#059669]">
@@ -703,7 +703,7 @@
 
             <!-- Panel C: Tambah Catatan Tindak Lanjut Baru (Operator & Admin) -->
             @if($user->canManageOperations())
-                <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-4">
+                <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                     <div class="border-b border-slate-100 pb-3">
                         <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                             3. Tambah Catatan Tindak Lanjut Baru
@@ -784,7 +784,7 @@
                 </section>
 
                 <!-- Panel D: Tambah Sumber Informasi Terbuka (Operator & Admin) -->
-                <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-4">
+                <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                     <div class="border-b border-slate-100 pb-3">
                         <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                             4. Tambah Sumber Informasi Terbuka

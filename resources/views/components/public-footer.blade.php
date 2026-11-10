@@ -1,5 +1,5 @@
 <!-- Public Footer Component - TanggapTerang -->
-<footer class="bg-white border-t border-[#E2E8F0] mt-16 pt-12 pb-24 lg:pb-8 text-slate-600 no-print" role="contentinfo">
+<footer class="bg-white border-t border-slate-100 mt-16 pt-12 pb-24 lg:pb-8 text-slate-600 no-print" role="contentinfo">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-10">
             <!-- A. Brand Section (5 cols) -->
@@ -96,7 +96,7 @@
                     </h3>
                 </div>
 
-                <div class="space-y-2.5 text-xs text-slate-600 leading-relaxed bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3.5">
+                <div class="space-y-2.5 text-xs text-slate-600 leading-relaxed bg-[#F8FAFC] border border-slate-100 rounded-xl p-3.5">
                     <p>
                         <strong>TanggapTerang</strong> merupakan sistem prototipe keterbukaan informasi kejadian bencana dan dokumentasi respons masyarakat yang dikembangkan untuk tujuan demonstrasi dan kompetisi.
                     </p>
@@ -111,7 +111,7 @@
         </div>
 
         <!-- D. Bottom Bar -->
-        <div class="pt-6 border-t border-[#E2E8F0] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+        <div class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
             <div class="flex flex-wrap items-center gap-2 font-telemetry text-center sm:text-left">
                 <span>&copy; {{ date('Y') }} TanggapTerang. Seluruh hak cipta dilindungi.</span>
             </div>

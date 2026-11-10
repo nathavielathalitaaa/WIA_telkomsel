@@ -57,7 +57,7 @@
     $currentStepNumber = (int) ($activeStep ?? 0);
 @endphp
 
-<div class="bg-white border border-[#E2E8F0] rounded-xl p-4 sm:p-5 space-y-4">
+<div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-4 sm:p-5 space-y-4">
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-100 pb-3">
         <div class="space-y-0.5">
@@ -76,7 +76,7 @@
     </div>
 
     <!-- Stepper Pipeline Display -->
-    <div class="grid grid-cols-1 md:grid-cols-5 gap-3 relative">
+    <div class="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-none md:grid md:grid-cols-5 relative">
         @foreach($steps as $step)
             @php
                 $isPassed = $currentStepNumber > 0 && $step['number'] < $currentStepNumber;
@@ -95,12 +95,12 @@
                     $circleClass = 'bg-slate-200 text-slate-600';
                 } else {
                     // Overview mode
-                    $cardBorder = 'border-[#E2E8F0] bg-[#F8FAFC] hover:border-slate-400 transition';
+                    $cardBorder = 'border-slate-200 bg-[#F8FAFC] hover:border-slate-400 transition';
                     $circleClass = 'bg-[#0F172A] text-white';
                 }
             @endphp
 
-            <div class="rounded-lg border {{ $cardBorder }} p-3 sm:p-3.5 flex flex-col justify-between space-y-2 relative">
+            <div class="rounded-xl border {{ $cardBorder }} p-3 sm:p-3.5 flex flex-col justify-between space-y-2 relative w-[72vw] max-w-[260px] shrink-0 snap-start md:w-auto">
                 <!-- Top Row: Step Number & Badge -->
                 <div class="flex items-center justify-between gap-1.5">
                     <div class="w-6 h-6 rounded-full {{ $circleClass }} font-telemetry font-bold text-xs flex items-center justify-center shrink-0">

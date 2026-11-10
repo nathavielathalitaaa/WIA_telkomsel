@@ -3,7 +3,7 @@
     'selectedId' => null,
 ])
 
-<div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-4 space-y-3" data-wilayah-selector>
+<div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-4 space-y-3" data-wilayah-selector>
     <div class="flex items-center justify-between">
         <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
             Pilih Wilayah Administratif (Opsional — 4 Tingkat)

@@ -62,9 +62,9 @@
     <x-transparency-flow-diagram />
 
     <!-- Core Pillars: How Reporting, Verification, and Follow-Up Work -->
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-2.5">
-            <div class="w-8 h-8 rounded bg-[#DC2626] text-white font-telemetry font-bold text-xs flex items-center justify-center">
+    <section class="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-none md:grid md:grid-cols-3">
+        <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-2.5 w-[84vw] max-w-[340px] shrink-0 snap-start md:w-auto">
+            <div class="w-8 h-8 rounded-lg bg-[#DC2626] text-white font-telemetry font-bold text-xs flex items-center justify-center">
                 01
             </div>
             <h2 class="text-base font-bold text-[#0F172A]">
@@ -75,8 +75,8 @@
             </p>
         </div>
 
-        <div class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-2.5">
-            <div class="w-8 h-8 rounded bg-[#2563EB] text-white font-telemetry font-bold text-xs flex items-center justify-center">
+        <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-2.5 w-[84vw] max-w-[340px] shrink-0 snap-start md:w-auto">
+            <div class="w-8 h-8 rounded-lg bg-[#2563EB] text-white font-telemetry font-bold text-xs flex items-center justify-center">
                 02
             </div>
             <h2 class="text-base font-bold text-[#0F172A]">
@@ -87,8 +87,8 @@
             </p>
         </div>
 
-        <div class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-2.5">
-            <div class="w-8 h-8 rounded bg-[#059669] text-white font-telemetry font-bold text-xs flex items-center justify-center">
+        <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-2.5 w-[84vw] max-w-[340px] shrink-0 snap-start md:w-auto">
+            <div class="w-8 h-8 rounded-lg bg-[#059669] text-white font-telemetry font-bold text-xs flex items-center justify-center">
                 03
             </div>
             <h2 class="text-base font-bold text-[#0F172A]">
@@ -101,18 +101,18 @@
     </section>
 
     <!-- Simulation & Scope Explanation -->
-    <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 sm:p-6 space-y-3">
+    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 sm:p-6 space-y-3">
         <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
             Batasan Produk &amp; Ketentuan Data Simulasi
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm text-slate-600 leading-relaxed">
-            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-4 space-y-1.5">
+            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-4 space-y-1.5">
                 <strong class="text-[#0F172A] block">Perbedaan Informasi Kejadian dan Tindak Lanjut</strong>
                 <p>
                     Status tindak lanjut pada TanggapTerang mencatat aktivitas tim internal dalam menghimpun, mengelompokkan, dan memutakhirkan informasi kejadian. Ketiadaan catatan tindak lanjut pada TanggapTerang tidak berarti instansi eksternal tidak sedang menangani kejadian di lapangan.
                 </p>
             </div>
-            <div class="bg-[#FFFBEB] border border-[#FCD34D] rounded-lg p-4 space-y-1.5 text-[#92400E]">
+            <div class="bg-[#FFFBEB] border border-amber-200 rounded-xl p-4 space-y-1.5 text-[#92400E]">
                 <strong class="text-[#0F172A] block">Sumber Kejadian Nyata &amp; Batasan Simulasi</strong>
                 <p>
                     Kejadian bencana riil ({{ $summary['historical_count'] }} kejadian) bersumber dari arsip resmi <strong>Pusdatin BNPB (DIBI)</strong>. Modul simulasi ({{ $summary['simulation_count'] }} skenario, {{ $summary['reports_count'] }} laporan warga) disediakan terpisah untuk demonstrasi alur tanpa mencampurkan data fiktif ke statistik riil.

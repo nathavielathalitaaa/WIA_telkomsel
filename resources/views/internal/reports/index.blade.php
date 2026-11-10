@@ -10,7 +10,7 @@
 
 @section('content')
     <!-- Page Header -->
-    <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div class="space-y-1">
             <div class="flex flex-wrap items-center gap-2">
                 <span class="px-2 py-0.5 rounded bg-[#0F172A] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
@@ -44,7 +44,7 @@
     </section>
 
     <!-- Search & Filter Bar -->
-    <section class="bg-white border border-[#E2E8F0] rounded-lg p-4">
+    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-4">
         <form method="GET" action="{{ route('internal.reports.index') }}" class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
             <div class="sm:col-span-5">
                 <label for="q" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-1">
@@ -103,11 +103,11 @@
     </section>
 
     <!-- Scannable Reports Table -->
-    <section class="bg-white border border-[#E2E8F0] rounded-lg overflow-hidden">
+    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
                 <thead>
-                    <tr class="bg-[#F8FAFC] border-b border-[#E2E8F0] font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-600">
+                    <tr class="bg-[#F8FAFC] border-b border-slate-100 font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-600">
                         <th class="py-3.5 px-4">Tiket &amp; Waktu</th>
                         <th class="py-3.5 px-4">Judul &amp; Lokasi Laporan</th>
                         <th class="py-3.5 px-4">Pelapor (Internal)</th>
@@ -203,7 +203,7 @@
         </div>
 
         @if($reports->hasPages())
-            <div class="p-4 border-t border-[#E2E8F0]">
+            <div class="p-4 border-t border-slate-100">
                 {{ $reports->links() }}
             </div>
         @endif

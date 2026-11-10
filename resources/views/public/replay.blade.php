@@ -12,7 +12,7 @@
 
 @section('content')
     <!-- Replay Console Header -->
-    <section class="bg-[#0F172A] text-white border border-slate-800 rounded-lg p-5 sm:p-6 space-y-4">
+    <section class="bg-[#0F172A] text-white rounded-2xl shadow-xs border border-slate-800 p-5 sm:p-6 space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-2">
             <span class="px-2.5 py-1 rounded bg-slate-800 text-amber-300 border border-slate-700 font-telemetry text-xs font-bold uppercase">
                 Linimasa Berbasis Data Riil &amp; Simulasi
@@ -31,7 +31,7 @@
 
             <!-- Incident Selector Form -->
             @if($incidents->isNotEmpty())
-                <form method="GET" action="{{ route('public.replay') }}" class="w-full max-w-full lg:w-96 min-w-0 shrink-0 bg-slate-900 border border-slate-700 rounded-lg p-3 space-y-2 overflow-hidden">
+                <form method="GET" action="{{ route('public.replay') }}" class="w-full max-w-full lg:w-96 min-w-0 shrink-0 bg-slate-900 border border-slate-700 rounded-xl p-3 space-y-2 overflow-hidden">
                     <label for="incident-selector" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-300">
                         Pilih Kejadian untuk Mode Replay
                     </label>
@@ -66,7 +66,7 @@
     </section>
 
     @if($selectedIncident && !$selectedIncident->is_simulation)
-        <section class="bg-blue-50/80 border border-blue-200 rounded-lg p-3.5 flex items-start gap-2.5 text-xs text-blue-950">
+        <section class="bg-blue-50/80 border border-blue-200 rounded-xl p-3.5 flex items-start gap-2.5 text-xs text-blue-950">
             <svg class="w-4 h-4 text-blue-700 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
@@ -79,7 +79,7 @@
 
     @if(!$selectedIncident)
         <!-- Empty State when no incidents exist in DB -->
-        <section class="bg-white border border-[#E2E8F0] rounded-lg p-8 text-center space-y-3">
+        <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-8 text-center space-y-3">
             <h2 class="text-lg font-bold text-[#0F172A]">Belum Ada Kejadian Simulasi untuk Mode Replay</h2>
             <p class="text-sm text-slate-600 max-w-md mx-auto">
                 Saat ini belum terdapat data kejadian di dalam database yang dapat ditampilkan pada garis waktu replay.
@@ -92,7 +92,7 @@
     @else
         <!-- Insufficient History Notice (Requirement A.7) -->
         @if(!$hasSufficientHistory)
-            <section class="bg-[#FFFBEB] border-l-4 border-[#D97706] border-y border-r border-[#FCD34D] rounded-lg p-4 text-xs text-[#92400E] space-y-1" role="status">
+            <section class="bg-[#FFFBEB] border-l-4 border-[#D97706] border-y border-r border-[#FCD34D] rounded-xl p-4 text-xs text-[#92400E] space-y-1" role="status">
                 <div class="font-telemetry font-bold uppercase tracking-wider">
                     Pemberitahuan Riwayat Terbatas
                 </div>
@@ -103,9 +103,9 @@
         @endif
 
         <!-- Interactive Playback Console & Time Scrubber -->
-        <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-5">
+        <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-5">
             <!-- Active Replay Time & Current Statuses Banner -->
-            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-4 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 min-w-0">
+            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-4 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 min-w-0">
                 <div class="flex items-center gap-3 min-w-0">
                     <div class="w-11 h-11 rounded-lg bg-[#0F172A] text-white flex items-center justify-center font-telemetry font-bold text-sm shrink-0">
                         <span id="replay-step-badge">1/{{ max(1, count($eventsArray)) }}</span>
@@ -225,8 +225,8 @@
         </section>
 
         <!-- Dynamic Summary Panel (Real DB Counts Accumulated Up to Active Replay Time — No Invented Metrics) -->
-        <section aria-label="Ringkasan Akumulasi Informasi pada Waktu Replay" class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
-            <div class="bg-white border border-[#E2E8F0] rounded-lg p-4 card-interactive"
+        <section aria-label="Ringkasan Akumulasi Informasi pada Waktu Replay" class="flex overflow-x-auto snap-x snap-mandatory gap-3.5 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-none sm:grid sm:grid-cols-2 lg:grid-cols-4">
+            <div class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 w-[74vw] max-w-[260px] shrink-0 snap-start sm:w-auto card-interactive"
                  data-tooltip="Total log peristiwa yang telah diputar">
                 <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
                     Peristiwa Tercatat s/d Waktu Ini
@@ -239,7 +239,7 @@
                 </div>
             </div>
 
-            <div class="bg-white border border-[#E2E8F0] rounded-lg p-4 card-interactive"
+            <div class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 w-[74vw] max-w-[260px] shrink-0 snap-start sm:w-auto card-interactive"
                  data-tooltip="Laporan masuk sampai waktu ini">
                 <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
                     Laporan Warga Masuk s/d Waktu Ini
@@ -252,7 +252,7 @@
                 </div>
             </div>
 
-            <div class="bg-white border border-[#E2E8F0] rounded-lg p-4 card-interactive"
+            <div class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 w-[74vw] max-w-[260px] shrink-0 snap-start sm:w-auto card-interactive"
                  data-tooltip="Rujukan sumber terbuka yang dicatat">
                 <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
                     Sumber Terbuka Dirujuk s/d Waktu Ini
@@ -265,7 +265,7 @@
                 </div>
             </div>
 
-            <div class="bg-white border border-[#E2E8F0] rounded-lg p-4 card-interactive"
+            <div class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 w-[74vw] max-w-[260px] shrink-0 snap-start sm:w-auto card-interactive"
                  data-tooltip="Aksi dan tindak lanjut tim lapangan">
                 <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
                     Catatan Tindak Lanjut s/d Waktu Ini
@@ -283,8 +283,8 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
             <!-- Left Column (5 cols): Incident Info & Map -->
             <div class="lg:col-span-5 space-y-5">
-                <section class="bg-white border border-[#E2E8F0] rounded-lg overflow-hidden">
-                    <div class="p-4 border-b border-[#E2E8F0] bg-[#F8FAFC] flex items-center justify-between">
+                <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
+                    <div class="p-4 border-b border-slate-100 bg-[#F8FAFC] flex items-center justify-between">
                         <div>
                             <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                                 Peta Lokasi Kejadian &amp; Titik Laporan
@@ -305,7 +305,7 @@
                         </div>
                     @endif
 
-                    <div class="p-4 border-t border-[#E2E8F0] space-y-2 text-xs text-slate-600">
+                    <div class="p-4 border-t border-slate-100 space-y-2 text-xs text-slate-600">
                         <div class="flex items-center justify-between">
                             <span>Kejadian Terpilih:</span>
                             <a href="{{ route('public.incidents.show', $selectedIncident->slug) }}" class="font-telemetry font-bold text-[#2563EB] hover:underline">
@@ -321,7 +321,7 @@
 
             <!-- Right Column (7 cols): Chronological Timeline Events (Filtered by Active Slider Timestamp) -->
             <div class="lg:col-span-7 space-y-4">
-                <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-4">
+                <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                     <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
                         <div>
                             <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
@@ -348,7 +348,7 @@
                                     default => 'bg-slate-100 text-slate-700',
                                 };
                             @endphp
-                            <article class="replay-event-card border border-[#E2E8F0] rounded-lg p-4 bg-white transition"
+                            <article class="replay-event-card border border-slate-100/90 rounded-xl p-4 bg-white transition"
                                      data-event-uid="{{ $ev['uid'] }}"
                                      data-event-type="{{ $ev['type'] }}"
                                      data-timestamp-ms="{{ $ev['timestamp_ms'] }}"

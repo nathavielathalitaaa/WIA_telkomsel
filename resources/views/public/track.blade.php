@@ -6,7 +6,7 @@
 @section('content')
     <!-- Ticket Confirmation Banner (Shown right after submitting a new report) -->
     @if(session('created_ticket'))
-        <section class="bg-[#ECFDF5] border-2 border-[#059669] rounded-lg p-5 space-y-3" role="status">
+        <section class="bg-[#ECFDF5] border border-emerald-300 rounded-2xl shadow-xs p-5 space-y-3" role="status">
             <div class="flex flex-wrap items-center justify-between gap-2">
                 <span class="px-2.5 py-1 rounded bg-[#059669] text-white font-telemetry text-xs font-bold uppercase tracking-wider">
                     Laporan Berhasil Tercatat
@@ -15,7 +15,7 @@
                     Status Awal: MENUNGGU VERIFIKASI
                 </span>
             </div>
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white border border-[#6EE7B7] rounded-lg p-4">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white border border-[#6EE7B7] rounded-xl p-4">
                 <div>
                     <div class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500">
                         Nomor Tiket Pelaporan Anda
@@ -43,7 +43,7 @@
     @endif
 
     <!-- Search Header & Ticket Lookup Form -->
-    <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 sm:p-6 space-y-4">
+    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 sm:p-6 space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div class="space-y-1">
                 <span class="px-2 py-0.5 rounded bg-[#0F172A] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
@@ -126,7 +126,7 @@
     @if($searched)
         @if(!$report && !$aidResponse)
             <!-- Safe Not-Found Message -->
-            <section class="bg-white border border-[#E2E8F0] rounded-lg p-8 text-center space-y-3" role="alert">
+            <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-8 text-center space-y-3" role="alert">
                 <div class="w-12 h-12 rounded-full bg-amber-100 text-[#D97706] mx-auto flex items-center justify-center">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4c-.77-1.33-2.69-1.33-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z"/>
@@ -173,7 +173,7 @@
                 <!-- Left Column (7 cols): Aid Response Details & Dual Status -->
                 <div class="lg:col-span-7 space-y-5">
                     <!-- Aid Response Card -->
-                    <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-4">
+                    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                         <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3.5">
                             <div class="flex flex-wrap items-center gap-2">
                                 <span class="px-2.5 py-1 rounded bg-[#0F172A] text-white font-telemetry text-xs font-bold tracking-wider inline-flex items-center gap-1.5">
@@ -205,7 +205,7 @@
                         <!-- Dua Status Terpisah: Pemeriksaan vs Operasional -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                             <!-- Status 1: Pemeriksaan / Verifikasi Informasi -->
-                            <div class="bg-[#F8FAFC] border border-[#CBD5E1] rounded-lg p-3.5 space-y-2">
+                            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3.5 space-y-2">
                                 <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
                                     1. Status Pemeriksaan / Verifikasi
                                 </span>
@@ -235,7 +235,7 @@
                             </div>
 
                             <!-- Status 2: Operasional Bantuan -->
-                            <div class="bg-[#F8FAFC] border border-[#CBD5E1] rounded-lg p-3.5 space-y-2">
+                            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3.5 space-y-2">
                                 <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
                                     2. Status Operasional Bantuan
                                 </span>
@@ -283,7 +283,7 @@
 
                         <!-- Metadata Grid -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3">
+                            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3">
                                 <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
                                     Kategori Kebutuhan
                                 </span>
@@ -292,7 +292,7 @@
                                 </span>
                             </div>
 
-                            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3">
+                            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3">
                                 <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
                                     Pemberi Respons
                                 </span>
@@ -304,7 +304,7 @@
                                 </span>
                             </div>
 
-                            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3">
+                            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3">
                                 <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
                                     Waktu Pencatatan
                                 </span>
@@ -313,7 +313,7 @@
                                 </span>
                             </div>
 
-                            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3">
+                            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3">
                                 <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
                                     Waktu Penyerahan (Dilaporkan)
                                 </span>
@@ -323,7 +323,7 @@
                                 </span>
                             </div>
 
-                            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3 sm:col-span-2">
+                            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3 sm:col-span-2">
                                 <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
                                     Lokasi / Wilayah Tujuan Penyaluran
                                 </span>
@@ -339,13 +339,13 @@
                                    target="_blank"
                                    rel="noopener noreferrer"
                                    class="font-telemetry text-xs font-bold text-[#2563EB] hover:underline inline-flex items-center gap-1">
-                                    <span>Lihat Tautan Bukti Dokumentasi Lapangan</span>
-                                    <span>&rarr;</span>
+                                   <span>Lihat Tautan Bukti Dokumentasi Lapangan</span>
+                                   <span>&rarr;</span>
                                 </a>
                             </div>
                         @endif
 
-                        <div class="bg-slate-50 border border-slate-200 rounded p-3 text-xs text-slate-600">
+                        <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-600">
                             <strong class="font-telemetry uppercase text-slate-700">Perlindungan Privasi:</strong>
                             Kontak pribadi pemberi respons dirahasiakan dan tidak ditampilkan ke publik.
                         </div>
@@ -353,7 +353,7 @@
 
                     <!-- Linked Incident Card -->
                     @if($aidResponse->incident)
-                        <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-3">
+                        <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-3">
                             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                                 <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                                     Kejadian Bencana Terkait
@@ -363,7 +363,7 @@
                                 </span>
                             </div>
 
-                            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-4 space-y-3">
+                            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-4 space-y-3">
                                 <div class="flex flex-wrap items-center justify-between gap-2">
                                     <x-severity-badge :severity="$aidResponse->incident->severity" />
                                     <span class="font-telemetry text-xs text-slate-500">
@@ -410,7 +410,7 @@
 
                 <!-- Right Column (5 cols): Audit Trail / Status Timeline -->
                 <div class="lg:col-span-5 space-y-5">
-                    <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-4">
+                    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                         <div class="border-b border-slate-100 pb-3">
                             <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                                 Riwayat Perkembangan Respons Bantuan ({{ $aidResponse->reference_code }})
@@ -458,7 +458,7 @@
                 <!-- Left Column (7 cols): Report Summary & Linked Incident -->
                 <div class="lg:col-span-7 space-y-5">
                     <!-- Report Summary Card (Sanitized — NO Reporter PII) -->
-                    <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-4">
+                    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                         <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3.5">
                             <div class="flex flex-wrap items-center gap-2">
                                 <span class="px-2.5 py-1 rounded bg-[#0F172A] text-white font-telemetry text-xs font-bold tracking-wider inline-flex items-center gap-1.5">
@@ -495,7 +495,7 @@
 
                         <!-- Metadata Grid -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3">
+                            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3">
                                 <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
                                     Waktu Laporan Dibuat
                                 </span>
@@ -504,7 +504,7 @@
                                 </span>
                             </div>
 
-                            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3">
+                            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3">
                                 <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
                                     Waktu Kejadian Diamati
                                 </span>
@@ -513,7 +513,7 @@
                                 </span>
                             </div>
 
-                            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3 sm:col-span-2">
+                            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3 sm:col-span-2">
                                 <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
                                     Lokasi yang Dilaporkan
                                 </span>
@@ -540,14 +540,14 @@
                             </div>
                         @endif
 
-                        <div class="bg-slate-50 border border-slate-200 rounded p-3 text-xs text-slate-600">
+                        <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-600">
                             <strong class="font-telemetry uppercase text-slate-700">Perlindungan Privasi:</strong>
                             Nama dan nomor kontak pelapor dirahasiakan untuk melindungi privasi warga.
                         </div>
                     </section>
 
                     <!-- Linked Incident Section -->
-                    <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-3">
+                    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-3">
                         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                             <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                                 Keterhubungan dengan Kejadian Publik
@@ -564,7 +564,7 @@
                         </div>
 
                         @if($report->incident)
-                            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-4 space-y-3">
+                            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-4 space-y-3">
                                 <div class="flex flex-wrap items-center justify-between gap-2">
                                     <x-severity-badge :severity="$report->incident->severity" />
                                     <span class="font-telemetry text-xs text-slate-500">
@@ -606,7 +606,7 @@
                                 </div>
                             </div>
                         @else
-                            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-4 text-xs text-slate-600 leading-relaxed">
+                            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-4 text-xs text-slate-600 leading-relaxed">
                                 Laporan ini belum ditautkan ke kejadian tertentu. Tim verifikator sedang memeriksa kesesuaian laporan dengan kejadian aktif di sekitarnya.
                             </div>
                         @endif
@@ -615,7 +615,7 @@
 
                 <!-- Right Column (5 cols): Public Audit Trail for this Report -->
                 <div class="lg:col-span-5 space-y-5">
-                    <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-4">
+                    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                         <div class="border-b border-slate-100 pb-3">
                             <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                                 Riwayat Status Laporan ({{ $report->ticket_number }})

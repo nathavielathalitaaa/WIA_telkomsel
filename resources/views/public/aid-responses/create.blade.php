@@ -19,7 +19,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
         <!-- Main Form Column (8 cols) -->
-        <section class="lg:col-span-8 bg-white border border-[#E2E8F0] rounded-lg p-5 sm:p-6 space-y-6">
+        <section class="lg:col-span-8 bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 sm:p-6 space-y-6">
             @php
                 $activeSubmissionType = old('submission_type', $selectedSubmissionType ?? \App\Models\AidResponse::SUBMISSION_TAWARAN_RENCANA);
                 $activeNeedCategory = old('need_category', $selectedNeedCategory ?? '');
@@ -438,7 +438,7 @@
 
         <!-- Right Sidebar: Status Rules & Non-Duplication Notice (4 cols) -->
         <aside class="lg:col-span-4 space-y-4">
-            <div class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-3">
+            <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-3">
                 <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                     2 Jenis Aktivitas Pencatatan Publik
                 </h2>
@@ -462,7 +462,7 @@
                 </div>
             </div>
 
-            <div class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-3">
+            <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-3">
                 <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                     3 Tahap Status Respons Bantuan
                 </h2>
@@ -496,7 +496,7 @@
                 </div>
             </div>
 
-            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-4 space-y-2 text-xs text-slate-600">
+            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-4 space-y-2 text-xs text-slate-600">
                 <div class="font-telemetry font-bold uppercase tracking-wider text-[#0F172A]">
                     Perbedaan dengan Tindak Lanjut Internal
                 </div>

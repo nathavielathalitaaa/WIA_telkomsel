@@ -19,8 +19,8 @@
     <!-- Toast Notification Container -->
     <div id="tanggap-toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2.5 max-w-sm pointer-events-none" aria-live="polite"></div>
     <!-- Sticky Institutional Top Header -->
-    <header class="sticky top-0 z-40 bg-white border-b border-[#E2E8F0] no-print">
-        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
+    <header class="sticky top-0 z-40 bg-white border-b border-slate-100 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
             <!-- Brand Identity -->
             <a href="{{ route('public.monitor') }}" class="flex items-center gap-2.5 sm:gap-3 min-w-0">
                 <img src="{{ asset('images/logo-tanggap-terang.png') }}"
@@ -98,8 +98,8 @@
         </div>
     </header>
 
-    <!-- Main Content Container -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 space-y-5">
+    <!-- Main Content Container (Consistent Global Container) -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-28 lg:pb-8 space-y-6">
         <x-simulation-banner />
 
         @if(session('success'))
@@ -120,11 +120,28 @@
         @yield('content')
     </main>
 
+    <!-- Floating Mobile Report Action Button (Above Bottom Navigation) -->
+    @if(!request()->routeIs('public.reports.create'))
+        <aside class="lg:hidden fixed right-4 z-40 no-print"
+               style="bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));"
+               aria-label="Aksi Cepat Pelaporan">
+            <a href="{{ route('public.reports.create') }}"
+               class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-red-600 hover:bg-red-700 active:scale-95 text-white font-telemetry text-xs font-bold uppercase tracking-wider shadow-lg shadow-red-950/25 transition transform duration-150 ease-out focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                <svg class="w-4 h-4 shrink-0 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                </svg>
+                <span>Lapor Kejadian</span>
+            </a>
+        </aside>
+    @endif
+
     <!-- Institutional Public Footer -->
     <x-public-footer />
 
-    <!-- Mobile Bottom Navigation Bar (4 Main Public Tabs) -->
-    <nav class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white border-t border-[#E2E8F0] h-16 grid grid-cols-4 p-1 gap-1 no-print" aria-label="Navigasi Bawah Mobile">
+    <!-- Mobile Bottom Navigation Bar (4 Main Public Tabs with Safe Area Inset) -->
+    <nav class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white border-t border-slate-100 grid grid-cols-4 p-1 gap-1 no-print shadow-sm"
+         style="padding-bottom: env(safe-area-inset-bottom, 0px); height: calc(4rem + env(safe-area-inset-bottom, 0px));"
+         aria-label="Navigasi Bawah Mobile">
         <a href="{{ route('public.monitor') }}"
            class="flex flex-col items-center justify-center gap-0.5 rounded-lg min-h-[48px] transition {{ $activeTab === 'pantau' ? 'nav-active-gradient font-bold' : 'text-slate-600 hover:bg-slate-100' }}">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

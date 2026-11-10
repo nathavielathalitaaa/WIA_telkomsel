@@ -19,7 +19,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         <!-- Main Form Column (8 cols) -->
-        <section class="lg:col-span-8 bg-white border border-[#E2E8F0] rounded-lg p-5 sm:p-6 space-y-6">
+        <section class="lg:col-span-8 bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 sm:p-6 space-y-6">
             <div class="border-b border-slate-100 pb-4 space-y-1.5">
                 <div class="flex flex-wrap items-center gap-2">
                     <span class="px-2 py-0.5 rounded bg-[#DC2626] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
@@ -180,7 +180,7 @@
                     </div>
 
                     <!-- Interactive Map Coordinate Picker (Optional) -->
-                    <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-4 space-y-3">
+                    <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-4 space-y-3">
                         <div class="flex flex-wrap items-center justify-between gap-2">
                             <div>
                                 <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
@@ -296,7 +296,7 @@
                         </div>
                     </div>
 
-                    <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3 text-xs text-slate-600">
+                    <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3 text-xs text-slate-600">
                         <strong class="text-[#0F172A] font-telemetry uppercase">Jaminan Privasi Pelapor:</strong>
                         Nama dan kontak pelapor bersifat opsional dan hanya dapat dilihat oleh petugas verifikator. Data ini <strong>tidak pernah ditampilkan ke publik maupun halaman pelacakan tiket</strong>.
                     </div>
@@ -320,7 +320,7 @@
 
         <!-- Right Sidebar: Reporting Guidelines & Scope Notice (4 cols) -->
         <aside class="lg:col-span-4 space-y-4">
-            <div class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-3">
+            <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-3">
                 <div class="flex items-center justify-between border-b border-slate-100 pb-2">
                     <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                         Mekanisme Alur Laporan Warga

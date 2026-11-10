@@ -12,17 +12,13 @@
         default => 'bg-[#059669]',
     };
 
-    $borderClass = $severityVal === 'kritis'
-        ? 'border-[#FCA5A5]'
-        : 'border-[#E2E8F0]';
-
     $typeLabel = ucwords(str_replace('_', ' ', $incident->incident_type));
     $reportsCount = $incident->reports_count ?? $incident->reports?->count() ?? 0;
     $sourcesCount = $incident->sources_count ?? $incident->sources?->count() ?? 0;
     $aidResponsesCount = $incident->aid_responses_count ?? $incident->aidResponses?->count() ?? 0;
 @endphp
 
-<article class="incident-card card-interactive bg-white border {{ $borderClass }} rounded-lg p-4 sm:p-5 relative overflow-hidden flex flex-col justify-between gap-4"
+<article class="incident-card card-interactive bg-white rounded-xl shadow-xs hover:shadow-md transition-all p-4 sm:p-5 relative overflow-hidden flex flex-col justify-between gap-4 border border-slate-100/90 h-full w-full"
          data-incident-id="{{ $incident->id }}"
          data-incident-slug="{{ $incident->slug }}"
          data-incident-title="{{ $incident->title }}"

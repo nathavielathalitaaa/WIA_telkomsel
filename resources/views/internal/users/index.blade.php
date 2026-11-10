@@ -41,33 +41,33 @@
     </div>
 
     <!-- Metric Summary Cards -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-        <div class="bg-white rounded-xl border border-slate-200 p-4">
+    <div class="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-none sm:grid sm:grid-cols-3 lg:grid-cols-6">
+        <div class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 w-[145px] shrink-0 snap-start sm:w-auto">
             <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-telemetry block">Total Akun</span>
             <span class="text-2xl font-black text-slate-900 mt-1 block font-telemetry">{{ $stats['total'] }}</span>
             <span class="text-[10px] text-slate-400 font-telemetry">Seluruh peran</span>
         </div>
-        <div class="bg-white rounded-xl border border-slate-200 p-4">
+        <div class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 w-[145px] shrink-0 snap-start sm:w-auto">
             <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-telemetry block">Akun Aktif</span>
             <span class="text-2xl font-black text-emerald-600 mt-1 block font-telemetry">{{ $stats['active'] }}</span>
             <span class="text-[10px] text-emerald-700 font-telemetry">Siap bertugas</span>
         </div>
-        <div class="bg-white rounded-xl border border-slate-200 p-4">
+        <div class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 w-[145px] shrink-0 snap-start sm:w-auto">
             <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-telemetry block">Nonaktif</span>
             <span class="text-2xl font-black text-slate-500 mt-1 block font-telemetry">{{ $stats['inactive'] }}</span>
             <span class="text-[10px] text-slate-400 font-telemetry">Akses ditangguhkan</span>
         </div>
-        <div class="bg-white rounded-xl border border-slate-200 p-4">
+        <div class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 w-[145px] shrink-0 snap-start sm:w-auto">
             <span class="text-[10px] font-bold uppercase tracking-wider text-amber-600 font-telemetry block">Administrator</span>
             <span class="text-2xl font-black text-amber-700 mt-1 block font-telemetry">{{ $stats['admin_count'] }}</span>
             <span class="text-[10px] text-slate-400 font-telemetry">Kelola sistem</span>
         </div>
-        <div class="bg-white rounded-xl border border-slate-200 p-4">
+        <div class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 w-[145px] shrink-0 snap-start sm:w-auto">
             <span class="text-[10px] font-bold uppercase tracking-wider text-blue-600 font-telemetry block">Verifikator</span>
             <span class="text-2xl font-black text-blue-700 mt-1 block font-telemetry">{{ $stats['verifikator_count'] }}</span>
             <span class="text-[10px] text-slate-400 font-telemetry">Pemeriksa laporan</span>
         </div>
-        <div class="bg-white rounded-xl border border-slate-200 p-4">
+        <div class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 w-[145px] shrink-0 snap-start sm:w-auto">
             <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-600 font-telemetry block">Operator</span>
             <span class="text-2xl font-black text-emerald-700 mt-1 block font-telemetry">{{ $stats['operator_count'] }}</span>
             <span class="text-[10px] text-slate-400 font-telemetry">Tindak lanjut</span>
@@ -75,7 +75,7 @@
     </div>
 
     <!-- Kelompok 1: Administrator Sistem -->
-    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+    <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
         <div class="bg-amber-50/70 border-b border-amber-200 px-5 py-3.5 flex items-center justify-between">
             <div class="flex items-center gap-2.5">
                 <span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-telemetry font-bold text-xs uppercase">
@@ -90,7 +90,7 @@
     </div>
 
     <!-- Kelompok 2: Verifikator Informasi -->
-    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+    <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
         <div class="bg-blue-50/70 border-b border-blue-200 px-5 py-3.5 flex items-center justify-between">
             <div class="flex items-center gap-2.5">
                 <span class="px-2 py-0.5 rounded bg-blue-600 text-white font-telemetry font-bold text-xs uppercase">
@@ -105,7 +105,7 @@
     </div>
 
     <!-- Kelompok 3: Operator Tindak Lanjut -->
-    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+    <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
         <div class="bg-emerald-50/70 border-b border-emerald-200 px-5 py-3.5 flex items-center justify-between">
             <div class="flex items-center gap-2.5">
                 <span class="px-2 py-0.5 rounded bg-emerald-600 text-white font-telemetry font-bold text-xs uppercase">

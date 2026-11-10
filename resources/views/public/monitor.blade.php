@@ -5,7 +5,7 @@
 
 @section('content')
     <!-- Page Header & Primary CTA -->
-    <section class="bg-white border border-[#E2E8F0] rounded-xl p-4 sm:p-6 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 shadow-2xs">
+    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-4 sm:p-6 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div class="space-y-1.5">
             <div class="flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse"></span>
@@ -62,10 +62,10 @@
         </div>
     </section>
 
-    <!-- Summary Metrics Bar (Cohesive & Scannable) -->
-    <section aria-label="Ringkasan Data Kejadian" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+    <!-- Summary Metrics Bar (Mobile Horizontal Snap Carousel, Desktop/Tablet Grid) -->
+    <section aria-label="Ringkasan Data Kejadian" class="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-none sm:grid sm:grid-cols-3 lg:grid-cols-6">
         <a href="{{ route('public.monitor') }}"
-           class="bg-white border border-slate-200 hover:border-slate-300 hover:shadow-xs rounded-xl p-3.5 flex flex-col justify-between transition {{ empty(request()->except('page')) ? 'ring-2 ring-slate-900 bg-slate-50' : '' }}"
+           class="w-[155px] sm:w-auto shrink-0 snap-start bg-white border border-slate-100 hover:border-slate-300 hover:shadow-xs rounded-xl p-3.5 flex flex-col justify-between transition shadow-xs {{ empty(request()->except('page')) ? 'ring-2 ring-slate-900 bg-slate-50' : '' }}"
            title="Tampilkan seluruh kejadian tanpa filter">
             <span class="font-telemetry text-[11px] font-semibold text-slate-500">Total Kejadian</span>
             <div class="mt-2 flex items-baseline justify-between">
@@ -75,7 +75,7 @@
         </a>
 
         <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['source_mode' => 'historical'])) }}"
-           class="bg-white border border-slate-200 hover:border-slate-300 hover:shadow-xs rounded-xl p-3.5 flex flex-col justify-between transition {{ request('source_mode') === 'historical' ? 'ring-2 ring-blue-700 bg-blue-50/40 border-blue-300' : '' }}"
+           class="w-[155px] sm:w-auto shrink-0 snap-start bg-white border border-slate-100 hover:border-slate-300 hover:shadow-xs rounded-xl p-3.5 flex flex-col justify-between transition shadow-xs {{ request('source_mode') === 'historical' ? 'ring-2 ring-blue-700 bg-blue-50/40 border-blue-300' : '' }}"
            title="Saring kejadian riil dari Arsip BNPB (DIBI)">
             <span class="font-telemetry text-[11px] font-semibold text-slate-600">Historis BNPB</span>
             <div class="mt-2 flex items-baseline justify-between">
@@ -85,7 +85,7 @@
         </a>
 
         <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['source_mode' => 'simulation'])) }}"
-           class="bg-white border border-slate-200 hover:border-slate-300 hover:shadow-xs rounded-xl p-3.5 flex flex-col justify-between transition {{ request('source_mode') === 'simulation' ? 'ring-2 ring-slate-800 bg-slate-50 border-slate-400' : '' }}"
+           class="w-[155px] sm:w-auto shrink-0 snap-start bg-white border border-slate-100 hover:border-slate-300 hover:shadow-xs rounded-xl p-3.5 flex flex-col justify-between transition shadow-xs {{ request('source_mode') === 'simulation' ? 'ring-2 ring-slate-800 bg-slate-50 border-slate-400' : '' }}"
            title="Saring skenario simulasi alur">
             <span class="font-telemetry text-[11px] font-semibold text-slate-600">Simulasi Alur</span>
             <div class="mt-2 flex items-baseline justify-between">
@@ -95,7 +95,7 @@
         </a>
 
         <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['verification_status' => 'terverifikasi'])) }}"
-           class="bg-white border border-slate-200 hover:border-slate-300 hover:shadow-xs rounded-xl p-3.5 flex flex-col justify-between transition {{ request('verification_status') === 'terverifikasi' ? 'ring-2 ring-blue-600 bg-blue-50/30 border-blue-300' : '' }}"
+           class="w-[155px] sm:w-auto shrink-0 snap-start bg-white border border-slate-100 hover:border-slate-300 hover:shadow-xs rounded-xl p-3.5 flex flex-col justify-between transition shadow-xs {{ request('verification_status') === 'terverifikasi' ? 'ring-2 ring-blue-600 bg-blue-50/30 border-blue-300' : '' }}"
            title="Saring kejadian terverifikasi">
             <span class="font-telemetry text-[11px] font-semibold text-slate-600">Terverifikasi</span>
             <div class="mt-2 flex items-baseline justify-between">
@@ -105,7 +105,7 @@
         </a>
 
         <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['follow_up_status' => 'sedang_ditindaklanjuti'])) }}"
-           class="bg-white border border-slate-200 hover:border-slate-300 hover:shadow-xs rounded-xl p-3.5 flex flex-col justify-between transition {{ request('follow_up_status') === 'sedang_ditindaklanjuti' ? 'ring-2 ring-emerald-600 bg-emerald-50/30 border-emerald-300' : '' }}"
+           class="w-[155px] sm:w-auto shrink-0 snap-start bg-white border border-slate-100 hover:border-slate-300 hover:shadow-xs rounded-xl p-3.5 flex flex-col justify-between transition shadow-xs {{ request('follow_up_status') === 'sedang_ditindaklanjuti' ? 'ring-2 ring-emerald-600 bg-emerald-50/30 border-emerald-300' : '' }}"
            title="Saring kejadian sedang ditindaklanjuti">
             <span class="font-telemetry text-[11px] font-semibold text-slate-600">Ditindaklanjuti</span>
             <div class="mt-2 flex items-baseline justify-between">
@@ -115,7 +115,7 @@
         </a>
 
         <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['aid_status' => 'terkonfirmasi'])) }}"
-           class="bg-white border border-slate-200 hover:border-slate-300 hover:shadow-xs rounded-xl p-3.5 flex flex-col justify-between transition {{ request('aid_status') === 'terkonfirmasi' ? 'ring-2 ring-emerald-600 bg-emerald-50/30 border-emerald-300' : '' }}"
+           class="w-[155px] sm:w-auto shrink-0 snap-start bg-white border border-slate-100 hover:border-slate-300 hover:shadow-xs rounded-xl p-3.5 flex flex-col justify-between transition shadow-xs {{ request('aid_status') === 'terkonfirmasi' ? 'ring-2 ring-emerald-600 bg-emerald-50/30 border-emerald-300' : '' }}"
            title="Saring kejadian dengan respons bantuan terkonfirmasi">
             <span class="font-telemetry text-[11px] font-semibold text-slate-600">Respons Bantuan</span>
             <div class="mt-2 flex items-baseline justify-between">
@@ -125,8 +125,8 @@
         </a>
     </section>
 
-    <!-- Search & Filter Bar -->
-    <section aria-label="Filter dan Pencarian Kejadian" class="bg-white border border-[#E2E8F0] rounded-lg p-4">
+    <!-- Search & Filter Bar (Borderless Treatment with Subtle Shadow) -->
+    <section aria-label="Filter dan Pencarian Kejadian" class="bg-white rounded-2xl shadow-xs p-4 sm:p-5 border border-slate-100/90">
         <form method="GET" action="{{ route('public.monitor') }}" class="space-y-3">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
                 <!-- Keyword Search -->
@@ -281,8 +281,8 @@
     <!-- Main Split View: Map & Latest Incidents List -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
         <!-- Left/Top Column: Interactive Leaflet Map -->
-        <section class="lg:col-span-5 lg:sticky lg:top-20 bg-white border border-[#E2E8F0] rounded-lg overflow-hidden">
-            <div class="p-3.5 border-b border-[#E2E8F0] space-y-2 bg-[#F8FAFC]">
+        <section class="lg:col-span-5 lg:sticky lg:top-20 bg-white rounded-2xl shadow-xs overflow-hidden border border-slate-100/90">
+            <div class="p-3.5 border-b border-slate-100 space-y-2 bg-[#F8FAFC]">
                 <div class="flex items-center justify-between gap-2">
                     <div>
                         <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
@@ -317,7 +317,7 @@
             <div id="monitor-map" class="w-full h-[360px] sm:h-[440px] bg-slate-100 z-10"></div>
 
             <!-- Map Legend -->
-            <div class="p-3 border-t border-[#E2E8F0] bg-white space-y-2">
+            <div class="p-3 border-t border-slate-100 bg-white space-y-2">
                 <div class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-slate-500">
                     Legenda Peta Kejadian &amp; Respons Bantuan
                 </div>
@@ -347,7 +347,7 @@
 
         <!-- Right/Bottom Column: Latest Incidents Feed -->
         <section class="lg:col-span-7 space-y-4" aria-label="Daftar Kejadian Terbaru">
-            <div class="bg-white border border-[#E2E8F0] rounded-lg px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+            <div class="bg-white rounded-xl border border-slate-100/90 shadow-2xs px-4 py-3 flex flex-wrap items-center justify-between gap-2">
                 <div class="flex items-center gap-2">
                     <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                         Daftar Kejadian Terbaru
@@ -362,7 +362,7 @@
             </div>
 
             @if($incidents->isEmpty())
-                <div class="bg-white border border-[#E2E8F0] rounded-lg p-8 text-center space-y-3">
+                <div class="bg-white rounded-2xl shadow-xs p-8 text-center space-y-3 border border-slate-100/90">
                     <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-500 mx-auto flex items-center justify-center">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -380,14 +380,18 @@
                     </div>
                 </div>
             @else
-                <div class="space-y-4">
+                <!-- Responsive Card Layout: Mobile Horizontal Carousel with Edge Peek, Desktop Stack/List -->
+                <div class="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-3 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-col sm:space-y-4 sm:gap-0 sm:overflow-visible scrollbar-none"
+                     role="region" aria-label="Daftar Kartu Kejadian">
                     @foreach($incidents as $incident)
-                        <x-incident-card :incident="$incident" />
+                        <div class="w-[84vw] max-w-[340px] shrink-0 snap-start sm:w-full sm:max-w-none flex flex-col">
+                            <x-incident-card :incident="$incident" />
+                        </div>
                     @endforeach
                 </div>
 
                 @if($incidents->hasPages())
-                    <div class="bg-white border border-[#E2E8F0] rounded-lg p-4">
+                    <div class="bg-white rounded-xl shadow-xs p-4 border border-slate-100/90">
                         {{ $incidents->links() }}
                     </div>
                 @endif
@@ -399,7 +403,7 @@
     <x-transparency-flow-diagram />
 
     <!-- Transparansi Kebutuhan dan Respons Bantuan (4 Kategori) -->
-    <section aria-label="Transparansi Kebutuhan dan Respons Bantuan Masyarakat" class="bg-white border border-slate-200 rounded-xl p-5 sm:p-6 space-y-6">
+    <section aria-label="Transparansi Kebutuhan dan Respons Bantuan Masyarakat" class="bg-white rounded-2xl shadow-xs p-5 sm:p-6 space-y-6 border border-slate-100/90">
         <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-slate-100 pb-4">
             <div class="space-y-1">
                 <div class="flex items-center gap-2">
@@ -439,120 +443,126 @@
             $maxResponsesCount = max((int) $statsCollection->max('responses_total'), 1);
         @endphp
 
-        <!-- 3 Bagian Visualisasi Terpisah -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
+        <!-- 3 Bagian Visualisasi (Mobile Horizontal Carousel with Edge Peek, Desktop 3-Column Grid) -->
+        <div class="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-3 -mx-4 px-4 sm:mx-0 sm:px-0 lg:grid lg:grid-cols-3 scrollbar-none items-stretch"
+             role="region" aria-label="Visualisasi Kebutuhan dan Respons Bantuan">
             <!-- BAGIAN 1: KEBUTUHAN TERCATAT -->
-            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
-                <div class="border-b border-slate-200/80 pb-2.5">
-                    <div class="flex items-center justify-between gap-2">
-                        <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-900 font-telemetry text-[10px] font-bold uppercase">
-                            1. Laporan Warga
-                        </span>
-                        <span class="font-telemetry text-[11px] text-slate-500">Satuan: Laporan</span>
-                    </div>
-                    <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A] mt-1.5">
-                        Kebutuhan Tercatat per Kategori
-                    </h3>
-                    <p class="text-[11px] text-slate-600 mt-0.5">
-                        Jumlah laporan warga yang mencantumkan kebutuhan mendesak pada setiap kategori.
-                    </p>
-                </div>
-
-                <div class="space-y-3">
-                    @foreach($statsCollection as $catStat)
-                        @php
-                            $needBarWidth = $catStat['needs_count'] > 0
-                                ? max(10, (int) round(($catStat['needs_count'] / $maxNeedsCount) * 100))
-                                : 0;
-                        @endphp
-                        <div class="space-y-1 text-[11px] font-telemetry">
-                            <div class="flex items-center justify-between gap-2">
-                                <span class="font-bold text-[#0F172A]">{{ $catStat['label'] }}</span>
-                                <span class="font-bold text-[#2563EB]">{{ $catStat['needs_count'] }} laporan</span>
-                            </div>
-                            <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
-                                <div class="h-full bg-[#2563EB] rounded-full" style="width: {{ $needBarWidth }}%"></div>
-                            </div>
+            <div class="w-[86vw] max-w-[360px] shrink-0 snap-start lg:w-auto lg:max-w-none bg-slate-50/70 rounded-xl p-4 space-y-3 border border-slate-100 flex flex-col justify-between shadow-2xs">
+                <div>
+                    <div class="border-b border-slate-200/80 pb-2.5">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-900 font-telemetry text-[10px] font-bold uppercase">
+                                1. Laporan Warga
+                            </span>
+                            <span class="font-telemetry text-[11px] text-slate-500">Satuan: Laporan</span>
                         </div>
-                    @endforeach
+                        <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A] mt-1.5">
+                            Kebutuhan Tercatat per Kategori
+                        </h3>
+                        <p class="text-[11px] text-slate-600 mt-0.5">
+                            Jumlah laporan warga yang mencantumkan kebutuhan mendesak pada setiap kategori.
+                        </p>
+                    </div>
+
+                    <div class="space-y-3 pt-3">
+                        @foreach($statsCollection as $catStat)
+                            @php
+                                $needBarWidth = $catStat['needs_count'] > 0
+                                    ? max(10, (int) round(($catStat['needs_count'] / $maxNeedsCount) * 100))
+                                    : 0;
+                            @endphp
+                            <div class="space-y-1 text-[11px] font-telemetry">
+                                <div class="flex items-center justify-between gap-2">
+                                    <span class="font-bold text-[#0F172A]">{{ $catStat['label'] }}</span>
+                                    <span class="font-bold text-[#2563EB]">{{ $catStat['needs_count'] }} laporan</span>
+                                </div>
+                                <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-[#2563EB] rounded-full" style="width: {{ $needBarWidth }}%"></div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
 
             <!-- BAGIAN 2: RESPONS BANTUAN TERCATAT & RINCIAN SATUAN TERPISAH -->
-            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
-                <div class="border-b border-slate-200/80 pb-2.5">
-                    <div class="flex items-center justify-between gap-2">
-                        <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 font-telemetry text-[10px] font-bold uppercase">
-                            2. Respons Bantuan Masyarakat
-                        </span>
-                        <span class="font-telemetry text-[11px] text-slate-500">Satuan: Entri &amp; Unit Asli</span>
-                    </div>
-                    <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A] mt-1.5">
-                        Respons Bantuan Tercatat per Kategori
-                    </h3>
-                    <p class="text-[11px] text-slate-600 mt-0.5">
-                        Rincian bantuan dicatat sesuai satuan aslinya tanpa digabung lintas satuan.
-                    </p>
-                </div>
-
-                <div class="space-y-3">
-                    @foreach($statsCollection as $catStat)
-                        @php
-                            $respBarWidth = $catStat['responses_total'] > 0
-                                ? max(10, (int) round(($catStat['responses_total'] / $maxResponsesCount) * 100))
-                                : 0;
-                        @endphp
-                        <div class="space-y-1.5 text-[11px] font-telemetry border-b border-slate-200/70 pb-2.5 last:border-b-0 last:pb-0">
-                            <div class="flex items-center justify-between gap-2">
-                                <span class="font-bold text-[#0F172A]">{{ $catStat['label'] }}</span>
-                                <span class="font-bold text-slate-800">{{ $catStat['responses_total'] }} entri respons</span>
-                            </div>
-                            <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
-                                <div class="h-full bg-slate-700 rounded-full" style="width: {{ $respBarWidth }}%"></div>
-                            </div>
-                            @if(!empty($catStat['quantity_labels']))
-                                <div class="flex flex-wrap gap-1 pt-0.5">
-                                    @foreach($catStat['quantity_labels'] as $qtyLabel)
-                                        <span class="px-1.5 py-0.5 rounded bg-white border border-slate-200 text-[10px] text-slate-700">
-                                            {{ $qtyLabel }}
-                                        </span>
-                                    @endforeach
-                                </div>
-                            @else
-                                <span class="text-[10px] text-slate-400 block">Belum ada rincian kuantitas tercatat</span>
-                            @endif
+            <div class="w-[86vw] max-w-[360px] shrink-0 snap-start lg:w-auto lg:max-w-none bg-slate-50/70 rounded-xl p-4 space-y-3 border border-slate-100 flex flex-col justify-between shadow-2xs">
+                <div>
+                    <div class="border-b border-slate-200/80 pb-2.5">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 font-telemetry text-[10px] font-bold uppercase">
+                                2. Respons Bantuan Masyarakat
+                            </span>
+                            <span class="font-telemetry text-[11px] text-slate-500">Satuan: Entri &amp; Unit Asli</span>
                         </div>
-                    @endforeach
+                        <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A] mt-1.5">
+                            Respons Bantuan Tercatat per Kategori
+                        </h3>
+                        <p class="text-[11px] text-slate-600 mt-0.5">
+                            Rincian bantuan dicatat sesuai satuan aslinya tanpa digabung lintas satuan.
+                        </p>
+                    </div>
+
+                    <div class="space-y-3 pt-3">
+                        @foreach($statsCollection as $catStat)
+                            @php
+                                $respBarWidth = $catStat['responses_total'] > 0
+                                    ? max(10, (int) round(($catStat['responses_total'] / $maxResponsesCount) * 100))
+                                    : 0;
+                            @endphp
+                            <div class="space-y-1.5 text-[11px] font-telemetry border-b border-slate-200/70 pb-2.5 last:border-b-0 last:pb-0">
+                                <div class="flex items-center justify-between gap-2">
+                                    <span class="font-bold text-[#0F172A]">{{ $catStat['label'] }}</span>
+                                    <span class="font-bold text-slate-800">{{ $catStat['responses_total'] }} entri respons</span>
+                                </div>
+                                <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-slate-700 rounded-full" style="width: {{ $respBarWidth }}%"></div>
+                                </div>
+                                @if(!empty($catStat['quantity_labels']))
+                                    <div class="flex flex-wrap gap-1 pt-0.5">
+                                        @foreach($catStat['quantity_labels'] as $qtyLabel)
+                                            <span class="px-1.5 py-0.5 rounded bg-white border border-slate-200 text-[10px] text-slate-700">
+                                                {{ $qtyLabel }}
+                                            </span>
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <span class="text-[10px] text-slate-400 block">Belum ada rincian kuantitas tercatat</span>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
 
             <!-- BAGIAN 3: STATUS RESPONS BANTUAN (STACKED BAR 3 WARNA) -->
-            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
-                <div class="border-b border-slate-200/80 pb-2.5">
-                    <div class="flex items-center justify-between gap-2">
-                        <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-telemetry text-[10px] font-bold uppercase">
-                            3. Proporsi Status Respons
-                        </span>
-                        <span class="font-telemetry text-[11px] text-slate-500">Stacked Bar 3 Warna</span>
+            <div class="w-[86vw] max-w-[360px] shrink-0 snap-start lg:w-auto lg:max-w-none bg-slate-50/70 rounded-xl p-4 space-y-3 border border-slate-100 flex flex-col justify-between shadow-2xs">
+                <div>
+                    <div class="border-b border-slate-200/80 pb-2.5">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-telemetry text-[10px] font-bold uppercase">
+                                3. Proporsi Status Respons
+                            </span>
+                            <span class="font-telemetry text-[11px] text-slate-500">Stacked Bar 3 Warna</span>
+                        </div>
+                        <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A] mt-1.5">
+                            Distribusi Status Respons Bantuan
+                        </h3>
+                        <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] font-telemetry mt-1.5">
+                            <span class="inline-flex items-center gap-1">
+                                <span class="w-2.5 h-2.5 rounded-xs bg-amber-500 inline-block"></span>
+                                <span>Direncanakan</span>
+                            </span>
+                            <span class="inline-flex items-center gap-1">
+                                <span class="w-2.5 h-2.5 rounded-xs bg-[#2563EB] inline-block"></span>
+                                <span>Dalam Penyaluran</span>
+                            </span>
+                            <span class="inline-flex items-center gap-1">
+                                <span class="w-2.5 h-2.5 rounded-xs bg-[#059669] inline-block"></span>
+                                <span>Penyerahan Dikonfirmasi</span>
+                            </span>
+                        </div>
                     </div>
-                    <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A] mt-1.5">
-                        Distribusi Status Respons Bantuan
-                    </h3>
-                    <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] font-telemetry mt-1.5">
-                        <span class="inline-flex items-center gap-1">
-                            <span class="w-2.5 h-2.5 rounded-xs bg-amber-500 inline-block"></span>
-                            <span>Direncanakan</span>
-                        </span>
-                        <span class="inline-flex items-center gap-1">
-                            <span class="w-2.5 h-2.5 rounded-xs bg-[#2563EB] inline-block"></span>
-                            <span>Dalam Penyaluran</span>
-                        </span>
-                        <span class="inline-flex items-center gap-1">
-                            <span class="w-2.5 h-2.5 rounded-xs bg-[#059669] inline-block"></span>
-                            <span>Penyerahan Dikonfirmasi</span>
-                        </span>
-                    </div>
-                </div>
 
                 <div class="space-y-3">
                     @foreach($statsCollection as $catStat)
@@ -608,14 +618,14 @@
             </div>
 
             @if(($publicAidResponses ?? collect())->isEmpty())
-                <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-6 text-center text-sm text-slate-600">
+                <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-6 text-center text-sm text-slate-600">
                     Belum ada respons bantuan yang tercatat pada sistem.
                 </div>
             @else
-                <div class="overflow-x-auto border border-[#E2E8F0] rounded-lg">
+                <div class="overflow-x-auto border border-slate-100 rounded-xl">
                     <table class="w-full text-left border-collapse">
                         <thead>
-                            <tr class="bg-[#F8FAFC] border-b border-[#E2E8F0] font-telemetry text-[11px] font-bold uppercase text-slate-600">
+                            <tr class="bg-[#F8FAFC] border-b border-slate-100 font-telemetry text-[11px] font-bold uppercase text-slate-600">
                                 <th class="py-2.5 px-3">Kode &amp; Waktu Pencatatan / Pembaruan</th>
                                 <th class="py-2.5 px-3">Kejadian &amp; Lokasi Tujuan</th>
                                 <th class="py-2.5 px-3">Kategori &amp; Jenis Bantuan</th>

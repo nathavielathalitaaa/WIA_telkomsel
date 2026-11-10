@@ -79,7 +79,7 @@
         <!-- Kolom Kiri: Ringkasan Akun & Formulir Pembaruan -->
         <div class="lg:col-span-7 space-y-6">
             <!-- Kartu Identitas Akun -->
-            <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
                 <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-5 text-white">
                     <div class="flex items-center gap-4">
                         <div class="w-14 h-14 rounded-full bg-amber-400 text-slate-950 font-black text-2xl flex items-center justify-center shrink-0 border-2 border-white/20">
@@ -115,7 +115,7 @@
             </div>
 
             <!-- Formulir Ubah Nama Profil -->
-            <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5 space-y-4">
+            <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                 <div class="border-b border-slate-100 pb-3">
                     <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
                         <span>✏️</span> Ubah Nama Akun
@@ -167,7 +167,7 @@
             </div>
 
             <!-- Formulir Ubah Kata Sandi -->
-            <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5 space-y-4">
+            <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                 <div class="border-b border-slate-100 pb-3">
                     <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
                         <span>🔒</span> Perbarui Kata Sandi
@@ -241,7 +241,7 @@
         <!-- Kolom Kanan: Rincian Hak Akses Peran & Riwayat Aktivitas Pribadi -->
         <div class="lg:col-span-5 space-y-6">
             <!-- Kartu Deskripsi Peran & Hak Akses -->
-            <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5 space-y-3">
+            <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-3">
                 <div class="border-b border-slate-100 pb-3">
                     <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block font-telemetry">
                         Otorisasi Akun
@@ -271,7 +271,7 @@
             </div>
 
             <!-- Kartu 10 Catatan Aktivitas Terakhir Akun Ini -->
-            <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5 space-y-4">
+            <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                 <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                     <div>
                         <h3 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">

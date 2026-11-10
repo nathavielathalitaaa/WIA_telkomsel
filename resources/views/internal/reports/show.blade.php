@@ -28,7 +28,7 @@
         <!-- Left Column (7 cols): Report Details & Audit History -->
         <div class="lg:col-span-7 space-y-5">
             <!-- Report Full Details Card (Including Internal-Only Reporter Info) -->
-            <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-4">
+            <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                 <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4">
                     <div class="flex flex-wrap items-center gap-2">
                         <span class="px-2.5 py-1 rounded bg-[#0F172A] text-white font-telemetry text-xs font-bold">
@@ -56,7 +56,7 @@
 
                 <!-- Internal Metadata Grid -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                    <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3">
+                    <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3">
                         <span class="font-telemetry text-[10px] font-bold uppercase text-slate-500 block">
                             Nama Pelapor (Rahasia Internal)
                         </span>
@@ -65,7 +65,7 @@
                         </span>
                     </div>
 
-                    <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3">
+                    <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3">
                         <span class="font-telemetry text-[10px] font-bold uppercase text-slate-500 block">
                             Kontak Pelapor (Rahasia Internal)
                         </span>
@@ -74,7 +74,7 @@
                         </span>
                     </div>
 
-                    <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3">
+                    <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3">
                         <span class="font-telemetry text-[10px] font-bold uppercase text-slate-500 block">
                             Waktu Kejadian Diamati
                         </span>
@@ -83,7 +83,7 @@
                         </span>
                     </div>
 
-                    <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3">
+                    <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3">
                         <span class="font-telemetry text-[10px] font-bold uppercase text-slate-500 block">
                             Waktu Laporan Masuk
                         </span>
@@ -92,7 +92,7 @@
                         </span>
                     </div>
 
-                    <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg p-3 sm:col-span-2">
+                    <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3 sm:col-span-2">
                         <span class="font-telemetry text-[10px] font-bold uppercase text-slate-500 block">
                             Lokasi &amp; Koordinat
                         </span>
@@ -126,7 +126,7 @@
             </section>
 
             <!-- Complete Internal Audit Trail -->
-            <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-4">
+            <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                 <div class="border-b border-slate-100 pb-3">
                     <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
                         Riwayat Verifikasi &amp; Penautan Laporan (Mode Internal)
@@ -147,7 +147,7 @@
         <!-- Right Column (5 cols): Role-Gated Action Panels -->
         <div class="lg:col-span-5 space-y-5">
             <!-- Panel 1: Keputusan Verifikasi Laporan (Verifikator & Admin) -->
-            <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-4">
+            <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                 <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                     <div>
                         <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
@@ -267,7 +267,7 @@
             </section>
 
             <!-- Panel 2: Hubungkan Laporan dengan Kejadian (Operator & Admin) -->
-            <section class="bg-white border border-[#E2E8F0] rounded-lg p-5 space-y-4">
+            <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                 <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                     <div>
                         <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">

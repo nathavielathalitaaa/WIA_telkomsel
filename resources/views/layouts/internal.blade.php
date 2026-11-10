@@ -67,30 +67,30 @@
                     </div>
                 </a>
 
-                <nav class="hidden lg:flex items-center gap-1 ml-2 xl:ml-4 shrink-0" aria-label="Navigasi Internal">
+                <nav class="hidden lg:flex items-center gap-1.5 xl:gap-2.5 ml-2 xl:ml-4 shrink-0" aria-label="Navigasi Internal">
                     <a href="{{ route('internal.dashboard') }}"
-                       class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'dashboard' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60 hover:text-white' }}">
+                       class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider whitespace-nowrap transition {{ $internalMenu === 'dashboard' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60 hover:text-white' }}">
                         Dashboard
                     </a>
                     <a href="{{ route('internal.reports.index') }}"
-                       class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'reports' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60 hover:text-white' }}">
+                       class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider whitespace-nowrap transition {{ $internalMenu === 'reports' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60 hover:text-white' }}">
                         {{ $reportsMenuLabel }}
                     </a>
                     <a href="{{ route('internal.incidents.index') }}"
-                       class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'incidents' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60 hover:text-white' }}">
+                       class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider whitespace-nowrap transition {{ $internalMenu === 'incidents' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60 hover:text-white' }}">
                         {{ $incidentsMenuLabel }}
                     </a>
                     @if($currentUser?->isAdmin())
                         <a href="{{ route('internal.intelligence.index') }}"
-                           class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'intelligence' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60 hover:text-white' }}">
+                           class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider whitespace-nowrap transition {{ $internalMenu === 'intelligence' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60 hover:text-white' }}">
                             Pusat Intelijen
                         </a>
                         <a href="{{ route('internal.users.index') }}"
-                           class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'users' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60 hover:text-white' }}">
+                           class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider whitespace-nowrap transition {{ $internalMenu === 'users' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60 hover:text-white' }}">
                             Direktori Akun
                         </a>
                         <a href="{{ route('internal.audit-logs.index') }}"
-                           class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'audit-logs' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60 hover:text-white' }}">
+                           class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider whitespace-nowrap transition {{ $internalMenu === 'audit-logs' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60 hover:text-white' }}">
                             Audit Log
                         </a>
                     @endif

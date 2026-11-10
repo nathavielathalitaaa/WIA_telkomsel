@@ -20,26 +20,16 @@
     <div id="tanggap-toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2.5 max-w-sm pointer-events-none" aria-live="polite"></div>
     <!-- Sticky Institutional Top Header -->
     <header class="sticky top-0 z-40 bg-white border-b border-slate-100 no-print">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3 sm:gap-4 lg:gap-6">
             <!-- Brand Identity -->
-            <a href="{{ route('public.monitor') }}" class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <a href="{{ route('public.monitor') }}" class="flex items-center gap-2.5 sm:gap-3 shrink-0">
                 <img src="{{ asset('images/logo-tanggap-terang.png') }}"
                      alt="Logo TanggapTerang"
                      class="h-9 sm:h-10 w-auto object-contain shrink-0">
-                <div class="min-w-0">
-                    <div class="flex items-center gap-2">
-                        <span class="text-base sm:text-lg font-extrabold tracking-tight text-[#173B70] leading-none whitespace-nowrap">TanggapTerang</span>
-                        <span class="hidden md:inline-flex px-1.5 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200/80 font-telemetry text-[10px] font-bold uppercase shrink-0">
-                            Prototype Simulasi
-                        </span>
-                    </div>
-                    <p class="hidden sm:block font-telemetry text-[11px] text-[#788397] uppercase tracking-wider truncate mt-0.5">
-                        Terlihat, Terlacak, dan Terukur • Papan Transparansi Respons Bencana
-                    </p>
-                </div>
+                <span class="text-base sm:text-lg font-extrabold tracking-tight text-[#173B70] leading-none whitespace-nowrap">TanggapTerang</span>
             </a>
 
-            <!-- Desktop Main Navigation (4 Tabs) -->
+            <!-- Desktop Main Navigation (5 Tabs) -->
             @php
                 $activeTab = $activeTab ?? '';
                 $replayHref = \Illuminate\Support\Facades\Route::has('public.replay') ? route('public.replay') : '#';
@@ -48,34 +38,34 @@
                 $loginHref = \Illuminate\Support\Facades\Route::has('login') ? route('login') : '#';
                 $internalHref = \Illuminate\Support\Facades\Route::has('internal.dashboard') ? route('internal.dashboard') : '#';
             @endphp
-            <nav class="hidden lg:flex items-center gap-1" aria-label="Navigasi Utama">
+            <nav class="hidden lg:flex items-center gap-1.5 xl:gap-2.5" aria-label="Navigasi Utama">
                 <a href="{{ route('public.monitor') }}"
-                   class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'pantau' ? 'nav-active-gradient' : 'text-[#788397] hover:bg-slate-100 hover:text-[#173B70]' }}">
+                   class="px-3 xl:px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider whitespace-nowrap transition {{ $activeTab === 'pantau' ? 'nav-active-gradient' : 'text-[#788397] hover:bg-slate-100 hover:text-[#173B70]' }}">
                     Pantau
                 </a>
                 <a href="{{ route('public.track') }}"
-                   class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'lacak' ? 'nav-active-gradient' : 'text-[#788397] hover:bg-slate-100 hover:text-[#173B70]' }}">
+                   class="px-3 xl:px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider whitespace-nowrap transition {{ $activeTab === 'lacak' ? 'nav-active-gradient' : 'text-[#788397] hover:bg-slate-100 hover:text-[#173B70]' }}">
                     Lacak Tiket
                 </a>
                 <a href="{{ $replayHref }}"
-                   class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'replay' ? 'nav-active-gradient' : 'text-[#788397] hover:bg-slate-100 hover:text-[#173B70]' }}">
+                   class="px-3 xl:px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider whitespace-nowrap transition {{ $activeTab === 'replay' ? 'nav-active-gradient' : 'text-[#788397] hover:bg-slate-100 hover:text-[#173B70]' }}">
                     Linimasa
                 </a>
                 <a href="{{ $sitrepHref }}"
-                   class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'laporan' ? 'nav-active-gradient' : 'text-[#788397] hover:bg-slate-100 hover:text-[#173B70]' }}">
+                   class="px-3 xl:px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider whitespace-nowrap transition {{ $activeTab === 'laporan' ? 'nav-active-gradient' : 'text-[#788397] hover:bg-slate-100 hover:text-[#173B70]' }}">
                     SitRep
                 </a>
                 <a href="{{ route('public.sources.index') }}"
-                   class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'sumber_data' ? 'nav-active-gradient' : 'text-[#788397] hover:bg-slate-100 hover:text-[#173B70]' }}">
+                   class="px-3 xl:px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider whitespace-nowrap transition {{ $activeTab === 'sumber_data' ? 'nav-active-gradient' : 'text-[#788397] hover:bg-slate-100 hover:text-[#173B70]' }}">
                     Tentang Data
                 </a>
             </nav>
 
             <!-- Action Triggers (Report & Internal Portal) -->
-            <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
                 <a href="{{ route('public.reports.create') }}"
                    @if(request()->routeIs('public.reports.create')) aria-current="page" @endif
-                   class="px-2.5 sm:px-3.5 py-2 sm:py-2.5 rounded-lg btn-brand-gradient font-telemetry text-[11px] sm:text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1 sm:gap-1.5 min-h-[40px] sm:min-h-[42px] shadow-xs {{ request()->routeIs('public.reports.create') ? 'ring-2 ring-[#173B70] ring-offset-1' : '' }}">
+                   class="px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg btn-brand-gradient font-telemetry text-[11px] sm:text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1 sm:gap-1.5 min-h-[40px] sm:min-h-[42px] shadow-xs whitespace-nowrap shrink-0 {{ request()->routeIs('public.reports.create') ? 'ring-2 ring-[#173B70] ring-offset-1' : '' }}">
                     <span class="font-extrabold text-sm leading-none">+</span>
                     <span class="hidden sm:inline">Lapor Kejadian</span>
                     <span class="sm:hidden">Lapor</span>
@@ -83,14 +73,14 @@
 
                 @auth
                     <a href="{{ $internalHref }}"
-                       class="px-2.5 sm:px-3 py-2 sm:py-2.5 rounded-lg border border-slate-200/80 bg-white hover:bg-slate-50 text-[#202938] font-telemetry text-[11px] sm:text-xs font-bold uppercase tracking-wider transition min-h-[40px] sm:min-h-[42px] inline-flex items-center gap-1.5 shadow-xs">
+                       class="px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-lg border border-slate-200/80 bg-white hover:bg-slate-50 text-[#202938] font-telemetry text-[11px] sm:text-xs font-bold uppercase tracking-wider transition min-h-[40px] sm:min-h-[42px] inline-flex items-center gap-1.5 shadow-xs whitespace-nowrap shrink-0">
                         <span class="w-2 h-2 rounded-full bg-[#059669]"></span>
                         <span class="hidden sm:inline">Panel Internal</span>
                         <span class="sm:hidden">Internal</span>
                     </a>
                 @else
                     <a href="{{ $loginHref }}"
-                       class="px-2.5 sm:px-3 py-2 sm:py-2.5 rounded-lg border border-slate-200/80 bg-white hover:bg-slate-50 text-[#202938] font-telemetry text-[11px] sm:text-xs font-bold uppercase tracking-wider transition min-h-[40px] sm:min-h-[42px] inline-flex items-center shadow-xs">
+                       class="px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-lg border border-slate-200/80 bg-white hover:bg-slate-50 text-[#202938] font-telemetry text-[11px] sm:text-xs font-bold uppercase tracking-wider transition min-h-[40px] sm:min-h-[42px] inline-flex items-center shadow-xs whitespace-nowrap shrink-0">
                         <span>Login Tim</span>
                     </a>
                 @endauth

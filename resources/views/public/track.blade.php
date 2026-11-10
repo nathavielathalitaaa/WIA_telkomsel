@@ -95,41 +95,38 @@
         </form>
 
         <!-- Quick Demo Simulation Tickets for Testing/Jury Evaluation -->
-        <div class="pt-3 border-t border-blue-400/20 flex flex-wrap items-center gap-2 text-xs font-telemetry text-blue-200">
-            <span class="uppercase font-bold text-white">Contoh Tiket Laporan:</span>
+        <div class="pt-3 border-t border-blue-400/20 flex flex-wrap items-center gap-1.5 sm:gap-2 text-[11px] font-telemetry text-blue-200">
+            <span class="uppercase font-bold text-white text-[10px] sm:text-[11px] tracking-wider">Contoh Tiket Laporan:</span>
             <a href="{{ route('public.track', ['ticket' => 'RPT-SIM-8K4M9P2X']) }}"
                data-tooltip="Lacak contoh laporan terverifikasi"
-               class="px-2.5 py-1 rounded bg-[#0F2A52] hover:bg-[#315D91] border border-blue-400/30 text-blue-100 font-bold transition">
+               class="px-2 py-0.5 rounded bg-[#0F2A52] hover:bg-[#315D91] border border-blue-400/30 text-blue-100 font-bold transition text-[10px] sm:text-[11px]">
                 RPT-SIM-8K4M9P2X (Terverifikasi)
             </a>
             <a href="{{ route('public.track', ['ticket' => 'RPT-SIM-6T9W4L8R']) }}"
                data-tooltip="Lacak contoh laporan antrean verifikasi"
-               class="px-2.5 py-1 rounded bg-[#0F2A52] hover:bg-[#315D91] border border-blue-400/30 text-amber-300 font-bold transition">
-                RPT-SIM-6T9W4L8R (Menunggu Verifikasi)
+               class="px-2 py-0.5 rounded bg-[#0F2A52] hover:bg-[#315D91] border border-blue-400/30 text-amber-300 font-bold transition text-[10px] sm:text-[11px]">
+                RPT-SIM-6T9W4L8R (Menunggu)
             </a>
             <a href="{{ route('public.track', ['ticket' => 'RPT-SIM-9P3F6Y2M']) }}"
                data-tooltip="Lacak contoh laporan ditolak"
-               class="px-2.5 py-1 rounded bg-[#0F2A52] hover:bg-[#315D91] border border-blue-400/30 text-rose-300 font-bold transition">
+               class="px-2 py-0.5 rounded bg-[#0F2A52] hover:bg-[#315D91] border border-blue-400/30 text-rose-300 font-bold transition text-[10px] sm:text-[11px]">
                 RPT-SIM-9P3F6Y2M (Ditolak)
             </a>
-            <span class="uppercase font-bold text-white ml-1">Contoh Kode Respons:</span>
+            <span class="uppercase font-bold text-white text-[10px] sm:text-[11px] tracking-wider ml-1">Respons Bantuan:</span>
             <a href="{{ route('public.track', ['ticket' => 'RSP-SIM-7M2K8N4Q']) }}"
                data-tooltip="Lacak respons terverifikasi &amp; terkonfirmasi"
-               class="px-2.5 py-1 rounded bg-[#0F2A52] hover:bg-[#315D91] border border-blue-400/30 text-emerald-300 font-bold transition">
-                RSP-SIM-7M2K8N4Q (Respons Bantuan)
-            </a>
-        </div>
-    </section>
+               class="px-2 py-0.5 rounded bg-[#0F2A52] hover:bg-[#315D91] border border-blue-400/30 text-emerald-300 font-bold transition text-[10px] sm:text-[11px]">
+                RSP-SIM-7M2K8N4Q
             </a>
             <a href="{{ route('public.track', ['ticket' => 'RSP-SIM-9V5P3W6X']) }}"
                data-tooltip="Lacak respons dalam tahap penyaluran"
-               class="px-2 py-1 rounded bg-blue-50 hover:bg-blue-100 text-blue-900 border border-blue-200 font-bold transition hover:shadow-xs">
-                RSP-SIM-9V5P3W6X (Terverifikasi • Dalam Penyaluran)
+               class="px-2 py-0.5 rounded bg-[#0F2A52] hover:bg-[#315D91] border border-blue-400/30 text-blue-200 font-bold transition text-[10px] sm:text-[11px]">
+                RSP-SIM-9V5P3W6X
             </a>
             <a href="{{ route('public.track', ['ticket' => 'RSP-SIM-2H8R4Y7L']) }}"
                data-tooltip="Lacak respons menunggu verifikasi"
-               class="px-2 py-1 rounded bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 font-bold transition hover:shadow-xs">
-                RSP-SIM-2H8R4Y7L (Menunggu Verifikasi • Direncanakan)
+               class="px-2 py-0.5 rounded bg-[#0F2A52] hover:bg-[#315D91] border border-blue-400/30 text-amber-200 font-bold transition text-[10px] sm:text-[11px]">
+                RSP-SIM-2H8R4Y7L
             </a>
         </div>
     </section>

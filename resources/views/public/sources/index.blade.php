@@ -22,16 +22,6 @@
                         Pemantauan publik status integrasi, waktu pembaruan, dan rekaman data dari layanan kebencanaan Dalam Negeri dan Internasional. Penilai dan masyarakat dapat menelusuri dasar informasi secara terbuka tanpa harus login.
                     </p>
                 </div>
-                <div class="shrink-0 flex flex-wrap items-center gap-2">
-                    <span class="px-3 py-1.5 rounded-lg bg-blue-950/80 text-blue-300 border border-blue-800 font-telemetry text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                        Akses Publik Terbuka
-                    </span>
-                    <a href="{{ route('public.monitor') }}"
-                       class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-telemetry text-xs font-bold uppercase tracking-wider transition">
-                        &larr; Kembali ke Pantau
-                    </a>
-                </div>
             </div>
         </div>
 

@@ -4,18 +4,33 @@
 ])
 
 @section('content')
-    <!-- Breadcrumb -->
-    <div class="flex flex-wrap items-center justify-between gap-3">
-        <div class="flex items-center gap-2 text-xs font-telemetry text-[#788397]">
-            <a href="{{ route('public.monitor') }}" class="hover:text-[#173B70] font-bold transition">&larr; Kembali ke Pantau Kejadian</a>
-            <span>/</span>
-            <span class="text-[#202938] font-bold uppercase">Formulir Pencatatan Respons Bantuan</span>
+    <!-- Master Institutional Hero Header (Aligned with /welcome) -->
+    <section class="bg-[#173B70] text-white border border-[#315D91] rounded-2xl p-6 sm:p-8 space-y-4 shadow-xs">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div class="space-y-2 max-w-2xl">
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="px-2.5 py-1 rounded bg-amber-400 text-[#173B70] font-telemetry text-xs font-bold uppercase tracking-wider">
+                        Partisipasi Terbuka Tanpa Login
+                    </span>
+                    <span class="px-2.5 py-1 rounded bg-[#315D91] text-white border border-blue-300/30 font-telemetry text-xs font-bold uppercase tracking-wider">
+                        Tercatat &amp; Terkoordinasi
+                    </span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight text-white">
+                    Catat Komitmen &amp; Respons Bantuan
+                </h1>
+                <p class="text-sm sm:text-base text-blue-100 leading-relaxed">
+                    Catat tawaran bantuan logistik, medis, evakuasi, atau bantuan yang telah disalurkan. Setiap catatan diverifikasi agar koordinasi bantuan terarah dan tidak tumpang tindih.
+                </p>
+            </div>
+            <div class="flex items-center gap-2.5 shrink-0 self-start sm:self-center">
+                <a href="{{ route('public.monitor') }}"
+                   class="px-4 py-2.5 rounded-lg border border-blue-300/40 hover:bg-[#315D91] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center gap-2 shadow-xs">
+                    <span>&larr; Pantau Kebutuhan</span>
+                </a>
+            </div>
         </div>
-
-        <span class="px-2.5 py-1 rounded bg-amber-50 text-amber-800 border border-amber-300 font-telemetry text-xs font-bold uppercase">
-            Respons Bantuan Masyarakat • Tanpa Login
-        </span>
-    </div>
+    </section>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
         <!-- Main Form Column (8 cols) -->
@@ -25,19 +40,14 @@
                 $activeNeedCategory = old('need_category', $selectedNeedCategory ?? '');
             @endphp
 
-            <div class="border-b border-slate-200 pb-4 space-y-1.5">
-                <div class="flex flex-wrap items-center gap-2">
-                    <span class="px-2 py-0.5 rounded bg-[#173B70] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
-                        Partisipasi Terbuka
-                    </span>
-                    <span class="font-telemetry text-xs text-[#788397]">
-                        Status Awal Otomatis: <strong>Direncanakan (Menunggu Pemeriksaan Petugas)</strong>
-                    </span>
-                </div>
-                <h1 class="text-xl sm:text-2xl font-extrabold text-[#202938] tracking-tight">
-                    Catat Tawaran Bantuan atau Laporan Bantuan yang Sudah Diberikan
-                </h1>
+            <div class="border-b border-slate-200 pb-4 space-y-1">
+                <h2 class="text-lg font-bold text-[#202938]">
+                    Data Tawaran / Realisasi Respons Bantuan
+                </h2>
                 <p class="text-xs sm:text-sm text-[#788397] leading-relaxed">
+                    Pilih tipe respons dan rincian kebutuhan yang didukung untuk mempercepat koordinasi dengan posko lapangan.
+                </p>
+            </div>
                     Catat tawaran bantuan yang direncanakan atau laporkan bantuan yang sudah diserahkan di lokasi kejadian untuk diperiksa oleh petugas.
                 </p>
             </div>

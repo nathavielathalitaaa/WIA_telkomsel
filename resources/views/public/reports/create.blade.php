@@ -4,36 +4,44 @@
 ])
 
 @section('content')
-    <!-- Breadcrumb -->
-    <nav aria-label="Breadcrumb" class="flex items-center justify-between gap-3">
-        <a href="{{ route('public.monitor') }}" class="font-telemetry text-xs font-bold text-[#788397] hover:text-[#173B70] inline-flex items-center gap-1 transition">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-            </svg>
-            <span>Kembali ke Halaman Pantau</span>
-        </a>
-        <a href="{{ route('public.track') }}" class="font-telemetry text-xs font-bold text-[#173B70] hover:underline">
-            Sudah Punya Nomor Tiket? Lacak di Sini &rarr;
-        </a>
-    </nav>
+    <!-- Master Institutional Hero Header (Aligned with /welcome) -->
+    <section class="bg-[#173B70] text-white border border-[#315D91] rounded-2xl p-6 sm:p-8 space-y-4 shadow-xs">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div class="space-y-2 max-w-2xl">
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="px-2.5 py-1 rounded bg-[#D94350] text-white font-telemetry text-xs font-bold uppercase tracking-wider">
+                        Pelaporan Terbuka Tanpa Akun
+                    </span>
+                    <span class="px-2.5 py-1 rounded bg-[#315D91] text-white border border-blue-300/30 font-telemetry text-xs font-bold uppercase tracking-wider">
+                        Verifikasi Silang &amp; Privasi Terjaga
+                    </span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight text-white">
+                    Formulir Pelaporan Kejadian Masyarakat
+                </h1>
+                <p class="text-sm sm:text-base text-blue-100 leading-relaxed">
+                    Sampaikan kejadian dan kondisi terkini di sekitar Anda tanpa perlu login. Setiap laporan akan memperoleh nomor tiket unik untuk memantau pemeriksaan dan penanganan tim di lapangan.
+                </p>
+            </div>
+            <div class="flex items-center gap-2.5 shrink-0 self-start sm:self-center">
+                <a href="{{ route('public.track') }}"
+                   class="px-4 py-2.5 rounded-lg border border-blue-300/40 hover:bg-[#315D91] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center gap-2 shadow-xs">
+                    <span>Lacak Tiket Sebelumnya</span>
+                    <span>&rarr;</span>
+                </a>
+            </div>
+        </div>
+    </section>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         <!-- Main Form Column (8 cols) -->
         <section class="lg:col-span-8 bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 sm:p-6 space-y-6">
-            <div class="border-b border-slate-100 pb-4 space-y-1.5">
-                <div class="flex flex-wrap items-center gap-2">
-                    <span class="px-2 py-0.5 rounded bg-[#D94350] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
-                        Pelaporan Publik Tanpa Login
-                    </span>
-                    <span class="px-2 py-0.5 rounded bg-slate-100 text-[#788397] font-telemetry text-[10px] font-bold uppercase tracking-wider">
-                        Status Awal: Menunggu Verifikasi
-                    </span>
-                </div>
-                <h1 class="text-xl sm:text-2xl font-extrabold text-[#202938]">
-                    Formulir Pelaporan Kejadian Masyarakat
-                </h1>
-                <p class="text-sm text-[#788397] leading-relaxed">
-                    Sampaikan kejadian dan kondisi di sekitar Anda. Laporan akan menerima nomor tiket untuk memantau proses pemeriksaan dan tindak lanjut tim.
+            <div class="border-b border-slate-100 pb-4 space-y-1">
+                <h2 class="text-lg font-bold text-[#202938]">
+                    Data Kejadian &amp; Kondisi Lapangan
+                </h2>
+                <p class="text-xs sm:text-sm text-[#788397] leading-relaxed">
+                    Isi informasi selengkap mungkin. Tim verifikator akan memeriksa kesesuaian laporan Anda dengan data terbuka.
                 </p>
             </div>
 

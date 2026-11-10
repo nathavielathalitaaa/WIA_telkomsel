@@ -4,61 +4,63 @@
 ])
 
 @section('content')
-    <!-- Page Header & Primary CTA -->
-    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-4 sm:p-6 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-        <div class="space-y-1.5">
-            <div class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse"></span>
-                <span class="font-telemetry text-xs text-slate-500 font-bold uppercase tracking-wider">
-                    Papan Pemantauan Bencana
-                </span>
+    <!-- Master Institutional Hero Header Card (Aligned with /welcome) -->
+    <section class="bg-[#173B70] text-white border border-[#315D91] rounded-2xl p-6 sm:p-8 space-y-5 shadow-xs">
+        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+            <div class="space-y-2 max-w-3xl">
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="px-2.5 py-1 rounded bg-[#315D91] text-white border border-blue-300/30 font-telemetry text-xs font-bold uppercase tracking-wider">
+                        Papan Pemantauan Bencana
+                    </span>
+                    <span class="px-2.5 py-1 rounded bg-amber-400 text-[#173B70] font-telemetry text-xs font-bold uppercase tracking-wider">
+                        Data Terbuka &amp; Terverifikasi
+                    </span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight text-white">
+                    Peta Sebaran &amp; Perkembangan Respons
+                </h1>
+                <p class="text-sm sm:text-base text-blue-100 leading-relaxed">
+                    Pantau sebaran kejadian bencana, laporan kebutuhan warga, dan dokumentasi tindak lanjut di lapangan secara terpadu, transparan, dan terlacak.
+                </p>
             </div>
-            <h1 class="text-xl sm:text-2xl font-black text-[#202938] tracking-tight">
-                Peta Sebaran &amp; Perkembangan Respons
-            </h1>
-            <p class="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
-                Pantau sebaran kejadian bencana, laporan kebutuhan warga, dan tindak lanjut di lapangan secara terpadu.
-            </p>
+
+            <div class="flex flex-wrap items-center gap-2.5 shrink-0 pt-1 lg:pt-0">
+                <a href="{{ route('public.track') }}"
+                   class="px-4 py-2.5 rounded-lg border border-blue-300/40 hover:bg-[#315D91] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center gap-2 shadow-xs">
+                    <svg class="w-4 h-4 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                    <span>Lacak Tiket</span>
+                </a>
+                <a href="{{ route('public.aid-responses.create') }}"
+                   class="px-4 py-2.5 rounded-lg border border-blue-300/40 hover:bg-[#315D91] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center gap-1.5 shadow-xs">
+                    <span class="font-extrabold text-sm leading-none">+</span>
+                    <span>Catat Bantuan</span>
+                </a>
+                <a href="{{ route('public.reports.create') }}"
+                   class="px-5 py-2.5 rounded-lg btn-brand-gradient text-white font-telemetry text-xs font-bold uppercase tracking-wider min-h-[44px] inline-flex items-center gap-1.5 shadow-xs">
+                    <span class="font-extrabold text-sm leading-none">+</span>
+                    <span>Kirim Laporan Warga</span>
+                </a>
+            </div>
         </div>
 
-        <div class="flex flex-wrap items-center gap-2 shrink-0">
-            <a href="{{ route('public.track') }}"
-               class="px-3.5 py-2.5 rounded-lg border border-slate-200/80 bg-white hover:bg-slate-50 text-[#202938] font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center gap-1.5 shadow-2xs">
-                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                </svg>
-                <span>Lacak Tiket</span>
-            </a>
-            <a href="{{ route('public.aid-responses.create') }}"
-               class="px-3.5 py-2.5 rounded-lg border border-blue-200/70 bg-blue-50/70 hover:bg-blue-100 text-[#173B70] font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center gap-1.5 shadow-2xs">
-                <span class="font-extrabold text-sm leading-none">+</span>
-                <span>Catat Bantuan</span>
-            </a>
-            <a href="{{ route('public.reports.create') }}"
-               class="px-4 py-2.5 rounded-lg btn-brand-gradient font-telemetry text-xs font-bold uppercase tracking-wider min-h-[44px] inline-flex items-center gap-1.5 shadow-xs">
-                <span class="font-extrabold text-sm leading-none">+</span>
-                <span>Kirim Laporan Warga</span>
-            </a>
-        </div>
-    </section>
-
-    <!-- Data Source Transparency Banner -->
-    <section class="bg-blue-50/80 border border-blue-200 rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs shadow-2xs">
-        <div class="flex items-center gap-2.5 min-w-0">
-            <span class="w-2 h-2 rounded-full bg-blue-600 shrink-0"></span>
-            <p class="text-slate-700 leading-snug">
-                <strong>Sumber Data:</strong> Arsip resmi <strong>Pusdatin BNPB (DIBI 2022–2024)</strong> &amp; skenario simulasi terpisah.
-            </p>
-        </div>
-        <div class="flex items-center gap-2 shrink-0 font-telemetry text-xs">
-            <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['source_mode' => 'historical'])) }}"
-               class="px-3 py-1.5 rounded-lg border {{ request('source_mode') === 'historical' ? 'bg-blue-900 text-white border-blue-900 shadow-xs' : 'bg-white hover:bg-blue-50 text-blue-950 border-blue-200' }} font-bold transition">
-                {{ $summary['historical_incidents'] ?? 0 }} Data Historis
-            </a>
-            <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['source_mode' => 'simulation'])) }}"
-               class="px-3 py-1.5 rounded-lg border {{ request('source_mode') === 'simulation' ? 'bg-[#173B70] text-white border-[#173B70] shadow-xs' : 'bg-white hover:bg-slate-50 text-slate-800 border-slate-300' }} font-bold transition">
-                {{ $summary['simulation_incidents'] ?? 0 }} Simulasi
-            </a>
+        <!-- Integrated Data Source Transparency Bar -->
+        <div class="pt-3 border-t border-blue-400/20 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs">
+            <div class="flex items-center gap-2 text-blue-100">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+                <span><strong>Sumber Data:</strong> Arsip resmi <strong>Pusdatin BNPB (DIBI 2022–2024)</strong> &amp; skenario simulasi terpisah.</span>
+            </div>
+            <div class="flex items-center gap-2 font-telemetry text-xs shrink-0">
+                <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['source_mode' => 'historical'])) }}"
+                   class="px-3 py-1.5 rounded-lg border {{ request('source_mode') === 'historical' ? 'bg-white text-[#173B70] border-white font-extrabold shadow-xs' : 'bg-[#0F2A52] hover:bg-[#315D91] text-blue-100 border-blue-400/30 font-bold' }} transition">
+                    {{ $summary['historical_incidents'] ?? 0 }} Data Historis
+                </a>
+                <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['source_mode' => 'simulation'])) }}"
+                   class="px-3 py-1.5 rounded-lg border {{ request('source_mode') === 'simulation' ? 'bg-white text-[#173B70] border-white font-extrabold shadow-xs' : 'bg-[#0F2A52] hover:bg-[#315D91] text-blue-100 border-blue-400/30 font-bold' }} transition">
+                    {{ $summary['simulation_incidents'] ?? 0 }} Simulasi
+                </a>
+            </div>
         </div>
     </section>
 

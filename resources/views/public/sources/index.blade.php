@@ -5,23 +5,24 @@
 
 @section('content')
 <div class="space-y-8">
-    <!-- Breadcrumb & Header Hero -->
+    <!-- Master Institutional Header (Aligned with /welcome) -->
     <header class="bg-white border border-slate-100/90 rounded-2xl shadow-xs overflow-hidden">
-        <div class="bg-[#173B70] text-white px-4 sm:px-6 py-6 border-b border-[#315D91]">
-            <div class="flex flex-wrap items-center gap-2 text-xs font-telemetry text-blue-200 mb-2">
-                <a href="{{ route('public.monitor') }}" class="hover:text-white transition">Beranda</a>
-                <span>&rsaquo;</span>
-                <span class="text-blue-300 font-bold uppercase tracking-wider">Transparansi Sumber Data</span>
+        <div class="bg-[#173B70] text-white px-6 sm:px-8 py-6 sm:py-8 border-b border-[#315D91] space-y-4">
+            <div class="flex flex-wrap items-center gap-2">
+                <span class="px-2.5 py-1 rounded bg-[#315D91] text-white border border-blue-300/30 font-telemetry text-xs font-bold uppercase tracking-wider">
+                    Transparansi Sumber Rujukan Terbuka
+                </span>
+                <span class="px-2.5 py-1 rounded bg-amber-400 text-[#173B70] font-telemetry text-xs font-bold uppercase tracking-wider">
+                    8 Provider API Terintegrasi
+                </span>
             </div>
-            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-                <div>
-                    <h1 class="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-white font-sans">
-                        Transparansi Sumber Data &amp; Integrasi API
-                    </h1>
-                    <p class="text-xs sm:text-sm text-slate-300 mt-1.5 max-w-3xl leading-relaxed">
-                        Pemantauan publik status integrasi, waktu pembaruan, dan rekaman data dari layanan kebencanaan Dalam Negeri dan Internasional. Penilai dan masyarakat dapat menelusuri dasar informasi secara terbuka tanpa harus login.
-                    </p>
-                </div>
+            <div>
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight text-white">
+                    Transparansi Sumber Data &amp; Integrasi API
+                </h1>
+                <p class="text-sm sm:text-base text-blue-100 mt-2 max-w-3xl leading-relaxed">
+                    Pemantauan publik status integrasi, waktu pembaruan, dan rekaman data dari layanan kebencanaan Dalam Negeri dan Internasional. Penilai dan masyarakat dapat menelusuri dasar informasi secara terbuka tanpa harus login.
+                </p>
             </div>
         </div>
 

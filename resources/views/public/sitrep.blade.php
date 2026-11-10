@@ -4,39 +4,39 @@
 ])
 
 @section('content')
-    <!-- Interactive Filter & Print Toolbar (Hidden on Print) -->
-    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4 no-print">
-        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-slate-100 pb-4">
-            <div class="space-y-1">
+    <!-- Master Institutional Hero Header & Print Toolbar (Aligned with /welcome) -->
+    <section class="bg-[#173B70] text-white border border-[#315D91] rounded-2xl p-6 sm:p-8 space-y-5 shadow-xs no-print">
+        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+            <div class="space-y-2 max-w-3xl">
                 <div class="flex flex-wrap items-center gap-2">
-                    <span class="px-2 py-0.5 rounded bg-[#173B70] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
-                        Dokumen Ringkasan Informasi (SitRep)
+                    <span class="px-2.5 py-1 rounded bg-[#315D91] text-white border border-blue-300/30 font-telemetry text-xs font-bold uppercase tracking-wider">
+                        Dokumen Ringkasan Situasi (SitRep)
                     </span>
                     @if($selectedIncident)
                         @if(!$selectedIncident->is_simulation)
-                            <span class="px-2 py-0.5 rounded bg-[#173B70] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
+                            <span class="px-2.5 py-1 rounded bg-amber-400 text-[#173B70] font-telemetry text-xs font-bold uppercase tracking-wider">
                                 Data Kejadian Historis BNPB (DIBI)
                             </span>
                         @else
-                            <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300 font-telemetry text-[10px] font-bold uppercase tracking-wider">
+                            <span class="px-2.5 py-1 rounded bg-amber-400 text-[#173B70] font-telemetry text-xs font-bold uppercase tracking-wider">
                                 Data Simulasi Prototype
                             </span>
                         @endif
                     @else
-                        <span class="px-2 py-0.5 rounded bg-blue-100 text-[#173B70] border border-blue-300 font-telemetry text-[10px] font-bold uppercase tracking-wider">
-                            Data Gabungan: {{ $stats['historical_incidents'] ?? 0 }} Historis BNPB • {{ $stats['simulation_incidents'] ?? 0 }} Simulasi
+                        <span class="px-2.5 py-1 rounded bg-amber-400 text-[#173B70] font-telemetry text-xs font-bold uppercase tracking-wider">
+                            Data Gabungan: {{ $stats['historical_incidents'] ?? 0 }} Historis • {{ $stats['simulation_incidents'] ?? 0 }} Simulasi
                         </span>
                     @endif
                 </div>
-                <h1 class="text-xl sm:text-2xl font-extrabold text-[#202938]">
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight text-white">
                     Laporan Ringkasan Situasi Kejadian &amp; Tindak Lanjut
                 </h1>
-                <p class="text-sm text-[#788397]">
+                <p class="text-sm sm:text-base text-blue-100 leading-relaxed">
                     Saring berdasarkan kejadian, wilayah, atau rentang waktu kejadian, lalu gunakan tombol <strong>Cetak / Simpan PDF</strong> untuk mencetak dokumen siap baca.
                 </p>
             </div>
 
-            <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+            <div class="flex flex-wrap items-center gap-2.5 shrink-0 pt-1 lg:pt-0">
                 <button type="button"
                         onclick="if(window.TanggapToast) window.TanggapToast.info('Mempersiapkan dokumen cetak / dialog PDF...', 'Cetak SitRep'); window.print();"
                         data-tooltip="Cetak atau simpan dokumen SitRep sebagai PDF"
@@ -49,80 +49,85 @@
             </div>
         </div>
 
-        <!-- Filter Form -->
-        <form method="GET" action="{{ route('public.sitrep') }}" class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
-            <div class="sm:col-span-3">
-                <label for="sitrep-incident" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-[#788397] mb-1">
-                    Cakupan Kejadian
-                </label>
-                <select id="sitrep-incident"
-                        name="incident"
-                        class="w-full min-h-[42px] px-3 py-2 bg-white border border-slate-200/90 rounded-lg text-xs text-[#202938]">
-                    <option value="">Semua Kejadian Tercatat (Historis &amp; Simulasi)</option>
-                    <optgroup label="Data Historis Resmi BNPB (DIBI)">
-                        @foreach($allIncidentOptions->where('is_simulation', false) as $opt)
-                            <option value="{{ $opt->slug }}" @selected($filters['incident'] === $opt->slug)>
-                                [HISTORIS] {{ $opt->title }}
-                            </option>
+        <!-- Filter Form Integrated in Hero Card -->
+        <div class="pt-4 border-t border-blue-400/20">
+            <form method="GET" action="{{ route('public.sitrep') }}" class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
+                <div class="sm:col-span-3">
+                    <label for="sitrep-incident" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-blue-100 mb-1">
+                        Cakupan Kejadian
+                    </label>
+                    <select id="sitrep-incident"
+                            name="incident"
+                            class="w-full min-h-[42px] px-3 py-2 bg-white text-[#202938] rounded-lg text-xs font-medium focus:outline-none">
+                        <option value="">Semua Kejadian Tercatat (Historis &amp; Simulasi)</option>
+                        <optgroup label="Data Historis Resmi BNPB (DIBI)">
+                            @foreach($allIncidentOptions->where('is_simulation', false) as $opt)
+                                <option value="{{ $opt->slug }}" @selected($filters['incident'] === $opt->slug)>
+                                    [HISTORIS] {{ $opt->title }}
+                                </option>
+                            @endforeach
+                        </optgroup>
+                        <optgroup label="Skenario Simulasi Prototipe">
+                            @foreach($allIncidentOptions->where('is_simulation', true) as $opt)
+                                <option value="{{ $opt->slug }}" @selected($filters['incident'] === $opt->slug)>
+                                    [SIMULASI] {{ $opt->title }}
+                                </option>
+                            @endforeach
+                        </optgroup>
+                    </select>
+                </div>
+
+                <div class="sm:col-span-3">
+                    <label for="sitrep-wilayah" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-blue-100 mb-1">
+                        Wilayah / Lokasi
+                    </label>
+                    <select id="sitrep-wilayah"
+                            name="wilayah"
+                            class="w-full min-h-[42px] px-3 py-2 bg-white text-[#202938] rounded-lg text-xs font-medium focus:outline-none">
+                        <option value="">Semua Wilayah</option>
+                        @foreach($availableLocations as $loc)
+                            <option value="{{ $loc }}" @selected($filters['wilayah'] === $loc)>{{ $loc }}</option>
                         @endforeach
-                    </optgroup>
-                    <optgroup label="Skenario Simulasi Prototipe">
-                        @foreach($allIncidentOptions->where('is_simulation', true) as $opt)
-                            <option value="{{ $opt->slug }}" @selected($filters['incident'] === $opt->slug)>
-                                [SIMULASI] {{ $opt->title }}
-                            </option>
-                        @endforeach
-                    </optgroup>
-                </select>
-            </div>
+                    </select>
+                </div>
 
-            <div class="sm:col-span-3">
-                <label for="sitrep-wilayah" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-[#788397] mb-1">
-                    Wilayah / Lokasi
-                </label>
-                <select id="sitrep-wilayah"
-                        name="wilayah"
-                        class="w-full min-h-[42px] px-3 py-2 bg-white border border-slate-200/90 rounded-lg text-xs text-[#202938]">
-                    <option value="">Semua Wilayah</option>
-                    @foreach($availableLocations as $loc)
-                        <option value="{{ $loc }}" @selected($filters['wilayah'] === $loc)>{{ $loc }}</option>
-                    @endforeach
-                </select>
-            </div>
+                <div class="sm:col-span-2">
+                    <label for="sitrep-date-from" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-blue-100 mb-1">
+                        Dari Tanggal
+                    </label>
+                    <input type="date"
+                           id="sitrep-date-from"
+                           name="date_from"
+                           value="{{ $filters['date_from'] }}"
+                           class="w-full min-h-[42px] px-3 py-2 bg-white text-[#202938] rounded-lg text-xs font-medium focus:outline-none">
+                </div>
 
-            <div class="sm:col-span-2">
-                <label for="sitrep-date-from" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-[#788397] mb-1">
-                    Dari Tanggal
-                </label>
-                <input type="date"
-                       id="sitrep-date-from"
-                       name="date_from"
-                       value="{{ $filters['date_from'] }}"
-                       class="w-full min-h-[42px] px-3 py-2 bg-white border border-slate-200/90 rounded-lg text-xs text-[#202938]">
-            </div>
+                <div class="sm:col-span-2">
+                    <label for="sitrep-date-to" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-blue-100 mb-1">
+                        Sampai Tanggal
+                    </label>
+                    <input type="date"
+                           id="sitrep-date-to"
+                           name="date_to"
+                           value="{{ $filters['date_to'] }}"
+                           class="w-full min-h-[42px] px-3 py-2 bg-white text-[#202938] rounded-lg text-xs font-medium focus:outline-none">
+                </div>
 
-            <div class="sm:col-span-2">
-                <label for="sitrep-date-to" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-[#788397] mb-1">
-                    Sampai Tanggal
-                </label>
-                <input type="date"
-                       id="sitrep-date-to"
-                       name="date_to"
-                       value="{{ $filters['date_to'] }}"
-                       class="w-full min-h-[42px] px-3 py-2 bg-white border border-slate-200/90 rounded-lg text-xs text-[#202938]">
-            </div>
-
-            <div class="sm:col-span-2 flex items-center gap-2">
-                <button type="submit"
-                        class="w-full px-4 py-2.5 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider min-h-[42px] cursor-pointer shadow-xs transition">
-                    Terapkan
-                </button>
-                @if(array_filter($filters))
-                    <a href="{{ route('public.sitrep') }}"
-                       class="px-3 py-2.5 rounded-lg border border-slate-200/90 text-[#202938] font-telemetry text-xs font-bold uppercase min-h-[42px] inline-flex items-center">
-                        Reset
-                    </a>
-                @endif
+                <div class="sm:col-span-2 flex items-center gap-2">
+                    <button type="submit"
+                            class="w-full px-4 py-2.5 rounded-lg bg-white hover:bg-slate-100 text-[#173B70] font-telemetry text-xs font-bold uppercase tracking-wider min-h-[42px] cursor-pointer shadow-xs transition">
+                        Terapkan
+                    </button>
+                    @if(array_filter($filters))
+                        <a href="{{ route('public.sitrep') }}"
+                           class="px-3 py-2.5 rounded-lg border border-blue-300/40 hover:bg-[#315D91] text-white font-telemetry text-xs font-bold uppercase min-h-[42px] inline-flex items-center">
+                            Reset
+                        </a>
+                    @endif
+                </div>
+            </form>
+        </div>
+    </section>
             </div>
         </form>
     </section>

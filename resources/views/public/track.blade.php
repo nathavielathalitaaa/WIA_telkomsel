@@ -42,27 +42,36 @@
         </section>
     @endif
 
-    <!-- Search Header & Ticket Lookup Form -->
-    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 sm:p-6 space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-            <div class="space-y-1">
-                <span class="px-2 py-0.5 rounded bg-[#173B70] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
-                    Pelacakan Tiket Laporan Warga
-                </span>
-                <h1 class="text-xl sm:text-2xl font-extrabold text-[#202938]">
+    <!-- Master Institutional Hero Header Card (Aligned with /welcome) -->
+    <section class="bg-[#173B70] text-white border border-[#315D91] rounded-2xl p-6 sm:p-8 space-y-5 shadow-xs">
+        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+            <div class="space-y-2 max-w-3xl">
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="px-2.5 py-1 rounded bg-[#315D91] text-white border border-blue-300/30 font-telemetry text-xs font-bold uppercase tracking-wider">
+                        Pelacakan Mandiri Tanpa Akun
+                    </span>
+                    <span class="px-2.5 py-1 rounded bg-amber-400 text-[#173B70] font-telemetry text-xs font-bold uppercase tracking-wider">
+                        Verifikasi &amp; Tindak Lanjut
+                    </span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight text-white">
                     Lacak Status Laporan &amp; Respons Bantuan
                 </h1>
-                <p class="text-sm text-[#788397]">
-                    Masukkan kode tiket untuk melihat perkembangan verifikasi dan tindak lanjut laporan Anda.
+                <p class="text-sm sm:text-base text-blue-100 leading-relaxed">
+                    Masukkan nomor tiket unik untuk memantau status pemeriksaan fakta oleh tim verifikator, penautan ke kejadian bencana, serta catatan perkembangan tindak lanjut secara transparan.
                 </p>
             </div>
-            <a href="{{ route('public.reports.create') }}"
-               class="px-4 py-2.5 rounded-lg bg-[#D94350] hover:bg-[#C23541] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center gap-1.5 shrink-0 shadow-xs">
-                <span>+ Buat Laporan Baru</span>
-            </a>
+
+            <div class="flex items-center gap-2.5 shrink-0 pt-1 lg:pt-0">
+                <a href="{{ route('public.reports.create') }}"
+                   class="px-5 py-2.5 rounded-lg btn-brand-gradient text-white font-telemetry text-xs font-bold uppercase tracking-wider min-h-[44px] inline-flex items-center gap-2 shadow-xs">
+                    <span class="font-extrabold text-sm leading-none">+</span>
+                    <span>Buat Laporan Baru</span>
+                </a>
+            </div>
         </div>
 
-        <form method="GET" action="{{ route('public.track') }}" class="pt-1">
+        <form method="GET" action="{{ route('public.track') }}" class="pt-2">
             <div class="flex flex-col sm:flex-row gap-3">
                 <div class="flex-1">
                     <label for="ticket-input" class="sr-only">Nomor Tiket Laporan</label>
@@ -72,12 +81,12 @@
                            value="{{ $ticketQuery }}"
                            required
                            maxlength="32"
-                           placeholder="Masukkan nomor tiket (contoh: RPT-SIM-8K4M9P2X)"
-                           class="w-full min-h-[46px] px-4 py-2.5 bg-white border border-slate-200/90 rounded-lg font-telemetry text-sm font-bold uppercase tracking-wider text-[#202938] placeholder:font-normal placeholder:normal-case placeholder:text-slate-400 focus:outline-none focus:border-[#173B70]">
+                           placeholder="Masukkan nomor tiket (contoh: RPT-SIM-8K4M9P2X atau RSP-SIM-7M2K8N4Q)"
+                           class="w-full min-h-[46px] px-4 py-2.5 bg-white text-[#202938] border border-transparent rounded-xl font-telemetry text-sm font-bold uppercase tracking-wider placeholder:font-normal placeholder:normal-case placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400">
                 </div>
                 <button type="submit"
-                        class="px-6 py-2.5 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[46px] inline-flex items-center justify-center gap-2 shadow-xs cursor-pointer">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        class="px-6 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-[#173B70] font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[46px] inline-flex items-center justify-center gap-2 shadow-xs cursor-pointer">
+                    <svg class="w-4 h-4 text-[#173B70]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                     </svg>
                     <span>Cari Tiket</span>
@@ -86,28 +95,31 @@
         </form>
 
         <!-- Quick Demo Simulation Tickets for Testing/Jury Evaluation -->
-        <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center gap-2 text-xs font-telemetry text-[#788397]">
-            <span class="uppercase font-bold text-[#202938]">Contoh Tiket Laporan Warga:</span>
+        <div class="pt-3 border-t border-blue-400/20 flex flex-wrap items-center gap-2 text-xs font-telemetry text-blue-200">
+            <span class="uppercase font-bold text-white">Contoh Tiket Laporan:</span>
             <a href="{{ route('public.track', ['ticket' => 'RPT-SIM-8K4M9P2X']) }}"
                data-tooltip="Lacak contoh laporan terverifikasi"
-               class="px-2 py-1 rounded bg-blue-50/70 hover:bg-blue-100 border border-blue-200/60 text-[#173B70] font-bold transition hover:shadow-xs">
+               class="px-2.5 py-1 rounded bg-[#0F2A52] hover:bg-[#315D91] border border-blue-400/30 text-blue-100 font-bold transition">
                 RPT-SIM-8K4M9P2X (Terverifikasi)
             </a>
             <a href="{{ route('public.track', ['ticket' => 'RPT-SIM-6T9W4L8R']) }}"
                data-tooltip="Lacak contoh laporan antrean verifikasi"
-               class="px-2 py-1 rounded bg-amber-50/70 hover:bg-amber-100 border border-amber-200/60 text-amber-800 font-bold transition hover:shadow-xs">
+               class="px-2.5 py-1 rounded bg-[#0F2A52] hover:bg-[#315D91] border border-blue-400/30 text-amber-300 font-bold transition">
                 RPT-SIM-6T9W4L8R (Menunggu Verifikasi)
             </a>
             <a href="{{ route('public.track', ['ticket' => 'RPT-SIM-9P3F6Y2M']) }}"
                data-tooltip="Lacak contoh laporan ditolak"
-               class="px-2 py-1 rounded bg-rose-50/70 hover:bg-rose-100 border border-rose-200/60 text-[#D94350] font-bold transition hover:shadow-xs">
+               class="px-2.5 py-1 rounded bg-[#0F2A52] hover:bg-[#315D91] border border-blue-400/30 text-rose-300 font-bold transition">
                 RPT-SIM-9P3F6Y2M (Ditolak)
             </a>
-            <span class="uppercase font-bold text-[#202938] ml-1">Contoh Kode Respons Bantuan:</span>
+            <span class="uppercase font-bold text-white ml-1">Contoh Kode Respons:</span>
             <a href="{{ route('public.track', ['ticket' => 'RSP-SIM-7M2K8N4Q']) }}"
                data-tooltip="Lacak respons terverifikasi &amp; terkonfirmasi"
-               class="px-2 py-1 rounded bg-emerald-50 hover:bg-emerald-100 text-emerald-900 border border-emerald-200 font-bold transition hover:shadow-xs">
-                RSP-SIM-7M2K8N4Q (Terverifikasi • Terkonfirmasi)
+               class="px-2.5 py-1 rounded bg-[#0F2A52] hover:bg-[#315D91] border border-blue-400/30 text-emerald-300 font-bold transition">
+                RSP-SIM-7M2K8N4Q (Respons Bantuan)
+            </a>
+        </div>
+    </section>
             </a>
             <a href="{{ route('public.track', ['ticket' => 'RSP-SIM-9V5P3W6X']) }}"
                data-tooltip="Lacak respons dalam tahap penyaluran"

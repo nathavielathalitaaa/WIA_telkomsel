@@ -9,10 +9,10 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-200 pb-4">
         <div>
             <div class="flex items-center gap-2">
-                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-slate-900 text-white font-bold text-sm">
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-[#173B70] text-white font-bold text-sm">
                     📜
                 </span>
-                <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                <h1 class="text-xl sm:text-2xl font-black text-[#202938] tracking-tight">
                     Audit Log Aktivitas Internal
                 </h1>
             </div>
@@ -42,7 +42,7 @@
     <div class="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-none sm:grid sm:grid-cols-5">
         <div class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 w-[165px] shrink-0 snap-start sm:w-auto">
             <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-telemetry block">Total Aktivitas</span>
-            <span class="text-2xl font-black text-slate-900 mt-1 block font-telemetry">{{ number_format($stats['total']) }}</span>
+            <span class="text-2xl font-black text-[#202938] mt-1 block font-telemetry">{{ number_format($stats['total']) }}</span>
             <span class="text-[10px] text-slate-400 font-telemetry">Sejak awal pencatatan</span>
         </div>
         <div class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 w-[165px] shrink-0 snap-start sm:w-auto">
@@ -77,14 +77,14 @@
                        id="q"
                        placeholder="Cari nama pelaku, label objek, IP, deskripsi..."
                        value="{{ $filters['q'] }}"
-                       class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 bg-white">
+                       class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#173B70] bg-white">
             </div>
 
             <div class="lg:col-span-3">
                 <label for="activity_type" class="block font-semibold text-slate-700 mb-1">Jenis Aktivitas</label>
                 <select name="activity_type"
                         id="activity_type"
-                        class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 bg-white">
+                        class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#173B70] bg-white">
                     <option value="">Semua Jenis Aktivitas</option>
                     @foreach($availableActivityTypes as $code => $lbl)
                         <option value="{{ $code }}" {{ $filters['activity_type'] === $code ? 'selected' : '' }}>
@@ -98,7 +98,7 @@
                 <label for="actor_role" class="block font-semibold text-slate-700 mb-1">Peran Pelaku</label>
                 <select name="actor_role"
                         id="actor_role"
-                        class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 bg-white">
+                        class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#173B70] bg-white">
                     <option value="">Semua Peran</option>
                     <option value="admin" {{ $filters['actor_role'] === 'admin' ? 'selected' : '' }}>Administrator</option>
                     <option value="verifikator" {{ $filters['actor_role'] === 'verifikator' ? 'selected' : '' }}>Verifikator</option>
@@ -134,7 +134,7 @@
                     </a>
                 @endif
                 <button type="submit"
-                        class="px-4 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-bold transition cursor-pointer">
+                        class="px-4 py-1.5 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white font-bold transition cursor-pointer">
                     Terapkan Filter
                 </button>
             </div>
@@ -190,7 +190,7 @@
                                 <td class="py-3 px-4 whitespace-nowrap">
                                     <div class="flex items-center gap-2">
                                         <div>
-                                            <span class="font-bold text-slate-900 block leading-tight">{{ $log->actor_name }}</span>
+                                            <span class="font-bold text-[#202938] block leading-tight">{{ $log->actor_name }}</span>
                                             <span class="px-1.5 py-0.2 rounded font-telemetry text-[9px] font-bold uppercase tracking-wider inline-block mt-0.5 {{ $roleBadge }}">
                                                 {{ ucfirst($log->actor_role) }}
                                             </span>
@@ -233,9 +233,9 @@
                             </tr>
 
                             <!-- Modal Rincian Audit Log -->
-                            <div id="modal-audit-detail-{{ $log->id }}" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+                            <div id="modal-audit-detail-{{ $log->id }}" class="hidden fixed inset-0 z-50 overflow-y-auto bg-[#173B70]/60 backdrop-blur-xs flex items-center justify-center p-4">
                                 <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-lg w-full overflow-hidden text-left">
-                                    <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
+                                    <div class="bg-[#173B70] text-white px-6 py-4 flex items-center justify-between border-b border-[#315D91]">
                                         <div class="flex items-center gap-2">
                                             <span>📜</span>
                                             <h3 class="text-sm font-bold tracking-tight">Rincian Audit Log #{{ $log->id }}</h3>
@@ -251,13 +251,13 @@
                                         <div class="grid grid-cols-2 gap-3 border-b border-slate-100 pb-3">
                                             <div>
                                                 <span class="text-slate-400 uppercase font-telemetry text-[10px] block">Waktu Tercatat</span>
-                                                <span class="font-bold text-slate-900 font-telemetry">
+                                                <span class="font-bold text-[#202938] font-telemetry">
                                                     {{ $log->created_at->timezone('Asia/Jakarta')->translatedFormat('d F Y, H:i:s') }} WIB
                                                 </span>
                                             </div>
                                             <div>
                                                 <span class="text-slate-400 uppercase font-telemetry text-[10px] block">Pelaku</span>
-                                                <span class="font-bold text-slate-900">
+                                                <span class="font-bold text-[#202938]">
                                                     {{ $log->actor_name }} ({{ ucfirst($log->actor_role) }})
                                                 </span>
                                             </div>
@@ -265,7 +265,7 @@
 
                                         <div>
                                             <span class="text-slate-400 uppercase font-telemetry text-[10px] block">Jenis Aktivitas</span>
-                                            <span class="font-bold text-slate-900 text-sm">
+                                            <span class="font-bold text-[#202938] text-sm">
                                                 {{ $log->activityLabel() }} <span class="text-slate-400 font-normal font-telemetry text-xs">({{ $log->activity_type }})</span>
                                             </span>
                                         </div>
@@ -274,7 +274,7 @@
                                             <span class="text-slate-400 uppercase font-telemetry text-[10px] block">Objek Terdampak</span>
                                             <div class="p-2.5 rounded bg-slate-50 border border-slate-200 mt-1 font-telemetry">
                                                 <span class="text-slate-500 block text-[10px]">Tipe: {{ $log->subject_type ?: 'Tidak spesifik' }} | ID: {{ $log->subject_id ?: '—' }}</span>
-                                                <span class="font-bold text-slate-900 block mt-0.5">{{ $log->subject_label ?: '—' }}</span>
+                                                <span class="font-bold text-[#202938] block mt-0.5">{{ $log->subject_label ?: '—' }}</span>
                                             </div>
                                         </div>
 
@@ -288,7 +288,7 @@
                                         @if($log->metadata)
                                             <div>
                                                 <span class="text-slate-400 uppercase font-telemetry text-[10px] block">Metadata Kontekstual (Tersanitasi)</span>
-                                                <pre class="p-2.5 rounded bg-slate-900 text-emerald-400 text-[11px] font-mono mt-1 overflow-x-auto max-h-40">{{ json_encode($log->metadata, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) }}</pre>
+                                                <pre class="p-2.5 rounded bg-[#173B70] text-emerald-400 text-[11px] font-mono mt-1 overflow-x-auto max-h-40">{{ json_encode($log->metadata, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) }}</pre>
                                             </div>
                                         @endif
 
@@ -307,7 +307,7 @@
                                     <div class="px-6 py-3 bg-slate-50 border-t border-slate-200 flex justify-end">
                                         <button type="button"
                                                 onclick="document.getElementById('modal-audit-detail-{{ $log->id }}').classList.add('hidden')"
-                                                class="px-4 py-1.5 rounded-lg bg-slate-900 text-white text-xs font-bold transition hover:bg-slate-800">
+                                                class="px-4 py-1.5 rounded-lg bg-[#173B70] text-white text-xs font-bold transition hover:bg-slate-800">
                                             Tutup
                                         </button>
                                     </div>

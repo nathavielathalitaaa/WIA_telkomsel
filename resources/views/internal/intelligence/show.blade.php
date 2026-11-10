@@ -13,7 +13,7 @@
                     ← Kembali ke Daftar Rekaman
                 </a>
                 <div class="flex flex-wrap items-center gap-2">
-                    <h1 class="text-lg sm:text-xl font-bold font-telemetry text-slate-900 tracking-tight">
+                    <h1 class="text-lg sm:text-xl font-bold font-telemetry text-[#202938] tracking-tight">
                         Detail Rekaman Data Eksternal #{{ $record->id }}
                     </h1>
                     <span class="px-2 py-0.5 rounded font-telemetry text-[10px] font-bold uppercase {{ $record->category === 'dalam_negeri' ? 'bg-blue-100 text-blue-800 border border-blue-200' : 'bg-purple-100 text-purple-800 border border-purple-200' }}">
@@ -35,14 +35,14 @@
 
     <!-- Metadata Card -->
     <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 sm:p-6 space-y-4">
-        <h2 class="text-base font-bold font-telemetry text-slate-900 border-b border-slate-100 pb-2">
+        <h2 class="text-base font-bold font-telemetry text-[#202938] border-b border-slate-100 pb-2">
             Informasi Terstandarisasi
         </h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
             <div>
                 <span class="text-slate-400 font-telemetry uppercase text-[10px] font-bold block">Provider Sumber</span>
-                <span class="font-bold text-slate-900 text-sm">{{ $record->provider?->name ?? $record->provider_code }}</span>
+                <span class="font-bold text-[#202938] text-sm">{{ $record->provider?->name ?? $record->provider_code }}</span>
             </div>
             <div>
                 <span class="text-slate-400 font-telemetry uppercase text-[10px] font-bold block">External ID</span>
@@ -92,7 +92,7 @@
 
         <div class="pt-3 border-t border-slate-100 space-y-1">
             <span class="text-slate-400 font-telemetry uppercase text-[10px] font-bold block">Judul Ringkasan</span>
-            <div class="font-bold text-slate-900 text-sm">{{ $record->title }}</div>
+            <div class="font-bold text-[#202938] text-sm">{{ $record->title }}</div>
             <div class="text-xs text-slate-600 mt-1 bg-slate-50 p-3 rounded-xl border border-slate-100">
                 {{ $record->summary ?? 'Tidak ada ringkasan teks.' }}
             </div>
@@ -101,7 +101,7 @@
 
     <!-- Raw Payload JSON Card -->
     <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
-        <div class="p-4 bg-slate-900 text-white flex items-center justify-between">
+        <div class="p-4 bg-[#173B70] text-white flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
                 <h3 class="font-bold font-telemetry text-xs uppercase tracking-wider">

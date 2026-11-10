@@ -9,10 +9,10 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-200 pb-4">
         <div>
             <div class="flex items-center gap-2">
-                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-slate-900 text-white font-bold text-sm">
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-[#173B70] text-white font-bold text-sm">
                     👤
                 </span>
-                <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                <h1 class="text-xl sm:text-2xl font-black text-[#202938] tracking-tight">
                     Profil Akun Internal
                 </h1>
             </div>
@@ -80,9 +80,9 @@
         <div class="lg:col-span-7 space-y-6">
             <!-- Kartu Identitas Akun -->
             <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
-                <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-5 text-white">
+                <div class="bg-[#173B70] p-5 text-white">
                     <div class="flex items-center gap-4">
-                        <div class="w-14 h-14 rounded-full bg-amber-400 text-slate-950 font-black text-2xl flex items-center justify-center shrink-0 border-2 border-white/20">
+                        <div class="w-14 h-14 rounded-full bg-amber-400 text-[#202938] font-black text-2xl flex items-center justify-center shrink-0 border-2 border-white/20">
                             {{ strtoupper(substr($user->name, 0, 1)) }}
                         </div>
                         <div class="min-w-0">
@@ -117,7 +117,7 @@
             <!-- Formulir Ubah Nama Profil -->
             <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                 <div class="border-b border-slate-100 pb-3">
-                    <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                    <h3 class="text-sm font-bold text-[#202938] uppercase tracking-wider flex items-center gap-2">
                         <span>✏️</span> Ubah Nama Akun
                     </h3>
                     <p class="text-xs text-slate-500 mt-0.5">
@@ -138,7 +138,7 @@
                                id="name"
                                value="{{ old('name', $user->name) }}"
                                required
-                               class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-slate-900 bg-white">
+                               class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#173B70] focus:border-[#173B70] bg-white">
                         @error('name')
                             <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
                         @enderror
@@ -159,7 +159,7 @@
 
                     <div class="pt-2 flex justify-end">
                         <button type="submit"
-                                class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold uppercase tracking-wider transition cursor-pointer">
+                                class="px-4 py-2 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white text-xs font-bold uppercase tracking-wider transition cursor-pointer">
                             Simpan Perubahan Nama
                         </button>
                     </div>
@@ -169,7 +169,7 @@
             <!-- Formulir Ubah Kata Sandi -->
             <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                 <div class="border-b border-slate-100 pb-3">
-                    <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                    <h3 class="text-sm font-bold text-[#202938] uppercase tracking-wider flex items-center gap-2">
                         <span>🔒</span> Perbarui Kata Sandi
                     </h3>
                     <p class="text-xs text-slate-500 mt-0.5">
@@ -191,7 +191,7 @@
                                required
                                autocomplete="current-password"
                                placeholder="Masukkan kata sandi yang aktif saat ini"
-                               class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-slate-900 bg-white">
+                               class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#173B70] focus:border-[#173B70] bg-white">
                         @error('current_password')
                             <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
                         @enderror
@@ -208,7 +208,7 @@
                                    required
                                    autocomplete="new-password"
                                    placeholder="Minimal 8 karakter"
-                                   class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-slate-900 bg-white">
+                                   class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#173B70] focus:border-[#173B70] bg-white">
                             @error('password')
                                 <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
                             @enderror
@@ -224,13 +224,13 @@
                                    required
                                    autocomplete="new-password"
                                    placeholder="Ketik ulang kata sandi baru"
-                                   class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-slate-900 bg-white">
+                                   class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#173B70] focus:border-[#173B70] bg-white">
                         </div>
                     </div>
 
                     <div class="pt-2 flex justify-end">
                         <button type="submit"
-                                class="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold uppercase tracking-wider transition cursor-pointer">
+                                class="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-[#202938] text-xs font-bold uppercase tracking-wider transition cursor-pointer">
                             Perbarui Kata Sandi
                         </button>
                     </div>
@@ -246,7 +246,7 @@
                     <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block font-telemetry">
                         Otorisasi Akun
                     </span>
-                    <h3 class="text-sm font-bold text-slate-900 mt-0.5">
+                    <h3 class="text-sm font-bold text-[#202938] mt-0.5">
                         Kewenangan Peran: {{ $roleLabel }}
                     </h3>
                 </div>
@@ -274,7 +274,7 @@
             <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                 <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                     <div>
-                        <h3 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                        <h3 class="text-sm font-bold text-[#202938] flex items-center gap-1.5">
                             <span>📋</span> Riwayat Aktivitas Akun
                         </h3>
                         <p class="text-xs text-slate-500 mt-0.5">
@@ -298,7 +298,7 @@
                         @foreach($recentLogs as $log)
                             <div class="p-3 rounded-lg bg-slate-50 border border-slate-100 space-y-1">
                                 <div class="flex items-center justify-between gap-2">
-                                    <span class="font-bold text-xs text-slate-900">
+                                    <span class="font-bold text-xs text-[#202938]">
                                         {{ $log->activityLabel() }}
                                     </span>
                                     <span class="font-telemetry text-[10px] text-slate-400 shrink-0">

@@ -7,9 +7,9 @@
 <div class="max-w-4xl mx-auto space-y-6">
     <!-- Breadcrumb -->
     <nav class="flex items-center gap-2 text-xs font-telemetry text-slate-500" aria-label="Breadcrumb">
-        <a href="{{ route('public.monitor') }}" class="hover:text-slate-900 transition">Beranda</a>
+        <a href="{{ route('public.monitor') }}" class="hover:text-[#173B70] transition">Beranda</a>
         <span>&rsaquo;</span>
-        <a href="{{ route('public.sources.index') }}" class="hover:text-slate-900 transition">Transparansi Sumber Data</a>
+        <a href="{{ route('public.sources.index') }}" class="hover:text-[#173B70] transition">Transparansi Sumber Data</a>
         <span>&rsaquo;</span>
         <span class="text-blue-600 font-bold uppercase truncate max-w-[200px]">Rekaman #{{ $record->id }}</span>
     </nav>
@@ -69,13 +69,13 @@
                     <dl class="space-y-1.5 text-xs text-slate-700">
                         <div class="flex justify-between">
                             <dt class="text-slate-500">Waktu Kejadian:</dt>
-                            <dd class="font-mono font-medium text-slate-900">
+                            <dd class="font-mono font-medium text-[#202938]">
                                 {{ $record->occurred_at ? $record->occurred_at->format('d M Y, H:i') . ' WIB' : '-' }}
                             </dd>
                         </div>
                         <div class="flex justify-between">
                             <dt class="text-slate-500">Waktu Publikasi Sumber:</dt>
-                            <dd class="font-mono font-medium text-slate-900">
+                            <dd class="font-mono font-medium text-[#202938]">
                                 {{ $record->published_at ? $record->published_at->format('d M Y, H:i') . ' WIB' : '-' }}
                             </dd>
                         </div>
@@ -96,19 +96,19 @@
                     <dl class="space-y-1.5 text-xs text-slate-700">
                         <div class="flex justify-between">
                             <dt class="text-slate-500">Nama Wilayah / Lokasi:</dt>
-                            <dd class="font-medium text-slate-900 text-right">
+                            <dd class="font-medium text-[#202938] text-right">
                                 {{ $record->location_name ?: 'Tidak spesifik / Tingkat Nasional' }}
                             </dd>
                         </div>
                         <div class="flex justify-between">
                             <dt class="text-slate-500">Latitude (Garis Lintang):</dt>
-                            <dd class="font-mono text-slate-900">
+                            <dd class="font-mono text-[#202938]">
                                 {{ $record->latitude ? number_format($record->latitude, 5) : '-' }}
                             </dd>
                         </div>
                         <div class="flex justify-between">
                             <dt class="text-slate-500">Longitude (Garis Bujur):</dt>
-                            <dd class="font-mono text-slate-900">
+                            <dd class="font-mono text-[#202938]">
                                 {{ $record->longitude ? number_format($record->longitude, 5) : '-' }}
                             </dd>
                         </div>
@@ -161,7 +161,7 @@
             </a>
             <div class="flex items-center gap-2">
                 <a href="{{ route('public.monitor') }}"
-                   class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-telemetry text-xs font-bold uppercase tracking-wider transition">
+                   class="px-4 py-2 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition">
                     Buka Peta Pantau
                 </a>
             </div>

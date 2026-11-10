@@ -14,7 +14,7 @@
                         ← Kembali ke Pusat Intelijen
                     </a>
                 </div>
-                <h1 class="text-xl sm:text-2xl font-bold font-telemetry text-slate-900 tracking-tight">
+                <h1 class="text-xl sm:text-2xl font-bold font-telemetry text-[#202938] tracking-tight">
                     Perbandingan Sumber Data & Analisis Disparitas
                 </h1>
                 <p class="text-sm text-slate-600 mt-1 max-w-3xl">
@@ -22,7 +22,7 @@
                 </p>
             </div>
             <a href="#analisis-admin"
-               class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-telemetry text-xs font-bold uppercase tracking-wider transition shrink-0">
+               class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition shrink-0">
                 + Tulis Catatan Analisis Admin
             </a>
         </div>
@@ -46,7 +46,7 @@
                 <span class="px-2 py-0.5 rounded font-telemetry text-[10px] font-bold uppercase tracking-wider bg-cyan-100 text-cyan-800 border border-cyan-200">
                     Kasus Komparasi 1
                 </span>
-                <h2 class="text-base font-bold font-telemetry text-slate-900 mt-1">
+                <h2 class="text-base font-bold font-telemetry text-[#202938] mt-1">
                     Prakiraan Cuaca: BMKG (Nasional) vs Open-Meteo (Global)
                 </h2>
                 <p class="text-xs text-slate-500">
@@ -90,7 +90,7 @@
                     <tbody class="divide-y divide-slate-100">
                         @foreach($weatherComparison['differences'] as $diff)
                             <tr class="hover:bg-slate-50/60 transition">
-                                <td class="px-4 py-3.5 font-bold font-telemetry text-slate-900">
+                                <td class="px-4 py-3.5 font-bold font-telemetry text-[#202938]">
                                     {{ $diff['parameter'] }}
                                 </td>
                                 <td class="px-4 py-3.5 bg-blue-50/20 font-telemetry font-bold text-blue-950">
@@ -162,7 +162,7 @@
                 @forelse($bmkgQuakes as $eq)
                     <div class="p-3.5 hover:bg-slate-50 transition">
                         <div class="flex justify-between items-start gap-2">
-                            <span class="font-bold text-xs text-slate-900 leading-snug">{{ $eq->title }}</span>
+                            <span class="font-bold text-xs text-[#202938] leading-snug">{{ $eq->title }}</span>
                             <span class="text-[10px] font-telemetry text-slate-400 whitespace-nowrap">{{ $eq->occurred_at?->format('d/m H:i') }}</span>
                         </div>
                         <div class="text-[11px] text-slate-500 mt-1">{{ $eq->summary }}</div>
@@ -189,7 +189,7 @@
                 @forelse($gdacsQuakes as $al)
                     <div class="p-3.5 hover:bg-slate-50 transition">
                         <div class="flex justify-between items-start gap-2">
-                            <span class="font-bold text-xs text-slate-900 leading-snug">{{ $al->title }}</span>
+                            <span class="font-bold text-xs text-[#202938] leading-snug">{{ $al->title }}</span>
                             <span class="text-[10px] font-telemetry text-slate-400 whitespace-nowrap">{{ $al->occurred_at?->format('d/m H:i') }}</span>
                         </div>
                         <div class="text-[11px] text-slate-500 mt-1 line-clamp-2">{{ $al->summary }}</div>
@@ -219,7 +219,7 @@
                 @forelse($petaBencanaReports as $pb)
                     <div class="p-3.5 hover:bg-slate-50 transition">
                         <div class="flex justify-between items-start gap-2">
-                            <span class="font-bold text-xs text-slate-900">{{ $pb->title }}</span>
+                            <span class="font-bold text-xs text-[#202938]">{{ $pb->title }}</span>
                             <span class="text-[10px] font-telemetry text-slate-400 whitespace-nowrap">{{ $pb->occurred_at?->format('d/m H:i') }}</span>
                         </div>
                         <div class="text-[11px] text-slate-500 mt-0.5">{{ $pb->summary }}</div>
@@ -245,7 +245,7 @@
                 @forelse($floodDischarges as $fd)
                     <div class="p-3.5 hover:bg-slate-50 transition">
                         <div class="flex justify-between items-start gap-2">
-                            <span class="font-bold text-xs text-slate-900">{{ $fd->title }}</span>
+                            <span class="font-bold text-xs text-[#202938]">{{ $fd->title }}</span>
                             <span class="text-[10px] font-telemetry text-slate-400 whitespace-nowrap">{{ $fd->occurred_at?->format('d M Y') }}</span>
                         </div>
                         <div class="text-[11px] text-slate-500 mt-0.5">{{ $fd->summary }}</div>
@@ -259,7 +259,7 @@
 
     <!-- Section 4: Form Catatan Analisis Admin -->
     <div id="analisis-admin" class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 sm:p-6">
-        <h3 class="text-base font-bold font-telemetry text-slate-900 mb-1">
+        <h3 class="text-base font-bold font-telemetry text-[#202938] mb-1">
             Form Dokumentasi Analisis Perbandingan Intelijen
         </h3>
         <p class="text-xs text-slate-500 mb-5">
@@ -275,14 +275,14 @@
                     </label>
                     <input type="text" name="title" required
                            placeholder="Contoh: Analisis Disparitas Prakiraan Hujan Lebat Jakarta Periode 08-10 Nov"
-                           class="w-full text-xs rounded-lg border border-slate-300 py-2 px-3 bg-white text-slate-900">
+                           class="w-full text-xs rounded-lg border border-slate-300 py-2 px-3 bg-white text-[#202938]">
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold uppercase font-telemetry text-slate-700 mb-1">
                         Topik Komparasi <span class="text-red-500">*</span>
                     </label>
-                    <select name="comparison_topic" required class="w-full text-xs rounded-lg border border-slate-300 py-2 px-3 bg-white text-slate-900">
+                    <select name="comparison_topic" required class="w-full text-xs rounded-lg border border-slate-300 py-2 px-3 bg-white text-[#202938]">
                         <option value="cuaca">Prakiraan Cuaca & Presipitasi Hujan</option>
                         <option value="gempa">Gempa Bumi & Potensi Tsunami</option>
                         <option value="hidrologi">Debit Aliran Sungai & Laporan Banjir</option>
@@ -295,7 +295,7 @@
                         Sumber Domestik / Nasional <span class="text-red-500">*</span>
                     </label>
                     <input type="text" name="domestic_source" required value="BMKG Prakiraan Cuaca Wilayah"
-                           class="w-full text-xs rounded-lg border border-slate-300 py-2 px-3 bg-white text-slate-900">
+                           class="w-full text-xs rounded-lg border border-slate-300 py-2 px-3 bg-white text-[#202938]">
                 </div>
 
                 <div>
@@ -303,7 +303,7 @@
                         Sumber Internasional / Global <span class="text-red-500">*</span>
                     </label>
                     <input type="text" name="international_source" required value="Open-Meteo Global Forecast"
-                           class="w-full text-xs rounded-lg border border-slate-300 py-2 px-3 bg-white text-slate-900">
+                           class="w-full text-xs rounded-lg border border-slate-300 py-2 px-3 bg-white text-[#202938]">
                 </div>
 
                 <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -313,7 +313,7 @@
                         </label>
                         <textarea name="domestic_summary" rows="3" required
                                   placeholder="Tuliskan indikator suhu, potensi hujan, atau status dari sumber domestik..."
-                                  class="w-full text-xs rounded-lg border border-slate-300 py-2 px-3 bg-white text-slate-900"></textarea>
+                                  class="w-full text-xs rounded-lg border border-slate-300 py-2 px-3 bg-white text-[#202938]"></textarea>
                     </div>
 
                     <div>
@@ -322,7 +322,7 @@
                         </label>
                         <textarea name="international_summary" rows="3" required
                                   placeholder="Tuliskan indikator pembanding dari model internasional..."
-                                  class="w-full text-xs rounded-lg border border-slate-300 py-2 px-3 bg-white text-slate-900"></textarea>
+                                  class="w-full text-xs rounded-lg border border-slate-300 py-2 px-3 bg-white text-[#202938]"></textarea>
                     </div>
                 </div>
 
@@ -332,7 +332,7 @@
                     </label>
                     <textarea name="analysis_notes" rows="4" required
                               placeholder="Analisis mengapa terdapat perbedaan, model mana yang lebih relevan untuk cakupan lokal, dan pertimbangan operasional tim..."
-                              class="w-full text-xs rounded-lg border border-slate-300 py-2 px-3 bg-white text-slate-900"></textarea>
+                              class="w-full text-xs rounded-lg border border-slate-300 py-2 px-3 bg-white text-[#202938]"></textarea>
                 </div>
 
                 <div class="md:col-span-2">
@@ -341,13 +341,13 @@
                     </label>
                     <input type="text" name="recommendation"
                            placeholder="Contoh: Jadikan BMKG sebagai acuan resmi publikasi, pantau perkembangan indikator debit sungai Open-Meteo."
-                           class="w-full text-xs rounded-lg border border-slate-300 py-2 px-3 bg-white text-slate-900">
+                           class="w-full text-xs rounded-lg border border-slate-300 py-2 px-3 bg-white text-[#202938]">
                 </div>
             </div>
 
             <div class="flex justify-end pt-2">
                 <button type="submit"
-                        class="px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-telemetry text-xs font-bold uppercase tracking-wider shadow-xs transition cursor-pointer">
+                        class="px-5 py-2.5 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider shadow-xs transition cursor-pointer">
                     Simpan Catatan Analisis Intelijen
                 </button>
             </div>
@@ -357,7 +357,7 @@
     <!-- Section 5: Riwayat Catatan Analisis Tersimpan -->
     <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
         <div class="p-4 sm:p-5 border-b border-slate-200">
-            <h3 class="text-base font-bold font-telemetry text-slate-900">
+            <h3 class="text-base font-bold font-telemetry text-[#202938]">
                 Riwayat Dokumen Analisis Perbandingan
             </h3>
             <p class="text-xs text-slate-500">
@@ -373,7 +373,7 @@
                             <span class="px-2 py-0.5 rounded font-telemetry text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-800 border border-slate-200">
                                 {{ $comp->comparison_topic }}
                             </span>
-                            <h4 class="font-bold text-sm text-slate-900">{{ $comp->title }}</h4>
+                            <h4 class="font-bold text-sm text-[#202938]">{{ $comp->title }}</h4>
                         </div>
                         <div class="text-[11px] font-telemetry text-slate-500">
                             Disusun oleh <span class="font-bold text-slate-700">{{ $comp->admin?->name ?? 'Admin' }}</span> • {{ $comp->created_at->format('d M Y H:i') }}
@@ -392,7 +392,7 @@
                     </div>
 
                     <div class="mt-3 text-xs text-slate-800">
-                        <span class="font-bold font-telemetry text-slate-900">Kesimpulan Analisis:</span>
+                        <span class="font-bold font-telemetry text-[#202938]">Kesimpulan Analisis:</span>
                         <p class="mt-0.5 text-slate-700 leading-relaxed">{{ $comp->analysis_notes }}</p>
                     </div>
 

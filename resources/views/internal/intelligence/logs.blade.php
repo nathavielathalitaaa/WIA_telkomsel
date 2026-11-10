@@ -12,7 +12,7 @@
                 <a href="{{ route('internal.intelligence.index') }}" class="text-xs text-blue-600 hover:underline font-telemetry flex items-center gap-1 mb-1">
                     ← Kembali ke Pusat Intelijen
                 </a>
-                <h1 class="text-xl sm:text-2xl font-bold font-telemetry text-slate-900 tracking-tight">
+                <h1 class="text-xl sm:text-2xl font-bold font-telemetry text-[#202938] tracking-tight">
                     Log Audit & Telemetri Pengambilan Data Eksternal
                 </h1>
                 <p class="text-sm text-slate-600 mt-1">
@@ -55,7 +55,7 @@
                                 {{ $log->created_at->format('d/m/Y H:i:s') }}
                             </td>
                             <td class="px-4 py-3 whitespace-nowrap">
-                                <div class="font-bold text-slate-900">{{ $log->provider?->name ?? $log->provider_code }}</div>
+                                <div class="font-bold text-[#202938]">{{ $log->provider?->name ?? $log->provider_code }}</div>
                                 <div class="text-[10px] font-mono text-slate-400 truncate max-w-xs">{{ $log->endpoint }}</div>
                             </td>
                             <td class="px-4 py-3 whitespace-nowrap font-telemetry text-[11px]">
@@ -72,7 +72,7 @@
                             <td class="px-4 py-3 whitespace-nowrap font-telemetry text-slate-600">
                                 {{ $log->duration_ms ? $log->duration_ms.' ms' : '-' }}
                             </td>
-                            <td class="px-4 py-3 whitespace-nowrap font-telemetry text-slate-900">
+                            <td class="px-4 py-3 whitespace-nowrap font-telemetry text-[#202938]">
                                 <span class="font-bold">{{ $log->record_count }}</span>
                                 <span class="text-[10px] text-slate-500">
                                     / {{ $log->received_count ?? $log->record_count }}

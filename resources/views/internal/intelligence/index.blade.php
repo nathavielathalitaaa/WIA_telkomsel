@@ -10,14 +10,14 @@
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
                 <div class="flex flex-wrap items-center gap-2 mb-1.5">
-                    <span class="px-2.5 py-0.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider bg-amber-500 text-slate-950 border border-amber-400">
+                    <span class="px-2.5 py-0.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider bg-amber-400 text-[#173B70] font-bold border border-amber-400">
                         Khusus Administrator
                     </span>
                     <span class="px-2.5 py-0.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider bg-slate-100 text-slate-700 border border-slate-200">
                         Multi-Source Intelligence
                     </span>
                 </div>
-                <h1 class="text-xl sm:text-2xl font-bold font-telemetry text-slate-900 tracking-tight">
+                <h1 class="text-xl sm:text-2xl font-bold font-telemetry text-[#202938] tracking-tight">
                     Pusat Intelijen Sumber Data Kebencanaan
                 </h1>
                 <p class="text-sm text-slate-600 mt-1 max-w-3xl">
@@ -26,7 +26,7 @@
             </div>
             <div class="flex flex-wrap items-center gap-2">
                 <a href="{{ route('internal.intelligence.comparisons') }}"
-                   class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-telemetry text-xs font-bold uppercase tracking-wider shadow-xs transition">
+                   class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider shadow-xs transition">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                     Perbandingan Sumber Data
                 </a>
@@ -42,7 +42,7 @@
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-6 pt-5 border-t border-slate-100">
             <div class="bg-slate-50 rounded-xl p-3.5 border border-slate-100">
                 <span class="text-xs font-bold uppercase font-telemetry text-slate-500">Total Rekaman Tersimpan</span>
-                <div class="text-2xl font-bold font-telemetry text-slate-900 mt-0.5">{{ number_format($totalRecords) }}</div>
+                <div class="text-2xl font-bold font-telemetry text-[#202938] mt-0.5">{{ number_format($totalRecords) }}</div>
                 <span class="text-[11px] text-slate-500">Hasil normalisasi deduplikasi</span>
             </div>
             <div class="bg-blue-50/60 rounded-xl p-3.5 border border-blue-100">
@@ -71,7 +71,7 @@
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <span class="w-3 h-3 rounded-full bg-blue-600"></span>
-                <h2 class="text-base sm:text-lg font-bold font-telemetry text-slate-900">
+                <h2 class="text-base sm:text-lg font-bold font-telemetry text-[#202938]">
                     A. Sumber Data Dalam Negeri (Domestik)
                 </h2>
             </div>
@@ -94,7 +94,7 @@
                                 {{ str_replace('_', ' ', $provider->info_type) }}
                             </span>
                         </div>
-                        <h3 class="font-bold text-sm text-slate-900 leading-snug">{{ $provider->name }}</h3>
+                        <h3 class="font-bold text-sm text-[#202938] leading-snug">{{ $provider->name }}</h3>
                         <p class="text-xs text-slate-500 font-mono break-all mt-1 line-clamp-1" title="{{ $provider->default_endpoint }}">
                             {{ $provider->default_endpoint }}
                         </p>
@@ -147,7 +147,7 @@
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <span class="w-3 h-3 rounded-full bg-purple-600"></span>
-                <h2 class="text-base sm:text-lg font-bold font-telemetry text-slate-900">
+                <h2 class="text-base sm:text-lg font-bold font-telemetry text-[#202938]">
                     B. Sumber Data Internasional (Global)
                 </h2>
             </div>
@@ -170,7 +170,7 @@
                                 {{ str_replace('_', ' ', $provider->info_type) }}
                             </span>
                         </div>
-                        <h3 class="font-bold text-sm text-slate-900 leading-snug">{{ $provider->name }}</h3>
+                        <h3 class="font-bold text-sm text-[#202938] leading-snug">{{ $provider->name }}</h3>
                         <p class="text-xs text-slate-500 font-mono break-all mt-1 line-clamp-1" title="{{ $provider->default_endpoint }}">
                             {{ $provider->default_endpoint }}
                         </p>
@@ -314,7 +314,7 @@
         <div class="p-4 sm:p-5 border-b border-slate-100">
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
                 <div>
-                    <h3 class="text-base font-bold font-telemetry text-slate-900">
+                    <h3 class="text-base font-bold font-telemetry text-[#202938]">
                         Rekaman Data Eksternal Tersimpan
                     </h3>
                     <p class="text-xs text-slate-500">
@@ -353,7 +353,7 @@
                     <input type="text" name="q" value="{{ $searchKeyword }}" placeholder="Cari judul/lokasi..."
                            class="text-xs rounded-lg border border-slate-300 py-1.5 px-3 bg-white text-slate-700 placeholder-slate-400 w-36 sm:w-44">
 
-                    <button type="submit" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-telemetry text-xs font-bold uppercase transition">
+                    <button type="submit" class="px-3 py-1.5 rounded-lg bg-[#173B70] hover:bg-slate-800 text-white font-telemetry text-xs font-bold uppercase transition">
                         Filter
                     </button>
                     @if($selectedProvider || $selectedCategory || $selectedInfoType || $searchKeyword)
@@ -398,7 +398,7 @@
                         @endphp
                         <tr class="hover:bg-slate-50/80 transition">
                             <td class="px-4 py-3 whitespace-nowrap">
-                                <div class="font-bold text-slate-900">{{ $rec->provider?->name ?? $rec->provider_code }}</div>
+                                <div class="font-bold text-[#202938]">{{ $rec->provider?->name ?? $rec->provider_code }}</div>
                                 <span class="inline-block mt-0.5 px-2 py-0.5 rounded font-telemetry text-[10px] font-bold uppercase tracking-wider {{ $catBadge }} border">
                                     {{ $rec->category === 'dalam_negeri' ? 'Dalam Negeri' : 'Internasional' }}
                                 </span>
@@ -409,7 +409,7 @@
                                 </span>
                             </td>
                             <td class="px-4 py-3 min-w-[280px]">
-                                <div class="font-bold text-slate-900 line-clamp-1">{{ $rec->title }}</div>
+                                <div class="font-bold text-[#202938] line-clamp-1">{{ $rec->title }}</div>
                                 <div class="text-[11px] text-slate-500 mt-0.5 line-clamp-2">{{ $rec->summary }}</div>
                             </td>
                             <td class="px-4 py-3 whitespace-nowrap">

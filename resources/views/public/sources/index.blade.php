@@ -39,7 +39,7 @@
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-x divide-y sm:divide-y-0 divide-slate-100 bg-slate-50 text-slate-700 text-xs">
             <div class="p-3.5 sm:p-4">
                 <span class="font-telemetry text-[10px] font-bold uppercase text-slate-500 block">Total Provider</span>
-                <span class="font-telemetry text-lg sm:text-xl font-extrabold text-slate-900 mt-0.5 block">{{ $totalProviders }} Layanan</span>
+                <span class="font-telemetry text-lg sm:text-xl font-extrabold text-[#202938] mt-0.5 block">{{ $totalProviders }} Layanan</span>
                 <span class="text-[10px] text-slate-500 font-medium">4 DN • 4 Internasional</span>
             </div>
             <div class="p-3.5 sm:p-4">
@@ -64,7 +64,7 @@
             </div>
             <div class="p-3.5 sm:p-4">
                 <span class="font-telemetry text-[10px] font-bold uppercase text-slate-500 block">Sinkronisasi Terakhir</span>
-                <span class="font-telemetry text-xs font-bold text-slate-900 mt-1 block truncate">
+                <span class="font-telemetry text-xs font-bold text-[#202938] mt-1 block truncate">
                     {{ $lastSyncTime ? $lastSyncTime->diffForHumans() : 'Belum sinkron' }}
                 </span>
                 <span class="text-[10px] text-slate-500 font-mono">
@@ -101,7 +101,7 @@
     <section aria-label="Kartu Provider Eksternal" class="space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
             <div>
-                <h2 class="font-telemetry text-sm sm:text-base font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
+                <h2 class="font-telemetry text-sm sm:text-base font-bold uppercase tracking-wider text-[#202938] flex items-center gap-2">
                     <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
                     Status Integrasi 8 Provider Eksternal
                 </h2>
@@ -134,7 +134,7 @@
                             </span>
                         </div>
 
-                        <h3 class="font-bold text-sm text-slate-900 leading-snug font-sans">
+                        <h3 class="font-bold text-sm text-[#202938] leading-snug font-sans">
                             {{ $provider->name }}
                         </h3>
 
@@ -250,7 +250,7 @@
     <section aria-label="Filter Rekaman Data" class="bg-white border border-slate-100/90 rounded-2xl p-4 sm:p-5 shadow-xs space-y-4">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-100 pb-3">
             <div>
-                <h2 class="font-telemetry text-sm sm:text-base font-bold uppercase tracking-wider text-slate-900">
+                <h2 class="font-telemetry text-sm sm:text-base font-bold uppercase tracking-wider text-[#202938]">
                     Eksplorasi Rekaman Data Eksternal
                 </h2>
                 <p class="text-xs text-slate-500 mt-0.5">
@@ -329,7 +329,7 @@
     <!-- SECTION 3: DAFTAR REKAMAN PUBLIK TERFILTER -->
     <section aria-label="Daftar Rekaman Data Publik" class="space-y-4">
         <div class="flex items-center justify-between">
-            <h2 class="font-telemetry text-sm sm:text-base font-bold uppercase tracking-wider text-slate-900">
+            <h2 class="font-telemetry text-sm sm:text-base font-bold uppercase tracking-wider text-[#202938]">
                 Daftar Rekaman Data Terkini ({{ $records->total() }} Data Ditemukan)
             </h2>
             <span class="text-xs text-slate-500 font-telemetry">
@@ -366,7 +366,7 @@
                                 </span>
                             </div>
 
-                            <h3 class="font-bold text-sm text-slate-900 leading-snug font-sans">
+                            <h3 class="font-bold text-sm text-[#202938] leading-snug font-sans">
                                 <a href="{{ route('public.sources.show', $rec->id) }}" class="hover:text-blue-700 transition">
                                     {{ $rec->title }}
                                 </a>
@@ -426,8 +426,8 @@
     <section aria-label="Log Sinkronisasi API" class="bg-white border border-slate-100/90 rounded-2xl p-4 sm:p-5 shadow-xs space-y-3">
         <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
             <div>
-                <h2 class="font-telemetry text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-slate-900"></span>
+                <h2 class="font-telemetry text-xs sm:text-sm font-bold uppercase tracking-wider text-[#202938] flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-[#173B70]"></span>
                     Riwayat Sinkronisasi API Terkini
                 </h2>
                 <p class="text-[11px] text-slate-500 mt-0.5">
@@ -464,7 +464,7 @@
                             <td class="py-2 px-3 text-slate-500 font-mono">
                                 {{ $log->created_at ? $log->created_at->format('d M Y, H:i:s') : '-' }} WIB
                             </td>
-                            <td class="py-2 px-3 font-bold text-slate-900">
+                            <td class="py-2 px-3 font-bold text-[#202938]">
                                 {{ $log->provider?->name ?? $log->provider_code }}
                             </td>
                             <td class="py-2 px-3">
@@ -478,7 +478,7 @@
                             <td class="py-2 px-3 font-mono text-slate-600">
                                 {{ $log->duration_ms ? $log->duration_ms . ' ms' : '-' }}
                             </td>
-                            <td class="py-2 px-3 text-right font-bold text-slate-900">
+                            <td class="py-2 px-3 text-right font-bold text-[#202938]">
                                 {{ $log->record_count }} data
                             </td>
                         </tr>

@@ -145,7 +145,7 @@
                             <td class="py-3.5 px-4 align-top max-w-md">
                                 <div class="flex items-center gap-1.5 mb-1">
                                     @if($incident->is_simulation)
-                                        <span class="px-1.5 py-0.5 rounded bg-slate-900 text-white font-telemetry text-[10px] font-bold uppercase">
+                                        <span class="px-1.5 py-0.5 rounded bg-[#173B70] text-white font-telemetry text-[10px] font-bold uppercase">
                                             Simulasi
                                         </span>
                                     @endif

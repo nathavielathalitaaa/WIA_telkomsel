@@ -36,7 +36,7 @@
                                     {{ strtoupper(substr($item->name, 0, 1)) }}
                                 </div>
                                 <div>
-                                    <span class="font-bold text-slate-900 block">{{ $item->name }}</span>
+                                    <span class="font-bold text-[#202938] block">{{ $item->name }}</span>
                                     @if($isSelf)
                                         <span class="inline-block px-1.5 py-0.2 rounded bg-amber-200 text-amber-900 font-telemetry text-[9px] font-bold">
                                             Akun Anda
@@ -77,9 +77,9 @@
                     </tr>
 
                     <!-- Modal Edit User -->
-                    <div id="modal-edit-user-{{ $item->id }}" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+                    <div id="modal-edit-user-{{ $item->id }}" class="hidden fixed inset-0 z-50 overflow-y-auto bg-[#173B70]/60 backdrop-blur-xs flex items-center justify-center p-4">
                         <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-lg w-full overflow-hidden text-left">
-                            <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
+                            <div class="bg-[#173B70] text-white px-6 py-4 flex items-center justify-between border-b border-[#315D91]">
                                 <div class="flex items-center gap-2">
                                     <span>⚙️</span>
                                     <h3 class="text-sm font-bold tracking-tight">Kelola Akun: {{ $item->name }}</h3>
@@ -103,7 +103,7 @@
                                            name="name"
                                            value="{{ old('name', $item->name) }}"
                                            required
-                                           class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:ring-2 focus:ring-slate-900 bg-white">
+                                           class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#173B70] bg-white">
                                 </div>
 
                                 <div>
@@ -132,7 +132,7 @@
                                         @else
                                             <select name="role"
                                                     required
-                                                    class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:ring-2 focus:ring-slate-900 bg-white">
+                                                    class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#173B70] bg-white">
                                                 @foreach(\App\Enums\UserRole::cases() as $r)
                                                     <option value="{{ $r->value }}" {{ old('role', $roleValue) === $r->value ? 'selected' : '' }}>
                                                         {{ $r->label() }}
@@ -157,7 +157,7 @@
                                         @else
                                             <select name="is_active"
                                                     required
-                                                    class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:ring-2 focus:ring-slate-900 bg-white">
+                                                    class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#173B70] bg-white">
                                                 <option value="1" {{ old('is_active', $item->is_active ? '1' : '0') === '1' ? 'selected' : '' }}>
                                                     Aktif
                                                 </option>
@@ -181,11 +181,11 @@
                                         <input type="password"
                                                name="password"
                                                placeholder="Kata sandi baru (min. 8)"
-                                               class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-slate-900 bg-white">
+                                               class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#173B70] bg-white">
                                         <input type="password"
                                                name="password_confirmation"
                                                placeholder="Konfirmasi sandi baru"
-                                               class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-slate-900 bg-white">
+                                               class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#173B70] bg-white">
                                     </div>
                                 </div>
 
@@ -196,7 +196,7 @@
                                         Batal
                                     </button>
                                     <button type="submit"
-                                            class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold uppercase tracking-wider transition cursor-pointer">
+                                            class="px-4 py-2 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white text-xs font-bold uppercase tracking-wider transition cursor-pointer">
                                         Simpan Perubahan
                                     </button>
                                 </div>

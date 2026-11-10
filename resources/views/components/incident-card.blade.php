@@ -40,7 +40,7 @@
         <div class="flex flex-wrap items-center justify-between gap-2">
             <div class="flex flex-wrap items-center gap-1.5">
                 @if($incident->is_simulation)
-                    <span class="px-2 py-0.5 rounded bg-slate-900 text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
+                    <span class="px-2 py-0.5 rounded bg-[#173B70] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
                         Data Simulasi
                     </span>
                 @else

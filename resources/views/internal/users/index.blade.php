@@ -9,10 +9,10 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-200 pb-4">
         <div>
             <div class="flex items-center gap-2">
-                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-amber-500 text-slate-950 font-bold text-sm">
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-amber-400 text-[#173B70] font-bold text-sm">
                     👥
                 </span>
-                <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                <h1 class="text-xl sm:text-2xl font-black text-[#202938] tracking-tight">
                     Direktori Akun Internal
                 </h1>
             </div>
@@ -23,7 +23,7 @@
         <div class="flex items-center gap-2">
             <button type="button"
                     onclick="document.getElementById('modal-create-user').classList.remove('hidden')"
-                    class="px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold uppercase tracking-wider transition flex items-center gap-1.5 cursor-pointer shadow-sm">
+                    class="px-3.5 py-2 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white text-xs font-bold uppercase tracking-wider transition flex items-center gap-1.5 cursor-pointer shadow-sm">
                 <span>➕</span> Daftarkan Akun Baru
             </button>
         </div>
@@ -44,7 +44,7 @@
     <div class="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-none sm:grid sm:grid-cols-3 lg:grid-cols-6">
         <div class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 w-[145px] shrink-0 snap-start sm:w-auto">
             <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-telemetry block">Total Akun</span>
-            <span class="text-2xl font-black text-slate-900 mt-1 block font-telemetry">{{ $stats['total'] }}</span>
+            <span class="text-2xl font-black text-[#202938] mt-1 block font-telemetry">{{ $stats['total'] }}</span>
             <span class="text-[10px] text-slate-400 font-telemetry">Seluruh peran</span>
         </div>
         <div class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 w-[145px] shrink-0 snap-start sm:w-auto">
@@ -78,7 +78,7 @@
     <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
         <div class="bg-amber-50/70 border-b border-amber-200 px-5 py-3.5 flex items-center justify-between">
             <div class="flex items-center gap-2.5">
-                <span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-telemetry font-bold text-xs uppercase">
+                <span class="px-2 py-0.5 rounded bg-amber-400 text-[#173B70] font-telemetry font-bold text-xs uppercase">
                     Administrator Sistem ({{ $admins->count() }})
                 </span>
                 <span class="text-xs text-slate-600 hidden sm:inline">
@@ -121,9 +121,9 @@
 </div>
 
 <!-- Modal Daftarkan Akun Baru -->
-<div id="modal-create-user" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+<div id="modal-create-user" class="hidden fixed inset-0 z-50 overflow-y-auto bg-[#173B70]/60 backdrop-blur-xs flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-lg w-full overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-        <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
+        <div class="bg-[#173B70] text-white px-6 py-4 flex items-center justify-between border-b border-[#315D91]">
             <div class="flex items-center gap-2">
                 <span>➕</span>
                 <h3 class="text-sm font-bold tracking-tight">Daftarkan Akun Tim Internal Baru</h3>
@@ -148,7 +148,7 @@
                        required
                        placeholder="Misal: Siti Rahmawati"
                        value="{{ old('name') }}"
-                       class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 bg-white">
+                       class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#173B70] bg-white">
             </div>
 
             <div>
@@ -161,7 +161,7 @@
                        required
                        placeholder="nama@tanggap-terang.id"
                        value="{{ old('email') }}"
-                       class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 bg-white font-telemetry">
+                       class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#173B70] bg-white font-telemetry">
             </div>
 
             <div>
@@ -171,7 +171,7 @@
                 <select name="role"
                         id="create_role"
                         required
-                        class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 bg-white">
+                        class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#173B70] bg-white">
                     <option value="">-- Pilih Peran Akun --</option>
                     @foreach($roles as $role)
                         <option value="{{ $role->value }}" {{ old('role') === $role->value ? 'selected' : '' }}>
@@ -191,7 +191,7 @@
                            id="create_password"
                            required
                            placeholder="Minimal 8 karakter"
-                           class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 bg-white">
+                           class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#173B70] bg-white">
                 </div>
                 <div>
                     <label for="create_password_confirmation" class="block text-xs font-semibold text-slate-700 mb-1">
@@ -202,7 +202,7 @@
                            id="create_password_confirmation"
                            required
                            placeholder="Ketik ulang sandi"
-                           class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 bg-white">
+                           class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#173B70] bg-white">
                 </div>
             </div>
 
@@ -217,7 +217,7 @@
                     Batal
                 </button>
                 <button type="submit"
-                        class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold uppercase tracking-wider transition cursor-pointer">
+                        class="px-4 py-2 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white text-xs font-bold uppercase tracking-wider transition cursor-pointer">
                     Simpan & Buat Akun
                 </button>
             </div>

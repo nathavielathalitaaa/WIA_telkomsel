@@ -323,7 +323,7 @@
                     <div class="bg-[#F8F9FC] border border-slate-200/90 rounded-lg p-4 space-y-3.5">
                         <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-2.5">
                             <div class="flex flex-wrap items-center gap-2">
-                                <span class="px-2 py-0.5 rounded bg-slate-900 text-white font-telemetry text-xs font-bold">
+                                <span class="px-2 py-0.5 rounded bg-[#173B70] text-white font-telemetry text-xs font-bold">
                                     {{ $aid->reference_code }}
                                 </span>
                                 <span class="px-2 py-0.5 rounded font-telemetry text-[10px] font-bold uppercase {{ $isDeliveredSubmission ? 'bg-indigo-50 text-indigo-900 border border-indigo-200' : 'bg-blue-50 text-blue-800 border border-blue-200' }}">

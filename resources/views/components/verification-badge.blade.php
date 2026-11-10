@@ -12,14 +12,14 @@
     };
 
     $classes = match ($value) {
-        'terverifikasi' => 'bg-[#EFF6FF] text-[#2563EB] border-[#93C5FD]',
+        'terverifikasi' => 'bg-blue-50 text-[#173B70] border-blue-200/80',
         'menunggu_verifikasi' => 'bg-[#FFFBEB] text-[#D97706] border-[#FCD34D]',
         'ditolak', 'tidak_valid' => 'bg-[#FEF2F2] text-[#DC2626] border-[#FCA5A5]',
         default => 'bg-slate-100 text-slate-700 border-slate-300',
     };
 
     $dotColor = match ($value) {
-        'terverifikasi' => 'bg-[#2563EB]',
+        'terverifikasi' => 'bg-[#173B70]',
         'menunggu_verifikasi' => 'bg-[#D97706]',
         'ditolak', 'tidak_valid' => 'bg-[#DC2626]',
         default => 'bg-slate-500',

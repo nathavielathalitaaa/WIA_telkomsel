@@ -108,7 +108,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
                 @foreach($roleFocusPoints as $point)
                     <div class="flex items-start gap-2 bg-white/80 rounded-lg px-3 py-2 border border-black/5">
-                        <span class="font-bold text-slate-900">&bull;</span>
+                        <span class="font-bold text-[#202938]">•</span>
                         <span class="font-medium">{{ $point }}</span>
                     </div>
                 @endforeach
@@ -121,7 +121,7 @@
         <section aria-label="Ringkasan Pengelolaan Sistem Admin" class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-4 sm:p-5 space-y-3">
             <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2.5">
                 <div class="flex items-center gap-2">
-                    <span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-telemetry text-[10px] font-bold uppercase">
+                    <span class="px-2 py-0.5 rounded bg-amber-400 text-[#173B70] font-telemetry text-[10px] font-bold uppercase">
                         Khusus Admin
                     </span>
                     <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
@@ -140,7 +140,7 @@
                             <div class="text-xs font-bold text-[#202938] truncate">{{ $staff->name }}</div>
                             <div class="font-telemetry text-[11px] text-slate-500 truncate">{{ $staff->email }}</div>
                         </div>
-                        <span class="px-2 py-0.5 rounded bg-slate-900 text-white font-telemetry text-[10px] font-bold uppercase shrink-0">
+                        <span class="px-2 py-0.5 rounded bg-[#173B70] text-white font-telemetry text-[10px] font-bold uppercase shrink-0">
                             {{ $staff->role?->label() ?? $staff->role }}
                         </span>
                     </div>
@@ -430,7 +430,7 @@
                         <div class="flex flex-wrap items-center justify-between gap-2">
                             <div class="flex items-center gap-1.5">
                                 @if($incident->is_simulation)
-                                    <span class="px-1.5 py-0.5 rounded bg-slate-900 text-white font-telemetry text-[10px] font-bold uppercase">
+                                    <span class="px-1.5 py-0.5 rounded bg-[#173B70] text-white font-telemetry text-[10px] font-bold uppercase">
                                         Simulasi
                                     </span>
                                 @endif
@@ -494,7 +494,7 @@
                     <div class="p-4 hover:bg-slate-50 transition flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
                         <div class="space-y-1 min-w-0">
                             <div class="flex flex-wrap items-center gap-2">
-                                <span class="px-2 py-0.5 rounded bg-slate-900 text-white font-telemetry text-xs font-bold">
+                                <span class="px-2 py-0.5 rounded bg-[#173B70] text-white font-telemetry text-xs font-bold">
                                     {{ $aid->reference_code }}
                                 </span>
                                 <span class="px-2 py-0.5 rounded font-telemetry text-[10px] font-bold uppercase {{ $aid->isReportedDelivered() ? 'bg-indigo-50 text-indigo-900 border border-indigo-200' : 'bg-blue-50 text-blue-800 border border-blue-200' }}">

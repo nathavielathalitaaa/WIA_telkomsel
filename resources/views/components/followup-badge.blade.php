@@ -16,14 +16,14 @@
     $classes = match ($value) {
         'selesai' => 'bg-[#ECFDF5] text-[#059669] border-[#6EE7B7]',
         'sedang_ditindaklanjuti', 'dalam_proses' => 'bg-[#FFFBEB] text-[#D97706] border-[#FCD34D]',
-        'dipantau', 'direncanakan' => 'bg-[#EFF6FF] text-[#1D4ED8] border-[#93C5FD]',
+        'dipantau', 'direncanakan' => 'bg-blue-50 text-[#173B70] border-blue-200/80',
         default => 'bg-slate-100 text-slate-700 border-slate-300',
     };
 
     $dotColor = match ($value) {
         'selesai' => 'bg-[#059669]',
         'sedang_ditindaklanjuti', 'dalam_proses' => 'bg-[#D97706]',
-        'dipantau', 'direncanakan' => 'bg-[#1D4ED8]',
+        'dipantau', 'direncanakan' => 'bg-[#173B70]',
         default => 'bg-slate-500',
     };
 @endphp

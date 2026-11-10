@@ -13,7 +13,7 @@
                     Papan Pemantauan Bencana
                 </span>
             </div>
-            <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+            <h1 class="text-xl sm:text-2xl font-black text-[#202938] tracking-tight">
                 Peta Sebaran &amp; Perkembangan Respons
             </h1>
             <p class="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
@@ -56,7 +56,7 @@
                 {{ $summary['historical_incidents'] ?? 0 }} Data Historis
             </a>
             <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['source_mode' => 'simulation'])) }}"
-               class="px-3 py-1.5 rounded-lg border {{ request('source_mode') === 'simulation' ? 'bg-slate-900 text-white border-slate-900 shadow-xs' : 'bg-white hover:bg-slate-50 text-slate-800 border-slate-300' }} font-bold transition">
+               class="px-3 py-1.5 rounded-lg border {{ request('source_mode') === 'simulation' ? 'bg-[#173B70] text-white border-[#173B70] shadow-xs' : 'bg-white hover:bg-slate-50 text-slate-800 border-slate-300' }} font-bold transition">
                 {{ $summary['simulation_incidents'] ?? 0 }} Simulasi
             </a>
         </div>
@@ -69,7 +69,7 @@
            title="Tampilkan seluruh kejadian tanpa filter">
             <span class="font-telemetry text-[11px] font-semibold text-slate-500">Total Kejadian</span>
             <div class="mt-2 flex items-baseline justify-between">
-                <span class="font-telemetry text-2xl font-bold text-slate-900">{{ $summary['total_incidents'] }}</span>
+                <span class="font-telemetry text-2xl font-bold text-[#202938]">{{ $summary['total_incidents'] }}</span>
                 <span class="font-telemetry text-[10px] text-slate-400 font-medium">{{ $summary['historical_incidents'] ?? 0 }} Riil • {{ $summary['simulation_incidents'] ?? 0 }} Sim</span>
             </div>
         </a>
@@ -119,7 +119,7 @@
            title="Saring kejadian dengan respons bantuan terkonfirmasi">
             <span class="font-telemetry text-[11px] font-semibold text-slate-600">Respons Bantuan</span>
             <div class="mt-2 flex items-baseline justify-between">
-                <span class="font-telemetry text-2xl font-bold text-slate-900">{{ $summary['total_aid_responses'] ?? 0 }}</span>
+                <span class="font-telemetry text-2xl font-bold text-[#202938]">{{ $summary['total_aid_responses'] ?? 0 }}</span>
                 <span class="font-telemetry text-[10px] text-emerald-700 font-medium">{{ $summary['confirmed_aid_responses'] ?? 0 }} Sah</span>
             </div>
         </a>
@@ -420,7 +420,7 @@
                         Pencatatan Berbasis Laporan Warga
                     </span>
                 </div>
-                <h2 class="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+                <h2 class="text-lg sm:text-xl font-bold text-[#202938] tracking-tight">
                     Kebutuhan Mendesak &amp; Penyaluran Bantuan
                 </h2>
                 <p class="text-xs sm:text-sm text-slate-500 max-w-2xl leading-relaxed">

@@ -8,12 +8,6 @@
 
     <!-- 1. Hero Section: Public-First Reporting Invitation -->
     <section class="text-center space-y-6 pt-2 sm:pt-4">
-        <!-- Reassurance Badge -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100/80 text-[#173B70] text-xs font-telemetry font-bold uppercase tracking-wider">
-            <span class="w-2 h-2 rounded-full bg-[#D94350] animate-pulse"></span>
-            <span>Layanan Publik Terbuka • Bebas Akses Tanpa Akun</span>
-        </div>
-
         <!-- Headline -->
         <div class="space-y-3 max-w-2xl mx-auto">
             <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#202938] tracking-tight leading-tight">

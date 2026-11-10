@@ -139,7 +139,7 @@
                     @endif
                 </div>
 
-                <h4 class="text-sm font-bold text-[#0F172A]">{{ $entry['title'] }}</h4>
+                <h4 class="text-sm font-bold text-[#202938]">{{ $entry['title'] }}</h4>
                 <p class="text-xs font-telemetry text-slate-500 mt-0.5">{{ $entry['subtitle'] }}</p>
 
                 <p class="text-sm text-slate-700 mt-2 leading-relaxed">

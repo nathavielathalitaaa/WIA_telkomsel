@@ -12,9 +12,9 @@
 
 @section('content')
     <!-- Replay Console Header -->
-    <section class="bg-[#0F172A] text-white rounded-2xl shadow-xs border border-slate-800 p-5 sm:p-6 space-y-4">
+    <section class="bg-[#173B70] text-white rounded-2xl shadow-xs border border-[#315D91] p-5 sm:p-6 space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-2">
-            <span class="px-2.5 py-1 rounded bg-slate-800 text-amber-300 border border-slate-700 font-telemetry text-xs font-bold uppercase">
+            <span class="px-2.5 py-1 rounded bg-[#315D91] text-amber-300 border border-blue-400/40 font-telemetry text-xs font-bold uppercase">
                 Linimasa Berbasis Data Riil &amp; Simulasi
             </span>
         </div>
@@ -24,22 +24,22 @@
                 <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight text-white">
                     Linimasa Perkembangan Kejadian
                 </h1>
-                <p class="text-sm text-slate-300 leading-relaxed">
+                <p class="text-sm text-blue-100 leading-relaxed">
                     Putar kembali urutan kejadian dari waktu ke waktu: mulai dari <strong class="text-white">waktu kejadian riil</strong>, konfirmasi <strong class="text-white">sumber resmi BNPB</strong>, hasil <strong class="text-white">verifikasi data</strong>, hingga <strong class="text-white">catatan tindak lanjut</strong> di lapangan.
                 </p>
             </div>
 
             <!-- Incident Selector Form -->
             @if($incidents->isNotEmpty())
-                <form method="GET" action="{{ route('public.replay') }}" class="w-full max-w-full lg:w-96 min-w-0 shrink-0 bg-slate-900 border border-slate-700 rounded-xl p-3 space-y-2 overflow-hidden">
-                    <label for="incident-selector" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-300">
+                <form method="GET" action="{{ route('public.replay') }}" class="w-full max-w-full lg:w-96 min-w-0 shrink-0 bg-[#0F2A52] border border-[#315D91] rounded-xl p-3 space-y-2 overflow-hidden">
+                    <label for="incident-selector" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-blue-100">
                         Pilih Kejadian untuk Mode Replay
                     </label>
                     <div class="flex items-center gap-2 min-w-0 w-full max-w-full">
                         <select id="incident-selector"
                                 name="incident"
                                 onchange="this.form.submit()"
-                                class="flex-1 min-w-0 w-full max-w-full min-h-[40px] px-3 py-1.5 bg-white text-[#0F172A] rounded font-medium text-xs truncate focus:outline-none">
+                                class="flex-1 min-w-0 w-full max-w-full min-h-[40px] px-3 py-1.5 bg-white text-[#202938] rounded font-medium text-xs truncate focus:outline-none">
                             <optgroup label="Data Historis Resmi BNPB (DIBI)">
                                 @foreach($incidents->where('is_simulation', false) as $inc)
                                     <option value="{{ $inc->slug }}" @selected($selectedIncident && $selectedIncident->id === $inc->id)>
@@ -56,7 +56,7 @@
                             </optgroup>
                         </select>
                         <button type="submit"
-                                class="px-3 py-1.5 rounded bg-[#2563EB] hover:bg-blue-500 text-white font-telemetry text-xs font-bold uppercase cursor-pointer shrink-0">
+                                class="px-3.5 py-1.5 rounded bg-[#D94350] hover:bg-[#C23541] text-white font-telemetry text-xs font-bold uppercase cursor-pointer shrink-0 transition shadow-xs">
                             Muat
                         </button>
                     </div>
@@ -80,12 +80,12 @@
     @if(!$selectedIncident)
         <!-- Empty State when no incidents exist in DB -->
         <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-8 text-center space-y-3">
-            <h2 class="text-lg font-bold text-[#0F172A]">Belum Ada Kejadian Simulasi untuk Mode Replay</h2>
-            <p class="text-sm text-slate-600 max-w-md mx-auto">
+            <h2 class="text-lg font-bold text-[#202938]">Belum Ada Kejadian Simulasi untuk Mode Replay</h2>
+            <p class="text-sm text-[#788397] max-w-md mx-auto">
                 Saat ini belum terdapat data kejadian di dalam database yang dapat ditampilkan pada garis waktu replay.
             </p>
             <a href="{{ route('public.monitor') }}"
-               class="px-4 py-2 rounded-lg bg-[#0F172A] text-white font-telemetry text-xs font-bold uppercase inline-flex items-center">
+               class="px-4 py-2 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase inline-flex items-center shadow-xs transition">
                 Kembali ke Halaman Pantau
             </a>
         </section>
@@ -105,19 +105,19 @@
         <!-- Interactive Playback Console & Time Scrubber -->
         <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-5">
             <!-- Active Replay Time & Current Statuses Banner -->
-            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-4 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 min-w-0">
+            <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-4 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 min-w-0">
                 <div class="flex items-center gap-3 min-w-0">
-                    <div class="w-11 h-11 rounded-lg bg-[#0F172A] text-white flex items-center justify-center font-telemetry font-bold text-sm shrink-0">
+                    <div class="w-11 h-11 rounded-lg bg-[#173B70] text-white flex items-center justify-center font-telemetry font-bold text-sm shrink-0">
                         <span id="replay-step-badge">1/{{ max(1, count($eventsArray)) }}</span>
                     </div>
                     <div class="min-w-0">
-                        <div class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                        <div class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-[#788397]">
                             Posisi Waktu Replay Saat Ini
                         </div>
-                        <div id="replay-active-timestamp" class="font-telemetry text-lg sm:text-xl font-bold text-[#0F172A]">
+                        <div id="replay-active-timestamp" class="font-telemetry text-lg sm:text-xl font-bold text-[#202938]">
                             {{ $eventsArray[0]['timestamp_formatted'] ?? '-' }}
                         </div>
-                        <div id="replay-active-event-title" class="text-xs font-semibold text-[#2563EB] mt-0.5">
+                        <div id="replay-active-event-title" class="text-xs font-semibold text-[#173B70] mt-0.5">
                             {{ $eventsArray[0]['title'] ?? '-' }}
                         </div>
                     </div>
@@ -126,15 +126,15 @@
                 <!-- Dynamic Dual Status at Active Replay Time -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 shrink-0">
                     <div class="bg-white border border-slate-200 rounded-lg px-3.5 py-2">
-                        <span class="font-telemetry text-[10px] font-bold uppercase text-slate-500 block">
+                        <span class="font-telemetry text-[10px] font-bold uppercase text-[#788397] block">
                             1. Status Verifikasi (Saat Waktu Replay)
                         </span>
-                        <span id="replay-verification-status" class="font-telemetry text-xs font-bold uppercase text-[#2563EB]">
+                        <span id="replay-verification-status" class="font-telemetry text-xs font-bold uppercase text-[#173B70]">
                             {{ $eventsArray[0]['verification_label'] ?? 'Menunggu Verifikasi' }}
                         </span>
                     </div>
                     <div class="bg-white border border-slate-200 rounded-lg px-3.5 py-2">
-                        <span class="font-telemetry text-[10px] font-bold uppercase text-slate-500 block">
+                        <span class="font-telemetry text-[10px] font-bold uppercase text-[#788397] block">
                             2. Status Tindak Lanjut (Saat Waktu Replay)
                         </span>
                         <span id="replay-followup-status" class="font-telemetry text-xs font-bold uppercase text-[#059669]">
@@ -146,9 +146,9 @@
 
             <!-- Time Range Scrubber Slider -->
             <div class="space-y-2">
-                <div class="flex flex-wrap items-center justify-between gap-2 font-telemetry text-xs text-slate-600">
+                <div class="flex flex-wrap items-center justify-between gap-2 font-telemetry text-xs text-[#788397]">
                     <span>Awal: <strong>{{ $eventsArray[0]['timestamp_formatted'] ?? '-' }}</strong></span>
-                    <span class="text-[#0F172A] font-bold uppercase">Geser Slider Waktu untuk Melihat Informasi yang Tercatat Sampai Titik Waktu Tersebut</span>
+                    <span class="text-[#202938] font-bold uppercase">Geser Slider Waktu untuk Melihat Informasi yang Tercatat Sampai Titik Waktu Tersebut</span>
                     <span>Akhir: <strong>{{ $eventsArray[count($eventsArray) - 1]['timestamp_formatted'] ?? '-' }}</strong></span>
                 </div>
 
@@ -159,7 +159,7 @@
                        value="{{ max($firstEventMs, $lastEventMs) }}"
                        step="1000"
                        aria-label="Penggeser Waktu Replay Simulasi"
-                       class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#DC2626]">
+                       class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#D94350]">
 
                 <!-- Clickable Step Markers on Timeline -->
                 <div class="flex flex-wrap items-center justify-between gap-1.5 pt-1">
@@ -168,7 +168,7 @@
                                 data-jump-ms="{{ $ev['timestamp_ms'] }}"
                                 data-jump-index="{{ $idx }}"
                                 data-tooltip="Lompat ke tahap #{{ $ev['step_number'] }}: {{ $ev['title'] }}"
-                                class="replay-milestone-btn px-2.5 py-1 rounded border border-slate-300 bg-white hover:bg-slate-100 font-telemetry text-[11px] font-bold text-[#0F172A] transition cursor-pointer hover:shadow-xs active:scale-95">
+                                class="replay-milestone-btn px-2.5 py-1 rounded border border-slate-200/90 bg-white hover:bg-slate-100 font-telemetry text-[11px] font-bold text-[#202938] transition cursor-pointer hover:shadow-xs active:scale-95">
                             #{{ $ev['step_number'] }} • {{ $ev['time_short'] }} ({{ match($ev['type']) {
                                 'kejadian_awal' => 'Awal',
                                 'laporan_masyarakat' => 'Laporan',
@@ -188,38 +188,38 @@
                     <button type="button"
                             id="btn-replay-reset"
                             data-tooltip="Kembalikan replay ke awal timeline"
-                            class="px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-[#0F172A] font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px] transition active:scale-95">
+                            class="px-3 py-2 rounded-lg border border-slate-200/90 bg-white hover:bg-slate-50 text-[#202938] font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px] transition active:scale-95">
                         &#8634; Reset ke Awal
                     </button>
 
                     <button type="button"
                             id="btn-replay-prev"
                             data-tooltip="Mundur satu peristiwa ke belakang"
-                            class="px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-[#0F172A] font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px] transition active:scale-95">
+                            class="px-3 py-2 rounded-lg border border-slate-200/90 bg-white hover:bg-slate-50 text-[#202938] font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px] transition active:scale-95">
                         &larr; Tahap Sebelumnya
                     </button>
 
                     <button type="button"
                             id="btn-replay-play"
                             data-tooltip="Mulai / jeda simulasi otomatis"
-                            class="px-5 py-2 rounded-lg bg-[#DC2626] hover:bg-red-700 text-white font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px] inline-flex items-center gap-2 transition active:scale-95 shadow-xs">
+                            class="px-5 py-2 rounded-lg bg-[#D94350] hover:bg-[#C23541] text-white font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px] inline-flex items-center gap-2 transition active:scale-95 shadow-xs">
                         <span id="btn-replay-play-label">&#9654; Putar Replay</span>
                     </button>
 
                     <button type="button"
                             id="btn-replay-next"
                             data-tooltip="Maju satu peristiwa ke depan"
-                            class="px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-[#0F172A] font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px] transition active:scale-95">
+                            class="px-3 py-2 rounded-lg border border-slate-200/90 bg-white hover:bg-slate-50 text-[#202938] font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px] transition active:scale-95">
                         Tahap Berikutnya &rarr;
                     </button>
                 </div>
 
                 <!-- Playback Speed Controls -->
                 <div class="flex items-center gap-1.5 font-telemetry text-xs">
-                    <span class="text-slate-500 uppercase font-bold mr-1">Kecepatan:</span>
-                    <button type="button" data-speed="1" data-tooltip="Kecepatan normal (1x)" class="replay-speed-btn px-2.5 py-1 rounded bg-[#0F172A] text-white font-bold cursor-pointer transition">1x</button>
-                    <button type="button" data-speed="2" data-tooltip="Kecepatan 2x" class="replay-speed-btn px-2.5 py-1 rounded bg-slate-100 text-slate-700 font-bold cursor-pointer transition hover:bg-slate-200">2x</button>
-                    <button type="button" data-speed="4" data-tooltip="Kecepatan 4x" class="replay-speed-btn px-2.5 py-1 rounded bg-slate-100 text-slate-700 font-bold cursor-pointer transition hover:bg-slate-200">4x</button>
+                    <span class="text-[#788397] uppercase font-bold mr-1">Kecepatan:</span>
+                    <button type="button" data-speed="1" data-tooltip="Kecepatan normal (1x)" class="replay-speed-btn px-2.5 py-1 rounded bg-[#173B70] text-white font-bold cursor-pointer transition">1x</button>
+                    <button type="button" data-speed="2" data-tooltip="Kecepatan 2x" class="replay-speed-btn px-2.5 py-1 rounded bg-slate-100 text-[#202938] font-bold cursor-pointer transition hover:bg-slate-200">2x</button>
+                    <button type="button" data-speed="4" data-tooltip="Kecepatan 4x" class="replay-speed-btn px-2.5 py-1 rounded bg-slate-100 text-[#202938] font-bold cursor-pointer transition hover:bg-slate-200">4x</button>
                 </div>
             </div>
         </section>
@@ -228,14 +228,14 @@
         <section aria-label="Ringkasan Akumulasi Informasi pada Waktu Replay" class="flex overflow-x-auto snap-x snap-mandatory gap-3.5 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-none sm:grid sm:grid-cols-2 lg:grid-cols-4">
             <div class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 w-[74vw] max-w-[260px] shrink-0 snap-start sm:w-auto card-interactive"
                  data-tooltip="Total log peristiwa yang telah diputar">
-                <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
+                <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-[#788397] block">
                     Peristiwa Tercatat s/d Waktu Ini
                 </span>
                 <div class="mt-2 flex items-baseline justify-between">
-                    <span id="metric-visible-events" class="font-telemetry text-2xl sm:text-3xl font-bold text-[#0F172A]">
+                    <span id="metric-visible-events" class="font-telemetry text-2xl sm:text-3xl font-bold text-[#202938]">
                         {{ count($eventsArray) }}
                     </span>
-                    <span class="font-telemetry text-xs text-slate-500">dari {{ count($eventsArray) }} total log</span>
+                    <span class="font-telemetry text-xs text-[#788397]">dari {{ count($eventsArray) }} total log</span>
                 </div>
             </div>
 
@@ -284,12 +284,12 @@
             <!-- Left Column (5 cols): Incident Info & Map -->
             <div class="lg:col-span-5 space-y-5">
                 <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
-                    <div class="p-4 border-b border-slate-100 bg-[#F8FAFC] flex items-center justify-between">
+                    <div class="p-4 border-b border-slate-100 bg-[#F8F9FC] flex items-center justify-between">
                         <div>
-                            <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                            <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
                                 Peta Lokasi Kejadian &amp; Titik Laporan
                             </h2>
-                            <p class="text-xs text-slate-500">{{ $selectedIncident->location_name }}</p>
+                            <p class="text-xs text-[#788397]">{{ $selectedIncident->location_name }}</p>
                         </div>
                         <x-severity-badge :severity="$selectedIncident->severity" />
                     </div>
@@ -298,8 +298,8 @@
                         <div id="replay-map" class="w-full h-[300px] bg-slate-100 z-10"></div>
                     @else
                         <div class="p-6 text-center space-y-2 bg-slate-50">
-                            <p class="text-sm font-bold text-slate-700">Koordinat Peta Tidak Tersedia</p>
-                            <p class="text-xs text-slate-500">
+                            <p class="text-sm font-bold text-[#202938]">Koordinat Peta Tidak Tersedia</p>
+                            <p class="text-xs text-[#788397]">
                                 Kejadian ini tidak memiliki koordinat lintang/bujur di database. Sistem tidak menampilkan koordinat palsu.
                             </p>
                         </div>
@@ -308,11 +308,11 @@
                     <div class="p-4 border-t border-slate-100 space-y-2 text-xs text-slate-600">
                         <div class="flex items-center justify-between">
                             <span>Kejadian Terpilih:</span>
-                            <a href="{{ route('public.incidents.show', $selectedIncident->slug) }}" class="font-telemetry font-bold text-[#2563EB] hover:underline">
+                            <a href="{{ route('public.incidents.show', $selectedIncident->slug) }}" class="font-telemetry font-bold text-[#173B70] hover:underline">
                                 Buka Halaman Detail &rarr;
                             </a>
                         </div>
-                        <p class="text-[11px] text-slate-500">
+                        <p class="text-[11px] text-[#788397]">
                             Catatan: Mode replay ini hanya memvisualisasikan catatan laporan, sumber terbuka, verifikasi, dan tindak lanjut yang benar-benar ada pada database.
                         </p>
                     </div>
@@ -324,10 +324,10 @@
                 <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                     <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
                         <div>
-                            <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                            <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
                                 Garis Waktu Peristiwa Informasi ({{ $selectedIncident->title }})
                             </h2>
-                            <p class="text-xs text-slate-500">
+                            <p class="text-xs text-[#788397]">
                                 Hanya menampilkan peristiwa yang sudah tercatat hingga posisi waktu slider saat ini.
                             </p>
                         </div>
@@ -340,12 +340,12 @@
                         @foreach($eventsArray as $ev)
                             @php
                                 $badgeClasses = match($ev['type']) {
-                                    'kejadian_awal' => 'bg-slate-900 text-white',
-                                    'laporan_masyarakat' => 'bg-[#EFF6FF] text-[#2563EB] border border-[#93C5FD]',
+                                    'kejadian_awal' => 'bg-[#173B70] text-white',
+                                    'laporan_masyarakat' => 'bg-[#EFF6FF] text-[#173B70] border border-[#93C5FD]',
                                     'sumber_terbuka' => 'bg-[#FFFBEB] text-[#D97706] border border-[#FCD34D]',
                                     'verifikasi' => 'bg-blue-600 text-white',
                                     'tindak_lanjut' => 'bg-[#ECFDF5] text-[#059669] border border-[#6EE7B7]',
-                                    default => 'bg-slate-100 text-slate-700',
+                                    default => 'bg-slate-100 text-[#202938]',
                                 };
                             @endphp
                             <article class="replay-event-card border border-slate-100/90 rounded-xl p-4 bg-white transition"
@@ -355,22 +355,22 @@
                                      data-step-number="{{ $ev['step_number'] }}">
                                 <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
                                     <div class="flex flex-wrap items-center gap-2">
-                                        <span class="w-6 h-6 rounded-full bg-[#0F172A] text-white font-telemetry text-xs font-bold inline-flex items-center justify-center">
+                                        <span class="w-6 h-6 rounded-full bg-[#173B70] text-white font-telemetry text-xs font-bold inline-flex items-center justify-center">
                                             {{ $ev['step_number'] }}
                                         </span>
-                                        <span class="font-telemetry text-xs font-bold text-[#0F172A]">
+                                        <span class="font-telemetry text-xs font-bold text-[#202938]">
                                             {{ $ev['timestamp_formatted'] }}
                                         </span>
                                         <span class="px-2 py-0.5 rounded font-telemetry text-[10px] font-bold uppercase {{ $badgeClasses }}">
                                             {{ $ev['type_label'] }}
                                         </span>
                                     </div>
-                                    <span class="font-telemetry text-[10px] text-slate-500 uppercase">
+                                    <span class="font-telemetry text-[10px] text-[#788397] uppercase">
                                         Simulasi
                                     </span>
                                 </div>
 
-                                <h3 class="text-sm sm:text-base font-bold text-[#0F172A]">
+                                <h3 class="text-sm sm:text-base font-bold text-[#202938]">
                                     {{ $ev['title'] }}
                                 </h3>
 
@@ -525,27 +525,27 @@
                     if (cardMs <= cutoffMs) {
                         card.classList.remove('hidden');
                         if (cardStep === latestReachedIndex + 1) {
-                            card.classList.add('ring-2', 'ring-[#0F172A]', 'bg-[#F8FAFC]');
+                            card.classList.add('ring-2', 'ring-[#173B70]', 'bg-[#F8F9FC]');
                             if (window.innerWidth >= 1024 && !isPlaying) {
                                 card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                             }
                         } else {
-                            card.classList.remove('ring-2', 'ring-[#0F172A]', 'bg-[#F8FAFC]');
+                            card.classList.remove('ring-2', 'ring-[#173B70]', 'bg-[#F8F9FC]');
                         }
                     } else {
                         card.classList.add('hidden');
-                        card.classList.remove('ring-2', 'ring-[#0F172A]', 'bg-[#F8FAFC]');
+                        card.classList.remove('ring-2', 'ring-[#173B70]', 'bg-[#F8F9FC]');
                     }
                 });
 
                 // Highlight tombol milestone
                 milestoneBtns.forEach((btn, idx) => {
                     if (idx === latestReachedIndex) {
-                        btn.classList.add('bg-[#0F172A]', 'text-white');
-                        btn.classList.remove('bg-white', 'text-[#0F172A]');
+                        btn.classList.add('bg-[#173B70]', 'text-white');
+                        btn.classList.remove('bg-white', 'text-[#202938]');
                     } else {
-                        btn.classList.remove('bg-[#0F172A]', 'text-white');
-                        btn.classList.add('bg-white', 'text-[#0F172A]');
+                        btn.classList.remove('bg-[#173B70]', 'text-white');
+                        btn.classList.add('bg-white', 'text-[#202938]');
                     }
                 });
 
@@ -638,10 +638,10 @@
                 btn.addEventListener('click', () => {
                     speedMultiplier = Number(btn.getAttribute('data-speed')) || 1;
                     speedBtns.forEach(b => {
-                        b.classList.remove('bg-[#0F172A]', 'text-white');
+                        b.classList.remove('bg-[#173B70]', 'text-white');
                         b.classList.add('bg-slate-100', 'text-slate-700');
                     });
-                    btn.classList.add('bg-[#0F172A]', 'text-white');
+                    btn.classList.add('bg-[#173B70]', 'text-white');
                     btn.classList.remove('bg-slate-100', 'text-slate-700');
 
                     if (isPlaying) {

@@ -50,7 +50,7 @@
         <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div class="space-y-1">
                 <div class="flex flex-wrap items-center gap-2">
-                    <span class="px-2 py-0.5 rounded bg-[#0F172A] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
+                    <span class="px-2 py-0.5 rounded bg-[#173B70] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
                         Panel Pengelolaan Informasi Publik
                     </span>
                     <span class="px-2 py-0.5 rounded bg-blue-50 text-[#2563EB] border border-blue-200 font-telemetry text-[10px] font-bold uppercase tracking-wider">
@@ -60,7 +60,7 @@
                         Data Simulasi Prototype
                     </span>
                 </div>
-                <h1 class="text-xl sm:text-2xl font-extrabold text-[#0F172A]">
+                <h1 class="text-xl sm:text-2xl font-extrabold text-[#202938]">
                     {{ $dashboardTitle }}
                 </h1>
                 <p class="text-sm text-slate-600">
@@ -75,7 +75,7 @@
                         <span>Periksa Antrean Verifikasi ({{ $stats['pending_reports'] }})</span>
                     </a>
                     <a href="{{ route('internal.incidents.index') }}"
-                       class="px-4 py-2.5 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-[#0F172A] font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center gap-1.5">
+                       class="px-4 py-2.5 rounded-lg border border-slate-200/90 bg-white hover:bg-slate-50 text-[#202938] font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center gap-1.5">
                         <span>Tinjau Verifikasi Kejadian</span>
                     </a>
                 @elseif($isOperator)
@@ -84,12 +84,12 @@
                         <span>+ Buat Data Kejadian Baru</span>
                     </a>
                     <a href="{{ route('internal.reports.index', ['verification_status' => 'terverifikasi']) }}"
-                       class="px-4 py-2.5 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-[#0F172A] font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center gap-1.5">
+                       class="px-4 py-2.5 rounded-lg border border-slate-200/90 bg-white hover:bg-slate-50 text-[#202938] font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center gap-1.5">
                         <span>Tautkan Laporan Warga ({{ $stats['unlinked_reports'] }} Belum Tertaut)</span>
                     </a>
                 @else
                     <a href="{{ route('internal.reports.index') }}"
-                       class="px-4 py-2.5 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-[#0F172A] font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center gap-1.5">
+                       class="px-4 py-2.5 rounded-lg border border-slate-200/90 bg-white hover:bg-slate-50 text-[#202938] font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center gap-1.5">
                         <span>Kelola Laporan Masuk ({{ $stats['pending_reports'] }} Antrean)</span>
                     </a>
                     <a href="{{ route('internal.incidents.create') }}"
@@ -124,7 +124,7 @@
                     <span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-telemetry text-[10px] font-bold uppercase">
                         Khusus Admin
                     </span>
-                    <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                    <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
                         Pengawasan Sistem, Akun Tim Internal, &amp; Master Sumber Informasi
                     </h2>
                 </div>
@@ -135,9 +135,9 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 @foreach(($internalUsers ?? collect()) as $staff)
-                    <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3 flex items-center justify-between gap-2">
+                    <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-3 flex items-center justify-between gap-2">
                         <div class="min-w-0">
-                            <div class="text-xs font-bold text-[#0F172A] truncate">{{ $staff->name }}</div>
+                            <div class="text-xs font-bold text-[#202938] truncate">{{ $staff->name }}</div>
                             <div class="font-telemetry text-[11px] text-slate-500 truncate">{{ $staff->email }}</div>
                         </div>
                         <span class="px-2 py-0.5 rounded bg-slate-900 text-white font-telemetry text-[10px] font-bold uppercase shrink-0">
@@ -176,11 +176,11 @@
                data-tooltip="Buka seluruh daftar laporan masuk"
                class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 flex flex-col justify-between card-interactive cursor-pointer group w-[75vw] max-w-[280px] shrink-0 snap-start sm:w-auto">
                 <div class="flex items-center justify-between">
-                    <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-500 group-hover:text-[#0F172A] transition-colors">Total Laporan Masuk</span>
+                    <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-500 group-hover:text-[#202938] transition-colors">Total Laporan Masuk</span>
                     <span class="px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 font-telemetry text-[10px] font-bold uppercase">Simulasi</span>
                 </div>
                 <div class="mt-3 flex items-baseline justify-between">
-                    <span class="font-telemetry text-3xl font-bold text-[#0F172A]">{{ $stats['total_reports'] }}</span>
+                    <span class="font-telemetry text-3xl font-bold text-[#202938]">{{ $stats['total_reports'] }}</span>
                     <span class="text-xs text-slate-500">{{ $stats['unlinked_reports'] }} belum terhubung</span>
                 </div>
             </a>
@@ -247,9 +247,9 @@
             <a href="{{ route('internal.incidents.index') }}"
                data-tooltip="Buka seluruh daftar kejadian bencana"
                class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 flex flex-col justify-between card-interactive cursor-pointer group w-[75vw] max-w-[280px] shrink-0 snap-start sm:w-auto">
-                <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-500 group-hover:text-[#0F172A] transition-colors">Total Kejadian</span>
+                <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-500 group-hover:text-[#202938] transition-colors">Total Kejadian</span>
                 <div class="mt-3 flex items-baseline justify-between">
-                    <span class="font-telemetry text-3xl font-bold text-[#0F172A]">{{ $stats['total_incidents'] }}</span>
+                    <span class="font-telemetry text-3xl font-bold text-[#202938]">{{ $stats['total_incidents'] }}</span>
                     <span class="font-telemetry text-xs text-slate-500">{{ $stats['pending_incidents'] ?? 0 }} menunggu verifikasi</span>
                 </div>
             </a>
@@ -257,7 +257,7 @@
             <a href="{{ route('internal.incidents.index', ['follow_up_status' => 'belum_ditindaklanjuti']) }}"
                data-tooltip="Filter kejadian yang belum ada catatan tindak lanjut"
                class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 flex flex-col justify-between card-interactive cursor-pointer group w-[75vw] max-w-[280px] shrink-0 snap-start sm:w-auto">
-                <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-600 group-hover:text-[#0F172A] transition-colors">Belum Ditindaklanjuti</span>
+                <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-600 group-hover:text-[#202938] transition-colors">Belum Ditindaklanjuti</span>
                 <div class="mt-3 flex items-baseline justify-between">
                     <span class="font-telemetry text-3xl font-bold text-slate-800">{{ $stats['unhandled_incidents'] }}</span>
                     <span class="font-telemetry text-xs font-bold text-slate-700 group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
@@ -312,9 +312,9 @@
             <a href="{{ route('internal.incidents.index') }}"
                data-tooltip="Buka daftar kejadian untuk mengelola respons bantuan"
                class="bg-white rounded-xl shadow-xs border border-slate-100/90 p-4 flex flex-col justify-between card-interactive cursor-pointer group w-[75vw] max-w-[280px] shrink-0 snap-start sm:w-auto">
-                <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-500 group-hover:text-[#0F172A] transition-colors">Total Respons Tercatat</span>
+                <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-500 group-hover:text-[#202938] transition-colors">Total Respons Tercatat</span>
                 <div class="mt-3 flex items-baseline justify-between">
-                    <span class="font-telemetry text-3xl font-bold text-[#0F172A]">{{ $stats['total_aid_responses'] ?? 0 }}</span>
+                    <span class="font-telemetry text-3xl font-bold text-[#202938]">{{ $stats['total_aid_responses'] ?? 0 }}</span>
                     <span class="font-telemetry text-xs text-slate-500">Entri publik</span>
                 </div>
             </a>
@@ -355,9 +355,9 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
         <!-- Latest Reports (6 cols) -->
         <section class="lg:col-span-6 bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
-            <div class="p-4 border-b border-slate-100 bg-[#F8FAFC] flex items-center justify-between">
+            <div class="p-4 border-b border-slate-100 bg-[#F8F9FC] flex items-center justify-between">
                 <div>
-                    <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                    <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
                         Daftar Laporan Masyarakat Terbaru
                     </h2>
                     <p class="text-xs text-slate-500">Klik nomor tiket atau judul untuk meninjau detail &amp; aksi verifikasi.</p>
@@ -373,7 +373,7 @@
                         <div class="flex flex-wrap items-center justify-between gap-2">
                             <div class="flex items-center gap-2">
                                 <a href="{{ route('internal.reports.show', $report) }}"
-                                   class="px-2 py-0.5 rounded bg-[#0F172A] text-white font-telemetry text-xs font-bold hover:bg-slate-800">
+                                   class="px-2 py-0.5 rounded bg-[#173B70] text-white font-telemetry text-xs font-bold hover:bg-[#0F2A52]">
                                     {{ $report->ticket_number }}
                                 </a>
                                 @if($report->is_simulation)
@@ -385,7 +385,7 @@
                             <x-verification-badge :status="$report->verification_status" />
                         </div>
 
-                        <h3 class="text-sm font-bold text-[#0F172A]">
+                        <h3 class="text-sm font-bold text-[#202938]">
                             <a href="{{ route('internal.reports.show', $report) }}" class="hover:text-[#2563EB]">
                                 {{ $report->title }}
                             </a>
@@ -412,9 +412,9 @@
 
         <!-- Latest Incidents (6 cols) -->
         <section class="lg:col-span-6 bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
-            <div class="p-4 border-b border-slate-100 bg-[#F8FAFC] flex items-center justify-between">
+            <div class="p-4 border-b border-slate-100 bg-[#F8F9FC] flex items-center justify-between">
                 <div>
-                    <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                    <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
                         Daftar Kejadian Terbaru
                     </h2>
                     <p class="text-xs text-slate-500">Menampilkan status verifikasi dan status tindak lanjut secara terpisah.</p>
@@ -441,7 +441,7 @@
                             </span>
                         </div>
 
-                        <h3 class="text-sm font-bold text-[#0F172A]">
+                        <h3 class="text-sm font-bold text-[#202938]">
                             <a href="{{ route('internal.incidents.edit', $incident) }}" class="hover:text-[#2563EB]">
                                 {{ $incident->title }}
                             </a>
@@ -470,9 +470,9 @@
 
     <!-- Row 3B: Daftar Respons Bantuan Masyarakat Terbaru (Tawaran vs Laporan Penyerahan) -->
     <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
-        <div class="p-4 border-b border-slate-100 bg-[#F8FAFC] flex flex-wrap items-center justify-between gap-2">
+        <div class="p-4 border-b border-slate-100 bg-[#F8F9FC] flex flex-wrap items-center justify-between gap-2">
             <div>
-                <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
                     Daftar Respons Bantuan Publik Terbaru (Pemeriksaan &amp; Konfirmasi)
                 </h2>
                 <p class="text-xs text-slate-500">
@@ -509,7 +509,7 @@
                                     <x-aid-status-badge :status="$aid->status" />
                                 </div>
                             </div>
-                            <div class="text-sm font-bold text-[#0F172A]">
+                            <div class="text-sm font-bold text-[#202938]">
                                 {{ $aid->aid_item_title }} <span class="font-telemetry text-xs font-semibold text-emerald-800">({{ $aid->quantity_label }})</span>
                             </div>
                             <div class="text-xs font-telemetry text-slate-500">
@@ -524,7 +524,7 @@
                         <div class="flex items-center gap-2 shrink-0">
                             @if($aid->incident)
                                 <a href="{{ route('internal.incidents.edit', $aid->incident) }}"
-                                   class="px-3 py-1.5 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-100 text-[#0F172A] font-telemetry text-xs font-bold uppercase tracking-wider">
+                                   class="px-3 py-1.5 rounded-lg border border-slate-200/90 bg-white hover:bg-slate-100 text-[#202938] font-telemetry text-xs font-bold uppercase tracking-wider">
                                     {{ $user->canManageOperations() ? 'Periksa & Konfirmasi' : 'Tinjau pada Kejadian' }} &rarr;
                                 </a>
                             @endif
@@ -539,7 +539,7 @@
     <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
         <div class="border-b border-slate-100 pb-3 flex flex-wrap items-center justify-between gap-2">
             <div>
-                <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
                     Ringkasan Aktivitas Internal Terbaru (Audit Trail Lengkap)
                 </h2>
                 <p class="text-xs text-slate-500 mt-0.5">
@@ -560,7 +560,7 @@
     </section>
         <div class="border-b border-slate-100 pb-3 flex flex-wrap items-center justify-between gap-2">
             <div>
-                <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
                     Ringkasan Aktivitas Internal Terbaru (Audit Trail Lengkap)
                 </h2>
                 <p class="text-xs text-slate-500 mt-0.5">

@@ -9,11 +9,11 @@
     <link rel="apple-touch-icon" href="{{ asset('images/logo-tanggap-terang.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Public+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('head')
 </head>
-<body class="bg-[#F8FAFC] text-[#0F172A] antialiased min-h-screen flex flex-col pb-20 lg:pb-0"
+<body class="bg-[#F8F9FC] text-[#202938] antialiased min-h-screen flex flex-col pb-20 lg:pb-0"
       @if(session('success')) data-flash-success="{{ session('success') }}" @endif
       @if(session('error')) data-flash-error="{{ session('error') }}" @endif>
     <!-- Toast Notification Container -->
@@ -28,12 +28,12 @@
                      class="h-9 sm:h-10 w-auto object-contain shrink-0">
                 <div class="min-w-0">
                     <div class="flex items-center gap-2">
-                        <span class="text-base sm:text-lg font-extrabold tracking-tight text-[#0F172A] leading-none whitespace-nowrap">TanggapTerang</span>
-                        <span class="hidden md:inline-flex px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300 font-telemetry text-[10px] font-bold uppercase shrink-0">
+                        <span class="text-base sm:text-lg font-extrabold tracking-tight text-[#173B70] leading-none whitespace-nowrap">TanggapTerang</span>
+                        <span class="hidden md:inline-flex px-1.5 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200/80 font-telemetry text-[10px] font-bold uppercase shrink-0">
                             Prototype Simulasi
                         </span>
                     </div>
-                    <p class="hidden sm:block font-telemetry text-[11px] text-slate-500 uppercase tracking-wider truncate mt-0.5">
+                    <p class="hidden sm:block font-telemetry text-[11px] text-[#788397] uppercase tracking-wider truncate mt-0.5">
                         Terlihat, Terlacak, dan Terukur • Papan Transparansi Respons Bencana
                     </p>
                 </div>
@@ -50,23 +50,23 @@
             @endphp
             <nav class="hidden lg:flex items-center gap-1" aria-label="Navigasi Utama">
                 <a href="{{ route('public.monitor') }}"
-                   class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'pantau' ? 'nav-active-gradient' : 'text-slate-600 hover:bg-slate-100 hover:text-[#0F172A]' }}">
+                   class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'pantau' ? 'nav-active-gradient' : 'text-[#788397] hover:bg-slate-100 hover:text-[#173B70]' }}">
                     Pantau
                 </a>
                 <a href="{{ route('public.track') }}"
-                   class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'lacak' ? 'nav-active-gradient' : 'text-slate-600 hover:bg-slate-100 hover:text-[#0F172A]' }}">
+                   class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'lacak' ? 'nav-active-gradient' : 'text-[#788397] hover:bg-slate-100 hover:text-[#173B70]' }}">
                     Lacak Tiket
                 </a>
                 <a href="{{ $replayHref }}"
-                   class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'replay' ? 'nav-active-gradient' : 'text-slate-600 hover:bg-slate-100 hover:text-[#0F172A]' }}">
+                   class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'replay' ? 'nav-active-gradient' : 'text-[#788397] hover:bg-slate-100 hover:text-[#173B70]' }}">
                     Linimasa
                 </a>
                 <a href="{{ $sitrepHref }}"
-                   class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'laporan' ? 'nav-active-gradient' : 'text-slate-600 hover:bg-slate-100 hover:text-[#0F172A]' }}">
+                   class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'laporan' ? 'nav-active-gradient' : 'text-[#788397] hover:bg-slate-100 hover:text-[#173B70]' }}">
                     SitRep
                 </a>
                 <a href="{{ route('public.sources.index') }}"
-                   class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'sumber_data' ? 'nav-active-gradient' : 'text-slate-600 hover:bg-slate-100 hover:text-[#0F172A]' }}">
+                   class="px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $activeTab === 'sumber_data' ? 'nav-active-gradient' : 'text-[#788397] hover:bg-slate-100 hover:text-[#173B70]' }}">
                     Tentang Data
                 </a>
             </nav>
@@ -75,7 +75,7 @@
             <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
                 <a href="{{ route('public.reports.create') }}"
                    @if(request()->routeIs('public.reports.create')) aria-current="page" @endif
-                   class="px-2.5 sm:px-3.5 py-2 sm:py-2.5 rounded-lg btn-brand-gradient font-telemetry text-[11px] sm:text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1 sm:gap-1.5 min-h-[40px] sm:min-h-[42px] shadow-xs {{ request()->routeIs('public.reports.create') ? 'ring-2 ring-[#0F172A] ring-offset-1' : '' }}">
+                   class="px-2.5 sm:px-3.5 py-2 sm:py-2.5 rounded-lg btn-brand-gradient font-telemetry text-[11px] sm:text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1 sm:gap-1.5 min-h-[40px] sm:min-h-[42px] shadow-xs {{ request()->routeIs('public.reports.create') ? 'ring-2 ring-[#173B70] ring-offset-1' : '' }}">
                     <span class="font-extrabold text-sm leading-none">+</span>
                     <span class="hidden sm:inline">Lapor Kejadian</span>
                     <span class="sm:hidden">Lapor</span>
@@ -83,14 +83,14 @@
 
                 @auth
                     <a href="{{ $internalHref }}"
-                       class="px-2.5 sm:px-3 py-2 sm:py-2.5 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-[#0F172A] font-telemetry text-[11px] sm:text-xs font-bold uppercase tracking-wider transition min-h-[40px] sm:min-h-[42px] inline-flex items-center gap-1.5">
+                       class="px-2.5 sm:px-3 py-2 sm:py-2.5 rounded-lg border border-slate-200/80 bg-white hover:bg-slate-50 text-[#202938] font-telemetry text-[11px] sm:text-xs font-bold uppercase tracking-wider transition min-h-[40px] sm:min-h-[42px] inline-flex items-center gap-1.5 shadow-xs">
                         <span class="w-2 h-2 rounded-full bg-[#059669]"></span>
                         <span class="hidden sm:inline">Panel Internal</span>
                         <span class="sm:hidden">Internal</span>
                     </a>
                 @else
                     <a href="{{ $loginHref }}"
-                       class="px-2.5 sm:px-3 py-2 sm:py-2.5 rounded-lg border border-[#CBD5E1] bg-white hover:bg-slate-50 text-[#0F172A] font-telemetry text-[11px] sm:text-xs font-bold uppercase tracking-wider transition min-h-[40px] sm:min-h-[42px] inline-flex items-center">
+                       class="px-2.5 sm:px-3 py-2 sm:py-2.5 rounded-lg border border-slate-200/80 bg-white hover:bg-slate-50 text-[#202938] font-telemetry text-[11px] sm:text-xs font-bold uppercase tracking-wider transition min-h-[40px] sm:min-h-[42px] inline-flex items-center shadow-xs">
                         <span>Login Tim</span>
                     </a>
                 @endauth
@@ -126,7 +126,7 @@
                style="bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));"
                aria-label="Aksi Cepat Pelaporan">
             <a href="{{ route('public.reports.create') }}"
-               class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-red-600 hover:bg-red-700 active:scale-95 text-white font-telemetry text-xs font-bold uppercase tracking-wider shadow-lg shadow-red-950/25 transition transform duration-150 ease-out focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+               class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#D94350] hover:bg-[#C23541] active:scale-95 text-white font-telemetry text-xs font-bold uppercase tracking-wider shadow-lg shadow-red-950/20 transition transform duration-150 ease-out focus:outline-none focus:ring-2 focus:ring-[#D94350] focus:ring-offset-2">
                 <svg class="w-4 h-4 shrink-0 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
                 </svg>
@@ -143,28 +143,28 @@
          style="padding-bottom: env(safe-area-inset-bottom, 0px); height: calc(4rem + env(safe-area-inset-bottom, 0px));"
          aria-label="Navigasi Bawah Mobile">
         <a href="{{ route('public.monitor') }}"
-           class="flex flex-col items-center justify-center gap-0.5 rounded-lg min-h-[48px] transition {{ $activeTab === 'pantau' ? 'nav-active-gradient font-bold' : 'text-slate-600 hover:bg-slate-100' }}">
+           class="flex flex-col items-center justify-center gap-0.5 rounded-lg min-h-[48px] transition {{ $activeTab === 'pantau' ? 'nav-active-gradient font-bold' : 'text-[#788397] hover:bg-slate-100' }}">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
             </svg>
             <span class="font-telemetry text-[10px] uppercase tracking-wider font-bold">Pantau</span>
         </a>
         <a href="{{ route('public.track') }}"
-           class="flex flex-col items-center justify-center gap-0.5 rounded-lg min-h-[48px] transition {{ $activeTab === 'lacak' ? 'nav-active-gradient font-bold' : 'text-slate-600 hover:bg-slate-100' }}">
+           class="flex flex-col items-center justify-center gap-0.5 rounded-lg min-h-[48px] transition {{ $activeTab === 'lacak' ? 'nav-active-gradient font-bold' : 'text-[#788397] hover:bg-slate-100' }}">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
             </svg>
             <span class="font-telemetry text-[10px] uppercase tracking-wider font-bold">Lacak</span>
         </a>
         <a href="{{ $replayHref }}"
-           class="flex flex-col items-center justify-center gap-0.5 rounded-lg min-h-[48px] transition {{ $activeTab === 'replay' ? 'nav-active-gradient font-bold' : 'text-slate-600 hover:bg-slate-100' }}">
+           class="flex flex-col items-center justify-center gap-0.5 rounded-lg min-h-[48px] transition {{ $activeTab === 'replay' ? 'nav-active-gradient font-bold' : 'text-[#788397] hover:bg-slate-100' }}">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
             <span class="font-telemetry text-[10px] uppercase tracking-wider font-bold">Replay</span>
         </a>
         <a href="{{ $sitrepHref }}"
-           class="flex flex-col items-center justify-center gap-0.5 rounded-lg min-h-[48px] transition {{ $activeTab === 'laporan' ? 'nav-active-gradient font-bold' : 'text-slate-600 hover:bg-slate-100' }}">
+           class="flex flex-col items-center justify-center gap-0.5 rounded-lg min-h-[48px] transition {{ $activeTab === 'laporan' ? 'nav-active-gradient font-bold' : 'text-[#788397] hover:bg-slate-100' }}">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>

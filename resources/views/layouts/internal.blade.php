@@ -9,11 +9,11 @@
     <link rel="apple-touch-icon" href="{{ asset('images/logo-tanggap-terang.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Public+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('head')
 </head>
-<body class="bg-[#F8FAFC] text-[#0F172A] antialiased min-h-screen flex flex-col"
+<body class="bg-[#F8F9FC] text-[#202938] antialiased min-h-screen flex flex-col"
       @if(session('success')) data-flash-success="{{ session('success') }}" @endif
       @if(session('error')) data-flash-error="{{ session('error') }}" @endif>
     <!-- Toast Notification Container -->
@@ -28,26 +28,26 @@
 
         [$roleBadgeClass, $headerSubtitle, $reportsMenuLabel, $incidentsMenuLabel] = match ($roleValue) {
             'verifikator' => [
-                'bg-blue-600 text-white border border-blue-400',
+                'bg-[#315D91] text-white border border-blue-300/40',
                 'Pemeriksaan & Verifikasi Informasi',
                 'Verifikasi Laporan',
                 'Verifikasi Kejadian',
             ],
             'operator' => [
-                'bg-emerald-600 text-white border border-emerald-400',
+                'bg-emerald-600 text-white border border-emerald-400/40',
                 'Pengelolaan Kejadian, Penautan, & Tindak Lanjut',
                 'Penautan Laporan',
                 'Operasional Kejadian',
             ],
             default => [
-                'bg-amber-500 text-slate-950 border border-amber-300',
+                'bg-amber-400 text-[#173B70] border border-amber-300 font-extrabold',
                 'Pengelolaan Sistem, Verifikasi, & Operasional',
                 'Kelola Laporan',
                 'Kelola Kejadian',
             ],
         };
     @endphp
-    <header class="bg-[#0F172A] text-white border-b border-slate-800 sticky top-0 z-40">
+    <header class="bg-[#173B70] text-white border-b border-[#315D91] sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[64px] py-2 flex items-center justify-between gap-2 sm:gap-4">
             <div class="flex items-center gap-2.5 sm:gap-4 min-w-0">
                 <a href="{{ route('internal.dashboard') }}" class="flex items-center gap-2.5 min-w-0">
@@ -61,7 +61,7 @@
                                 {{ $roleLabel }}
                             </span>
                         </div>
-                        <p class="hidden xl:block font-telemetry text-[10px] text-slate-400 uppercase tracking-wider truncate mt-0.5">
+                        <p class="hidden xl:block font-telemetry text-[10px] text-blue-200 uppercase tracking-wider truncate mt-0.5">
                             {{ $headerSubtitle }}
                         </p>
                     </div>
@@ -69,34 +69,34 @@
 
                 <nav class="hidden lg:flex items-center gap-1 ml-2 xl:ml-4 shrink-0" aria-label="Navigasi Internal">
                     <a href="{{ route('internal.dashboard') }}"
-                       class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'dashboard' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                       class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'dashboard' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60 hover:text-white' }}">
                         Dashboard
                     </a>
                     <a href="{{ route('internal.reports.index') }}"
-                       class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'reports' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                       class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'reports' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60 hover:text-white' }}">
                         {{ $reportsMenuLabel }}
                     </a>
                     <a href="{{ route('internal.incidents.index') }}"
-                       class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'incidents' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                       class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'incidents' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60 hover:text-white' }}">
                         {{ $incidentsMenuLabel }}
                     </a>
                     @if($currentUser?->isAdmin())
                         <a href="{{ route('internal.intelligence.index') }}"
-                           class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'intelligence' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                           class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'intelligence' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60 hover:text-white' }}">
                             Pusat Intelijen
                         </a>
                         <a href="{{ route('internal.users.index') }}"
-                           class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'users' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                           class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'users' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60 hover:text-white' }}">
                             Direktori Akun
                         </a>
                         <a href="{{ route('internal.audit-logs.index') }}"
-                           class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'audit-logs' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                           class="px-3 py-1.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider transition {{ $internalMenu === 'audit-logs' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60 hover:text-white' }}">
                             Audit Log
                         </a>
                     @endif
                     @if($canOperate)
                         <a href="{{ route('internal.incidents.create') }}"
-                           class="ml-1 px-2.5 py-1.5 rounded border border-emerald-500/70 bg-emerald-950/60 hover:bg-emerald-900 text-emerald-200 font-telemetry text-[11px] font-bold uppercase tracking-wider transition whitespace-nowrap">
+                           class="ml-1 px-2.5 py-1.5 rounded border border-emerald-400/60 bg-emerald-900/50 hover:bg-emerald-800 text-emerald-100 font-telemetry text-[11px] font-bold uppercase tracking-wider transition whitespace-nowrap">
                             + Buat Kejadian
                         </a>
                     @endif
@@ -106,19 +106,19 @@
             <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
                 @auth
                     <a href="{{ route('internal.profile.show') }}"
-                       class="hidden lg:flex flex-col items-end px-2.5 py-1 rounded hover:bg-slate-800 transition {{ $internalMenu === 'profile' ? 'ring-1 ring-amber-400 bg-slate-800' : '' }}"
+                       class="hidden lg:flex flex-col items-end px-2.5 py-1 rounded hover:bg-[#315D91]/60 transition {{ $internalMenu === 'profile' ? 'ring-1 ring-amber-400 bg-[#315D91]' : '' }}"
                        title="Kelola Profil Akun">
                         <span class="text-xs font-bold text-white leading-none flex items-center gap-1">
                             <span>👤</span> {{ auth()->user()->name }}
                         </span>
-                        <span class="font-telemetry text-[10px] text-amber-400 uppercase tracking-wider mt-0.5">
+                        <span class="font-telemetry text-[10px] text-amber-300 uppercase tracking-wider mt-0.5">
                             Role: {{ $roleLabel }}
                         </span>
                     </a>
                 @endauth
 
                 <a href="{{ route('public.monitor') }}"
-                   class="px-2.5 sm:px-3 py-1.5 rounded border border-slate-600 text-slate-200 hover:bg-slate-800 font-telemetry text-[11px] sm:text-xs font-bold uppercase tracking-wider transition whitespace-nowrap">
+                   class="px-2.5 sm:px-3 py-1.5 rounded border border-blue-300/40 text-blue-100 hover:bg-[#315D91]/60 font-telemetry text-[11px] sm:text-xs font-bold uppercase tracking-wider transition whitespace-nowrap">
                     <span class="hidden sm:inline">Halaman Publik</span>
                     <span class="sm:hidden">Publik</span>
                 </a>
@@ -126,7 +126,7 @@
                 @auth
                     <form method="POST" action="{{ route('logout') }}" class="shrink-0">
                         @csrf
-                        <button type="submit" class="px-2.5 sm:px-3 py-1.5 rounded bg-[#DC2626] hover:bg-red-700 text-white font-telemetry text-[11px] sm:text-xs font-bold uppercase tracking-wider transition cursor-pointer whitespace-nowrap">
+                        <button type="submit" class="px-2.5 sm:px-3 py-1.5 rounded bg-[#D94350] hover:bg-[#C23541] text-white font-telemetry text-[11px] sm:text-xs font-bold uppercase tracking-wider transition cursor-pointer whitespace-nowrap">
                             Keluar
                         </button>
                     </form>
@@ -135,9 +135,30 @@
         </div>
 
         <!-- Mobile & Tablet Sub-nav + Account Info Bar for Internal (< 1024px) -->
-        <div class="lg:hidden border-t border-slate-800 px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center justify-between gap-2">
+        <div class="lg:hidden border-t border-[#315D91]/60 px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center justify-between gap-2">
             <nav class="flex flex-wrap items-center gap-1.5" aria-label="Navigasi Internal Mobile">
-                <a href="{{ route('internal.dashboard') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'dashboard' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800' }}">Dashboard</a>
+                <a href="{{ route('internal.dashboard') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'dashboard' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60' }}">Dashboard</a>
+                <a href="{{ route('internal.reports.index') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'reports' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60' }}">{{ $reportsMenuLabel }}</a>
+                <a href="{{ route('internal.incidents.index') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'incidents' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60' }}">{{ $incidentsMenuLabel }}</a>
+                @if($currentUser?->isAdmin())
+                    <a href="{{ route('internal.intelligence.index') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'intelligence' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60' }}">Intelijen</a>
+                    <a href="{{ route('internal.users.index') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'users' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60' }}">Akun</a>
+                    <a href="{{ route('internal.audit-logs.index') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'audit-logs' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60' }}">Audit Log</a>
+                @endif
+                <a href="{{ route('internal.profile.show') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'profile' ? 'nav-active-gradient' : 'text-blue-100 hover:bg-[#315D91]/60' }}">Profil</a>
+                @if($canOperate)
+                    <a href="{{ route('internal.incidents.create') }}" class="px-2.5 py-1 rounded border border-emerald-400/60 bg-emerald-900/50 text-emerald-100 font-telemetry text-[11px] font-bold uppercase whitespace-nowrap">+ Buat Kejadian</a>
+                @endif
+            </nav>
+            @auth
+                <div class="flex items-center gap-1.5 font-telemetry text-[10px] sm:text-[11px] text-blue-100">
+                    <span class="font-bold text-white">{{ auth()->user()->name }}</span>
+                    <span>•</span>
+                    <span class="text-amber-300 uppercase font-bold">Role: {{ $roleLabel }}</span>
+                </div>
+            @endauth
+        </div>
+    </header>
                 <a href="{{ route('internal.reports.index') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'reports' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800' }}">{{ $reportsMenuLabel }}</a>
                 <a href="{{ route('internal.incidents.index') }}" class="px-2.5 py-1 rounded font-telemetry text-[11px] font-bold uppercase whitespace-nowrap {{ $internalMenu === 'incidents' ? 'nav-active-gradient' : 'text-slate-300 hover:bg-slate-800' }}">{{ $incidentsMenuLabel }}</a>
                 @if($currentUser?->isAdmin())

@@ -62,7 +62,7 @@ export class TanggapToast {
         toast.innerHTML = `
             ${icons[type] || icons.info}
             <div class="flex-1 min-w-0 pr-1">
-                <div class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A] leading-tight">
+                <div class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938] leading-tight">
                     ${headerTitle}
                 </div>
                 <div class="text-xs text-slate-600 mt-0.5 leading-snug">

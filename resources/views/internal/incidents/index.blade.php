@@ -13,7 +13,7 @@
     <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div class="space-y-1">
             <div class="flex flex-wrap items-center gap-2">
-                <span class="px-2 py-0.5 rounded bg-[#0F172A] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
+                <span class="px-2 py-0.5 rounded bg-[#173B70] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
                     {{ $roleVal === 'verifikator' ? 'Verifikasi Kejadian & Sumber Terbuka' : ($roleVal === 'operator' ? 'Operasional Kejadian & Respons Bantuan' : 'Manajemen Kejadian') }}
                 </span>
                 <span class="px-2 py-0.5 rounded bg-blue-50 text-[#2563EB] border border-blue-200 font-telemetry text-[10px] font-bold uppercase tracking-wider">
@@ -23,7 +23,7 @@
                     Total: {{ $incidents->total() }} Kejadian
                 </span>
             </div>
-            <h1 class="text-xl sm:text-2xl font-extrabold text-[#0F172A]">
+            <h1 class="text-xl sm:text-2xl font-extrabold text-[#202938]">
                 {{ $roleVal === 'verifikator' ? 'Daftar Kejadian — Pemeriksaan Verifikasi & Sumber Rujukan' : ($roleVal === 'operator' ? 'Daftar Kejadian — Tindak Lanjut Operasional & Respons Bantuan' : 'Daftar & Pengelolaan Informasi Kejadian') }}
             </h1>
             <p class="text-sm text-slate-600">
@@ -40,7 +40,7 @@
         <div class="flex items-center gap-2 shrink-0">
             @if($user->canManageOperations())
                 <a href="{{ route('internal.incidents.create') }}"
-                   class="px-4 py-2.5 rounded-lg bg-[#0F172A] hover:bg-slate-800 text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center gap-1.5">
+                   class="px-4 py-2.5 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center gap-1.5">
                     <span>+ Buat Kejadian Baru</span>
                 </a>
             @endif
@@ -59,7 +59,7 @@
                        name="q"
                        value="{{ $filters['q'] }}"
                        placeholder="Nama kejadian atau lokasi..."
-                       class="w-full min-h-[42px] px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg text-sm text-[#0F172A]">
+                       class="w-full min-h-[42px] px-3 py-2 bg-white border border-slate-200/90 rounded-lg text-sm text-[#202938]">
             </div>
 
             <div class="sm:col-span-2">
@@ -68,7 +68,7 @@
                 </label>
                 <select id="verification_status"
                         name="verification_status"
-                        class="w-full min-h-[42px] px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg text-sm text-[#0F172A]">
+                        class="w-full min-h-[42px] px-3 py-2 bg-white border border-slate-200/90 rounded-lg text-sm text-[#202938]">
                     <option value="">Semua Verifikasi</option>
                     @foreach(\App\Enums\VerificationStatus::cases() as $vCase)
                         <option value="{{ $vCase->value }}" @selected($filters['verification_status'] === $vCase->value)>
@@ -84,7 +84,7 @@
                 </label>
                 <select id="follow_up_status"
                         name="follow_up_status"
-                        class="w-full min-h-[42px] px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg text-sm text-[#0F172A]">
+                        class="w-full min-h-[42px] px-3 py-2 bg-white border border-slate-200/90 rounded-lg text-sm text-[#202938]">
                     <option value="">Semua Tindak Lanjut</option>
                     @foreach(\App\Enums\FollowUpStatus::cases() as $fCase)
                         <option value="{{ $fCase->value }}" @selected($filters['follow_up_status'] === $fCase->value)>
@@ -100,7 +100,7 @@
                 </label>
                 <select id="severity"
                         name="severity"
-                        class="w-full min-h-[42px] px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg text-sm text-[#0F172A]">
+                        class="w-full min-h-[42px] px-3 py-2 bg-white border border-slate-200/90 rounded-lg text-sm text-[#202938]">
                     <option value="">Semua Dampak</option>
                     @foreach(\App\Enums\IncidentSeverity::cases() as $sCase)
                         <option value="{{ $sCase->value }}" @selected($filters['severity'] === $sCase->value)>
@@ -112,12 +112,12 @@
 
             <div class="sm:col-span-2 flex items-center gap-2">
                 <button type="submit"
-                        class="w-full px-4 py-2.5 rounded-lg bg-[#0F172A] hover:bg-slate-800 text-white font-telemetry text-xs font-bold uppercase tracking-wider min-h-[42px] cursor-pointer">
+                        class="w-full px-4 py-2.5 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider min-h-[42px] cursor-pointer">
                     Filter
                 </button>
                 @if(array_filter($filters))
                     <a href="{{ route('internal.incidents.index') }}"
-                       class="px-3 py-2.5 rounded-lg border border-[#CBD5E1] text-slate-700 font-telemetry text-xs font-bold uppercase min-h-[42px] inline-flex items-center">
+                       class="px-3 py-2.5 rounded-lg border border-slate-200/90 text-slate-700 font-telemetry text-xs font-bold uppercase min-h-[42px] inline-flex items-center">
                         Reset
                     </a>
                 @endif
@@ -130,7 +130,7 @@
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
                 <thead>
-                    <tr class="bg-[#F8FAFC] border-b border-slate-100 font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-600">
+                    <tr class="bg-[#F8F9FC] border-b border-slate-100 font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-600">
                         <th class="py-3.5 px-4">Kejadian &amp; Lokasi</th>
                         <th class="py-3.5 px-4">Dampak &amp; Waktu</th>
                         <th class="py-3.5 px-4">1. Status Verifikasi</th>
@@ -153,7 +153,7 @@
                                         {{ $categories[$incident->incident_type] ?? $incident->incident_type }}
                                     </span>
                                 </div>
-                                <div class="font-bold text-[#0F172A]">
+                                <div class="font-bold text-[#202938]">
                                     <a href="{{ route('internal.incidents.edit', $incident) }}" class="hover:text-[#2563EB]">
                                         {{ $incident->title }}
                                     </a>
@@ -195,7 +195,7 @@
                                     Publik &nearr;
                                 </a>
                                 <a href="{{ route('internal.incidents.edit', $incident) }}"
-                                   class="px-3 py-1.5 rounded bg-[#0F172A] hover:bg-slate-800 text-white font-telemetry text-xs font-bold uppercase inline-flex items-center gap-1">
+                                   class="px-3 py-1.5 rounded bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase inline-flex items-center gap-1">
                                     <span>{{ $roleVal === 'verifikator' ? 'Verifikasi & Tinjau' : ($roleVal === 'operator' ? 'Kelola Operasional' : 'Kelola') }}</span>
                                     <span>&rarr;</span>
                                 </a>

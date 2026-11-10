@@ -3,41 +3,41 @@
     'selectedId' => null,
 ])
 
-<div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-4 space-y-3" data-wilayah-selector>
+<div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-4 space-y-3" data-wilayah-selector>
     <div class="flex items-center justify-between">
-        <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+        <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
             Pilih Wilayah Administratif (Opsional — 4 Tingkat)
         </span>
-        <span class="font-telemetry text-[11px] text-slate-500" data-wilayah-status>Siap memilih provinsi</span>
+        <span class="font-telemetry text-[11px] text-[#788397]" data-wilayah-status>Siap memilih provinsi</span>
     </div>
 
     <input type="hidden" name="{{ $name }}" value="{{ old($name, $selectedId) }}" data-wilayah-hidden-input>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
-            <label class="block font-telemetry text-[11px] font-bold uppercase text-slate-600 mb-1">1. Provinsi</label>
-            <select data-level="provinsi" class="w-full min-h-[44px] px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg text-sm text-[#0F172A] focus:outline-none focus:border-[#0F172A]">
+            <label class="block font-telemetry text-[11px] font-bold uppercase text-[#788397] mb-1">1. Provinsi</label>
+            <select data-level="provinsi" class="w-full min-h-[44px] px-3 py-2 bg-white border border-slate-200/90 rounded-lg text-sm text-[#202938] focus:outline-none focus:border-[#173B70]">
                 <option value="">-- Pilih Provinsi --</option>
             </select>
         </div>
 
         <div>
-            <label class="block font-telemetry text-[11px] font-bold uppercase text-slate-600 mb-1">2. Kabupaten / Kota</label>
-            <select data-level="kabupaten" disabled class="w-full min-h-[44px] px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg text-sm text-[#0F172A] disabled:bg-slate-100 disabled:text-slate-400 focus:outline-none focus:border-[#0F172A]">
+            <label class="block font-telemetry text-[11px] font-bold uppercase text-[#788397] mb-1">2. Kabupaten / Kota</label>
+            <select data-level="kabupaten" disabled class="w-full min-h-[44px] px-3 py-2 bg-white border border-slate-200/90 rounded-lg text-sm text-[#202938] disabled:bg-slate-100 disabled:text-slate-400 focus:outline-none focus:border-[#173B70]">
                 <option value="">-- Pilih Kabupaten/Kota --</option>
             </select>
         </div>
 
         <div>
-            <label class="block font-telemetry text-[11px] font-bold uppercase text-slate-600 mb-1">3. Kecamatan</label>
-            <select data-level="kecamatan" disabled class="w-full min-h-[44px] px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg text-sm text-[#0F172A] disabled:bg-slate-100 disabled:text-slate-400 focus:outline-none focus:border-[#0F172A]">
+            <label class="block font-telemetry text-[11px] font-bold uppercase text-[#788397] mb-1">3. Kecamatan</label>
+            <select data-level="kecamatan" disabled class="w-full min-h-[44px] px-3 py-2 bg-white border border-slate-200/90 rounded-lg text-sm text-[#202938] disabled:bg-slate-100 disabled:text-slate-400 focus:outline-none focus:border-[#173B70]">
                 <option value="">-- Pilih Kecamatan --</option>
             </select>
         </div>
 
         <div>
-            <label class="block font-telemetry text-[11px] font-bold uppercase text-slate-600 mb-1">4. Desa / Kelurahan</label>
-            <select data-level="desa" disabled class="w-full min-h-[44px] px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg text-sm text-[#0F172A] disabled:bg-slate-100 disabled:text-slate-400 focus:outline-none focus:border-[#0F172A]">
+            <label class="block font-telemetry text-[11px] font-bold uppercase text-[#788397] mb-1">4. Desa / Kelurahan</label>
+            <select data-level="desa" disabled class="w-full min-h-[44px] px-3 py-2 bg-white border border-slate-200/90 rounded-lg text-sm text-[#202938] disabled:bg-slate-100 disabled:text-slate-400 focus:outline-none focus:border-[#173B70]">
                 <option value="">-- Pilih Desa/Kelurahan --</option>
             </select>
         </div>

@@ -9,12 +9,12 @@
         <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-slate-100 pb-4">
             <div class="space-y-1">
                 <div class="flex flex-wrap items-center gap-2">
-                    <span class="px-2 py-0.5 rounded bg-[#0F172A] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
+                    <span class="px-2 py-0.5 rounded bg-[#173B70] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
                         Dokumen Ringkasan Informasi (SitRep)
                     </span>
                     @if($selectedIncident)
                         @if(!$selectedIncident->is_simulation)
-                            <span class="px-2 py-0.5 rounded bg-blue-900 text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
+                            <span class="px-2 py-0.5 rounded bg-[#173B70] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
                                 Data Kejadian Historis BNPB (DIBI)
                             </span>
                         @else
@@ -23,15 +23,15 @@
                             </span>
                         @endif
                     @else
-                        <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-900 border border-blue-300 font-telemetry text-[10px] font-bold uppercase tracking-wider">
+                        <span class="px-2 py-0.5 rounded bg-blue-100 text-[#173B70] border border-blue-300 font-telemetry text-[10px] font-bold uppercase tracking-wider">
                             Data Gabungan: {{ $stats['historical_incidents'] ?? 0 }} Historis BNPB • {{ $stats['simulation_incidents'] ?? 0 }} Simulasi
                         </span>
                     @endif
                 </div>
-                <h1 class="text-xl sm:text-2xl font-extrabold text-[#0F172A]">
+                <h1 class="text-xl sm:text-2xl font-extrabold text-[#202938]">
                     Laporan Ringkasan Situasi Kejadian &amp; Tindak Lanjut
                 </h1>
-                <p class="text-sm text-slate-600">
+                <p class="text-sm text-[#788397]">
                     Saring berdasarkan kejadian, wilayah, atau rentang waktu kejadian, lalu gunakan tombol <strong>Cetak / Simpan PDF</strong> untuk mencetak dokumen siap baca.
                 </p>
             </div>
@@ -40,7 +40,7 @@
                 <button type="button"
                         onclick="if(window.TanggapToast) window.TanggapToast.info('Mempersiapkan dokumen cetak / dialog PDF...', 'Cetak SitRep'); window.print();"
                         data-tooltip="Cetak atau simpan dokumen SitRep sebagai PDF"
-                        class="px-5 py-2.5 rounded-lg bg-[#DC2626] hover:bg-red-700 text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center gap-2 cursor-pointer shadow-xs active:scale-95">
+                        class="px-5 py-2.5 rounded-lg bg-[#D94350] hover:bg-[#C23541] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center gap-2 cursor-pointer shadow-xs active:scale-95">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
                     </svg>
@@ -52,12 +52,12 @@
         <!-- Filter Form -->
         <form method="GET" action="{{ route('public.sitrep') }}" class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
             <div class="sm:col-span-3">
-                <label for="sitrep-incident" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-1">
+                <label for="sitrep-incident" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-[#788397] mb-1">
                     Cakupan Kejadian
                 </label>
                 <select id="sitrep-incident"
                         name="incident"
-                        class="w-full min-h-[42px] px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg text-xs text-[#0F172A]">
+                        class="w-full min-h-[42px] px-3 py-2 bg-white border border-slate-200/90 rounded-lg text-xs text-[#202938]">
                     <option value="">Semua Kejadian Tercatat (Historis &amp; Simulasi)</option>
                     <optgroup label="Data Historis Resmi BNPB (DIBI)">
                         @foreach($allIncidentOptions->where('is_simulation', false) as $opt)
@@ -77,12 +77,12 @@
             </div>
 
             <div class="sm:col-span-3">
-                <label for="sitrep-wilayah" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-1">
+                <label for="sitrep-wilayah" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-[#788397] mb-1">
                     Wilayah / Lokasi
                 </label>
                 <select id="sitrep-wilayah"
                         name="wilayah"
-                        class="w-full min-h-[42px] px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg text-xs text-[#0F172A]">
+                        class="w-full min-h-[42px] px-3 py-2 bg-white border border-slate-200/90 rounded-lg text-xs text-[#202938]">
                     <option value="">Semua Wilayah</option>
                     @foreach($availableLocations as $loc)
                         <option value="{{ $loc }}" @selected($filters['wilayah'] === $loc)>{{ $loc }}</option>
@@ -91,35 +91,35 @@
             </div>
 
             <div class="sm:col-span-2">
-                <label for="sitrep-date-from" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-1">
+                <label for="sitrep-date-from" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-[#788397] mb-1">
                     Dari Tanggal
                 </label>
                 <input type="date"
                        id="sitrep-date-from"
                        name="date_from"
                        value="{{ $filters['date_from'] }}"
-                       class="w-full min-h-[42px] px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg text-xs text-[#0F172A]">
+                       class="w-full min-h-[42px] px-3 py-2 bg-white border border-slate-200/90 rounded-lg text-xs text-[#202938]">
             </div>
 
             <div class="sm:col-span-2">
-                <label for="sitrep-date-to" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-1">
+                <label for="sitrep-date-to" class="block font-telemetry text-[11px] font-bold uppercase tracking-wider text-[#788397] mb-1">
                     Sampai Tanggal
                 </label>
                 <input type="date"
                        id="sitrep-date-to"
                        name="date_to"
                        value="{{ $filters['date_to'] }}"
-                       class="w-full min-h-[42px] px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg text-xs text-[#0F172A]">
+                       class="w-full min-h-[42px] px-3 py-2 bg-white border border-slate-200/90 rounded-lg text-xs text-[#202938]">
             </div>
 
             <div class="sm:col-span-2 flex items-center gap-2">
                 <button type="submit"
-                        class="w-full px-4 py-2.5 rounded-lg bg-[#0F172A] hover:bg-slate-800 text-white font-telemetry text-xs font-bold uppercase tracking-wider min-h-[42px] cursor-pointer">
+                        class="w-full px-4 py-2.5 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider min-h-[42px] cursor-pointer shadow-xs transition">
                     Terapkan
                 </button>
                 @if(array_filter($filters))
                     <a href="{{ route('public.sitrep') }}"
-                       class="px-3 py-2.5 rounded-lg border border-[#CBD5E1] text-slate-700 font-telemetry text-xs font-bold uppercase min-h-[42px] inline-flex items-center">
+                       class="px-3 py-2.5 rounded-lg border border-slate-200/90 text-[#202938] font-telemetry text-xs font-bold uppercase min-h-[42px] inline-flex items-center">
                         Reset
                     </a>
                 @endif
@@ -130,19 +130,19 @@
     <!-- Printable SitRep Document Sheet -->
     <article class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-6 sm:p-8 space-y-6 print-sheet">
         <!-- Document Institutional Header (Strictly TanggapTerang — NO fake BNPB/BPBD authorship) -->
-        <header class="border-b-2 border-[#0F172A] pb-5 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+        <header class="border-b-2 border-[#173B70] pb-5 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
             <div class="flex items-start gap-3.5 sm:gap-4">
                 <img src="{{ asset('images/logo-tanggap-terang.png') }}"
                      alt="Logo TanggapTerang"
                      class="h-12 sm:h-14 w-auto object-contain shrink-0 mt-0.5">
                 <div class="space-y-1.5">
                     <div class="flex flex-wrap items-center gap-2">
-                        <span class="px-2 py-0.5 rounded bg-[#0F172A] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
+                        <span class="px-2 py-0.5 rounded bg-[#173B70] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
                             TanggapTerang — Laporan Ringkasan Situasi (SitRep)
                         </span>
                         @if($selectedIncident)
                             @if(!$selectedIncident->is_simulation)
-                                <span class="px-2 py-0.5 rounded bg-blue-900 text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
+                                <span class="px-2 py-0.5 rounded bg-[#173B70] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
                                     DATA HISTORIS (BNPB / DIBI)
                                 </span>
                             @else
@@ -151,12 +151,12 @@
                                 </span>
                             @endif
                         @else
-                            <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-900 border border-blue-300 font-telemetry text-[10px] font-bold uppercase tracking-wider">
+                            <span class="px-2 py-0.5 rounded bg-blue-100 text-[#173B70] border border-blue-300 font-telemetry text-[10px] font-bold uppercase tracking-wider">
                                 DATA HISTORIS BNPB ({{ $stats['historical_incidents'] ?? 0 }}) &amp; SIMULASI ({{ $stats['simulation_incidents'] ?? 0 }})
                             </span>
                         @endif
                     </div>
-                    <h2 class="text-xl sm:text-2xl font-extrabold text-[#0F172A] tracking-tight">
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-[#202938] tracking-tight">
                         Ringkasan Informasi Kejadian &amp; Status Tindak Lanjut Tim TanggapTerang
                     </h2>
                     <p class="text-xs text-slate-600">
@@ -165,7 +165,7 @@
                 </div>
             </div>
 
-            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3 font-telemetry text-xs text-slate-700 shrink-0 space-y-1">
+            <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-3 font-telemetry text-xs text-slate-700 shrink-0 space-y-1">
                 <div>
                     <span class="text-[10px] uppercase text-slate-500 block">Waktu Pembuatan Laporan:</span>
                     <strong>{{ $generatedAt->format('d M Y, H:i') }} WIB</strong>
@@ -186,12 +186,12 @@
         <!-- Dual Summary Section: Verification Status Counts vs Follow-Up Status Counts -->
         <section class="grid grid-cols-1 md:grid-cols-2 gap-4 print-avoid-break">
             <!-- Box 1: Ringkasan Berdasarkan Status Verifikasi Informasi -->
-            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-4 space-y-3">
+            <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-4 space-y-3">
                 <div class="flex items-center justify-between border-b border-slate-200 pb-2">
-                    <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                    <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
                         1. Ringkasan Berdasarkan Status Verifikasi Informasi
                     </h3>
-                    <span class="font-telemetry text-xs font-bold text-[#0F172A]">
+                    <span class="font-telemetry text-xs font-bold text-[#202938]">
                         Total: {{ $stats['total_incidents'] }} Kejadian ({{ $stats['historical_incidents'] ?? 0 }} Historis, {{ $stats['simulation_incidents'] ?? 0 }} Sim)
                     </span>
                 </div>
@@ -199,8 +199,8 @@
                 <div class="flex overflow-x-auto snap-x snap-mandatory gap-2.5 pb-1 -mx-2 px-2 sm:mx-0 sm:px-0 scrollbar-none sm:grid sm:grid-cols-3 text-center">
                     <div class="bg-white border border-[#93C5FD] rounded-lg p-2.5 card-interactive w-[130px] shrink-0 snap-start sm:w-auto"
                          data-tooltip="Jumlah kejadian dengan validasi terverifikasi">
-                        <span class="font-telemetry text-[10px] font-bold uppercase text-[#1E40AF] block">Terverifikasi</span>
-                        <span class="font-telemetry text-2xl font-bold text-[#2563EB]">{{ $stats['terverifikasi'] }}</span>
+                        <span class="font-telemetry text-[10px] font-bold uppercase text-[#173B70] block">Terverifikasi</span>
+                        <span class="font-telemetry text-2xl font-bold text-[#173B70]">{{ $stats['terverifikasi'] }}</span>
                     </div>
                     <div class="bg-white border border-[#FCD34D] rounded-lg p-2.5 card-interactive w-[130px] shrink-0 snap-start sm:w-auto"
                          data-tooltip="Kejadian sedang dalam pemeriksaan tim verifikator">
@@ -209,19 +209,19 @@
                     </div>
                     <div class="bg-white border border-slate-200 rounded-lg p-2.5 card-interactive w-[130px] shrink-0 snap-start sm:w-auto"
                          data-tooltip="Total laporan masyarakat yang telah ditautkan ke kejadian">
-                        <span class="font-telemetry text-[10px] font-bold uppercase text-slate-600 block">Laporan Terhubung</span>
-                        <span class="font-telemetry text-2xl font-bold text-[#0F172A]">{{ $stats['connected_reports'] }}</span>
+                        <span class="font-telemetry text-[10px] font-bold uppercase text-[#788397] block">Laporan Terhubung</span>
+                        <span class="font-telemetry text-2xl font-bold text-[#202938]">{{ $stats['connected_reports'] }}</span>
                     </div>
                 </div>
             </div>
 
             <!-- Box 2: Ringkasan Berdasarkan Status Tindak Lanjut Internal TanggapTerang -->
-            <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-4 space-y-3">
+            <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-4 space-y-3">
                 <div class="flex items-center justify-between border-b border-slate-200 pb-2">
-                    <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                    <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
                         2. Ringkasan Status Tindak Lanjut Tim TanggapTerang
                     </h3>
-                    <span class="font-telemetry text-xs font-bold text-[#0F172A]">
+                    <span class="font-telemetry text-xs font-bold text-[#202938]">
                         {{ $stats['connected_sources'] }} Sumber Terbuka
                     </span>
                 </div>
@@ -229,8 +229,8 @@
                 <div class="flex overflow-x-auto snap-x snap-mandatory gap-2 pb-1 -mx-2 px-2 sm:mx-0 sm:px-0 scrollbar-none sm:grid sm:grid-cols-4 text-center">
                     <div class="bg-white border border-slate-300 rounded-lg p-2 card-interactive w-[125px] shrink-0 snap-start sm:w-auto"
                          data-tooltip="Kejadian belum ada tindakan pemantauan lanjutan">
-                        <span class="font-telemetry text-[9px] font-bold uppercase text-slate-600 block">Belum Ditindaklanjuti</span>
-                        <span class="font-telemetry text-xl font-bold text-slate-800">{{ $stats['belum_ditindaklanjuti'] }}</span>
+                        <span class="font-telemetry text-[9px] font-bold uppercase text-[#788397] block">Belum Ditindaklanjuti</span>
+                        <span class="font-telemetry text-xl font-bold text-[#202938]">{{ $stats['belum_ditindaklanjuti'] }}</span>
                     </div>
                     <div class="bg-white border border-[#FCD34D] rounded-lg p-2 card-interactive w-[125px] shrink-0 snap-start sm:w-auto"
                          data-tooltip="Kejadian sedang dalam koordinasi &amp; pemantauan aktif">
@@ -239,8 +239,8 @@
                     </div>
                     <div class="bg-white border border-[#93C5FD] rounded-lg p-2 card-interactive w-[125px] shrink-0 snap-start sm:w-auto"
                          data-tooltip="Perkembangan terus dipantau secara berkala">
-                        <span class="font-telemetry text-[9px] font-bold uppercase text-[#1E40AF] block">Dipantau</span>
-                        <span class="font-telemetry text-xl font-bold text-[#2563EB]">{{ $stats['dipantau'] }}</span>
+                        <span class="font-telemetry text-[9px] font-bold uppercase text-[#173B70] block">Dipantau</span>
+                        <span class="font-telemetry text-xl font-bold text-[#173B70]">{{ $stats['dipantau'] }}</span>
                     </div>
                     <div class="bg-white border border-[#6EE7B7] rounded-lg p-2 card-interactive w-[125px] shrink-0 snap-start sm:w-auto"
                          data-tooltip="Penanganan informasi kejadian dinyatakan selesai">
@@ -254,26 +254,26 @@
         <!-- Detailed Incidents Table -->
         <section class="space-y-3">
             <div class="flex items-center justify-between">
-                <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
                     Daftar Rincian Kejadian yang Tercatat ({{ $incidents->count() }} Kejadian)
                 </h3>
-                <span class="font-telemetry text-[11px] text-slate-500">
+                <span class="font-telemetry text-[11px] text-[#788397]">
                     Membedakan kejadian terverifikasi dan belum terverifikasi
                 </span>
             </div>
 
             @if($incidents->isEmpty())
-                <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-8 text-center space-y-2">
-                    <h4 class="text-base font-bold text-[#0F172A]">Tidak Ada Data Kejadian pada Kriteria Ini</h4>
+                <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-8 text-center space-y-2">
+                    <h4 class="text-base font-bold text-[#202938]">Tidak Ada Data Kejadian pada Kriteria Ini</h4>
                     <p class="text-xs text-slate-600">
                         Belum terdapat kejadian yang sesuai dengan filter wilayah, kejadian, atau rentang tanggal yang dipilih.
                     </p>
                 </div>
             @else
-                <div class="overflow-x-auto border border-[#CBD5E1] rounded-lg">
+                <div class="overflow-x-auto border border-slate-200/90 rounded-lg">
                     <table class="w-full text-left border-collapse text-xs">
                         <thead>
-                            <tr class="bg-[#0F172A] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
+                            <tr class="bg-[#173B70] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
                                 <th class="py-3 px-3">No</th>
                                 <th class="py-3 px-3">Kejadian &amp; Deskripsi Ringkas</th>
                                 <th class="py-3 px-3">Lokasi Administratif</th>
@@ -286,20 +286,20 @@
                         <tbody class="divide-y divide-slate-200">
                             @foreach($incidents as $idx => $incident)
                                 <tr class="align-top print-avoid-break hover:bg-blue-50/40 transition-colors {{ $idx % 2 === 1 ? 'bg-slate-50/60' : 'bg-white' }}">
-                                    <td class="py-3 px-3 font-telemetry font-bold text-[#0F172A]">
+                                    <td class="py-3 px-3 font-telemetry font-bold text-[#202938]">
                                         {{ $idx + 1 }}
                                     </td>
 
                                     <td class="py-3 px-3 max-w-xs space-y-1">
-                                        <div class="font-bold text-[#0F172A] text-sm">
+                                        <div class="font-bold text-[#202938] text-sm">
                                             {{ $incident->title }}
                                         </div>
-                                        <div class="font-telemetry text-[10px] uppercase text-slate-500">
+                                        <div class="font-telemetry text-[10px] uppercase text-[#788397]">
                                             Jenis: {{ $categories[$incident->incident_type] ?? $incident->incident_type }}
                                             @if($incident->is_simulation)
-                                                • <span class="text-slate-800 font-bold">[DATA SIMULASI]</span>
+                                                • <span class="text-[#202938] font-bold">[DATA SIMULASI]</span>
                                             @else
-                                                • <span class="text-blue-800 font-bold">[DATA HISTORIS BNPB]</span>
+                                                • <span class="text-[#173B70] font-bold">[DATA HISTORIS BNPB]</span>
                                             @endif
                                         </div>
                                         <p class="text-slate-600 leading-relaxed">
@@ -308,14 +308,14 @@
                                     </td>
 
                                     <td class="py-3 px-3 space-y-1">
-                                        <div class="font-semibold text-[#0F172A]">{{ $incident->location_name }}</div>
+                                        <div class="font-semibold text-[#202938]">{{ $incident->location_name }}</div>
                                         @if($incident->wilayahAdministratif)
                                             <div class="font-telemetry text-[11px] text-slate-600">
                                                 Wilayah: {{ $incident->wilayahAdministratif->nama }}
                                             </div>
                                         @endif
                                         @if($incident->latitude !== null && $incident->longitude !== null)
-                                            <div class="font-telemetry text-[10px] text-slate-500">
+                                            <div class="font-telemetry text-[10px] text-[#788397]">
                                                 Koordinat: {{ number_format((float) $incident->latitude, 4) }}, {{ number_format((float) $incident->longitude, 4) }}
                                             </div>
                                         @else
@@ -339,7 +339,7 @@
                                         </div>
                                         @if($incident->followUpRecords->isNotEmpty())
                                             <div class="text-[11px] text-slate-600 bg-slate-100 rounded p-1.5">
-                                                <strong class="block text-[#0F172A]">{{ $incident->followUpRecords->first()->action_title }}</strong>
+                                                <strong class="block text-[#202938]">{{ $incident->followUpRecords->first()->action_title }}</strong>
                                                 <span>{{ \Illuminate\Support\Str::limit($incident->followUpRecords->first()->notes, 90) }}</span>
                                             </div>
                                         @endif
@@ -356,7 +356,7 @@
                                                 @endforeach
                                             </ul>
                                         @endif
-                                        <div class="pt-1 text-[10px] text-slate-500 border-t border-slate-100">
+                                        <div class="pt-1 text-[10px] text-[#788397] border-t border-slate-100">
                                             Waktu Kejadian: {{ $incident->occurred_at?->format('d M Y, H:i') }} WIB<br>
                                             Diperbarui: {{ $incident->updated_at?->format('d M Y, H:i') }} WIB
                                         </div>
@@ -370,8 +370,8 @@
         </section>
 
         <!-- Mandatory Data Limitations & Institutional Scope Footnote -->
-        <footer class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-4 space-y-2 text-xs text-slate-700 print-avoid-break">
-            <div class="font-telemetry font-bold uppercase tracking-wider text-[#0F172A]">
+        <footer class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-4 space-y-2 text-xs text-slate-700 print-avoid-break">
+            <div class="font-telemetry font-bold uppercase tracking-wider text-[#202938]">
                 Catatan Keterbatasan Data &amp; Ruang Lingkup TanggapTerang
             </div>
             <ul class="list-disc list-inside space-y-1 leading-relaxed">

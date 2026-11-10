@@ -7,11 +7,11 @@
 <div class="space-y-8">
     <!-- Breadcrumb & Header Hero -->
     <header class="bg-white border border-slate-100/90 rounded-2xl shadow-xs overflow-hidden">
-        <div class="bg-[#0F172A] text-white px-4 sm:px-6 py-6 border-b border-slate-800">
-            <div class="flex flex-wrap items-center gap-2 text-xs font-telemetry text-slate-400 mb-2">
+        <div class="bg-[#173B70] text-white px-4 sm:px-6 py-6 border-b border-[#315D91]">
+            <div class="flex flex-wrap items-center gap-2 text-xs font-telemetry text-blue-200 mb-2">
                 <a href="{{ route('public.monitor') }}" class="hover:text-white transition">Beranda</a>
                 <span>&rsaquo;</span>
-                <span class="text-blue-400 font-bold uppercase tracking-wider">Transparansi Sumber Data</span>
+                <span class="text-blue-300 font-bold uppercase tracking-wider">Transparansi Sumber Data</span>
             </div>
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                 <div>
@@ -207,7 +207,7 @@
                                 <ul class="space-y-1.5">
                                     @foreach($provider->sourceRecords as $sample)
                                         <li class="p-2 rounded bg-slate-50 border border-slate-200 text-[11px] text-slate-800 hover:bg-blue-50/50 hover:border-blue-200 transition">
-                                            <div class="font-bold line-clamp-1 text-[#0F172A]" title="{{ $sample->title }}">
+                                            <div class="font-bold line-clamp-1 text-[#202938]" title="{{ $sample->title }}">
                                                 {{ $sample->title }}
                                             </div>
                                             <div class="flex items-center justify-between text-[10px] text-slate-500 mt-1">

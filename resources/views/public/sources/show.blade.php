@@ -17,7 +17,7 @@
     <!-- Main Card -->
     <article class="bg-white border border-slate-100/90 rounded-2xl shadow-xs overflow-hidden">
         <!-- Header -->
-        <header class="bg-[#0F172A] text-white p-5 sm:p-6 border-b border-slate-800 space-y-3">
+        <header class="bg-[#173B70] text-white p-5 sm:p-6 border-b border-[#315D91] space-y-3">
             <div class="flex flex-wrap items-center justify-between gap-2">
                 <div class="flex flex-wrap items-center gap-2">
                     <span class="px-2.5 py-1 rounded-lg bg-blue-900/80 text-blue-200 border border-blue-700 font-telemetry text-xs font-bold uppercase tracking-wider">

@@ -12,13 +12,13 @@
     <!-- Breadcrumb -->
     <nav class="flex flex-wrap items-center justify-between gap-3">
         <a href="{{ route('internal.reports.index') }}"
-           class="font-telemetry text-xs font-bold text-slate-600 hover:text-[#0F172A] inline-flex items-center gap-1">
+           class="font-telemetry text-xs font-bold text-slate-600 hover:text-[#202938] inline-flex items-center gap-1">
             <span>&larr; Kembali ke Daftar Laporan</span>
         </a>
         <div class="flex items-center gap-2">
             <a href="{{ route('public.track', ['ticket' => $report->ticket_number]) }}"
                target="_blank"
-               class="px-3 py-1.5 rounded border border-[#CBD5E1] bg-white hover:bg-slate-50 text-[#0F172A] font-telemetry text-xs font-bold uppercase tracking-wider">
+               class="px-3 py-1.5 rounded border border-slate-200/90 bg-white hover:bg-slate-50 text-[#202938] font-telemetry text-xs font-bold uppercase tracking-wider">
                 Lihat Tampilan Lacak Publik &nearr;
             </a>
         </div>
@@ -31,7 +31,7 @@
             <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                 <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4">
                     <div class="flex flex-wrap items-center gap-2">
-                        <span class="px-2.5 py-1 rounded bg-[#0F172A] text-white font-telemetry text-xs font-bold">
+                        <span class="px-2.5 py-1 rounded bg-[#173B70] text-white font-telemetry text-xs font-bold">
                             {{ $report->ticket_number }}
                         </span>
                         @if($report->is_simulation)
@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="space-y-2">
-                    <h1 class="text-lg sm:text-xl font-extrabold text-[#0F172A]">
+                    <h1 class="text-lg sm:text-xl font-extrabold text-[#202938]">
                         {{ $report->title }}
                     </h1>
                     <p class="text-sm text-slate-700 leading-relaxed whitespace-pre-line">{{ $report->description }}</p>
@@ -56,47 +56,47 @@
 
                 <!-- Internal Metadata Grid -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                    <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3">
+                    <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-3">
                         <span class="font-telemetry text-[10px] font-bold uppercase text-slate-500 block">
                             Nama Pelapor (Rahasia Internal)
                         </span>
-                        <span class="text-xs font-bold text-[#0F172A]">
+                        <span class="text-xs font-bold text-[#202938]">
                             {{ $report->reporter_name ?: 'Anonim (Tidak Diisi)' }}
                         </span>
                     </div>
 
-                    <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3">
+                    <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-3">
                         <span class="font-telemetry text-[10px] font-bold uppercase text-slate-500 block">
                             Kontak Pelapor (Rahasia Internal)
                         </span>
-                        <span class="font-telemetry text-xs font-bold text-[#0F172A]">
+                        <span class="font-telemetry text-xs font-bold text-[#202938]">
                             {{ $report->reporter_contact ?: 'Tidak Diisi' }}
                         </span>
                     </div>
 
-                    <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3">
+                    <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-3">
                         <span class="font-telemetry text-[10px] font-bold uppercase text-slate-500 block">
                             Waktu Kejadian Diamati
                         </span>
-                        <span class="font-telemetry text-xs font-bold text-[#0F172A]">
+                        <span class="font-telemetry text-xs font-bold text-[#202938]">
                             {{ ($report->occurred_at ?? $report->created_at)?->format('d M Y, H:i') }} WIB
                         </span>
                     </div>
 
-                    <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3">
+                    <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-3">
                         <span class="font-telemetry text-[10px] font-bold uppercase text-slate-500 block">
                             Waktu Laporan Masuk
                         </span>
-                        <span class="font-telemetry text-xs font-bold text-[#0F172A]">
+                        <span class="font-telemetry text-xs font-bold text-[#202938]">
                             {{ $report->created_at?->format('d M Y, H:i') }} WIB
                         </span>
                     </div>
 
-                    <div class="bg-[#F8FAFC] border border-slate-100 rounded-xl p-3 sm:col-span-2">
+                    <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-3 sm:col-span-2">
                         <span class="font-telemetry text-[10px] font-bold uppercase text-slate-500 block">
                             Lokasi &amp; Koordinat
                         </span>
-                        <span class="text-xs font-bold text-[#0F172A] block mt-0.5">
+                        <span class="text-xs font-bold text-[#202938] block mt-0.5">
                             {{ $report->location_name }}
                         </span>
                         @if($report->wilayahAdministratif)
@@ -128,7 +128,7 @@
             <!-- Complete Internal Audit Trail -->
             <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                 <div class="border-b border-slate-100 pb-3">
-                    <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                    <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
                         Riwayat Verifikasi &amp; Penautan Laporan (Mode Internal)
                     </h2>
                     <p class="text-xs text-slate-500">
@@ -150,7 +150,7 @@
             <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                 <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                     <div>
-                        <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                        <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
                             1. Keputusan Verifikasi Laporan
                         </h2>
                         <p class="text-xs text-slate-500">Wewenang: Verifikator &amp; Admin</p>
@@ -177,7 +177,7 @@
                             </label>
                             <select id="verify-confidence"
                                     name="confidence_level"
-                                    class="w-full min-h-[40px] px-3 py-1.5 bg-white border border-[#CBD5E1] rounded text-xs text-[#0F172A]">
+                                    class="w-full min-h-[40px] px-3 py-1.5 bg-white border border-slate-200/90 rounded text-xs text-[#202938]">
                                 @foreach(\App\Enums\ConfidenceLevel::cases() as $cCase)
                                     <option value="{{ $cCase->value }}" @selected(($report->confidence_level?->value ?? 'tinggi') === $cCase->value)>
                                         {{ $cCase->label() }}
@@ -195,7 +195,7 @@
                                       rows="2"
                                       required
                                       placeholder="Contoh: Dikonfirmasi silang dengan foto lokasi dan rilis sumber terbuka..."
-                                      class="w-full px-3 py-2 bg-white border border-[#CBD5E1] rounded text-xs text-[#0F172A]"></textarea>
+                                      class="w-full px-3 py-2 bg-white border border-slate-200/90 rounded text-xs text-[#202938]"></textarea>
                         </div>
 
                         <button type="submit"
@@ -223,7 +223,7 @@
                                       rows="2"
                                       required
                                       placeholder="Contoh: Melaporkan titik dan waktu yang sama dengan tiket RPT-SIM-8K4M9P2X..."
-                                      class="w-full px-3 py-2 bg-white border border-[#CBD5E1] rounded text-xs text-[#0F172A]"></textarea>
+                                      class="w-full px-3 py-2 bg-white border border-slate-200/90 rounded text-xs text-[#202938]"></textarea>
                         </div>
 
                         <button type="submit"
@@ -251,7 +251,7 @@
                                       rows="2"
                                       required
                                       placeholder="Contoh: Informasi tidak sesuai fakta lapangan / foto kejadian tahun sebelumnya..."
-                                      class="w-full px-3 py-2 bg-white border border-[#CBD5E1] rounded text-xs text-[#0F172A]"></textarea>
+                                      class="w-full px-3 py-2 bg-white border border-slate-200/90 rounded text-xs text-[#202938]"></textarea>
                         </div>
 
                         <button type="submit"
@@ -270,7 +270,7 @@
             <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                 <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                     <div>
-                        <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                        <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
                             2. Hubungkan Laporan dengan Kejadian
                         </h2>
                         <p class="text-xs text-slate-500">Wewenang: Operator &amp; Admin</p>
@@ -283,7 +283,7 @@
                 @if($report->incident)
                     <div class="bg-[#ECFDF5] border border-[#6EE7B7] rounded-lg p-3.5 text-xs space-y-1">
                         <span class="font-telemetry font-bold uppercase text-[#065F46] block">Saat Ini Terhubung ke:</span>
-                        <a href="{{ route('internal.incidents.edit', $report->incident) }}" class="font-bold text-[#0F172A] hover:underline block text-sm">
+                        <a href="{{ route('internal.incidents.edit', $report->incident) }}" class="font-bold text-[#202938] hover:underline block text-sm">
                             {{ $report->incident->title }}
                         </a>
                         <span class="text-slate-600 block">Lokasi: {{ $report->incident->location_name }}</span>
@@ -304,7 +304,7 @@
                             <select id="incident_id"
                                     name="incident_id"
                                     required
-                                    class="w-full min-h-[42px] px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg text-xs text-[#0F172A]">
+                                    class="w-full min-h-[42px] px-3 py-2 bg-white border border-slate-200/90 rounded-lg text-xs text-[#202938]">
                                 <option value="">-- Pilih Kejadian --</option>
                                 @foreach($availableIncidents as $inc)
                                     <option value="{{ $inc->id }}" @selected($report->incident_id === $inc->id)>
@@ -322,11 +322,11 @@
                                    id="link-notes"
                                    name="notes"
                                    placeholder="Contoh: Lokasi berada pada klaster banjir yang sama..."
-                                   class="w-full min-h-[40px] px-3 py-1.5 bg-white border border-[#CBD5E1] rounded-lg text-xs text-[#0F172A]">
+                                   class="w-full min-h-[40px] px-3 py-1.5 bg-white border border-slate-200/90 rounded-lg text-xs text-[#202938]">
                         </div>
 
                         <button type="submit"
-                                class="w-full px-4 py-2.5 rounded-lg bg-[#0F172A] hover:bg-slate-800 text-white font-telemetry text-xs font-bold uppercase tracking-wider transition cursor-pointer">
+                                class="w-full px-4 py-2.5 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition cursor-pointer">
                             Simpan Keterhubungan Kejadian
                         </button>
                     </form>

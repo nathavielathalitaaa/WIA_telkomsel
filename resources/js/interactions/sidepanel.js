@@ -28,12 +28,12 @@ export class TanggapSidepanel {
                 drawer.setAttribute('role', 'dialog');
                 drawer.setAttribute('aria-modal', 'true');
                 drawer.innerHTML = `
-                    <div class="px-5 py-4 border-b border-slate-200 flex items-center justify-between gap-3 bg-[#F8FAFC]">
+                    <div class="px-5 py-4 border-b border-slate-200 flex items-center justify-between gap-3 bg-[#F8F9FC]">
                         <div class="min-w-0">
-                            <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-slate-500 block sidepanel-subtitle">
+                            <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-[#788397] block sidepanel-subtitle">
                                 Pratinjau Cepat
                             </span>
-                            <h3 class="font-extrabold text-base text-[#0F172A] truncate sidepanel-title">
+                            <h3 class="font-extrabold text-base text-[#202938] truncate sidepanel-title">
                                 Detail Informasi
                             </h3>
                         </div>

@@ -50,7 +50,7 @@
             'label' => 'Konfirmasi Bukti Sah',
             'desc' => 'Penanganan atau serah terima bantuan dicatat selesai setelah diverifikasi dengan bukti fisik.',
             'badge' => 'Penyerahan Sah',
-            'badge_class' => 'bg-slate-900 text-white border-slate-900',
+            'badge_class' => 'bg-[#173B70] text-white border-[#173B70]',
         ],
     ];
 
@@ -62,15 +62,15 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-100 pb-3">
         <div class="space-y-0.5">
             <div class="flex items-center gap-2">
-                <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-800 border border-slate-300 font-telemetry text-[10px] font-bold uppercase tracking-wider">
+                <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-800 border border-slate-200 font-telemetry text-[10px] font-bold uppercase tracking-wider">
                     Alur Kerja Sistem
                 </span>
             </div>
-            <h3 class="text-sm sm:text-base font-extrabold text-[#0F172A] tracking-tight">
+            <h3 class="text-sm sm:text-base font-extrabold text-[#202938] tracking-tight">
                 {{ $title }}
             </h3>
         </div>
-        <p class="text-[11px] sm:text-xs text-slate-500 max-w-md">
+        <p class="text-[11px] sm:text-xs text-[#788397] max-w-md">
             {{ $subtitle }}
         </p>
     </div>
@@ -85,8 +85,8 @@
                 $isOverview = $currentStepNumber === 0;
 
                 if ($isCurrent) {
-                    $cardBorder = 'border-blue-600 bg-blue-50/50 ring-2 ring-blue-500/20';
-                    $circleClass = 'bg-[#2563EB] text-white ring-4 ring-blue-100';
+                    $cardBorder = 'border-[#173B70] bg-blue-50/50 ring-2 ring-[#173B70]/20';
+                    $circleClass = 'bg-[#173B70] text-white ring-4 ring-blue-100';
                 } elseif ($isPassed) {
                     $cardBorder = 'border-emerald-300 bg-emerald-50/30';
                     $circleClass = 'bg-[#059669] text-white';
@@ -95,8 +95,8 @@
                     $circleClass = 'bg-slate-200 text-slate-600';
                 } else {
                     // Overview mode
-                    $cardBorder = 'border-slate-200 bg-[#F8FAFC] hover:border-slate-400 transition';
-                    $circleClass = 'bg-[#0F172A] text-white';
+                    $cardBorder = 'border-slate-200 bg-[#F8F9FC] hover:border-[#173B70]/40 transition';
+                    $circleClass = 'bg-[#173B70] text-white';
                 }
             @endphp
 
@@ -119,22 +119,22 @@
 
                 <!-- Step Title & Label -->
                 <div class="space-y-1">
-                    <h4 class="font-telemetry text-xs font-bold text-[#0F172A] leading-snug">
+                    <h4 class="font-telemetry text-xs font-bold text-[#202938] leading-snug">
                         {{ $step['title'] }}
                     </h4>
-                    <span class="font-telemetry text-[10px] text-slate-500 uppercase tracking-wider block">
+                    <span class="font-telemetry text-[10px] text-[#788397] uppercase tracking-wider block">
                         {{ $step['label'] }}
                     </span>
                     @if(!$compact)
-                        <p class="text-[11px] text-slate-600 leading-relaxed pt-0.5">
+                        <p class="text-[11px] text-[#202938]/80 leading-relaxed pt-0.5">
                             {{ $step['desc'] }}
                         </p>
                     @endif
                 </div>
 
                 @if($isCurrent)
-                    <div class="pt-1 border-t border-blue-200/60 flex items-center gap-1 text-[10px] font-telemetry text-blue-800 font-bold">
-                        <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
+                    <div class="pt-1 border-t border-blue-200/60 flex items-center gap-1 text-[10px] font-telemetry text-[#173B70] font-bold">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#173B70] animate-pulse"></span>
                         <span>Posisi Saat Ini</span>
                     </div>
                 @endif
@@ -143,12 +143,12 @@
     </div>
 
     <!-- Integrity Disclaimer Footer Note -->
-    <div class="bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2 text-[11px] text-slate-600 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div class="bg-slate-50 border border-slate-100 rounded-lg px-3.5 py-2 text-[11px] text-[#788397] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div class="flex items-center gap-1.5">
-            <span class="text-blue-600 font-bold">ℹ</span>
+            <span class="text-[#173B70] font-bold">ℹ</span>
             <span>Status penanganan diperbarui secara bertahap berdasarkan hasil verifikasi tim dan bukti penyaluran di lapangan.</span>
         </div>
-        <span class="font-telemetry text-[10px] text-slate-500 font-semibold shrink-0">
+        <span class="font-telemetry text-[10px] text-[#788397] font-semibold shrink-0">
             5 Tahap Respons
         </span>
     </div>

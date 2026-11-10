@@ -286,6 +286,22 @@ class AidResponse extends Model
     }
 
     /**
+     * Dapatkan kelas badge CSS untuk masing-masing kategori kebutuhan.
+     */
+    public static function categoryBadgeClass(?string $category): string
+    {
+        $normalized = self::normalizeCategory($category);
+
+        return match ($normalized) {
+            self::CATEGORY_KESEHATAN => 'bg-rose-50 text-rose-700 border-rose-200/70',
+            self::CATEGORY_MAKAN_MINUM => 'bg-amber-50 text-amber-800 border-amber-200/70',
+            self::CATEGORY_BANSOS => 'bg-emerald-50 text-emerald-800 border-emerald-200/70',
+            self::CATEGORY_EVAKUASI => 'bg-blue-50 text-[#173B70] border-blue-200/70',
+            default => 'bg-slate-50 text-slate-700 border-slate-200/70',
+        };
+    }
+
+    /**
      * Seluruh kunci kategori valid yang diterima formulir (standar + legacy).
      *
      * @return array<int, string>

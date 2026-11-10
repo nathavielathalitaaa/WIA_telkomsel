@@ -14,14 +14,14 @@
                          class="h-14 sm:h-16 w-auto object-contain shrink-0">
                     <div class="space-y-1.5">
                         <div class="flex flex-wrap items-center gap-2">
-                            <span class="px-2 py-0.5 rounded bg-[#0F172A] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
+                            <span class="px-2 py-0.5 rounded bg-[#173B70] text-white font-telemetry text-[10px] font-bold uppercase tracking-wider">
                                 Akses Terbatas Tim Internal
                             </span>
                             <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-telemetry text-[10px] font-bold uppercase tracking-wider">
                                 Admin • Verifikator • Operator
                             </span>
                         </div>
-                        <h1 class="text-xl sm:text-2xl font-extrabold text-[#0F172A]">
+                        <h1 class="text-xl sm:text-2xl font-extrabold text-[#202938]">
                             Masuk ke Panel Pengelolaan TanggapTerang
                         </h1>
                     </div>
@@ -46,7 +46,7 @@
                 @csrf
 
                 <div>
-                    <label for="email" class="block font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A] mb-1">
+                    <label for="email" class="block font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938] mb-1">
                         Email Petugas Internal
                     </label>
                     <input type="email"
@@ -57,14 +57,14 @@
                            autofocus
                            autocomplete="username"
                            placeholder="nama.petugas@tanggap-terang.id"
-                           class="w-full min-h-[44px] px-3.5 py-2 bg-white border {{ $errors->has('email') ? 'border-[#DC2626]' : 'border-[#CBD5E1]' }} rounded-lg text-sm text-[#0F172A] focus:outline-none focus:border-[#0F172A]">
+                           class="w-full min-h-[44px] px-3.5 py-2 bg-white border {{ $errors->has('email') ? 'border-[#DC2626]' : 'border-slate-200/90' }} rounded-lg text-sm text-[#202938] focus:outline-none focus:border-[#173B70]">
                     @error('email')
                         <p class="mt-1 text-xs font-semibold text-[#DC2626]">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div>
-                    <label for="password" class="block font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A] mb-1">
+                    <label for="password" class="block font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938] mb-1">
                         Kata Sandi
                     </label>
                     <input type="password"
@@ -73,7 +73,7 @@
                            required
                            autocomplete="current-password"
                            placeholder="Masukkan kata sandi akun internal"
-                           class="w-full min-h-[44px] px-3.5 py-2 bg-white border {{ $errors->has('password') ? 'border-[#DC2626]' : 'border-[#CBD5E1]' }} rounded-lg text-sm text-[#0F172A] focus:outline-none focus:border-[#0F172A]">
+                           class="w-full min-h-[44px] px-3.5 py-2 bg-white border {{ $errors->has('password') ? 'border-[#DC2626]' : 'border-slate-200/90' }} rounded-lg text-sm text-[#202938] focus:outline-none focus:border-[#173B70]">
                     @error('password')
                         <p class="mt-1 text-xs font-semibold text-[#DC2626]">{{ $message }}</p>
                     @enderror
@@ -81,12 +81,12 @@
 
                 <div class="pt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <a href="{{ route('public.monitor') }}"
-                       class="font-telemetry text-xs font-bold text-slate-600 hover:text-[#0F172A] inline-flex items-center gap-1">
+                       class="font-telemetry text-xs font-bold text-slate-600 hover:text-[#202938] inline-flex items-center gap-1">
                         <span>&larr; Kembali ke Halaman Publik</span>
                     </a>
 
                     <button type="submit"
-                            class="px-6 py-2.5 rounded-lg bg-[#0F172A] hover:bg-slate-800 text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center justify-center gap-2 cursor-pointer">
+                            class="px-6 py-2.5 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center justify-center gap-2 cursor-pointer">
                         <span>Masuk ke Panel Internal</span>
                         <span>&rarr;</span>
                     </button>
@@ -97,20 +97,20 @@
         <!-- Right Column: Role Information & Public Access Notice (5 cols) -->
         <aside class="lg:col-span-5 space-y-4">
             <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-3">
-                <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
                     Pembagian Peran Tim Internal
                 </h2>
                 <div class="space-y-2.5 text-xs text-slate-600">
-                    <div class="p-3 rounded-xl bg-[#F8FAFC] border border-slate-100">
+                    <div class="p-3 rounded-xl bg-[#F8F9FC] border border-slate-100">
                         <strong class="font-telemetry uppercase text-[#2563EB] block">1. Verifikator</strong>
                         Memeriksa laporan masyarakat yang masuk, memverifikasi, menolak dengan alasan, atau menandai laporan duplikat, serta memperbarui status verifikasi kejadian.
                     </div>
-                    <div class="p-3 rounded-xl bg-[#F8FAFC] border border-slate-100">
+                    <div class="p-3 rounded-xl bg-[#F8F9FC] border border-slate-100">
                         <strong class="font-telemetry uppercase text-[#059669] block">2. Operator</strong>
                         Membuat dan memperbarui data kejadian, menghubungkan laporan ke kejadian, menambahkan sumber informasi terbuka, serta mencatat tindak lanjut.
                     </div>
-                    <div class="p-3 rounded-xl bg-[#F8FAFC] border border-slate-100">
-                        <strong class="font-telemetry uppercase text-[#0F172A] block">3. Administrator</strong>
+                    <div class="p-3 rounded-xl bg-[#F8F9FC] border border-slate-100">
+                        <strong class="font-telemetry uppercase text-[#202938] block">3. Administrator</strong>
                         Memiliki kewenangan penuh atas pengelolaan verifikasi laporan maupun pengelolaan kejadian dan tindak lanjut.
                     </div>
                 </div>

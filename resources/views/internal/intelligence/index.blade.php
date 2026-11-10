@@ -212,7 +212,7 @@
 
     <!-- Weather Comparison Callout / Preview Card -->
     @if(!empty($weatherComparison) && ($weatherComparison['has_data'] ?? false))
-        <div class="bg-[#0F172A] text-white rounded-2xl p-5 sm:p-6 shadow-xs border border-slate-800">
+        <div class="bg-[#173B70] text-white rounded-2xl p-5 sm:p-6 shadow-xs border border-[#315D91]">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <span class="px-2.5 py-0.5 rounded font-telemetry text-[11px] font-bold uppercase tracking-wider bg-blue-500/30 text-blue-200 border border-blue-400/40">

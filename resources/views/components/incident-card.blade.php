@@ -6,7 +6,7 @@
         : (string) $incident->severity;
 
     $stripeColor = match ($severityVal) {
-        'kritis' => 'bg-[#DC2626]',
+        'kritis' => 'bg-[#D94350]',
         'tinggi' => 'bg-[#D97706]',
         'sedang' => 'bg-amber-500',
         default => 'bg-[#059669]',
@@ -62,13 +62,13 @@
 
         <!-- Title & Location -->
         <div>
-            <h3 class="text-base sm:text-lg font-bold text-[#0F172A] leading-snug">
-                <a href="{{ route('public.incidents.show', $incident->slug) }}" class="hover:text-[#2563EB] transition-colors">
+            <h3 class="text-base sm:text-lg font-bold text-[#202938] leading-snug">
+                <a href="{{ route('public.incidents.show', $incident->slug) }}" class="hover:text-[#173B70] transition-colors">
                     {{ $incident->title }}
                 </a>
             </h3>
             <div class="flex items-center gap-1.5 text-slate-600 text-xs sm:text-sm mt-1">
-                <svg class="w-4 h-4 text-[#DC2626] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 text-[#D94350] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                 </svg>
@@ -164,13 +164,13 @@
                 </button>
                 @if(\Illuminate\Support\Facades\Route::has('public.sitrep'))
                     <a href="{{ route('public.sitrep', ['incident' => $incident->slug]) }}"
-                       class="px-2.5 sm:px-3 py-1.5 rounded border border-slate-300 text-xs font-telemetry font-bold text-[#0F172A] hover:bg-slate-100 transition"
+                       class="px-2.5 sm:px-3 py-1.5 rounded border border-slate-200/80 text-xs font-telemetry font-bold text-[#202938] hover:bg-slate-50 transition"
                        data-tooltip="Lihat Situation Report (SitRep) formal kejadian ini">
                         SitRep
                     </a>
                 @endif
                 <a href="{{ route('public.incidents.show', $incident->slug) }}"
-                   class="px-3 sm:px-3.5 py-1.5 rounded bg-[#0F172A] text-white text-xs font-telemetry font-bold hover:bg-slate-800 transition inline-flex items-center gap-1">
+                   class="px-3 sm:px-3.5 py-1.5 rounded bg-[#173B70] hover:bg-[#0F2A52] text-white text-xs font-telemetry font-bold transition inline-flex items-center gap-1 shadow-xs">
                     <span>Lihat Detail</span>
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>

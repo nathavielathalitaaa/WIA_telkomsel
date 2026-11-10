@@ -6,14 +6,14 @@
 @section('content')
 <div class="space-y-6">
     <!-- Header Section -->
-    <div class="bg-white rounded-xl shadow-xs border border-slate-200 p-5 sm:p-6">
+    <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 sm:p-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
                 <div class="flex flex-wrap items-center gap-2 mb-1.5">
                     <span class="px-2.5 py-0.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider bg-amber-500 text-slate-950 border border-amber-400">
                         Khusus Administrator
                     </span>
-                    <span class="px-2.5 py-0.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider bg-slate-100 text-slate-700 border border-slate-300">
+                    <span class="px-2.5 py-0.5 rounded font-telemetry text-xs font-bold uppercase tracking-wider bg-slate-100 text-slate-700 border border-slate-200">
                         Multi-Source Intelligence
                     </span>
                 </div>
@@ -40,22 +40,22 @@
 
         <!-- Telemetry Metrics Bar -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-6 pt-5 border-t border-slate-100">
-            <div class="bg-slate-50 rounded-lg p-3.5 border border-slate-200">
+            <div class="bg-slate-50 rounded-xl p-3.5 border border-slate-100">
                 <span class="text-xs font-bold uppercase font-telemetry text-slate-500">Total Rekaman Tersimpan</span>
                 <div class="text-2xl font-bold font-telemetry text-slate-900 mt-0.5">{{ number_format($totalRecords) }}</div>
                 <span class="text-[11px] text-slate-500">Hasil normalisasi deduplikasi</span>
             </div>
-            <div class="bg-blue-50/60 rounded-lg p-3.5 border border-blue-200">
+            <div class="bg-blue-50/60 rounded-xl p-3.5 border border-blue-100">
                 <span class="text-xs font-bold uppercase font-telemetry text-blue-700">Sumber Dalam Negeri</span>
                 <div class="text-2xl font-bold font-telemetry text-blue-900 mt-0.5">{{ number_format($domesticRecordsCount) }}</div>
                 <span class="text-[11px] text-blue-700/80">BMKG, PetaBencana, BNPB</span>
             </div>
-            <div class="bg-purple-50/60 rounded-lg p-3.5 border border-purple-200">
+            <div class="bg-purple-50/60 rounded-xl p-3.5 border border-purple-100">
                 <span class="text-xs font-bold uppercase font-telemetry text-purple-700">Sumber Internasional</span>
                 <div class="text-2xl font-bold font-telemetry text-purple-900 mt-0.5">{{ number_format($intlRecordsCount) }}</div>
                 <span class="text-[11px] text-purple-700/80">Open-Meteo, GDACS, GDELT</span>
             </div>
-            <div class="bg-emerald-50/60 rounded-lg p-3.5 border border-emerald-200">
+            <div class="bg-emerald-50/60 rounded-xl p-3.5 border border-emerald-100">
                 <span class="text-xs font-bold uppercase font-telemetry text-emerald-700">Integritas Arsitektur</span>
                 <div class="text-sm font-bold font-telemetry text-emerald-900 mt-1 flex items-center gap-1.5">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -78,13 +78,13 @@
             <span class="text-xs font-telemetry text-slate-500">4 Integrasi Terdaftar</span>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="flex overflow-x-auto pb-4 gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-x-visible sm:pb-0 scrollbar-none snap-x snap-mandatory">
             @foreach($domesticProviders as $provider)
                 @php
                     $statusBadge = \App\Models\ExternalProvider::statusBadgeClass($provider->last_status, $provider->is_active);
                     $statusText = \App\Models\ExternalProvider::statusLabel($provider->last_status, $provider->is_active);
                 @endphp
-                <div class="bg-white rounded-xl border border-slate-200 shadow-xs p-4 flex flex-col justify-between hover:border-blue-400 transition">
+                <div class="w-[85vw] sm:w-auto shrink-0 snap-start bg-white rounded-2xl border border-slate-100/90 shadow-xs p-4 flex flex-col justify-between hover:border-blue-400 transition">
                     <div>
                         <div class="flex items-start justify-between gap-2 mb-2">
                             <span class="px-2 py-0.5 rounded font-telemetry text-[10px] font-bold uppercase tracking-wider {{ $statusBadge }} border">
@@ -154,13 +154,13 @@
             <span class="text-xs font-telemetry text-slate-500">4 Integrasi Terdaftar</span>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="flex overflow-x-auto pb-4 gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-x-visible sm:pb-0 scrollbar-none snap-x snap-mandatory">
             @foreach($internationalProviders as $provider)
                 @php
                     $statusBadge = \App\Models\ExternalProvider::statusBadgeClass($provider->last_status, $provider->is_active);
                     $statusText = \App\Models\ExternalProvider::statusLabel($provider->last_status, $provider->is_active);
                 @endphp
-                <div class="bg-white rounded-xl border border-slate-200 shadow-xs p-4 flex flex-col justify-between hover:border-purple-400 transition">
+                <div class="w-[85vw] sm:w-auto shrink-0 snap-start bg-white rounded-2xl border border-slate-100/90 shadow-xs p-4 flex flex-col justify-between hover:border-purple-400 transition">
                     <div>
                         <div class="flex items-start justify-between gap-2 mb-2">
                             <span class="px-2 py-0.5 rounded font-telemetry text-[10px] font-bold uppercase tracking-wider {{ $statusBadge }} border">
@@ -212,7 +212,7 @@
 
     <!-- Weather Comparison Callout / Preview Card -->
     @if(!empty($weatherComparison) && ($weatherComparison['has_data'] ?? false))
-        <div class="bg-gradient-to-r from-blue-900 to-indigo-950 text-white rounded-xl p-5 shadow-sm border border-blue-800">
+        <div class="bg-[#0F172A] text-white rounded-2xl p-5 sm:p-6 shadow-xs border border-slate-800">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <span class="px-2.5 py-0.5 rounded font-telemetry text-[11px] font-bold uppercase tracking-wider bg-blue-500/30 text-blue-200 border border-blue-400/40">
@@ -310,8 +310,8 @@
     @endif
 
     <!-- Section C: Master Data & Filter Rekaman Eksternal -->
-    <div class="bg-white rounded-xl shadow-xs border border-slate-200 overflow-hidden">
-        <div class="p-4 sm:p-5 border-b border-slate-200">
+    <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
+        <div class="p-4 sm:p-5 border-b border-slate-100">
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
                 <div>
                     <h3 class="text-base font-bold font-telemetry text-slate-900">

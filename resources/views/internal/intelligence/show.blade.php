@@ -6,7 +6,7 @@
 @section('content')
 <div class="space-y-6">
     <!-- Header -->
-    <div class="bg-white rounded-xl shadow-xs border border-slate-200 p-5 sm:p-6">
+    <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 sm:p-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
                 <a href="{{ route('internal.intelligence.index') }}" class="text-xs text-blue-600 hover:underline font-telemetry flex items-center gap-1 mb-1">
@@ -34,7 +34,7 @@
     </div>
 
     <!-- Metadata Card -->
-    <div class="bg-white rounded-xl shadow-xs border border-slate-200 p-5 sm:p-6 space-y-4">
+    <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 sm:p-6 space-y-4">
         <h2 class="text-base font-bold font-telemetry text-slate-900 border-b border-slate-100 pb-2">
             Informasi Terstandarisasi
         </h2>
@@ -93,14 +93,14 @@
         <div class="pt-3 border-t border-slate-100 space-y-1">
             <span class="text-slate-400 font-telemetry uppercase text-[10px] font-bold block">Judul Ringkasan</span>
             <div class="font-bold text-slate-900 text-sm">{{ $record->title }}</div>
-            <div class="text-xs text-slate-600 mt-1 bg-slate-50 p-3 rounded-lg border border-slate-200">
+            <div class="text-xs text-slate-600 mt-1 bg-slate-50 p-3 rounded-xl border border-slate-100">
                 {{ $record->summary ?? 'Tidak ada ringkasan teks.' }}
             </div>
         </div>
     </div>
 
     <!-- Raw Payload JSON Card -->
-    <div class="bg-white rounded-xl shadow-xs border border-slate-200 overflow-hidden">
+    <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
         <div class="p-4 bg-slate-900 text-white flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>

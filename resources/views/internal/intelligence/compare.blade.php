@@ -6,7 +6,7 @@
 @section('content')
 <div class="space-y-6">
     <!-- Header -->
-    <div class="bg-white rounded-xl shadow-xs border border-slate-200 p-5 sm:p-6">
+    <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 sm:p-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
                 <div class="flex items-center gap-2 mb-1">
@@ -40,7 +40,7 @@
     </div>
 
     <!-- Section 1: Perbandingan Prakiraan Cuaca (BMKG vs Open-Meteo) -->
-    <div class="bg-white rounded-xl shadow-xs border border-slate-200 overflow-hidden">
+    <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
         <div class="p-4 sm:p-5 bg-slate-50 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
                 <span class="px-2 py-0.5 rounded font-telemetry text-[10px] font-bold uppercase tracking-wider bg-cyan-100 text-cyan-800 border border-cyan-200">
@@ -148,7 +148,7 @@
     <!-- Section 2: Perbandingan Gempa Bumi & Peringatan Dini -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- BMKG TEWS -->
-        <div class="bg-white rounded-xl shadow-xs border border-slate-200 overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
             <div class="p-4 bg-blue-50/60 border-b border-blue-100 flex items-center justify-between">
                 <div>
                     <h3 class="font-bold font-telemetry text-sm text-blue-950">BMKG TEWS Gempa Terkini (Domestik)</h3>
@@ -175,7 +175,7 @@
         </div>
 
         <!-- GDACS Alerts -->
-        <div class="bg-white rounded-xl shadow-xs border border-slate-200 overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
             <div class="p-4 bg-purple-50/60 border-b border-purple-100 flex items-center justify-between">
                 <div>
                     <h3 class="font-bold font-telemetry text-sm text-purple-950">GDACS Global Disaster Alerts (Internasional)</h3>
@@ -205,7 +205,7 @@
     <!-- Section 3: Laporan Lapangan vs Indikator Debit Sungai -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- PetaBencana -->
-        <div class="bg-white rounded-xl shadow-xs border border-slate-200 overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
             <div class="p-4 bg-amber-50/60 border-b border-amber-100 flex items-center justify-between">
                 <div>
                     <h3 class="font-bold font-telemetry text-sm text-amber-950">PetaBencana Laporan Warga Lapangan</h3>
@@ -231,7 +231,7 @@
         </div>
 
         <!-- Open-Meteo Flood -->
-        <div class="bg-white rounded-xl shadow-xs border border-slate-200 overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
             <div class="p-4 bg-teal-50/60 border-b border-teal-100 flex items-center justify-between">
                 <div>
                     <h3 class="font-bold font-telemetry text-sm text-teal-950">Open-Meteo Global River Discharge (Hidrologi)</h3>
@@ -258,7 +258,7 @@
     </div>
 
     <!-- Section 4: Form Catatan Analisis Admin -->
-    <div id="analisis-admin" class="bg-white rounded-xl shadow-xs border border-slate-200 p-5 sm:p-6">
+    <div id="analisis-admin" class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 sm:p-6">
         <h3 class="text-base font-bold font-telemetry text-slate-900 mb-1">
             Form Dokumentasi Analisis Perbandingan Intelijen
         </h3>
@@ -355,7 +355,7 @@
     </div>
 
     <!-- Section 5: Riwayat Catatan Analisis Tersimpan -->
-    <div class="bg-white rounded-xl shadow-xs border border-slate-200 overflow-hidden">
+    <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
         <div class="p-4 sm:p-5 border-b border-slate-200">
             <h3 class="text-base font-bold font-telemetry text-slate-900">
                 Riwayat Dokumen Analisis Perbandingan

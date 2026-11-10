@@ -6,7 +6,7 @@
 @section('content')
 <div class="space-y-8">
     <!-- Breadcrumb & Header Hero -->
-    <header class="bg-white border border-slate-300 rounded-xl shadow-2xs overflow-hidden">
+    <header class="bg-white border border-slate-100/90 rounded-2xl shadow-xs overflow-hidden">
         <div class="bg-[#0F172A] text-white px-4 sm:px-6 py-6 border-b border-slate-800">
             <div class="flex flex-wrap items-center gap-2 text-xs font-telemetry text-slate-400 mb-2">
                 <a href="{{ route('public.monitor') }}" class="hover:text-white transition">Beranda</a>
@@ -36,7 +36,7 @@
         </div>
 
         <!-- Metric Telemetry Counter Bar -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-x divide-y sm:divide-y-0 divide-slate-200 bg-slate-50 text-slate-700 text-xs">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-x divide-y sm:divide-y-0 divide-slate-100 bg-slate-50 text-slate-700 text-xs">
             <div class="p-3.5 sm:p-4">
                 <span class="font-telemetry text-[10px] font-bold uppercase text-slate-500 block">Total Provider</span>
                 <span class="font-telemetry text-lg sm:text-xl font-extrabold text-slate-900 mt-0.5 block">{{ $totalProviders }} Layanan</span>
@@ -75,7 +75,7 @@
     </header>
 
     <!-- Deklarasi Transparansi & Integritas Publik -->
-    <section aria-label="Deklarasi Transparansi" class="p-4 sm:p-5 rounded-xl bg-blue-50/70 border border-blue-200 text-slate-700 space-y-2">
+    <section aria-label="Deklarasi Transparansi" class="p-4 sm:p-5 rounded-2xl bg-blue-50/70 border border-blue-200/80 text-slate-700 space-y-2">
         <div class="flex items-start gap-2.5">
             <span class="p-1 rounded bg-blue-600 text-white shrink-0 mt-0.5">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -99,7 +99,7 @@
 
     <!-- SECTION 1: KARTU SETIAP PROVIDER (8 PROVIDER LENGKAP) -->
     <section aria-label="Kartu Provider Eksternal" class="space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
             <div>
                 <h2 class="font-telemetry text-sm sm:text-base font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
                     <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
@@ -115,14 +115,14 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="flex overflow-x-auto pb-4 gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-x-visible sm:pb-0 scrollbar-none snap-x snap-mandatory">
             @foreach($providers as $provider)
                 @php
                     $statusBadge = \App\Models\ExternalProvider::statusBadgeClass($provider->last_status, $provider->is_active);
                     $statusText = \App\Models\ExternalProvider::statusLabel($provider->last_status, $provider->is_active);
                     $providerRecordCount = \App\Models\ExternalSourceRecord::where('provider_code', $provider->code)->count();
                 @endphp
-                <div class="bg-white rounded-xl border border-slate-300 shadow-2xs hover:shadow-xs transition p-4 flex flex-col justify-between space-y-4">
+                <div class="w-[85vw] sm:w-auto shrink-0 snap-start bg-white rounded-2xl border border-slate-100/90 shadow-xs hover:shadow-sm transition p-4 flex flex-col justify-between space-y-4">
                     <div>
                         <!-- Header Kartu -->
                         <div class="flex items-start justify-between gap-2 mb-2">
@@ -247,7 +247,7 @@
     </section>
 
     <!-- SECTION 2: FILTER KATEGORI & PENCARIAN -->
-    <section aria-label="Filter Rekaman Data" class="bg-white border border-slate-300 rounded-xl p-4 sm:p-5 shadow-2xs space-y-4">
+    <section aria-label="Filter Rekaman Data" class="bg-white border border-slate-100/90 rounded-2xl p-4 sm:p-5 shadow-xs space-y-4">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-100 pb-3">
             <div>
                 <h2 class="font-telemetry text-sm sm:text-base font-bold uppercase tracking-wider text-slate-900">
@@ -338,7 +338,7 @@
         </div>
 
         @if($records->isEmpty())
-            <div class="bg-white border border-slate-300 rounded-xl p-8 text-center space-y-3">
+            <div class="bg-white border border-slate-100/90 rounded-2xl p-8 text-center space-y-3 shadow-xs">
                 <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-400 mx-auto flex items-center justify-center">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 </div>
@@ -352,9 +352,9 @@
                 </a>
             </div>
         @else
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="flex overflow-x-auto pb-4 gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-x-visible sm:pb-0 scrollbar-none snap-x snap-mandatory">
                 @foreach($records as $rec)
-                    <article class="bg-white rounded-xl border border-slate-300 shadow-2xs hover:border-blue-400 hover:shadow-xs transition p-4 flex flex-col justify-between space-y-3">
+                    <article class="w-[85vw] sm:w-auto shrink-0 snap-start bg-white rounded-2xl border border-slate-100/90 shadow-xs hover:border-blue-400 hover:shadow-sm transition p-4 flex flex-col justify-between space-y-3">
                         <div class="space-y-2">
                             <!-- Header Rekaman -->
                             <div class="flex flex-wrap items-center justify-between gap-1.5">
@@ -423,7 +423,7 @@
     </section>
 
     <!-- SECTION 4: TELEMETRI LOG PENGAMBILAN DATA PUBLIK (AUDIT TRAIL RINGKAS) -->
-    <section aria-label="Log Sinkronisasi API" class="bg-white border border-slate-300 rounded-xl p-4 sm:p-5 shadow-2xs space-y-3">
+    <section aria-label="Log Sinkronisasi API" class="bg-white border border-slate-100/90 rounded-2xl p-4 sm:p-5 shadow-xs space-y-3">
         <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
             <div>
                 <h2 class="font-telemetry text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
@@ -439,16 +439,16 @@
             </span>
         </div>
 
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto rounded-xl border border-slate-100">
             <table class="w-full text-left text-xs text-slate-700">
                 <thead>
                     <tr class="bg-slate-50 border-b border-slate-200 font-telemetry text-[10px] font-bold uppercase text-slate-600">
-                        <th class="py-2 px-3">Waktu Eksekusi</th>
-                        <th class="py-2 px-3">Layanan / Provider</th>
-                        <th class="py-2 px-3">Status Sinkronisasi</th>
-                        <th class="py-2 px-3">Respons HTTP</th>
-                        <th class="py-2 px-3">Latensi</th>
-                        <th class="py-2 px-3 text-right">Data Tersimpan</th>
+                        <th class="py-2.5 px-3">Waktu Eksekusi</th>
+                        <th class="py-2.5 px-3">Layanan / Provider</th>
+                        <th class="py-2.5 px-3">Status Sinkronisasi</th>
+                        <th class="py-2.5 px-3">Respons HTTP</th>
+                        <th class="py-2.5 px-3">Latensi</th>
+                        <th class="py-2.5 px-3 text-right">Data Tersimpan</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100 font-telemetry text-[11px]">

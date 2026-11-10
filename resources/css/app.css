@@ -30,11 +30,12 @@
     .surface-card {
         background-color: #FFFFFF;
         border-radius: 1rem; /* 16px */
-        box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
+        border: 1px solid rgba(241, 245, 249, 0.9);
+        box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.03);
         transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 160ms cubic-bezier(0.16, 1, 0.3, 1);
     }
     .surface-card:hover {
-        box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+        box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.06), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
     }
 
     .font-telemetry {
@@ -42,15 +43,16 @@
         letter-spacing: 0.04em;
     }
 
-    /* Brand Red-Blue Gradient (DESIGN.md #2563EB Blue 600 <-> #DC2626 Red 600) */
+    /* Brand Navy-Blue Gradient / Primary Action */
     .btn-brand-gradient {
-        background-image: linear-gradient(135deg, #DC2626 0%, #2563EB 100%);
+        background-color: #0F172A;
+        background-image: linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%);
         color: #FFFFFF;
-        border: 1px solid #1E40AF;
+        border: 1px solid #1E293B;
         transition: filter 150ms ease, transform 100ms ease, box-shadow 150ms ease;
     }
     .btn-brand-gradient:hover {
-        background-image: linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%);
+        background-image: linear-gradient(135deg, #1E293B 0%, #2563EB 100%);
         color: #FFFFFF;
     }
     .btn-brand-gradient:focus-visible {
@@ -58,18 +60,19 @@
         outline-offset: 2px;
     }
     .btn-brand-gradient:active {
-        background-image: linear-gradient(135deg, #991B1B 0%, #1E3A8A 100%);
+        background-image: linear-gradient(135deg, #0B1120 0%, #1E3A8A 100%);
         transform: translateY(1px);
     }
 
     .nav-active-gradient {
-        background-image: linear-gradient(135deg, #DC2626 0%, #2563EB 100%);
+        background-color: #0F172A;
+        background-image: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
         color: #FFFFFF !important;
-        border: 1px solid #1E40AF;
-        box-shadow: 0 1px 2px 0 rgba(15, 23, 42, 0.18);
+        border: 1px solid #0F172A;
+        box-shadow: 0 1px 2px 0 rgba(15, 23, 42, 0.12);
     }
     .nav-active-gradient:hover {
-        background-image: linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%);
+        background-image: linear-gradient(135deg, #1E293B 0%, #334155 100%);
         color: #FFFFFF !important;
     }
     .nav-active-gradient:focus-visible {
@@ -78,7 +81,7 @@
     }
 
     .brand-gradient-bar {
-        background-image: linear-gradient(90deg, #DC2626 0%, #2563EB 100%);
+        background-image: linear-gradient(90deg, #0F172A 0%, #2563EB 100%);
     }
 
     /* Desktop Interaction System */

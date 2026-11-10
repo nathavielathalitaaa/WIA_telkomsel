@@ -6,7 +6,7 @@
 @section('content')
 <div class="space-y-6">
     <!-- Header -->
-    <div class="bg-white rounded-xl shadow-xs border border-slate-200 p-5 sm:p-6">
+    <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 sm:p-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
                 <a href="{{ route('internal.intelligence.index') }}" class="text-xs text-blue-600 hover:underline font-telemetry flex items-center gap-1 mb-1">
@@ -23,7 +23,7 @@
     </div>
 
     <!-- Logs Table -->
-    <div class="bg-white rounded-xl shadow-xs border border-slate-200 overflow-hidden">
+    <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs text-slate-700">
                 <thead class="bg-slate-50 text-slate-500 font-telemetry uppercase text-[10px] tracking-wider border-b border-slate-200">

@@ -15,12 +15,12 @@
     </nav>
 
     <!-- Main Card -->
-    <article class="bg-white border border-slate-300 rounded-xl shadow-xs overflow-hidden">
+    <article class="bg-white border border-slate-100/90 rounded-2xl shadow-xs overflow-hidden">
         <!-- Header -->
         <header class="bg-[#0F172A] text-white p-5 sm:p-6 border-b border-slate-800 space-y-3">
             <div class="flex flex-wrap items-center justify-between gap-2">
                 <div class="flex flex-wrap items-center gap-2">
-                    <span class="px-2.5 py-1 rounded bg-blue-900/80 text-blue-200 border border-blue-700 font-telemetry text-xs font-bold uppercase tracking-wider">
+                    <span class="px-2.5 py-1 rounded-lg bg-blue-900/80 text-blue-200 border border-blue-700 font-telemetry text-xs font-bold uppercase tracking-wider">
                         {{ \App\Models\ExternalProvider::infoTypeLabel($record->info_type) }}
                     </span>
                     <span class="px-2 py-0.5 rounded font-telemetry text-[11px] font-bold uppercase {{ $record->is_simulation ? 'bg-amber-900/70 text-amber-200 border border-amber-700' : 'bg-emerald-900/70 text-emerald-200 border border-emerald-700' }}">
@@ -54,7 +54,7 @@
                 <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-500">
                     Ringkasan Informasi
                 </h2>
-                <div class="p-4 rounded-lg bg-slate-50 border border-slate-200 text-sm text-slate-700 leading-relaxed font-sans">
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 text-sm text-slate-700 leading-relaxed font-sans">
                     {{ $record->summary ?: 'Tidak ada deskripsi tambahan dari penyedia data.' }}
                 </div>
             </section>
@@ -62,7 +62,7 @@
             <!-- Metadata Grid -->
             <section class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <!-- Waktu Kejadian & Publikasi -->
-                <div class="p-4 rounded-lg border border-slate-200 space-y-2">
+                <div class="p-4 rounded-xl border border-slate-100 bg-white shadow-2xs space-y-2">
                     <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-500">
                         Waktu &amp; Tanggal
                     </h3>
@@ -89,7 +89,7 @@
                 </div>
 
                 <!-- Lokasi & Koordinat -->
-                <div class="p-4 rounded-lg border border-slate-200 space-y-2">
+                <div class="p-4 rounded-xl border border-slate-100 bg-white shadow-2xs space-y-2">
                     <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-500">
                         Lokasi &amp; Georeferensi
                     </h3>
@@ -117,7 +117,7 @@
             </section>
 
             <!-- Tautan Sumber Asli & Endpoint -->
-            <section class="p-4 rounded-lg bg-blue-50/50 border border-blue-200 space-y-3">
+            <section class="p-4 rounded-xl bg-blue-50/50 border border-blue-100 space-y-3">
                 <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-blue-900">
                     Tautan Sumber Asli &amp; Keabsahan Informasi
                 </h3>
@@ -145,7 +145,7 @@
             </section>
 
             <!-- Transparansi Verifikasi -->
-            <section class="p-3.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-600 text-xs leading-relaxed space-y-1">
+            <section class="p-4 rounded-xl bg-slate-50 border border-slate-100 text-slate-600 text-xs leading-relaxed space-y-1">
                 <span class="font-telemetry text-[11px] font-bold uppercase text-slate-700 block">Status Transparansi Sistem:</span>
                 <p>
                     Rekaman ini diimpor secara otomatis melalui integrasi API eksternal dan dicatat ke dalam database telemetri. Data eksternal disajikan apa adanya (as-is) untuk transparansi publik dan <em>bukan</em> merupakan klaim kejadian terverifikasi independen oleh TanggapTerang sebelum melalui telaah tim kurasi.
@@ -154,9 +154,9 @@
         </div>
 
         <!-- Footer Actions -->
-        <footer class="bg-slate-50 px-5 sm:px-6 py-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
+        <footer class="bg-slate-50 px-5 sm:px-6 py-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
             <a href="{{ route('public.sources.index') }}"
-               class="px-4 py-2 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 font-telemetry text-xs font-bold uppercase tracking-wider transition">
+               class="px-4 py-2 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 text-slate-700 font-telemetry text-xs font-bold uppercase tracking-wider transition">
                 &larr; Kembali ke Transparansi Sumber Data
             </a>
             <div class="flex items-center gap-2">

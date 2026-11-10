@@ -196,21 +196,21 @@
                     </span>
                 </div>
 
-                <div class="flex overflow-x-auto snap-x snap-mandatory gap-2.5 pb-1 -mx-2 px-2 sm:mx-0 sm:px-0 scrollbar-none sm:grid sm:grid-cols-3 text-center">
-                    <div class="bg-white border border-[#93C5FD] rounded-lg p-2.5 card-interactive w-[130px] shrink-0 snap-start sm:w-auto"
+                <div class="grid grid-cols-3 gap-2 text-center">
+                    <div class="bg-white border border-[#93C5FD] rounded-lg p-2 card-interactive"
                          data-tooltip="Jumlah kejadian dengan validasi terverifikasi">
-                        <span class="font-telemetry text-[10px] font-bold uppercase text-[#173B70] block">Terverifikasi</span>
-                        <span class="font-telemetry text-2xl font-bold text-[#173B70]">{{ $stats['terverifikasi'] }}</span>
+                        <span class="font-telemetry text-[9px] sm:text-[10px] font-bold uppercase text-[#173B70] block leading-tight">Terverifikasi</span>
+                        <span class="font-telemetry text-xl sm:text-2xl font-bold text-[#173B70] mt-1 block">{{ $stats['terverifikasi'] }}</span>
                     </div>
-                    <div class="bg-white border border-[#FCD34D] rounded-lg p-2.5 card-interactive w-[130px] shrink-0 snap-start sm:w-auto"
+                    <div class="bg-white border border-[#FCD34D] rounded-lg p-2 card-interactive"
                          data-tooltip="Kejadian sedang dalam pemeriksaan tim verifikator">
-                        <span class="font-telemetry text-[10px] font-bold uppercase text-[#92400E] block">Menunggu Verifikasi</span>
-                        <span class="font-telemetry text-2xl font-bold text-[#D97706]">{{ $stats['menunggu_verifikasi'] }}</span>
+                        <span class="font-telemetry text-[9px] sm:text-[10px] font-bold uppercase text-[#92400E] block leading-tight">Menunggu Verifikasi</span>
+                        <span class="font-telemetry text-xl sm:text-2xl font-bold text-[#D97706] mt-1 block">{{ $stats['menunggu_verifikasi'] }}</span>
                     </div>
-                    <div class="bg-white border border-slate-200 rounded-lg p-2.5 card-interactive w-[130px] shrink-0 snap-start sm:w-auto"
+                    <div class="bg-white border border-slate-200 rounded-lg p-2 card-interactive"
                          data-tooltip="Total laporan masyarakat yang telah ditautkan ke kejadian">
-                        <span class="font-telemetry text-[10px] font-bold uppercase text-[#788397] block">Laporan Terhubung</span>
-                        <span class="font-telemetry text-2xl font-bold text-[#202938]">{{ $stats['connected_reports'] }}</span>
+                        <span class="font-telemetry text-[9px] sm:text-[10px] font-bold uppercase text-[#788397] block leading-tight">Laporan Terhubung</span>
+                        <span class="font-telemetry text-xl sm:text-2xl font-bold text-[#202938] mt-1 block">{{ $stats['connected_reports'] }}</span>
                     </div>
                 </div>
             </div>
@@ -226,26 +226,26 @@
                     </span>
                 </div>
 
-                <div class="flex overflow-x-auto snap-x snap-mandatory gap-2 pb-1 -mx-2 px-2 sm:mx-0 sm:px-0 scrollbar-none sm:grid sm:grid-cols-4 text-center">
-                    <div class="bg-white border border-slate-300 rounded-lg p-2 card-interactive w-[125px] shrink-0 snap-start sm:w-auto"
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
+                    <div class="bg-white border border-slate-300 rounded-lg p-2.5 card-interactive"
                          data-tooltip="Kejadian belum ada tindakan pemantauan lanjutan">
-                        <span class="font-telemetry text-[9px] font-bold uppercase text-[#788397] block">Belum Ditindaklanjuti</span>
-                        <span class="font-telemetry text-xl font-bold text-[#202938]">{{ $stats['belum_ditindaklanjuti'] }}</span>
+                        <span class="font-telemetry text-[10px] font-bold uppercase text-[#788397] block leading-tight">Belum Ditindaklanjuti</span>
+                        <span class="font-telemetry text-xl font-bold text-[#202938] mt-1 block">{{ $stats['belum_ditindaklanjuti'] }}</span>
                     </div>
-                    <div class="bg-white border border-[#FCD34D] rounded-lg p-2 card-interactive w-[125px] shrink-0 snap-start sm:w-auto"
+                    <div class="bg-white border border-[#FCD34D] rounded-lg p-2.5 card-interactive"
                          data-tooltip="Kejadian sedang dalam koordinasi &amp; pemantauan aktif">
-                        <span class="font-telemetry text-[9px] font-bold uppercase text-[#92400E] block">Sedang Ditindaklanjuti</span>
-                        <span class="font-telemetry text-xl font-bold text-[#D97706]">{{ $stats['sedang_ditindaklanjuti'] }}</span>
+                        <span class="font-telemetry text-[10px] font-bold uppercase text-[#92400E] block leading-tight">Sedang Ditindaklanjuti</span>
+                        <span class="font-telemetry text-xl font-bold text-[#D97706] mt-1 block">{{ $stats['sedang_ditindaklanjuti'] }}</span>
                     </div>
-                    <div class="bg-white border border-[#93C5FD] rounded-lg p-2 card-interactive w-[125px] shrink-0 snap-start sm:w-auto"
+                    <div class="bg-white border border-[#93C5FD] rounded-lg p-2.5 card-interactive"
                          data-tooltip="Perkembangan terus dipantau secara berkala">
-                        <span class="font-telemetry text-[9px] font-bold uppercase text-[#173B70] block">Dipantau</span>
-                        <span class="font-telemetry text-xl font-bold text-[#173B70]">{{ $stats['dipantau'] }}</span>
+                        <span class="font-telemetry text-[10px] font-bold uppercase text-[#173B70] block leading-tight">Dipantau</span>
+                        <span class="font-telemetry text-xl font-bold text-[#173B70] mt-1 block">{{ $stats['dipantau'] }}</span>
                     </div>
-                    <div class="bg-white border border-[#6EE7B7] rounded-lg p-2 card-interactive w-[125px] shrink-0 snap-start sm:w-auto"
+                    <div class="bg-white border border-[#6EE7B7] rounded-lg p-2.5 card-interactive"
                          data-tooltip="Penanganan informasi kejadian dinyatakan selesai">
-                        <span class="font-telemetry text-[9px] font-bold uppercase text-[#065F46] block">Selesai</span>
-                        <span class="font-telemetry text-xl font-bold text-[#059669]">{{ $stats['selesai'] }}</span>
+                        <span class="font-telemetry text-[10px] font-bold uppercase text-[#065F46] block leading-tight">Selesai</span>
+                        <span class="font-telemetry text-xl font-bold text-[#059669] mt-1 block">{{ $stats['selesai'] }}</span>
                     </div>
                 </div>
             </div>

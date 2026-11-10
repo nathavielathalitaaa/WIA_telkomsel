@@ -610,6 +610,7 @@
                 </div>
             </div>
         </div>
+    </div>
 
         <!-- Tabel Kebutuhan & Respons Bantuan Tercatat -->
         <div class="space-y-3 pt-2">
@@ -693,10 +694,6 @@
                                         <span class="font-telemetry text-[11px] text-[#788397] block">
                                             {{ $responderTypes[$aid->responder_type] ?? $aid->responder_type }}
                                         </span>
-                                        <span class="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 font-telemetry text-[10px] font-bold uppercase inline-block">
-                                            Respons Bantuan Masyarakat
-                                        </span>
-                                    </td>
                                         <span class="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 font-telemetry text-[10px] font-bold uppercase inline-block">
                                             Respons Bantuan Masyarakat
                                         </span>

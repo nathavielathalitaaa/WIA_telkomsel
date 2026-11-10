@@ -183,8 +183,6 @@
 
     <!-- Main Content (Consistent Global Container) -->
     <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
-        <x-simulation-banner :compact="true" />
-
         @if(session('success'))
             <div class="bg-[#ECFDF5] border-l-4 border-[#059669] border-y border-r border-[#6EE7B7] rounded-lg p-4 text-[#065F46] text-sm font-medium" role="alert">
                 {{ session('success') }}

@@ -47,7 +47,7 @@
                                     </option>
                                 @endforeach
                             </optgroup>
-                            <optgroup label="Skenario Simulasi Prototipe">
+                            <optgroup label="Skenario Mode Simulasi Prototype">
                                 @foreach($incidents->where('is_simulation', true) as $inc)
                                     <option value="{{ $inc->slug }}" @selected($selectedIncident && $selectedIncident->id === $inc->id)>
                                         [SIMULASI] {{ $inc->title }} ({{ $inc->reports_count }} lap, {{ $inc->follow_up_records_count }} tindak)

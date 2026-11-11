@@ -1,4 +1,4 @@
-@props(['incidents', 'title' => 'Kejadian Berdasarkan Wilayah', 'showAllUrl' => null])
+@props(['incidents', 'title' => 'Pemantauan Saat Ini', 'showAllUrl' => null])
 
 @php
     $incidentsCollection = collect($incidents ?? []);
@@ -6,7 +6,7 @@
     $carouselId = 'regional-carousel-' . \Illuminate\Support\Str::uuid();
 @endphp
 
-<section id="{{ $carouselId }}" aria-label="Kejadian Bencana Berdasarkan Wilayah" class="space-y-3">
+<section id="{{ $carouselId }}" aria-label="Pemantauan Saat Ini" class="space-y-3">
     <div class="flex items-center justify-between gap-3">
         <div class="flex items-center gap-2 min-w-0">
             <span class="w-2 h-2 rounded-full bg-amber-500 shrink-0"></span>
@@ -30,7 +30,7 @@
         <div class="relative overflow-hidden rounded-xl"
              role="region"
              aria-roledescription="carousel"
-             aria-label="Kejadian berdasarkan wilayah">
+             aria-label="Pemantauan saat ini">
 
             <div class="regional-carousel-track flex transition-transform duration-500 ease-in-out motion-reduce:transition-none">
                 @foreach($incidentsCollection as $index => $inc)

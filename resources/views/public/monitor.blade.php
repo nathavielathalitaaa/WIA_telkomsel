@@ -184,7 +184,7 @@
         </form>
     </section>
 
-    <!-- Komponen Kejadian Berdasarkan Wilayah (BMKG Nowcasting Alert Carousel) -->
+    <!-- Komponen Pemantauan Saat Ini (BMKG Nowcasting Alert Carousel) -->
     <x-regional-incidents-carousel :incidents="$regionalIncidents" />
 
     <!-- Main View: PETA SEBAGAI AREA TERBESAR + Panel Pendamping -->

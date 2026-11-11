@@ -342,7 +342,7 @@ class PublicIncidentController extends Controller
             ->sort()
             ->values();
 
-        // Komponen Peringatan Dini & Kejadian Berdasarkan Wilayah (BMKG Nowcasting style)
+        // Komponen Pemantauan Saat Ini (BMKG Nowcasting style)
         // Mengikuti filter aktif agar konsisten dan tidak menampilkan kategori di luar filter
         $regionalIncidents = (clone $baseQuery)
             ->where('verification_status', '!=', VerificationStatus::Ditolak->value)

@@ -6,9 +6,9 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Inter', 'Public Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
-    --font-mono: 'Space Grotesk', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --font-mono: 'Poppins', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
     --color-primary-blue: #173B70;
     --color-secondary-blue: #315D91;
@@ -20,9 +20,20 @@
 }
 
 @layer utilities {
-    /* Global Viewport & Scroll Reset */
+    /* Global Viewport, Font & Scroll Reset */
+    html, body, button, input, select, textarea {
+        font-family: var(--font-sans);
+    }
+
     html, body {
         overflow-x: hidden;
+    }
+
+    /* Leaflet Global Font Override to Poppins */
+    .leaflet-container,
+    .leaflet-popup-content-wrapper,
+    .leaflet-popup-tip {
+        font-family: var(--font-sans) !important;
     }
 
     /* Hide scrollbars on horizontal carousel rails */
@@ -47,8 +58,8 @@
     }
 
     .font-telemetry {
-        font-family: var(--font-mono);
-        letter-spacing: 0.04em;
+        font-family: var(--font-sans);
+        letter-spacing: 0.03em;
     }
 
     /* Brand Selective Red-Blue Gradient (#D94350 Accent Red <-> #173B70 Primary Blue) */
@@ -177,7 +188,7 @@
         pointer-events: none;
         background-color: #173B70;
         color: #F8F9FC;
-        font-family: var(--font-mono);
+        font-family: var(--font-sans);
         font-size: 11px;
         font-weight: 600;
         letter-spacing: 0.02em;

@@ -802,8 +802,8 @@
 
             const isHistorical = !item.is_simulation;
             const sourceBadge = isHistorical
-                ? '<span style="background: #173B70; color: #FFFFFF; padding: 2px 6px; border-radius: 4px; font-family: \'Space Grotesk\', monospace; font-size: 9px; font-weight: 700; text-transform: uppercase;">HISTORIS BNPB</span>'
-                : '<span style="background: #315D91; color: #FFFFFF; padding: 2px 6px; border-radius: 4px; font-family: \'Space Grotesk\', monospace; font-size: 9px; font-weight: 700; text-transform: uppercase;">SIMULASI</span>';
+                ? '<span style="background: #173B70; color: #FFFFFF; padding: 2px 6px; border-radius: 4px; font-family: \'Poppins\', sans-serif; font-size: 9px; font-weight: 700; text-transform: uppercase;">HISTORIS BNPB</span>'
+                : '<span style="background: #315D91; color: #FFFFFF; padding: 2px 6px; border-radius: 4px; font-family: \'Poppins\', sans-serif; font-size: 9px; font-weight: 700; text-transform: uppercase;">SIMULASI</span>';
 
             const marker = window.L.circleMarker([item.latitude, item.longitude], {
                 radius: isHistorical ? 10 : 9,
@@ -821,9 +821,9 @@
                 : `<div><strong>Verifikasi:</strong> ${item.verification_label}</div><div><strong>Tindak Lanjut Tim:</strong> ${item.follow_up_label}</div><div><strong>Laporan:</strong> ${item.reports_count} | <strong>Respons Bantuan:</strong> ${item.aid_responses_count || 0}</div>`;
 
             const popupHtml = `
-                <div style="min-width: 230px; font-family: 'Public Sans', sans-serif; color: #202938;">
+                <div style="min-width: 230px; font-family: 'Poppins', sans-serif; color: #202938;">
                     <div style="display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 4px;">
-                        <span style="font-family: 'Space Grotesk', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; color: #788397;">
+                        <span style="font-family: 'Poppins', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; color: #788397;">
                             ${item.incident_type}
                         </span>
                         ${sourceBadge}
@@ -834,14 +834,14 @@
                     <div style="font-size: 12px; color: #788397; margin-bottom: 8px;">
                         ${item.location_name}${item.wilayah_nama ? ' • ' + item.wilayah_nama : ''}
                     </div>
-                    <div style="font-family: 'Space Grotesk', monospace; font-size: 11px; background: #F8F9FC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 6px; margin-bottom: 8px;">
+                    <div style="font-family: 'Poppins', sans-serif; font-size: 11px; background: #F8F9FC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 6px; margin-bottom: 8px;">
                         ${reportMetaHtml}
                     </div>
                     <div style="display: flex; flex-direction: column; gap: 4px;">
-                        <button type="button" class="btn-popup-sidepanel" data-incident-id="${item.id}" style="display: block; width: 100%; text-align: center; background: #F8F9FC; color: #202938; border: 1px solid #CBD5E1; padding: 6px 10px; border-radius: 6px; font-family: 'Space Grotesk', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; cursor: pointer;">
+                        <button type="button" class="btn-popup-sidepanel" data-incident-id="${item.id}" style="display: block; width: 100%; text-align: center; background: #F8F9FC; color: #202938; border: 1px solid #CBD5E1; padding: 6px 10px; border-radius: 6px; font-family: 'Poppins', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; cursor: pointer;">
                             Buka Panel Cepat &rarr;
                         </button>
-                        <a href="${item.url}" style="display: inline-block; width: 100%; text-align: center; background: #173B70; color: #FFFFFF; text-decoration: none; padding: 6px 10px; border-radius: 6px; font-family: 'Space Grotesk', monospace; font-size: 11px; font-weight: 700; text-transform: uppercase;">
+                        <a href="${item.url}" style="display: inline-block; width: 100%; text-align: center; background: #173B70; color: #FFFFFF; text-decoration: none; padding: 6px 10px; border-radius: 6px; font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase;">
                             Lihat Detail Kejadian &rarr;
                         </a>
                     </div>
@@ -867,8 +867,8 @@
             }).addTo(needsLayer);
 
             const popupHtml = `
-                <div style="min-width: 200px; font-family: 'Public Sans', sans-serif; color: #202938;">
-                    <div style="font-family: 'Space Grotesk', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; color: #173B70; margin-bottom: 4px;">
+                <div style="min-width: 200px; font-family: 'Poppins', sans-serif; color: #202938;">
+                    <div style="font-family: 'Poppins', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; color: #173B70; margin-bottom: 4px;">
                         [KEBUTUHAN DILAPORKAN] • ${need.ticket_number}
                     </div>
                     <div style="font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 4px; color: #202938;">
@@ -879,7 +879,7 @@
                         Lokasi: ${need.location_name}<br>
                         Status: ${need.verification_label}
                     </div>
-                    <a href="${need.track_url}" style="display: inline-block; width: 100%; text-align: center; background: #173B70; color: #FFFFFF; text-decoration: none; padding: 5px 8px; border-radius: 6px; font-family: 'Space Grotesk', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase;">
+                    <a href="${need.track_url}" style="display: inline-block; width: 100%; text-align: center; background: #173B70; color: #FFFFFF; text-decoration: none; padding: 5px 8px; border-radius: 6px; font-family: 'Poppins', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase;">
                         Lacak Tiket Laporan &rarr;
                     </a>
                 </div>
@@ -904,8 +904,8 @@
             }).addTo(aidLayer);
 
             const popupHtml = `
-                <div style="min-width: 210px; font-family: 'Public Sans', sans-serif; color: #202938;">
-                    <div style="font-family: 'Space Grotesk', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; color: #059669; margin-bottom: 4px;">
+                <div style="min-width: 210px; font-family: 'Poppins', sans-serif; color: #202938;">
+                    <div style="font-family: 'Poppins', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; color: #059669; margin-bottom: 4px;">
                         [RESPONS BANTUAN] • ${aid.reference_code}
                     </div>
                     <div style="font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 4px; color: #202938;">
@@ -917,7 +917,7 @@
                         Tujuan: ${aid.target_location}<br>
                         Status: <strong>${aid.status_label}</strong>
                     </div>
-                    <a href="${aid.incident_url}" style="display: inline-block; width: 100%; text-align: center; background: #059669; color: #FFFFFF; text-decoration: none; padding: 5px 8px; border-radius: 6px; font-family: 'Space Grotesk', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase;">
+                    <a href="${aid.incident_url}" style="display: inline-block; width: 100%; text-align: center; background: #059669; color: #FFFFFF; text-decoration: none; padding: 5px 8px; border-radius: 6px; font-family: 'Poppins', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase;">
                         Buka Kejadian Terkait &rarr;
                     </a>
                 </div>

@@ -8,15 +8,6 @@
     <!-- Top Editorial Header (Clean, Light, Aligned with Master Design) -->
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200/80 pb-4">
         <div class="space-y-1 max-w-2xl">
-            <div class="flex items-center gap-2">
-                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-[#173B70]/10 text-[#173B70] font-telemetry">
-                    Papan Pemantauan Bencana
-                </span>
-                <span class="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-700">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>Data Terbuka &amp; Terverifikasi</span>
-                </span>
-            </div>
             <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#202938]">
                 Pantau Sebaran Kejadian Bencana
             </h1>
@@ -192,6 +183,9 @@
             </div>
         </form>
     </section>
+
+    <!-- Komponen Kejadian Berdasarkan Wilayah (BMKG Nowcasting Alert Carousel) -->
+    <x-regional-incidents-carousel :incidents="$regionalIncidents" />
 
     <!-- Main View: PETA SEBAGAI AREA TERBESAR + Panel Pendamping -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">

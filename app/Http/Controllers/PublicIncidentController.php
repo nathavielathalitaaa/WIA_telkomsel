@@ -342,8 +342,18 @@ class PublicIncidentController extends Controller
             ->sort()
             ->values();
 
+        // Komponen Peringatan Dini & Kejadian Berdasarkan Wilayah (BMKG Nowcasting style)
+        // Mengikuti filter aktif agar konsisten dan tidak menampilkan kategori di luar filter
+        $regionalIncidents = (clone $baseQuery)
+            ->where('verification_status', '!=', VerificationStatus::Ditolak->value)
+            ->orderByRaw("CASE WHEN severity = 'kritis' THEN 1 WHEN severity = 'tinggi' THEN 2 WHEN severity = 'sedang' THEN 3 ELSE 4 END")
+            ->orderByDesc('occurred_at')
+            ->take(12)
+            ->get();
+
         return view('public.monitor', [
             'incidents' => $incidents,
+            'regionalIncidents' => $regionalIncidents,
             'mapIncidents' => $mapIncidents,
             'mapReportNeeds' => $mapReportNeeds,
             'mapAidResponses' => $mapAidResponses,

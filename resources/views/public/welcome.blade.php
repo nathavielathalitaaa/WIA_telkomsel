@@ -122,6 +122,9 @@
         </div>
     </section>
 
+    <!-- 2b. Komponen Kejadian Berdasarkan Wilayah (BMKG Nowcasting Alert Carousel) -->
+    <x-regional-incidents-carousel :incidents="$regionalIncidents" title="Peringatan Dini &amp; Kejadian Terkini per Wilayah" />
+
     <!-- 3. Peta & Informasi Kejadian (Visual Element Utama) -->
     <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden" aria-label="Preview Peta Kejadian">
         <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-100">

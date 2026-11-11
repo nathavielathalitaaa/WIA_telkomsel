@@ -189,9 +189,18 @@ class PublicSitrepController extends Controller
             ->take(6)
             ->get(['id', 'title', 'slug', 'incident_type', 'latitude', 'longitude', 'is_simulation', 'severity']);
 
+        $regionalIncidents = Incident::query()
+            ->where('verification_status', '!=', VerificationStatus::Ditolak->value)
+            ->with(['wilayahAdministratif'])
+            ->orderByRaw("CASE WHEN severity = 'kritis' THEN 1 WHEN severity = 'tinggi' THEN 2 WHEN severity = 'sedang' THEN 3 ELSE 4 END")
+            ->orderByDesc('occurred_at')
+            ->take(10)
+            ->get();
+
         return view('public.welcome', [
             'summary' => $summary,
             'previewIncidents' => $previewIncidents,
+            'regionalIncidents' => $regionalIncidents,
         ]);
     }
 

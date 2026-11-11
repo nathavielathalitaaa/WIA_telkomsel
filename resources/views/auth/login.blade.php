@@ -72,136 +72,136 @@
             </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div class="grid grid-cols-6 lg:grid-cols-5 gap-2.5 sm:gap-4">
             <!-- Langkah 1: Buka Halaman Pelaporan -->
-            <div class="bg-white rounded-2xl border border-slate-200/80 p-4 space-y-3 flex flex-col justify-between hover:border-[#173B70] transition shadow-2xs group">
-                <div class="space-y-3">
-                    <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-50 flex items-center justify-center p-2 border border-slate-100">
+            <div class="col-span-2 lg:col-span-1 bg-white rounded-xl sm:rounded-2xl border border-slate-200/80 p-2.5 sm:p-4 space-y-2 sm:space-y-3 flex flex-col justify-between hover:border-[#173B70] transition shadow-2xs group">
+                <div class="space-y-2 sm:space-y-3">
+                    <div class="w-full h-16 sm:h-24 md:h-28 rounded-lg sm:rounded-xl overflow-hidden bg-slate-50 flex items-center justify-center p-1 sm:p-2 border border-slate-100">
                         <img src="{{ asset('images/illustrations/step-1-buka-pelaporan.svg') }}"
                              alt="Ilustrasi tangan memegang smartphone menampilkan halaman formulir laporan TanggapTerang"
                              class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
                     </div>
                     <div class="space-y-1">
-                        <div class="flex items-center gap-1.5">
-                            <span class="w-5 h-5 rounded-full bg-[#173B70] text-white text-[10px] font-bold flex items-center justify-center font-telemetry shrink-0">1</span>
-                            <span class="text-[10px] font-bold uppercase text-[#173B70] tracking-wider font-telemetry">Langkah 1</span>
+                        <div class="flex items-center gap-1 sm:gap-1.5">
+                            <span class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#173B70] text-white text-[9px] sm:text-[10px] font-bold flex items-center justify-center font-telemetry shrink-0">1</span>
+                            <span class="text-[9px] sm:text-[10px] font-bold uppercase text-[#173B70] tracking-wider font-telemetry">Langkah 1</span>
                         </div>
-                        <h3 class="text-sm font-bold text-[#202938] leading-snug">
+                        <h3 class="text-xs sm:text-sm font-bold text-[#202938] leading-tight">
                             Buka Halaman Pelaporan
                         </h3>
-                        <p class="text-xs text-[#788397] leading-relaxed">
+                        <p class="text-[10px] sm:text-xs text-[#788397] leading-relaxed">
                             Buka menu pelaporan publik TanggapTerang melalui smartphone atau peramban tanpa perlu mendaftar akun.
                         </p>
                     </div>
                 </div>
-                <div class="pt-2 border-t border-slate-100">
-                    <a href="{{ route('public.reports.create') }}" class="text-xs font-bold font-telemetry link-text inline-block">
+                <div class="pt-1.5 sm:pt-2 border-t border-slate-100">
+                    <a href="{{ route('public.reports.create') }}" class="text-[10px] sm:text-xs font-bold font-telemetry link-text inline-block">
                         Buka Formulir Lapor
                     </a>
                 </div>
             </div>
 
             <!-- Langkah 2: Isi Laporan -->
-            <div class="bg-white rounded-2xl border border-slate-200/80 p-4 space-y-3 flex flex-col justify-between hover:border-[#173B70] transition shadow-2xs group">
-                <div class="space-y-3">
-                    <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-50 flex items-center justify-center p-2 border border-slate-100">
+            <div class="col-span-2 lg:col-span-1 bg-white rounded-xl sm:rounded-2xl border border-slate-200/80 p-2.5 sm:p-4 space-y-2 sm:space-y-3 flex flex-col justify-between hover:border-[#173B70] transition shadow-2xs group">
+                <div class="space-y-2 sm:space-y-3">
+                    <div class="w-full h-16 sm:h-24 md:h-28 rounded-lg sm:rounded-xl overflow-hidden bg-slate-50 flex items-center justify-center p-1 sm:p-2 border border-slate-100">
                         <img src="{{ asset('images/illustrations/step-2-isi-laporan.svg') }}"
                              alt="Ilustrasi seseorang mengisi informasi kejadian melalui smartphone"
                              class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
                     </div>
                     <div class="space-y-1">
-                        <div class="flex items-center gap-1.5">
-                            <span class="w-5 h-5 rounded-full bg-[#173B70] text-white text-[10px] font-bold flex items-center justify-center font-telemetry shrink-0">2</span>
-                            <span class="text-[10px] font-bold uppercase text-[#173B70] tracking-wider font-telemetry">Langkah 2</span>
+                        <div class="flex items-center gap-1 sm:gap-1.5">
+                            <span class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#173B70] text-white text-[9px] sm:text-[10px] font-bold flex items-center justify-center font-telemetry shrink-0">2</span>
+                            <span class="text-[9px] sm:text-[10px] font-bold uppercase text-[#173B70] tracking-wider font-telemetry">Langkah 2</span>
                         </div>
-                        <h3 class="text-sm font-bold text-[#202938] leading-snug">
+                        <h3 class="text-xs sm:text-sm font-bold text-[#202938] leading-tight">
                             Isi Laporan
                         </h3>
-                        <p class="text-xs text-[#788397] leading-relaxed">
+                        <p class="text-[10px] sm:text-xs text-[#788397] leading-relaxed">
                             Pilih wilayah kejadian, tentukan jenis bencana, serta sampaikan kebutuhan darurat warga yang mendesak.
                         </p>
                     </div>
                 </div>
-                <div class="pt-2 border-t border-slate-100 text-[11px] font-telemetry text-slate-400">
+                <div class="pt-1.5 sm:pt-2 border-t border-slate-100 text-[10px] sm:text-[11px] font-telemetry text-slate-400">
                     Data Lokasi &amp; Kebutuhan
                 </div>
             </div>
 
             <!-- Langkah 3: Lampirkan Dokumentasi Asli -->
-            <div class="bg-white rounded-2xl border border-slate-200/80 p-4 space-y-3 flex flex-col justify-between hover:border-[#173B70] transition shadow-2xs group">
-                <div class="space-y-3">
-                    <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-50 flex items-center justify-center p-2 border border-slate-100">
+            <div class="col-span-2 lg:col-span-1 bg-white rounded-xl sm:rounded-2xl border border-slate-200/80 p-2.5 sm:p-4 space-y-2 sm:space-y-3 flex flex-col justify-between hover:border-[#173B70] transition shadow-2xs group">
+                <div class="space-y-2 sm:space-y-3">
+                    <div class="w-full h-16 sm:h-24 md:h-28 rounded-lg sm:rounded-xl overflow-hidden bg-slate-50 flex items-center justify-center p-1 sm:p-2 border border-slate-100">
                         <img src="{{ asset('images/illustrations/step-3-lampirkan-dokumentasi.svg') }}"
                              alt="Ilustrasi seseorang mengambil foto kondisi bencana menggunakan kamera smartphone"
                              class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
                     </div>
                     <div class="space-y-1">
-                        <div class="flex items-center gap-1.5">
-                            <span class="w-5 h-5 rounded-full bg-[#173B70] text-white text-[10px] font-bold flex items-center justify-center font-telemetry shrink-0">3</span>
-                            <span class="text-[10px] font-bold uppercase text-[#173B70] tracking-wider font-telemetry">Langkah 3</span>
+                        <div class="flex items-center gap-1 sm:gap-1.5">
+                            <span class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#173B70] text-white text-[9px] sm:text-[10px] font-bold flex items-center justify-center font-telemetry shrink-0">3</span>
+                            <span class="text-[9px] sm:text-[10px] font-bold uppercase text-[#173B70] tracking-wider font-telemetry">Langkah 3</span>
                         </div>
-                        <h3 class="text-sm font-bold text-[#202938] leading-snug">
+                        <h3 class="text-xs sm:text-sm font-bold text-[#202938] leading-tight">
                             Lampirkan Dokumentasi Asli
                         </h3>
-                        <p class="text-xs text-[#788397] leading-relaxed">
+                        <p class="text-[10px] sm:text-xs text-[#788397] leading-relaxed">
                             Ambil foto langsung kondisi bencana di lapangan dengan kamera smartphone sebagai bukti visual otentik.
                         </p>
                     </div>
                 </div>
-                <div class="pt-2 border-t border-slate-100 text-[11px] font-telemetry text-slate-400">
+                <div class="pt-1.5 sm:pt-2 border-t border-slate-100 text-[10px] sm:text-[11px] font-telemetry text-slate-400">
                     Foto Lapangan Ber-geotag
                 </div>
             </div>
 
             <!-- Langkah 4: Konfirmasi Kebenaran Informasi -->
-            <div class="bg-white rounded-2xl border border-slate-200/80 p-4 space-y-3 flex flex-col justify-between hover:border-[#173B70] transition shadow-2xs group">
-                <div class="space-y-3">
-                    <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-50 flex items-center justify-center p-2 border border-slate-100">
+            <div class="col-span-3 lg:col-span-1 bg-white rounded-xl sm:rounded-2xl border border-slate-200/80 p-2.5 sm:p-4 space-y-2 sm:space-y-3 flex flex-col justify-between hover:border-[#173B70] transition shadow-2xs group">
+                <div class="space-y-2 sm:space-y-3">
+                    <div class="w-full h-16 sm:h-24 md:h-28 rounded-lg sm:rounded-xl overflow-hidden bg-slate-50 flex items-center justify-center p-1 sm:p-2 border border-slate-100">
                         <img src="{{ asset('images/illustrations/step-4-konfirmasi-kebenaran.svg') }}"
                              alt="Ilustrasi seseorang mengonfirmasi kejadian kepada warga atau saksi setempat"
                              class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
                     </div>
                     <div class="space-y-1">
-                        <div class="flex items-center gap-1.5">
-                            <span class="w-5 h-5 rounded-full bg-[#173B70] text-white text-[10px] font-bold flex items-center justify-center font-telemetry shrink-0">4</span>
-                            <span class="text-[10px] font-bold uppercase text-[#173B70] tracking-wider font-telemetry">Langkah 4</span>
+                        <div class="flex items-center gap-1 sm:gap-1.5">
+                            <span class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#173B70] text-white text-[9px] sm:text-[10px] font-bold flex items-center justify-center font-telemetry shrink-0">4</span>
+                            <span class="text-[9px] sm:text-[10px] font-bold uppercase text-[#173B70] tracking-wider font-telemetry">Langkah 4</span>
                         </div>
-                        <h3 class="text-sm font-bold text-[#202938] leading-snug">
+                        <h3 class="text-xs sm:text-sm font-bold text-[#202938] leading-tight">
                             Konfirmasi Kebenaran Informasi
                         </h3>
-                        <p class="text-xs text-[#788397] leading-relaxed">
+                        <p class="text-[10px] sm:text-xs text-[#788397] leading-relaxed">
                             Pastikan kronologi kejadian terkonfirmasi dari saksi mata atau warga setempat guna menjaga akurasi informasi.
                         </p>
                     </div>
                 </div>
-                <div class="pt-2 border-t border-slate-100 text-[11px] font-telemetry text-slate-400">
+                <div class="pt-1.5 sm:pt-2 border-t border-slate-100 text-[10px] sm:text-[11px] font-telemetry text-slate-400">
                     Validasi Fakta Lapangan
                 </div>
             </div>
 
             <!-- Langkah 5: Kirim Laporan -->
-            <div class="bg-white rounded-2xl border border-slate-200/80 p-4 space-y-3 flex flex-col justify-between hover:border-[#173B70] transition shadow-2xs group">
-                <div class="space-y-3">
-                    <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-50 flex items-center justify-center p-2 border border-slate-100">
+            <div class="col-span-3 lg:col-span-1 bg-white rounded-xl sm:rounded-2xl border border-slate-200/80 p-2.5 sm:p-4 space-y-2 sm:space-y-3 flex flex-col justify-between hover:border-[#173B70] transition shadow-2xs group">
+                <div class="space-y-2 sm:space-y-3">
+                    <div class="w-full h-16 sm:h-24 md:h-28 rounded-lg sm:rounded-xl overflow-hidden bg-slate-50 flex items-center justify-center p-1 sm:p-2 border border-slate-100">
                         <img src="{{ asset('images/illustrations/step-5-kirim-laporan.svg') }}"
                              alt="Ilustrasi tampilan smartphone menunjukkan laporan berhasil dikirim dan nomor tiket pelacakan diterbitkan"
                              class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
                     </div>
                     <div class="space-y-1">
-                        <div class="flex items-center gap-1.5">
-                            <span class="w-5 h-5 rounded-full bg-[#173B70] text-white text-[10px] font-bold flex items-center justify-center font-telemetry shrink-0">5</span>
-                            <span class="text-[10px] font-bold uppercase text-[#173B70] tracking-wider font-telemetry">Langkah 5</span>
+                        <div class="flex items-center gap-1 sm:gap-1.5">
+                            <span class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#173B70] text-white text-[9px] sm:text-[10px] font-bold flex items-center justify-center font-telemetry shrink-0">5</span>
+                            <span class="text-[9px] sm:text-[10px] font-bold uppercase text-[#173B70] tracking-wider font-telemetry">Langkah 5</span>
                         </div>
-                        <h3 class="text-sm font-bold text-[#202938] leading-snug">
+                        <h3 class="text-xs sm:text-sm font-bold text-[#202938] leading-tight">
                             Kirim Laporan
                         </h3>
-                        <p class="text-xs text-[#788397] leading-relaxed">
+                        <p class="text-[10px] sm:text-xs text-[#788397] leading-relaxed">
                             Kirim formulir dan simpan kode tiket pelacakan mandiri yang terbit untuk memantau status penanganan.
                         </p>
                     </div>
                 </div>
-                <div class="pt-2 border-t border-slate-100">
-                    <a href="{{ route('public.track') }}" class="text-xs font-bold font-telemetry link-text inline-block">
+                <div class="pt-1.5 sm:pt-2 border-t border-slate-100">
+                    <a href="{{ route('public.track') }}" class="text-[10px] sm:text-xs font-bold font-telemetry link-text inline-block">
                         Lacak Status Tiket
                     </a>
                 </div>

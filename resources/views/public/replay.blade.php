@@ -531,9 +531,6 @@
                         card.classList.remove('hidden');
                         if (cardStep === latestReachedIndex + 1) {
                             card.classList.add('ring-2', 'ring-[#173B70]', 'bg-[#F8F9FC]');
-                            if (window.innerWidth >= 1024 && !isPlaying) {
-                                card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                            }
                         } else {
                             card.classList.remove('ring-2', 'ring-[#173B70]', 'bg-[#F8F9FC]');
                         }

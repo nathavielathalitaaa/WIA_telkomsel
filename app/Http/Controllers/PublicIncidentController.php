@@ -344,9 +344,11 @@ class PublicIncidentController extends Controller
 
         // Komponen Pemantauan Saat Ini (BMKG Nowcasting style)
         // Mengikuti filter aktif agar konsisten dan tidak menampilkan kategori di luar filter
+        // Diurutkan berdasarkan tingkat keparahan, pembaruan status terkini (updated_at), dan waktu kejadian
         $regionalIncidents = (clone $baseQuery)
             ->where('verification_status', '!=', VerificationStatus::Ditolak->value)
             ->orderByRaw("CASE WHEN severity = 'kritis' THEN 1 WHEN severity = 'tinggi' THEN 2 WHEN severity = 'sedang' THEN 3 ELSE 4 END")
+            ->orderByDesc('updated_at')
             ->orderByDesc('occurred_at')
             ->take(12)
             ->get();

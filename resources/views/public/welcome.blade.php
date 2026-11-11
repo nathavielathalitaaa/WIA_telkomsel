@@ -62,22 +62,23 @@
     </section>
 
     <!-- 2. Ringkasan Cara Kerja (5 Tahap Respons Horizontal) -->
-    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4" aria-label="Alur Respons TanggapTerang">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 border-b border-slate-100 pb-3">
+    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden" aria-label="Alur Respons TanggapTerang">
+        <div class="p-4 sm:p-5 bg-[#173B70] text-white flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-[#315D91]">
             <div>
-                <h2 class="text-sm font-bold uppercase tracking-wider text-[#173B70] font-telemetry">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-white font-telemetry">
                     Alur Kerja: 5 Tahapan Penanganan Laporan &amp; Respons
                 </h2>
-                <p class="text-xs text-[#788397] mt-0.5">
+                <p class="text-xs text-blue-100 mt-0.5">
                     Proses transparan dari penerimaan laporan hingga konfirmasi penyaluran di lapangan.
                 </p>
             </div>
-            <a href="{{ route('public.track') }}" class="text-xs font-bold font-telemetry link-text self-start sm:self-auto">
+            <a href="{{ route('public.track') }}" class="text-xs font-bold font-telemetry text-white underline underline-offset-4 decoration-1 hover:text-blue-100 self-start sm:self-auto">
                 Lacak status tiket
             </a>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-5 gap-2.5">
+        <div class="p-5">
+            <div class="grid grid-cols-1 sm:grid-cols-5 gap-2.5">
             <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-3 space-y-1">
                 <div class="flex items-center justify-between">
                     <span class="w-6 h-6 rounded-full bg-[#173B70] text-white text-[11px] font-bold flex items-center justify-center font-telemetry">1</span>
@@ -122,23 +123,24 @@
                 <h3 class="text-xs font-bold text-[#202938] pt-1">Penyerahan Sah</h3>
                 <p class="text-[11px] text-[#788397] leading-relaxed">Bantuan dicatat selesai setelah disertai konfirmasi bukti dokumentasi penyerahan.</p>
             </div>
+            </div>
         </div>
     </section>
 
     <!-- 3. Peta & Informasi Kejadian (Visual Element Utama) -->
     <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden" aria-label="Preview Peta Kejadian">
-        <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-100">
+        <div class="p-4 sm:p-5 bg-[#173B70] text-white flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-[#315D91]">
             <div>
-                <h2 class="text-sm font-bold uppercase tracking-wider text-[#173B70] font-telemetry flex items-center gap-2">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-white font-telemetry flex items-center gap-2">
                     <span class="w-2.5 h-2.5 rounded-full bg-[#D94350]"></span>
                     Peta Sebaran Bencana &amp; Kebutuhan Aktif
                 </h2>
-                <p class="text-xs text-[#788397] mt-0.5">
+                <p class="text-xs text-blue-100 mt-0.5">
                     {{ $summary['incidents_count'] }} kejadian terdata • {{ $summary['reports_count'] }} laporan warga • {{ $summary['historical_count'] }} data historis Pusdatin BNPB
                 </p>
             </div>
             <a href="{{ route('public.monitor') }}"
-               class="px-4 py-2 rounded-lg bg-[#173B70] hover:bg-[#315D91] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition inline-flex items-center gap-1.5 self-start sm:self-auto shrink-0 shadow-xs">
+               class="px-4 py-2 rounded-lg bg-white hover:bg-slate-100 text-[#173B70] font-telemetry text-xs font-bold uppercase tracking-wider transition inline-flex items-center gap-1.5 self-start sm:self-auto shrink-0 shadow-xs">
                 <span>Buka Peta Pantau Penuh</span>
             </a>
         </div>
@@ -171,29 +173,29 @@
     </section>
 
     <!-- 4. Sumber Informasi (Tabel Ringkas Provider & Status) -->
-    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4" aria-label="Sumber Data & Provider">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 border-b border-slate-100 pb-3">
+    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden" aria-label="Sumber Data & Provider">
+        <div class="p-4 sm:p-5 bg-[#173B70] text-white flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-[#315D91]">
             <div>
-                <h2 class="text-sm font-bold uppercase tracking-wider text-[#173B70] font-telemetry">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-white font-telemetry">
                     Sumber Rujukan &amp; Integrasi Layanan Terbuka
                 </h2>
-                <p class="text-xs text-[#788397] mt-0.5">
+                <p class="text-xs text-blue-100 mt-0.5">
                     TanggapTerang mengolah data dari berbagai layanan eksternal untuk mendukung pemantauan situasi secara transparan.
                 </p>
             </div>
-            <a href="{{ route('public.sources.index') }}" class="text-xs font-bold font-telemetry link-text self-start sm:self-auto">
+            <a href="{{ route('public.sources.index') }}" class="text-xs font-bold font-telemetry text-white underline underline-offset-4 decoration-1 hover:text-blue-100 self-start sm:self-auto">
                 Detail transparansi data
             </a>
         </div>
 
-        <div class="overflow-x-auto">
+        <div class="p-5 overflow-x-auto">
             <table class="w-full text-left text-xs">
                 <thead>
-                    <tr class="border-b border-slate-200 text-[#788397] font-telemetry uppercase text-[10px] tracking-wider">
-                        <th class="py-2.5 px-3">Provider</th>
+                    <tr class="bg-[#173B70] text-white font-telemetry uppercase text-[10px] tracking-wider">
+                        <th class="py-2.5 px-3 rounded-l">Provider</th>
                         <th class="py-2.5 px-3">Cakupan Informasi</th>
                         <th class="py-2.5 px-3">Kategori</th>
-                        <th class="py-2.5 px-3 text-right">Status Integrasi</th>
+                        <th class="py-2.5 px-3 text-right rounded-r">Status Integrasi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100 text-[#202938]">
@@ -251,17 +253,18 @@
     </section>
 
     <!-- 5. Panduan Singkat (3 Langkah Visual: Laporkan -> Lacak -> Pantau) -->
-    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4" aria-label="Panduan Singkat Partisipasi">
-        <div class="border-b border-slate-100 pb-3">
-            <h2 class="text-sm font-bold uppercase tracking-wider text-[#173B70] font-telemetry">
+    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden" aria-label="Panduan Singkat Partisipasi">
+        <div class="p-4 sm:p-5 bg-[#173B70] text-white border-b border-[#315D91]">
+            <h2 class="text-sm font-bold uppercase tracking-wider text-white font-telemetry">
                 Tiga Langkah Mudah Partisipasi Publik
             </h2>
-            <p class="text-xs text-[#788397] mt-0.5">
+            <p class="text-xs text-blue-100 mt-0.5">
                 Cara menggunakan TanggapTerang untuk saling melengkapi informasi respons bencana.
             </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div class="p-5">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
             <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-4 space-y-2">
                 <div class="w-7 h-7 rounded-lg bg-[#D94350] text-white font-telemetry font-bold text-xs flex items-center justify-center">
                     01
@@ -306,6 +309,7 @@
                     </a>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 </div>

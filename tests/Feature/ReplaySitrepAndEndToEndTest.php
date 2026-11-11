@@ -331,9 +331,7 @@ class ReplaySitrepAndEndToEndTest extends TestCase
         $monitorResponse->assertSee('Sumber Informasi Terbuka');
         $monitorResponse->assertSee('Laporan Warga');
         $monitorResponse->assertSee('Respons Bantuan Masyarakat');
-        $monitorResponse->assertSee('Kebutuhan Tercatat per Kategori');
-        $monitorResponse->assertSee('Respons Bantuan Tercatat per Kategori');
-        $monitorResponse->assertSee('Distribusi Status Respons Bantuan');
+        $monitorResponse->assertSee('Daftar Respons Bantuan Tercatat');
         $monitorResponse->assertDontSee('Open Government Data');
 
         // F. Navbar pada /reports/create dan /aid-responses/create TIDAK menandai "1. Pantau" sebagai aktif

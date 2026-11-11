@@ -1,40 +1,42 @@
-@extends('layouts.app')
-
-@section('title', 'Transparansi Sumber Data & Integrasi API — TanggapTerang')
-@section('activeTab', 'sumber_data')
+@extends('layouts.app', [
+    'title' => 'Transparansi Sumber Data & Integrasi API — TanggapTerang',
+    'activeTab' => 'sumber_data',
+])
 
 @section('content')
 <div class="space-y-8 sm:space-y-10 lg:space-y-12">
-    <!-- Header Transparansi (Clean, Editorial, Master Design Alignment) -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200/80 pb-4">
-        <div class="space-y-1 max-w-3xl">
-            <div class="flex items-center gap-2">
-                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-[#173B70]/10 text-[#173B70] font-telemetry">
-                    Transparansi Sumber Rujukan Terbuka
-                </span>
-                <span class="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-700">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>8 Provider Terpantau</span>
-                </span>
+    <!-- Header Transparansi (Master Hero Card Alignment) -->
+    <section class="bg-[#173B70] text-white border border-[#315D91] rounded-2xl p-5 sm:p-7 space-y-4 shadow-xs">
+        <div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
+            <div class="space-y-2 max-w-3xl">
+                <div class="flex items-center gap-2">
+                    <span class="inline-flex items-center px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-[#315D91] text-white border border-blue-300/30 font-telemetry">
+                        Transparansi Sumber Rujukan Terbuka
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-300">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span>8 Provider Terpantau</span>
+                    </span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
+                    Transparansi Sumber Data &amp; Integrasi API
+                </h1>
+                <p class="text-xs sm:text-sm text-blue-100 leading-relaxed">
+                    Pemantauan publik status integrasi, waktu pembaruan, dan rekaman data dari layanan kebencanaan resmi dan terbuka.
+                </p>
             </div>
-            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#202938]">
-                Transparansi Sumber Data &amp; Integrasi API
-            </h1>
-            <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
-                Pemantauan publik status integrasi, waktu pembaruan, dan rekaman data dari layanan kebencanaan resmi dan terbuka.
-            </p>
-        </div>
 
-        <div class="flex items-center gap-2 shrink-0">
-            <a href="{{ route('public.monitor') }}"
-               class="px-3.5 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-telemetry text-xs font-bold uppercase tracking-wider transition inline-flex items-center gap-1.5 shadow-2xs min-h-[38px]">
-                <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
-                </svg>
-                <span>Buka Peta Pantau</span>
-            </a>
+            <div class="flex items-center gap-2 shrink-0">
+                <a href="{{ route('public.monitor') }}"
+                   class="px-4 py-2.5 rounded-lg bg-white hover:bg-slate-100 text-[#173B70] font-telemetry text-xs font-bold uppercase tracking-wider transition inline-flex items-center gap-1.5 shadow-2xs min-h-[38px]">
+                    <svg class="w-3.5 h-3.5 text-[#173B70]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                    </svg>
+                    <span>Buka Peta Pantau</span>
+                </a>
+            </div>
         </div>
-    </div>
+    </section>
 
     <!-- Ringkasan Telemetri Cepat (Single Compact Row) -->
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-x divide-y sm:divide-y-0 divide-slate-100 bg-white rounded-xl border border-slate-200/80 shadow-2xs overflow-hidden text-xs">
@@ -85,28 +87,29 @@
     </div>
 
     <!-- TABEL RINGKAS PROVIDER (Section 7 Redesign: Minimalist & Transparent) -->
-    <section aria-label="Tabel Provider Eksternal" class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-5 space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+    <section aria-label="Tabel Provider Eksternal" class="bg-white rounded-2xl shadow-xs border border-slate-200/80 overflow-hidden">
+        <div class="bg-[#173B70] text-white p-4 sm:p-5 border-b border-[#315D91] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
-                <h2 class="font-telemetry text-sm sm:text-base font-bold uppercase tracking-wider text-[#202938] flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+                <h2 class="font-telemetry text-sm sm:text-base font-bold uppercase tracking-wider text-white flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-blue-300"></span>
                     <span>Status Integrasi 8 Provider Eksternal</span>
                 </h2>
-                <p class="text-xs text-slate-500 mt-0.5">
-                    Ringkasan status pemeriksaan aktual sistem tanpa paragraf berulang.
+                <p class="text-xs text-blue-100 mt-0.5">
+                    Ringkasan status pemeriksaan aktual sistem tanpa manipulasi status.
                 </p>
             </div>
             <div class="flex items-center gap-2 text-xs font-telemetry">
-                <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold">Aktif: {{ $successfulProvidersCount }}</span>
-                <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200 font-bold">Stub: {{ $notIntegratedCount }}</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-600 text-white font-bold">Aktif: {{ $successfulProvidersCount }}</span>
+                <span class="px-2 py-0.5 rounded bg-[#315D91] text-white border border-blue-300/30 font-bold">Stub: {{ $notIntegratedCount }}</span>
             </div>
         </div>
 
+        <div class="p-5 space-y-4">
         <!-- Tabel Ringkas Provider -->
         <div class="overflow-x-auto border border-slate-200/80 rounded-xl">
             <table class="w-full text-left border-collapse">
                 <thead>
-                    <tr class="bg-[#F8FAFC] border-b border-slate-200/80 font-telemetry text-[11px] font-bold uppercase text-slate-500">
+                    <tr class="bg-[#173B70] border-b border-[#315D91] font-telemetry text-[11px] font-bold uppercase text-white">
                         <th class="py-2.5 px-3">Provider</th>
                         <th class="py-2.5 px-3">Informasi</th>
                         <th class="py-2.5 px-3">Status Aktual</th>
@@ -237,28 +240,31 @@
                 </tbody>
             </table>
         </div>
+        </div>
     </section>
 
     <!-- SECTION 2: EKSPLORASI REKAMAN DATA PUBLIK DENGAN FILTER -->
-    <section aria-label="Eksplorasi Rekaman Data" class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-5 space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
+    <section aria-label="Eksplorasi Rekaman Data" class="bg-white rounded-2xl shadow-xs border border-slate-200/80 overflow-hidden">
+        <div class="bg-[#173B70] text-white p-4 sm:p-5 border-b border-[#315D91] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-                <h2 class="font-telemetry text-sm sm:text-base font-bold uppercase tracking-wider text-[#202938]">
+                <h2 class="font-telemetry text-sm sm:text-base font-bold uppercase tracking-wider text-white">
                     Eksplorasi Rekaman Data Eksternal
                 </h2>
-                <p class="text-xs text-slate-500 mt-0.5">
+                <p class="text-xs text-blue-100 mt-0.5">
                     Filter berdasarkan kategori, cakupan wilayah, atau kata kunci pencarian.
                 </p>
             </div>
 
             @if($selectedInfoType || $selectedCategory || $selectedProvider || $searchKeyword)
                 <a href="{{ route('public.sources.index') }}"
-                   class="inline-flex items-center gap-1 text-xs font-telemetry font-bold text-red-600 hover:text-red-800">
+                   class="inline-flex items-center gap-1 text-xs font-telemetry font-bold text-blue-200 hover:text-white">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                     Reset Filter
                 </a>
             @endif
         </div>
+
+        <div class="p-5 space-y-4">
 
         <!-- Category Pills Bar -->
         <div class="flex flex-wrap items-center gap-1.5">
@@ -388,6 +394,7 @@
                     </div>
                 @endif
             @endif
+        </div>
         </div>
     </section>
 </div>

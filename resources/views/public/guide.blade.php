@@ -5,32 +5,41 @@
 
 @section('content')
 <div class="space-y-8 sm:space-y-10 lg:space-y-12">
-    <!-- Header Panduan (Clean, Light, Master Design Alignment) -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200/80 pb-4">
-        <div class="space-y-1 max-w-2xl">
-            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#202938]">
-                Panduan Penggunaan TanggapTerang
-            </h1>
-            <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
-                Panduan ringkas cara melapor, menyimpan kode tiket, melacak proses verifikasi, dan memantau kejadian di peta.
-            </p>
-        </div>
+    <!-- Header Panduan (Master Hero Card Alignment) -->
+    <section class="bg-[#173B70] text-white border border-[#315D91] rounded-2xl p-5 sm:p-7 space-y-4 shadow-xs">
+        <div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
+            <div class="space-y-2 max-w-2xl">
+                <div class="flex items-center gap-2">
+                    <span class="inline-flex items-center px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-[#315D91] text-white border border-blue-300/30 font-telemetry">
+                        Panduan Penggunaan
+                    </span>
+                    <span class="text-xs text-blue-200">•</span>
+                    <span class="text-xs text-blue-100 font-telemetry">Panduan Partisipasi Publik</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
+                    Panduan Penggunaan TanggapTerang
+                </h1>
+                <p class="text-xs sm:text-sm text-blue-100 leading-relaxed">
+                    Panduan ringkas cara melapor, menyimpan kode tiket, melacak proses verifikasi, dan memantau kejadian di peta.
+                </p>
+            </div>
 
-        <div class="flex flex-wrap items-center gap-2 shrink-0">
-            <a href="{{ route('public.track') }}"
-               class="px-3.5 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-telemetry text-xs font-bold uppercase tracking-wider transition inline-flex items-center gap-1.5 shadow-2xs min-h-[38px]">
-                <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                </svg>
-                <span>Lacak Tiket</span>
-            </a>
-            <a href="{{ route('public.reports.create') }}"
-               class="px-4 py-2 rounded-lg btn-brand-gradient text-white font-telemetry text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 shadow-xs transition min-h-[38px]">
-                <span class="font-extrabold text-sm leading-none">+</span>
-                <span>Kirim Laporan Warga</span>
-            </a>
+            <div class="flex flex-wrap items-center gap-2 shrink-0">
+                <a href="{{ route('public.track') }}"
+                   class="px-4 py-2.5 rounded-lg bg-white hover:bg-slate-100 text-[#173B70] font-telemetry text-xs font-bold uppercase tracking-wider transition inline-flex items-center gap-1.5 shadow-2xs min-h-[38px]">
+                    <svg class="w-3.5 h-3.5 text-[#173B70]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                    <span>Lacak Tiket</span>
+                </a>
+                <a href="{{ route('public.reports.create') }}"
+                   class="px-4 py-2.5 rounded-lg btn-brand-gradient text-white font-telemetry text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 shadow-xs transition min-h-[38px]">
+                    <span class="font-extrabold text-sm leading-none">+</span>
+                    <span>Kirim Laporan Warga</span>
+                </a>
+            </div>
         </div>
-    </div>
+    </section>
 
     <!-- Ringkasan Alur 5 Langkah (Horizontal Flow Illustration) -->
     <section class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-5 space-y-4" aria-label="Alur 5 Langkah Panduan">
@@ -38,7 +47,7 @@
             <h2 class="font-telemetry text-xs sm:text-sm font-bold uppercase tracking-wider text-[#202938]">
                 Alur Praktis 5 Langkah
             </h2>
-            <p class="text-xs text-slate-400 mt-0.5">
+            <p class="text-xs text-slate-500 mt-0.5">
                 Semua fitur publik dapat diakses langsung tanpa registrasi atau kewajiban login.
             </p>
         </div>
@@ -140,10 +149,10 @@
     <!-- Detail 5 Penjelasan Sesuai Standar Uji -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <!-- 1. Apa itu TanggapTerang? -->
-        <section id="apa-itu" class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-5 space-y-3">
+        <section id="apa-itu" class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-4 sm:p-5 space-y-3">
             <div class="flex items-center gap-2.5 border-b border-slate-100 pb-2.5">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#173B70]"></span>
-                <h2 class="font-telemetry text-sm font-bold uppercase tracking-wider text-[#202938]">
+                <span class="w-2 h-2 rounded-full bg-[#173B70]" aria-hidden="true"></span>
+                <h2 class="font-telemetry text-xs sm:text-sm font-bold uppercase tracking-wider text-[#202938]">
                     Apa itu TanggapTerang?
                 </h2>
             </div>
@@ -167,10 +176,10 @@
         </section>
 
         <!-- 2. Bagaimana Masyarakat Melaporkan Kejadian? -->
-        <section id="cara-lapor" class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-5 space-y-3">
+        <section id="cara-lapor" class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-4 sm:p-5 space-y-3">
             <div class="flex items-center gap-2.5 border-b border-slate-100 pb-2.5">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#D94350]"></span>
-                <h2 class="font-telemetry text-sm font-bold uppercase tracking-wider text-[#202938]">
+                <span class="w-2 h-2 rounded-full bg-[#315D91]" aria-hidden="true"></span>
+                <h2 class="font-telemetry text-xs sm:text-sm font-bold uppercase tracking-wider text-[#202938]">
                     Bagaimana Masyarakat Melaporkan Kejadian?
                 </h2>
             </div>
@@ -185,10 +194,10 @@
         </section>
 
         <!-- 3. Bagaimana Kode Tiket Digunakan untuk Melacak Laporan? -->
-        <section id="lacak-tiket" class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-5 space-y-3">
+        <section id="lacak-tiket" class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-4 sm:p-5 space-y-3">
             <div class="flex items-center gap-2.5 border-b border-slate-100 pb-2.5">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#315D91]"></span>
-                <h2 class="font-telemetry text-sm font-bold uppercase tracking-wider text-[#202938]">
+                <span class="w-2 h-2 rounded-full bg-[#315D91]" aria-hidden="true"></span>
+                <h2 class="font-telemetry text-xs sm:text-sm font-bold uppercase tracking-wider text-[#202938]">
                     Bagaimana Kode Tiket Digunakan untuk Melacak Laporan?
                 </h2>
             </div>
@@ -203,10 +212,10 @@
         </section>
 
         <!-- 4. Apa Arti Status Verifikasi & Tindak Lanjut? -->
-        <section id="status-alur" class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-5 space-y-3">
+        <section id="status-alur" class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-4 sm:p-5 space-y-3">
             <div class="flex items-center gap-2.5 border-b border-slate-100 pb-2.5">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#D97706]"></span>
-                <h2 class="font-telemetry text-sm font-bold uppercase tracking-wider text-[#202938]">
+                <span class="w-2 h-2 rounded-full bg-emerald-600" aria-hidden="true"></span>
+                <h2 class="font-telemetry text-xs sm:text-sm font-bold uppercase tracking-wider text-[#202938]">
                     Apa Arti Status Verifikasi &amp; Tindak Lanjut?
                 </h2>
             </div>
@@ -232,10 +241,10 @@
     </div>
 
     <!-- 5. Apa Batasan Sistem TanggapTerang? & Kontak Darurat -->
-    <section id="batasan-sistem" class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-5 space-y-3">
+    <section id="batasan-sistem" class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-4 sm:p-5 space-y-3">
         <div class="flex items-center gap-2.5 border-b border-slate-100 pb-2.5">
-            <span class="w-2.5 h-2.5 rounded-full bg-red-600"></span>
-            <h2 class="font-telemetry text-sm font-bold uppercase tracking-wider text-[#202938]">
+            <span class="w-2 h-2 rounded-full bg-amber-500" aria-hidden="true"></span>
+            <h2 class="font-telemetry text-xs sm:text-sm font-bold uppercase tracking-wider text-[#202938]">
                 Apa Batasan Sistem TanggapTerang?
             </h2>
         </div>

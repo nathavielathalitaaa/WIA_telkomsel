@@ -22,9 +22,9 @@
     </div>
 
     @if($incidentsCollection->isEmpty())
-        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-5 text-center text-xs text-slate-500">
-            <p class="font-medium text-slate-700">Belum ada kejadian yang tercatat.</p>
-            <p class="mt-1 text-slate-400">Informasi kejadian akan ditampilkan di sini.</p>
+        <div class="bg-[#FEFCE8] border border-[#EAB308] rounded-xl p-4 sm:p-5 text-center text-xs text-amber-900">
+            <p class="font-bold text-amber-950">Belum ada kejadian yang tercatat.</p>
+            <p class="mt-1 text-amber-800">Informasi kejadian akan ditampilkan secara otomatis di sini.</p>
         </div>
     @else
         <div class="relative overflow-hidden rounded-xl"
@@ -54,17 +54,10 @@
                             ? $inc->follow_up_status->label()
                             : (string) $inc->follow_up_status;
 
-                        $cardBg = $isUrgent
-                            ? 'bg-[#FEFCE8] border-[#EAB308]'
-                            : 'bg-white border-slate-200';
-
-                        $badgeBg = $isUrgent
-                            ? 'bg-[#FEF08A] text-[#854D0E] border-[#EAB308]'
-                            : 'bg-slate-100 text-slate-700 border-slate-200';
-
-                        $ctaBtn = $isUrgent
-                            ? 'bg-[#CA8A04] hover:bg-[#A16207]'
-                            : 'bg-[#173B70] hover:bg-[#0F2A52]';
+                        // Seluruh card pemantauan saat ini selalu berwarna kuning (#FEFCE8 dengan border #EAB308)
+                        $cardBg = 'bg-[#FEFCE8] border-[#EAB308]';
+                        $badgeBg = 'bg-[#FEF08A] text-[#854D0E] border-[#EAB308]';
+                        $ctaBtn = 'bg-[#173B70] hover:bg-[#0F2A52]';
                     @endphp
 
                     <article class="w-full shrink-0 min-w-0 {{ $cardBg }} border rounded-xl p-3 sm:p-3.5 flex flex-col justify-between gap-2"
@@ -79,7 +72,7 @@
                                 </span>
 
                                 <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase border shrink-0
-                                    {{ $inc->is_simulation ? 'bg-slate-200/80 text-slate-700 border-slate-300' : 'bg-[#173B70] text-white border-[#173B70]' }}">
+                                    {{ $inc->is_simulation ? 'bg-white/90 text-slate-700 border-amber-300' : 'bg-[#173B70] text-white border-[#173B70]' }}">
                                     {{ $inc->is_simulation ? 'Simulasi' : 'Historis BNPB' }}
                                 </span>
 
@@ -88,7 +81,7 @@
                                 </span>
                             </div>
 
-                            <span class="text-[10px] sm:text-xs text-slate-500 font-telemetry shrink-0 whitespace-nowrap">
+                            <span class="text-[10px] sm:text-xs text-slate-600 font-telemetry shrink-0 whitespace-nowrap">
                                 {{ $timeStr }}
                             </span>
                         </div>
@@ -101,17 +94,17 @@
                         </h3>
 
                         <!-- Baris 3: Metadata Status & Tombol Tindak Lanjut / Detail -->
-                        <div class="flex items-center justify-between gap-2 pt-1 border-t border-slate-200/70 min-w-0">
-                            <div class="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-slate-600 truncate min-w-0">
-                                <span class="font-semibold text-slate-800 shrink-0">{{ $typeTitle }}</span>
-                                <span class="text-slate-300">·</span>
-                                <span class="truncate">{{ $verifLabel }}</span>
-                                <span class="text-slate-300 hidden xs:inline">·</span>
-                                <span class="text-slate-500 truncate hidden xs:inline">{{ $followLabel }}</span>
+                        <div class="flex items-center justify-between gap-2 pt-1 border-t border-amber-300/80 min-w-0">
+                            <div class="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-slate-700 truncate min-w-0">
+                                <span class="font-semibold text-slate-900 shrink-0">{{ $typeTitle }}</span>
+                                <span class="text-amber-400">·</span>
+                                <span class="truncate font-medium text-amber-950">{{ $verifLabel }}</span>
+                                <span class="text-amber-400 hidden xs:inline">·</span>
+                                <span class="text-slate-700 truncate hidden xs:inline">{{ $followLabel }}</span>
                             </div>
 
                             <a href="{{ route('public.incidents.show', $inc->slug) }}"
-                               class="inline-flex items-center justify-center px-3 py-1 sm:px-3.5 sm:py-1 rounded-md {{ $ctaBtn }} text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider shrink-0 transition">
+                               class="inline-flex items-center justify-center px-3 py-1 sm:px-3.5 sm:py-1 rounded-md {{ $ctaBtn }} text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider shrink-0 transition shadow-xs">
                                 Lihat kejadian
                             </a>
                         </div>
@@ -124,7 +117,7 @@
                     <div class="flex items-center gap-1.5 regional-carousel-dots" aria-label="Pilih kejadian">
                         @foreach($incidentsCollection as $index => $inc)
                             <button type="button"
-                                    class="regional-carousel-dot h-1.5 rounded-full transition-all duration-300 {{ $index === 0 ? 'w-6 bg-[#173B70]' : 'w-1.5 bg-slate-300' }}"
+                                    class="regional-carousel-dot h-1.5 rounded-full transition-all duration-300 {{ $index === 0 ? 'w-6 bg-[#173B70]' : 'w-1.5 bg-amber-300' }}"
                                     data-slide="{{ $index }}"
                                     aria-label="Tampilkan kejadian {{ $index + 1 }}"
                                     aria-current="{{ $index === 0 ? 'true' : 'false' }}">
@@ -134,7 +127,7 @@
 
                     <div class="flex items-center gap-2">
                         <button type="button"
-                                class="regional-carousel-prev w-7 h-7 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 flex items-center justify-center"
+                                class="regional-carousel-prev w-7 h-7 rounded-lg border border-amber-300 bg-white hover:bg-amber-50 text-slate-700 flex items-center justify-center"
                                 aria-label="Kejadian sebelumnya">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
@@ -142,7 +135,7 @@
                         </button>
 
                         <button type="button"
-                                class="regional-carousel-next w-7 h-7 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 flex items-center justify-center"
+                                class="regional-carousel-next w-7 h-7 rounded-lg border border-amber-300 bg-white hover:bg-amber-50 text-slate-700 flex items-center justify-center"
                                 aria-label="Kejadian berikutnya">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>

@@ -1,7 +1,7 @@
-@extends('layouts.app')
-
-@section('title', 'Rincian Data: ' . $record->title . ' — TanggapTerang')
-@section('activeTab', 'sumber_data')
+@extends('layouts.app', [
+    'title' => 'Rincian Data: ' . $record->title . ' — TanggapTerang',
+    'activeTab' => 'sumber_data',
+])
 
 @section('content')
 <div class="max-w-4xl mx-auto space-y-6">
@@ -62,10 +62,13 @@
             <!-- Metadata Grid -->
             <section class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <!-- Waktu Kejadian & Publikasi -->
-                <div class="p-4 rounded-xl border border-slate-100 bg-white shadow-2xs space-y-2">
-                    <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-500">
-                        Waktu &amp; Tanggal
-                    </h3>
+                <div class="rounded-xl border border-slate-100 bg-white shadow-2xs overflow-hidden">
+                    <div class="bg-[#173B70] text-white px-4 py-2 border-b border-[#315D91]">
+                        <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-white">
+                            Waktu &amp; Tanggal
+                        </h3>
+                    </div>
+                    <div class="p-4 space-y-2">
                     <dl class="space-y-1.5 text-xs text-slate-700">
                         <div class="flex justify-between">
                             <dt class="text-slate-500">Waktu Kejadian:</dt>
@@ -86,13 +89,17 @@
                             </dd>
                         </div>
                     </dl>
+                    </div>
                 </div>
 
                 <!-- Lokasi & Koordinat -->
-                <div class="p-4 rounded-xl border border-slate-100 bg-white shadow-2xs space-y-2">
-                    <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-slate-500">
-                        Lokasi &amp; Georeferensi
-                    </h3>
+                <div class="rounded-xl border border-slate-100 bg-white shadow-2xs overflow-hidden">
+                    <div class="bg-[#173B70] text-white px-4 py-2 border-b border-[#315D91]">
+                        <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-white">
+                            Lokasi &amp; Georeferensi
+                        </h3>
+                    </div>
+                    <div class="p-4 space-y-2">
                     <dl class="space-y-1.5 text-xs text-slate-700">
                         <div class="flex justify-between">
                             <dt class="text-slate-500">Nama Wilayah / Lokasi:</dt>
@@ -113,14 +120,18 @@
                             </dd>
                         </div>
                     </dl>
+                    </div>
                 </div>
             </section>
 
             <!-- Tautan Sumber Asli & Endpoint -->
-            <section class="p-4 rounded-xl bg-blue-50/50 border border-blue-100 space-y-3">
-                <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-blue-900">
-                    Tautan Sumber Asli &amp; Keabsahan Informasi
-                </h3>
+            <section class="rounded-xl bg-white border border-slate-100 shadow-2xs overflow-hidden">
+                <div class="bg-[#173B70] text-white px-4 py-2.5 border-b border-[#315D91]">
+                    <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-white">
+                        Tautan Sumber Asli &amp; Keabsahan Informasi
+                    </h3>
+                </div>
+                <div class="p-4">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
                     <div class="space-y-1">
                         <span class="text-slate-600 block">Penyedia: <strong>{{ $record->provider?->name ?? $record->provider_code }}</strong></span>
@@ -136,11 +147,12 @@
                         </a>
                     @elseif($record->provider?->officialPortalUrl())
                         <a href="{{ $record->provider->officialPortalUrl() }}" target="_blank" rel="noopener noreferrer"
-                           class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-telemetry font-bold uppercase tracking-wider shrink-0 transition">
+                           class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white text-xs font-telemetry font-bold uppercase tracking-wider shrink-0 transition">
                             <span>Buka Portal Resmi</span>
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                         </a>
                     @endif
+                </div>
                 </div>
             </section>
 

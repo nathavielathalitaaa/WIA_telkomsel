@@ -43,21 +43,19 @@
         </section>
     @endif
 
-    <!-- 1. Header & 2. Deskripsi & 3. Search Form (Clean Editorial Composition) -->
-    <section class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-5 sm:p-7 space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+    <!-- 1. Header & 2. Deskripsi & 3. Search Form (Master Hero Card Alignment) -->
+    <section class="bg-[#173B70] text-white rounded-2xl shadow-xs border border-[#315D91] p-5 sm:p-7 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-blue-400/20 pb-4">
             <div class="space-y-1">
                 <div class="flex items-center gap-2">
-                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-[#173B70]/10 text-[#173B70] font-telemetry">
+                    <span class="inline-flex items-center px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-[#315D91] text-white border border-blue-300/30 font-telemetry">
                         Pelacakan Mandiri
                     </span>
-                    <span class="text-xs text-slate-400">•</span>
-                    <span class="text-xs text-slate-500 font-telemetry">Tanpa Perlu Login</span>
                 </div>
-                <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#202938]">
+                <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
                     Lacak Tiket
                 </h1>
-                <p class="text-xs sm:text-sm text-slate-500 max-w-2xl leading-relaxed">
+                <p class="text-xs sm:text-sm text-blue-100 max-w-2xl leading-relaxed">
                     Lacak verifikasi, keterkaitan kejadian, dan perkembangan tindak lanjut melalui nomor tiket unik.
                 </p>
             </div>
@@ -83,10 +81,10 @@
                            required
                            maxlength="32"
                            placeholder="Masukkan nomor tiket (contoh: RPT-SIM-8K4M9P2X atau RSP-SIM-7M2K8N4Q)"
-                           class="w-full min-h-[44px] px-4 py-2 bg-slate-50/60 border border-slate-200 rounded-xl font-telemetry text-sm font-bold uppercase tracking-wider placeholder:font-normal placeholder:normal-case placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-[#173B70]">
+                           class="w-full min-h-[44px] px-4 py-2 bg-white text-[#202938] border border-blue-200 rounded-xl font-telemetry text-sm font-bold uppercase tracking-wider placeholder:font-normal placeholder:normal-case placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400">
                 </div>
                 <button type="submit"
-                        class="px-6 py-2 rounded-xl bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center justify-center gap-2 shadow-xs cursor-pointer">
+                        class="px-6 py-2 rounded-xl bg-white hover:bg-slate-100 text-[#173B70] font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center justify-center gap-2 shadow-xs cursor-pointer">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                     </svg>
@@ -95,27 +93,27 @@
             </div>
 
             <!-- Monochrome Sample Ticket Chips -->
-            <div class="flex flex-wrap items-center gap-1.5 pt-1 text-xs font-telemetry text-slate-500">
-                <span class="font-semibold text-slate-400 text-[11px] uppercase mr-1">Contoh Tiket:</span>
+            <div class="flex flex-wrap items-center gap-1.5 pt-1 text-xs font-telemetry text-blue-100">
+                <span class="font-semibold text-blue-200 text-[11px] uppercase mr-1">Contoh Tiket:</span>
                 <a href="{{ route('public.track', ['ticket' => 'RPT-SIM-8K4M9P2X']) }}"
-                   class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 transition text-[11px]">
+                   class="px-2 py-0.5 rounded bg-[#315D91] hover:bg-[#204778] text-white transition text-[11px] border border-blue-300/30">
                     RPT-SIM-8K4M9P2X (Terverifikasi)
                 </a>
                 <a href="{{ route('public.track', ['ticket' => 'RPT-SIM-6T9W4L8R']) }}"
-                   class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 transition text-[11px]">
+                   class="px-2 py-0.5 rounded bg-[#315D91] hover:bg-[#204778] text-white transition text-[11px] border border-blue-300/30">
                     RPT-SIM-6T9W4L8R (Menunggu)
                 </a>
                 <a href="{{ route('public.track', ['ticket' => 'RPT-SIM-9P3F6Y2M']) }}"
-                   class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 transition text-[11px]">
+                   class="px-2 py-0.5 rounded bg-[#315D91] hover:bg-[#204778] text-white transition text-[11px] border border-blue-300/30">
                     RPT-SIM-9P3F6Y2M (Ditolak)
                 </a>
-                <span class="text-slate-300">|</span>
+                <span class="text-blue-300">|</span>
                 <a href="{{ route('public.track', ['ticket' => 'RSP-SIM-7M2K8N4Q']) }}"
-                   class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 transition text-[11px]">
+                   class="px-2 py-0.5 rounded bg-[#315D91] hover:bg-[#204778] text-white transition text-[11px] border border-blue-300/30">
                     RSP-SIM-7M2K8N4Q (Respons)
                 </a>
                 <a href="{{ route('public.track', ['ticket' => 'RSP-SIM-9V5P3W6X']) }}"
-                   class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 transition text-[11px]">
+                   class="px-2 py-0.5 rounded bg-[#315D91] hover:bg-[#204778] text-white transition text-[11px] border border-blue-300/30">
                     RSP-SIM-9V5P3W6X (Penyaluran)
                 </a>
             </div>

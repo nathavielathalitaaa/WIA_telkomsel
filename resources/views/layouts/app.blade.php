@@ -31,7 +31,15 @@
 
             <!-- Desktop Main Navigation (5 Tabs) -->
             @php
-                $activeTab = $activeTab ?? '';
+                $activeTab = (!empty($activeTab)) ? $activeTab : (trim($__env->yieldContent('activeTab')) ?: match (true) {
+                    request()->routeIs('public.sources.*') => 'sumber_data',
+                    request()->routeIs('public.guide') => 'panduan',
+                    request()->routeIs('public.sitrep') => 'laporan',
+                    request()->routeIs('public.replay') => 'replay',
+                    request()->routeIs('public.track') => 'lacak',
+                    request()->routeIs('public.monitor') => 'pantau',
+                    default => '',
+                });
                 $replayHref = \Illuminate\Support\Facades\Route::has('public.replay') ? route('public.replay') : '#';
                 $sitrepHref = \Illuminate\Support\Facades\Route::has('public.sitrep') ? route('public.sitrep') : '#';
                 $welcomeHref = \Illuminate\Support\Facades\Route::has('public.welcome') ? route('public.welcome') : route('public.monitor');

@@ -43,7 +43,7 @@ Route::post('/aid-responses', [PublicAidResponseController::class, 'store'])
     ->name('public.aid-responses.store');
 
 Route::get('/track', [PublicReportController::class, 'track'])
-    ->middleware('throttle:20,1')
+    ->middleware('throttle:' . env('THROTTLE_TRACK_LIMIT', 3000) . ',1')
     ->name('public.track');
 
 Route::get('/replay', [PublicReplayController::class, 'index'])

@@ -1,0 +1,146 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+     execution: local
+        script: /home/lalita/Projects/TanggapTerang/tanggap-terang/tests/load_testing/k6_test_script.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 10 max VUs, 1m0s max duration (incl. graceful stop):
+              * default: 10 looping VUs for 30s (gracefulStop: 30s)
+
+
+running (0m01.0s), 10/10 VUs, 0 complete and 0 interrupted iterations
+default   [   3% ] 10 VUs  01.0s/30s
+
+running (0m02.0s), 10/10 VUs, 10 complete and 0 interrupted iterations
+default   [   7% ] 10 VUs  02.0s/30s
+
+running (0m03.0s), 10/10 VUs, 20 complete and 0 interrupted iterations
+default   [  10% ] 10 VUs  03.0s/30s
+
+running (0m04.0s), 10/10 VUs, 30 complete and 0 interrupted iterations
+default   [  13% ] 10 VUs  04.0s/30s
+
+running (0m05.0s), 10/10 VUs, 40 complete and 0 interrupted iterations
+default   [  17% ] 10 VUs  05.0s/30s
+
+running (0m06.0s), 10/10 VUs, 50 complete and 0 interrupted iterations
+default   [  20% ] 10 VUs  06.0s/30s
+
+running (0m07.0s), 10/10 VUs, 50 complete and 0 interrupted iterations
+default   [  23% ] 10 VUs  07.0s/30s
+
+running (0m08.0s), 10/10 VUs, 60 complete and 0 interrupted iterations
+default   [  27% ] 10 VUs  08.0s/30s
+
+running (0m09.0s), 10/10 VUs, 70 complete and 0 interrupted iterations
+default   [  30% ] 10 VUs  09.0s/30s
+
+running (0m10.0s), 10/10 VUs, 80 complete and 0 interrupted iterations
+default   [  33% ] 10 VUs  10.0s/30s
+
+running (0m11.0s), 10/10 VUs, 90 complete and 0 interrupted iterations
+default   [  37% ] 10 VUs  11.0s/30s
+
+running (0m12.0s), 10/10 VUs, 100 complete and 0 interrupted iterations
+default   [  40% ] 10 VUs  12.0s/30s
+
+running (0m13.0s), 10/10 VUs, 104 complete and 0 interrupted iterations
+default   [  43% ] 10 VUs  13.0s/30s
+
+running (0m14.0s), 10/10 VUs, 110 complete and 0 interrupted iterations
+default   [  47% ] 10 VUs  14.0s/30s
+
+running (0m15.0s), 10/10 VUs, 120 complete and 0 interrupted iterations
+default   [  50% ] 10 VUs  15.0s/30s
+
+running (0m16.0s), 10/10 VUs, 130 complete and 0 interrupted iterations
+default   [  53% ] 10 VUs  16.0s/30s
+
+running (0m17.0s), 10/10 VUs, 140 complete and 0 interrupted iterations
+default   [  57% ] 10 VUs  17.0s/30s
+
+running (0m18.0s), 10/10 VUs, 150 complete and 0 interrupted iterations
+default   [  60% ] 10 VUs  18.0s/30s
+
+running (0m19.0s), 10/10 VUs, 157 complete and 0 interrupted iterations
+default   [  63% ] 10 VUs  19.0s/30s
+
+running (0m20.0s), 10/10 VUs, 160 complete and 0 interrupted iterations
+default   [  67% ] 10 VUs  20.0s/30s
+
+running (0m21.0s), 10/10 VUs, 170 complete and 0 interrupted iterations
+default   [  70% ] 10 VUs  21.0s/30s
+
+running (0m22.0s), 10/10 VUs, 180 complete and 0 interrupted iterations
+default   [  73% ] 10 VUs  22.0s/30s
+
+running (0m23.0s), 10/10 VUs, 190 complete and 0 interrupted iterations
+default   [  77% ] 10 VUs  23.0s/30s
+
+running (0m24.0s), 10/10 VUs, 200 complete and 0 interrupted iterations
+default   [  80% ] 10 VUs  24.0s/30s
+
+running (0m25.0s), 10/10 VUs, 210 complete and 0 interrupted iterations
+default   [  83% ] 10 VUs  25.0s/30s
+
+running (0m26.0s), 10/10 VUs, 214 complete and 0 interrupted iterations
+default   [  87% ] 10 VUs  26.0s/30s
+
+running (0m27.0s), 10/10 VUs, 220 complete and 0 interrupted iterations
+default   [  90% ] 10 VUs  27.0s/30s
+
+running (0m28.0s), 10/10 VUs, 230 complete and 0 interrupted iterations
+default   [  93% ] 10 VUs  28.0s/30s
+
+running (0m29.0s), 10/10 VUs, 240 complete and 0 interrupted iterations
+default   [  97% ] 10 VUs  29.0s/30s
+
+running (0m30.0s), 10/10 VUs, 250 complete and 0 interrupted iterations
+default   [ 100% ] 10 VUs  30.0s/30s
+
+     ✓ pantau status is 200
+     ✓ incident detail status is 200
+     ✓ track status is 200
+     ✓ replay status is 200
+     ✓ sitrep status is 200
+     ✓ sources status is 200
+     ✓ guide status is 200
+     ✓ form report status is 200
+     ✓ api wilayah status is 200
+
+     checks.............................: 100.00% 2340 out of 2340
+     data_received......................: 210 MB  6.8 MB/s
+     data_sent..........................: 1.9 MB  61 kB/s
+     http_req_blocked...................: avg=171.16µs min=54.04µs  med=155.55µs max=2.85ms   p(90)=235.99µs p(95)=295.62µs p(99)=461.99µs
+     http_req_connecting................: avg=120.37µs min=35.06µs  med=105.47µs max=2.79ms   p(90)=176.82µs p(95)=208.1µs  p(99)=339.36µs
+   ✓ http_req_duration..................: avg=19.78ms  min=4.28ms   med=18.9ms   max=100.13ms p(90)=31.63ms  p(95)=35.37ms  p(99)=63.37ms 
+       { expected_response:true }.......: avg=19.78ms  min=4.28ms   med=18.9ms   max=100.13ms p(90)=31.63ms  p(95)=35.37ms  p(99)=63.37ms 
+   ✓ http_req_failed....................: 0.00%   0 out of 2340
+     http_req_receiving.................: avg=472.54µs min=117.94µs med=442.85µs max=2.61ms   p(90)=666.99µs p(95)=783.62µs p(99)=1.21ms  
+     http_req_sending...................: avg=34.34µs  min=7.2µs    med=30.5µs   max=383.16µs p(90)=46.55µs  p(95)=57.8µs   p(99)=101.82µs
+     http_req_tls_handshaking...........: avg=0s       min=0s       med=0s       max=0s       p(90)=0s       p(95)=0s       p(99)=0s      
+     http_req_waiting...................: avg=19.28ms  min=4ms      med=18.43ms  max=99.56ms  p(90)=30.98ms  p(95)=34.67ms  p(99)=62.42ms 
+     http_reqs..........................: 2340    75.731697/s
+     iteration_duration.................: avg=1.18s    min=1.15s    med=1.17s    max=1.27s    p(90)=1.23s    p(95)=1.25s    p(99)=1.27s   
+     iterations.........................: 260     8.414633/s
+     tt_api_wilayah_duration............: avg=6.59ms   min=4.28ms   med=5.81ms   max=26.28ms  p(90)=8.18ms   p(95)=11.18ms  p(99)=20.75ms 
+     tt_failure_rate....................: 0.00%   0 out of 2340
+     tt_page_form_report_duration.......: avg=11.88ms  min=8.27ms   med=10.73ms  max=37.39ms  p(90)=13.7ms   p(95)=19.75ms  p(99)=33.41ms 
+     tt_page_guide_duration.............: avg=11.26ms  min=7.42ms   med=10.26ms  max=40.4ms   p(90)=13ms     p(95)=17.02ms  p(99)=29.55ms 
+     tt_page_incident_detail_duration...: avg=22.2ms   min=16.11ms  med=20.92ms  max=81.43ms  p(90)=25.25ms  p(95)=27.44ms  p(99)=71.57ms 
+     tt_page_pantau_duration............: avg=34.59ms  min=23.64ms  med=31.61ms  max=100.13ms p(90)=42.13ms  p(95)=60.28ms  p(99)=91.46ms 
+     tt_page_replay_duration............: avg=19.17ms  min=13.37ms  med=17.7ms   max=54.19ms  p(90)=21.64ms  p(95)=29.2ms   p(99)=52.66ms 
+     tt_page_sitrep_duration............: avg=20.72ms  min=14.86ms  med=19.44ms  max=84.96ms  p(90)=23.23ms  p(95)=24.86ms  p(99)=58.65ms 
+     tt_page_sources_duration...........: avg=30.18ms  min=20.6ms   med=28.21ms  max=72.56ms  p(90)=36.2ms   p(95)=43.02ms  p(99)=71.74ms 
+     tt_page_track_duration.............: avg=21.46ms  min=15.59ms  med=20.05ms  max=63.54ms  p(90)=24.29ms  p(95)=27.9ms   p(99)=59.57ms 
+     vus................................: 10      min=10           max=10
+     vus_max............................: 10      min=10           max=10
+
+
+running (0m30.9s), 00/10 VUs, 260 complete and 0 interrupted iterations
+default ✓ [ 100% ] 10 VUs  30s

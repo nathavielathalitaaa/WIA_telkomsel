@@ -394,67 +394,269 @@
         const lngInput = document.getElementById('longitude');
         const clearBtn = document.getElementById('clear-coordinates-btn');
 
-        if (!mapEl || typeof window.L === 'undefined') return;
+        if (mapEl && typeof window.L !== 'undefined') {
+            const initialLat = parseFloat(latInput?.value);
+            const initialLng = parseFloat(lngInput?.value);
+            const hasInitial = !Number.isNaN(initialLat) && !Number.isNaN(initialLng);
 
-        const initialLat = parseFloat(latInput.value);
-        const initialLng = parseFloat(lngInput.value);
-        const hasInitial = !Number.isNaN(initialLat) && !Number.isNaN(initialLng);
+            const map = window.L.map(mapEl, {
+                scrollWheelZoom: false,
+            }).setView(hasInitial ? [initialLat, initialLng] : [-6.9344, 107.6248], hasInitial ? 13 : 10);
 
-        const map = window.L.map(mapEl, {
-            scrollWheelZoom: false,
-        }).setView(hasInitial ? [initialLat, initialLng] : [-6.9344, 107.6248], hasInitial ? 13 : 10);
+            window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
 
-        window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 18,
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
+            let currentMarker = null;
 
-        let currentMarker = null;
+            const setMarker = (lat, lng) => {
+                if (currentMarker) {
+                    currentMarker.setLatLng([lat, lng]);
+                } else {
+                    currentMarker = window.L.circleMarker([lat, lng], {
+                        radius: 9,
+                        fillColor: '#DC2626',
+                        color: '#FFFFFF',
+                        weight: 2.5,
+                        opacity: 1,
+                        fillOpacity: 0.95,
+                    }).addTo(map);
+                }
+                if (latInput && lngInput) {
+                    latInput.value = Number(lat).toFixed(7);
+                    lngInput.value = Number(lng).toFixed(7);
+                    latInput.dispatchEvent(new Event('input', { bubbles: true }));
+                    lngInput.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+            };
 
-        const setMarker = (lat, lng) => {
-            if (currentMarker) {
-                currentMarker.setLatLng([lat, lng]);
-            } else {
-                currentMarker = window.L.circleMarker([lat, lng], {
-                    radius: 9,
-                    fillColor: '#DC2626',
-                    color: '#FFFFFF',
-                    weight: 2.5,
-                    opacity: 1,
-                    fillOpacity: 0.95,
-                }).addTo(map);
+            if (hasInitial) {
+                setMarker(initialLat, initialLng);
             }
-            latInput.value = Number(lat).toFixed(7);
-            lngInput.value = Number(lng).toFixed(7);
-        };
 
-        if (hasInitial) {
-            setMarker(initialLat, initialLng);
+            map.on('click', (e) => {
+                setMarker(e.latlng.lat, e.latlng.lng);
+            });
+
+            clearBtn?.addEventListener('click', () => {
+                if (currentMarker) {
+                    map.removeLayer(currentMarker);
+                    currentMarker = null;
+                }
+                if (latInput && lngInput) {
+                    latInput.value = '';
+                    lngInput.value = '';
+                    latInput.dispatchEvent(new Event('input', { bubbles: true }));
+                    lngInput.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+            });
         }
-
-        map.on('click', (e) => {
-            setMarker(e.latlng.lat, e.latlng.lng);
-        });
-
-        clearBtn?.addEventListener('click', () => {
-            if (currentMarker) {
-                map.removeLayer(currentMarker);
-                currentMarker = null;
-            }
-            latInput.value = '';
-            lngInput.value = '';
-        });
 
         document.querySelectorAll('.btn-report-cat-pill').forEach((btn) => {
             btn.addEventListener('click', () => {
                 const catSelect = document.getElementById('category');
                 if (catSelect) {
                     catSelect.value = btn.getAttribute('data-category');
-                    catSelect.dispatchEvent(new Event('change'));
+                    catSelect.dispatchEvent(new Event('change', { bubbles: true }));
                     catSelect.focus();
                 }
             });
         });
+
+        // --- Inline Form Validation & Auto-Scroll Navigation ---
+        const reportForm = document.querySelector('form[action="{{ route('public.reports.store') }}"]') || document.querySelector('form');
+        if (reportForm) {
+            const fields = [
+                {
+                    id: 'title',
+                    validate: (el) => {
+                        const val = (el.value || '').trim();
+                        return val.length >= 5 && val.length <= 255;
+                    }
+                },
+                {
+                    id: 'category',
+                    validate: (el) => (el.value || '').trim() !== ''
+                },
+                {
+                    id: 'occurred_at',
+                    validate: (el) => {
+                        const val = (el.value || '').trim();
+                        if (!val) return false;
+                        const d = new Date(val);
+                        if (isNaN(d.getTime())) return false;
+                        return d.getTime() <= (Date.now() + 60000);
+                    }
+                },
+                {
+                    id: 'description',
+                    validate: (el) => {
+                        const val = (el.value || '').trim();
+                        return val.length >= 10 && val.length <= 5000;
+                    }
+                },
+                {
+                    id: 'location_name',
+                    validate: (el) => {
+                        const val = (el.value || '').trim();
+                        return val.length >= 5 && val.length <= 255;
+                    }
+                },
+                {
+                    id: 'latitude',
+                    validate: (el) => {
+                        const latVal = (el.value || '').trim();
+                        const lngVal = (document.getElementById('longitude')?.value || '').trim();
+                        if (!latVal && !lngVal) return true;
+                        if (!latVal && lngVal) return false;
+                        const n = Number(latVal);
+                        return !isNaN(n) && n >= -90 && n <= 90;
+                    }
+                },
+                {
+                    id: 'longitude',
+                    validate: (el) => {
+                        const lngVal = (el.value || '').trim();
+                        const latVal = (document.getElementById('latitude')?.value || '').trim();
+                        if (!latVal && !lngVal) return true;
+                        if (!lngVal && latVal) return false;
+                        const n = Number(lngVal);
+                        return !isNaN(n) && n >= -180 && n <= 180;
+                    }
+                },
+                {
+                    id: 'evidence_url',
+                    validate: (el) => {
+                        const val = (el.value || '').trim();
+                        if (!val) return true;
+                        if (val.length > 255) return false;
+                        try {
+                            const u = new URL(val);
+                            return u.protocol === 'http:' || u.protocol === 'https:';
+                        } catch (e) {
+                            return false;
+                        }
+                    }
+                },
+                {
+                    id: 'reporter_name',
+                    validate: (el) => ((el.value || '').trim().length <= 150)
+                },
+                {
+                    id: 'reporter_contact',
+                    validate: (el) => ((el.value || '').trim().length <= 100)
+                }
+            ];
+
+            const markInvalid = (el) => {
+                el.classList.remove('border-slate-200/90');
+                el.classList.add('border-[#DC2626]');
+                el.style.borderColor = '#DC2626';
+                el.setAttribute('aria-invalid', 'true');
+            };
+
+            const markValid = (el) => {
+                el.classList.remove('border-[#DC2626]');
+                el.classList.add('border-slate-200/90');
+                el.style.borderColor = '';
+                el.removeAttribute('aria-invalid');
+
+                const parent = el.parentElement;
+                if (parent) {
+                    const errText = parent.querySelector('p.text-\\[\\#DC2626\\]');
+                    if (errText) {
+                        errText.style.display = 'none';
+                    }
+                }
+            };
+
+            const scrollToField = (el) => {
+                if (!el) return;
+                const header = document.querySelector('header');
+                const headerHeight = header ? header.getBoundingClientRect().height : 64;
+                const offset = headerHeight + 28;
+
+                const label = document.querySelector(`label[for="${el.id}"]`);
+                const target = label || el;
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+                window.scrollTo({
+                    top: Math.max(0, offsetPosition),
+                    behavior: 'smooth'
+                });
+
+                setTimeout(() => {
+                    try {
+                        el.focus({ preventScroll: true });
+                    } catch (err) {
+                        el.focus();
+                    }
+                }, 180);
+            };
+
+            // Attach real-time input listeners to clear indicator on correction
+            fields.forEach(({ id, validate }) => {
+                const el = document.getElementById(id);
+                if (!el) return;
+
+                const handleCorrection = () => {
+                    if (validate(el)) {
+                        markValid(el);
+                        if (id === 'latitude') {
+                            const lng = document.getElementById('longitude');
+                            const lngDef = fields.find(f => f.id === 'longitude');
+                            if (lng && lngDef && lngDef.validate(lng)) markValid(lng);
+                        } else if (id === 'longitude') {
+                            const lat = document.getElementById('latitude');
+                            const latDef = fields.find(f => f.id === 'latitude');
+                            if (lat && latDef && latDef.validate(lat)) markValid(lat);
+                        }
+                    }
+                };
+
+                el.addEventListener('input', handleCorrection);
+                el.addEventListener('change', handleCorrection);
+            });
+
+            // On initial page load (e.g. backend validation redirect), scroll to first error
+            const backendErrorField = reportForm.querySelector('.border-\\[\\#DC2626\\]')
+                || reportForm.querySelector('p.text-\\[\\#DC2626\\]')?.parentElement?.querySelector('input, select, textarea');
+            if (backendErrorField) {
+                setTimeout(() => {
+                    scrollToField(backendErrorField);
+                }, 150);
+            }
+
+            // Form submit validation & sequential focus navigation
+            reportForm.addEventListener('submit', (e) => {
+                let firstInvalidField = null;
+                let hasError = false;
+
+                fields.forEach(({ id, validate }) => {
+                    const el = document.getElementById(id);
+                    if (!el) return;
+
+                    const isValid = validate(el);
+                    if (!isValid) {
+                        markInvalid(el);
+                        hasError = true;
+                        if (!firstInvalidField) {
+                            firstInvalidField = el;
+                        }
+                    } else {
+                        markValid(el);
+                    }
+                });
+
+                if (hasError && firstInvalidField) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    scrollToField(firstInvalidField);
+                }
+            });
+        }
     });
 </script>
 @endpush

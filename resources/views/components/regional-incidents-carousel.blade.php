@@ -14,11 +14,6 @@
                 {{ $title }}
             </h2>
         </div>
-
-        <a href="{{ $allUrl }}"
-           class="text-xs font-telemetry font-bold link-text shrink-0">
-            Lihat semua
-        </a>
     </div>
 
     @if($incidentsCollection->isEmpty())

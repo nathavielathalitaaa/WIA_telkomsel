@@ -513,15 +513,16 @@
                     Belum ada respons bantuan yang tercatat pada sistem.
                 </div>
             @else
-                <div class="overflow-x-auto border border-slate-200/80 rounded-xl">
-                    <table class="w-full text-left border-collapse">
+                <div class="overflow-x-auto border border-slate-200/80 rounded-xl bg-white shadow-2xs">
+                    <table class="w-full table-fixed min-w-[800px] text-left border-collapse">
                         <thead>
                             <tr class="bg-[#F8F9FC] border-b border-slate-200/80 font-telemetry text-[11px] font-bold uppercase text-slate-500">
-                                <th class="py-2.5 px-3">Kode &amp; Waktu</th>
-                                <th class="py-2.5 px-3">Tujuan &amp; Kejadian</th>
-                                <th class="py-2.5 px-3">Bantuan &amp; Kategori</th>
-                                <th class="py-2.5 px-3">Pemberi Respons</th>
-                                <th class="py-2.5 px-3">Status</th>
+                                <th scope="col" class="w-[18%] py-3 px-3 sm:px-3.5 tracking-wider">Kode &amp; Waktu</th>
+                                <th scope="col" class="w-[26%] py-3 px-3 sm:px-3.5 tracking-wider">Tujuan &amp; Kejadian</th>
+                                <th scope="col" class="w-[15%] py-3 px-3 sm:px-3.5 tracking-wider">Bantuan</th>
+                                <th scope="col" class="w-[14%] py-3 px-3 sm:px-3.5 tracking-wider">Pemberi Respons</th>
+                                <th scope="col" class="w-[15%] py-3 px-3 sm:px-3.5 tracking-wider">Status</th>
+                                <th scope="col" class="w-[12%] py-3 px-3 sm:px-3.5 tracking-wider">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100 text-xs">
@@ -530,45 +531,62 @@
                                     $aidStatusVal = $aid->status instanceof \BackedEnum ? $aid->status->value : (string) $aid->status;
                                     $isDeliveredSubmission = $aid->isReportedDelivered();
                                 @endphp
-                                <tr class="hover:bg-slate-50/80 align-top">
-                                    <td class="py-2.5 px-3 whitespace-nowrap space-y-1">
-                                        <span class="font-telemetry font-bold text-[#202938] block">{{ $aid->reference_code }}</span>
-                                        <span class="px-1.5 py-0.5 rounded font-telemetry text-[10px] font-bold uppercase inline-block {{ $isDeliveredSubmission ? 'bg-indigo-50 text-indigo-900 border border-indigo-200' : 'bg-blue-50 text-[#173B70] border border-blue-200' }}">
-                                            {{ $aid->submissionTypeLabel() }}
-                                        </span>
-                                        <div class="font-telemetry text-[10px] text-slate-500">
-                                            {{ $aid->recorded_at?->format('d M Y, H:i') }} WIB
+                                <tr class="hover:bg-slate-50/80 transition-colors">
+                                    <td class="py-3 px-3 sm:px-3.5 align-top cell-wrap">
+                                        <div class="space-y-1">
+                                            <div class="flex items-center gap-1.5 flex-wrap">
+                                                <span class="font-telemetry font-bold text-[#202938] leading-tight">{{ $aid->reference_code }}</span>
+                                                <span class="px-1.5 py-0.5 rounded font-telemetry text-[9px] font-bold uppercase {{ $isDeliveredSubmission ? 'bg-indigo-50 text-indigo-900 border border-indigo-200' : 'bg-blue-50 text-[#173B70] border border-blue-200' }}">
+                                                    {{ $aid->submissionTypeLabel() }}
+                                                </span>
+                                                @if($aid->is_simulation)
+                                                    <span class="px-1.5 py-0.5 rounded font-telemetry text-[9px] font-bold uppercase bg-amber-50 text-amber-800 border border-amber-200">
+                                                        Simulasi
+                                                    </span>
+                                                @endif
+                                            </div>
+                                            <div class="font-telemetry text-[11px] text-slate-500 leading-tight">
+                                                {{ $aid->recorded_at?->format('d M Y, H:i') }} WIB
+                                            </div>
                                         </div>
                                     </td>
-                                    <td class="py-2.5 px-3">
-                                        @if($aid->incident)
-                                            <a href="{{ route('public.incidents.show', $aid->incident->slug) }}" class="font-bold text-[#173B70] hover:underline block">
-                                                {{ $aid->incident->title }}
-                                            </a>
-                                        @endif
-                                        <span class="text-slate-600 block mt-0.5 text-[11px]">{{ $aid->target_location }}</span>
+                                    <td class="py-3 px-3 sm:px-3.5 align-top cell-wrap">
+                                        <div class="space-y-1">
+                                            @if($aid->incident)
+                                                <a href="{{ route('public.incidents.show', $aid->incident->slug) }}" class="font-bold text-[#173B70] hover:underline block leading-snug">
+                                                    {{ $aid->incident->title }}
+                                                </a>
+                                            @else
+                                                <span class="text-slate-400 italic block text-[11px]">Tidak terikat kejadian</span>
+                                            @endif
+                                            <span class="text-slate-600 block text-[11px] leading-snug">{{ $aid->target_location }}</span>
+                                        </div>
                                     </td>
-                                    <td class="py-2.5 px-3">
-                                        <strong class="text-[#202938] block">{{ $aid->aid_item_title }}</strong>
-                                        <span class="font-telemetry text-[11px] text-slate-500">{{ $aid->quantity_label }}</span>
+                                    <td class="py-3 px-3 sm:px-3.5 align-top cell-wrap">
+                                        <div class="space-y-1">
+                                            <strong class="text-[#202938] block leading-snug">{{ $aid->aid_item_title }}</strong>
+                                            <span class="font-telemetry text-[11px] text-slate-500 block leading-snug">{{ $aid->quantity_label }}</span>
+                                        </div>
                                     </td>
-                                    <td class="py-2.5 px-3">
-                                        <strong class="text-[#202938] block">{{ $aid->publicResponderName() }}</strong>
-                                        <span class="font-telemetry text-[10px] text-slate-500 block">
-                                            {{ $responderTypes[$aid->responder_type] ?? $aid->responder_type }}
-                                        </span>
+                                    <td class="py-3 px-3 sm:px-3.5 align-top cell-wrap">
+                                        <div class="space-y-1">
+                                            <strong class="text-[#202938] block leading-snug">{{ $aid->publicResponderName() }}</strong>
+                                            <span class="font-telemetry text-[11px] text-slate-500 block leading-snug">
+                                                {{ $responderTypes[$aid->responder_type] ?? $aid->responder_type }}
+                                            </span>
+                                        </div>
                                     </td>
-                                    <td class="py-2.5 px-3 space-y-1">
-                                        <div class="flex items-center gap-1">
+                                    <td class="py-3 px-3 sm:px-3.5 align-top cell-wrap">
+                                        <div class="flex flex-col gap-1 items-start">
                                             <x-verification-badge :status="$aid->verification_status" />
                                             <x-aid-status-badge :status="$aid->status" />
                                         </div>
-                                        <div>
-                                            <a href="{{ route('public.track', ['ticket' => $aid->reference_code]) }}"
-                                               class="font-telemetry text-[11px] font-bold link-text">
-                                                Lacak tiket
-                                            </a>
-                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3 sm:px-3.5 align-top whitespace-nowrap">
+                                        <a href="{{ route('public.track', ['ticket' => $aid->reference_code]) }}"
+                                           class="font-telemetry text-xs font-bold link-text inline-block">
+                                            Lacak Tiket
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

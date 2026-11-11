@@ -74,6 +74,12 @@
         text-decoration-thickness: 2px;
     }
 
+    /* Proportional table text wrap */
+    .cell-wrap {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
     /* Brand Selective Red-Blue Gradient (#D94350 Accent Red <-> #173B70 Primary Blue) */
     .btn-brand-gradient {
         background-color: #173B70;

@@ -43,7 +43,6 @@
                 </div>
                 <div class="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] font-telemetry text-slate-500">
                     <span>{{ $summary['historical_incidents'] ?? 0 }} BNPB • {{ $summary['simulation_incidents'] ?? 0 }} Simulasi</span>
-                    <span class="text-[#173B70] font-bold group-hover:translate-x-0.5 transition-transform">&rarr;</span>
                 </div>
             </a>
 
@@ -60,7 +59,6 @@
                 </div>
                 <div class="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] font-telemetry text-slate-500">
                     <span>Divalidasi Tim/Sumber Resmi</span>
-                    <span class="text-blue-600 font-bold group-hover:translate-x-0.5 transition-transform">&rarr;</span>
                 </div>
             </a>
 
@@ -77,7 +75,6 @@
                 </div>
                 <div class="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] font-telemetry text-slate-500">
                     <span>Koordinasi Penanganan Lapangan</span>
-                    <span class="text-amber-600 font-bold group-hover:translate-x-0.5 transition-transform">&rarr;</span>
                 </div>
             </a>
 
@@ -94,7 +91,6 @@
                 </div>
                 <div class="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] font-telemetry text-slate-500">
                     <span>Tawaran &amp; Penyerahan Bantuan</span>
-                    <span class="text-emerald-600 font-bold group-hover:translate-x-0.5 transition-transform">&rarr;</span>
                 </div>
             </a>
         </div>
@@ -569,9 +565,8 @@
                                         </div>
                                         <div>
                                             <a href="{{ route('public.track', ['ticket' => $aid->reference_code]) }}"
-                                               class="inline-flex items-center gap-1 font-telemetry text-[11px] font-bold text-[#173B70] hover:underline">
-                                                <span>Lacak Tiket</span>
-                                                <span aria-hidden="true">&rarr;</span>
+                                               class="font-telemetry text-[11px] font-bold link-text">
+                                                Lacak tiket
                                             </a>
                                         </div>
                                     </td>
@@ -670,10 +665,10 @@
                     </div>
                     <div style="display: flex; flex-direction: column; gap: 4px;">
                         <button type="button" class="btn-popup-sidepanel" data-incident-id="${item.id}" style="display: block; width: 100%; text-align: center; background: #F8F9FC; color: #202938; border: 1px solid #CBD5E1; padding: 6px 10px; border-radius: 6px; font-family: 'Poppins', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; cursor: pointer;">
-                            Buka Panel Cepat &rarr;
+                            Buka Panel Cepat
                         </button>
                         <a href="${item.url}" style="display: inline-block; width: 100%; text-align: center; background: #173B70; color: #FFFFFF; text-decoration: none; padding: 6px 10px; border-radius: 6px; font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase;">
-                            Lihat Detail Kejadian &rarr;
+                            Lihat Detail Kejadian
                         </a>
                     </div>
                 </div>
@@ -711,7 +706,7 @@
                         Status: ${need.verification_label}
                     </div>
                     <a href="${need.track_url}" style="display: inline-block; width: 100%; text-align: center; background: #173B70; color: #FFFFFF; text-decoration: none; padding: 5px 8px; border-radius: 6px; font-family: 'Poppins', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase;">
-                        Lacak Tiket Laporan &rarr;
+                        Lacak Tiket Laporan
                     </a>
                 </div>
             `;
@@ -749,7 +744,7 @@
                         Status: <strong>${aid.status_label}</strong>
                     </div>
                     <a href="${aid.incident_url}" style="display: inline-block; width: 100%; text-align: center; background: #059669; color: #FFFFFF; text-decoration: none; padding: 5px 8px; border-radius: 6px; font-family: 'Poppins', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase;">
-                        Buka Kejadian Terkait &rarr;
+                        Buka Kejadian Terkait
                     </a>
                 </div>
             `;

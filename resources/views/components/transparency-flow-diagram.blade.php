@@ -14,9 +14,8 @@
                 Transparansi Laporan Warga • Referensi Terbuka • Layanan API Eksternal
             </span>
             <a href="{{ route('public.sources.index') }}"
-               class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#315D91] hover:bg-white hover:text-[#173B70] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition shadow-2xs">
+               class="inline-flex items-center px-3 py-1.5 rounded-lg bg-[#315D91] hover:bg-white hover:text-[#173B70] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition shadow-2xs">
                 <span>Transparansi Sumber Data</span>
-                <span>&rarr;</span>
             </a>
         </div>
     </div>
@@ -64,9 +63,8 @@
                     </p>
                     <div class="mt-3 pt-2.5 border-t border-slate-200 flex items-center justify-between text-[11px] font-telemetry">
                         <span class="text-[#315D91] font-bold">Status 8 Provider</span>
-                        <a href="{{ route('public.sources.index') }}" class="font-bold text-[#173B70] hover:underline inline-flex items-center gap-1">
-                            <span>Detail Sumber Data</span>
-                            <span>&rarr;</span>
+                        <a href="{{ route('public.sources.index') }}" class="font-bold link-text">
+                            Detail sumber data
                         </a>
                     </div>
                 </div>
@@ -119,7 +117,10 @@
                     </div>
                     <div class="mt-2.5 pt-2 border-t border-slate-200/80 flex items-center justify-between text-[10px] font-telemetry text-[#788397]">
                         <span class="font-medium truncate">Tiket Non-Sekuensial</span>
-                        <span class="font-bold text-[#173B70] shrink-0">&rarr; Rekaman Data</span>
+                        <span class="flex items-center gap-1.5 font-bold text-[#173B70] shrink-0">
+                            <span class="w-3 h-0.5 bg-[#173B70] rounded-full inline-block" aria-hidden="true"></span>
+                            <span>Rekaman Data</span>
+                        </span>
                     </div>
                 </div>
 
@@ -139,7 +140,7 @@
                     </div>
                     <div class="mt-2.5 pt-2 border-t border-slate-200/80 flex items-center justify-between text-[10px] font-telemetry text-[#788397]">
                         <span class="font-medium">Klaster Kejadian</span>
-                        <span class="font-bold text-[#173B70]">&rarr;</span>
+                        <span class="w-5 h-0.5 bg-[#173B70] rounded-full inline-block" aria-hidden="true"></span>
                     </div>
                 </div>
 
@@ -159,7 +160,7 @@
                     </div>
                     <div class="mt-2.5 pt-2 border-t border-slate-200/80 flex items-center justify-between text-[10px] font-telemetry text-[#315D91]">
                         <span class="font-medium">Audit Trail</span>
-                        <span class="font-bold">&rarr;</span>
+                        <span class="w-5 h-0.5 bg-[#315D91] rounded-full inline-block" aria-hidden="true"></span>
                     </div>
                 </div>
 
@@ -179,7 +180,7 @@
                     </div>
                     <div class="mt-2.5 pt-2 border-t border-slate-200/80 flex items-center justify-between text-[10px] font-telemetry text-emerald-800">
                         <span class="font-medium">Akses Publik</span>
-                        <span class="font-bold">&rarr;</span>
+                        <span class="w-5 h-0.5 bg-emerald-700 rounded-full inline-block" aria-hidden="true"></span>
                     </div>
                 </div>
 
@@ -199,7 +200,7 @@
                     </div>
                     <div class="mt-2.5 pt-2 border-t border-slate-200/80 flex items-center justify-between text-[10px] font-telemetry text-[#173B70]">
                         <span class="font-medium">Respons Tercatat</span>
-                        <span class="font-bold">&rarr;</span>
+                        <span class="w-5 h-0.5 bg-[#173B70] rounded-full inline-block" aria-hidden="true"></span>
                     </div>
                 </div>
 
@@ -219,7 +220,7 @@
                     </div>
                     <div class="mt-2.5 pt-2 border-t border-slate-200/80 flex items-center justify-between text-[10px] font-telemetry text-[#788397]">
                         <span class="font-medium">SitRep &amp; Replay</span>
-                        <span class="font-bold text-emerald-700">&#10003;</span>
+                        <span class="w-2 h-2 rounded-full bg-emerald-600 inline-block" aria-hidden="true"></span>
                     </div>
                 </div>
             </div>

@@ -6,8 +6,8 @@
 @section('content')
     <nav class="flex items-center justify-between gap-3">
         <a href="{{ route('internal.incidents.index') }}"
-           class="font-telemetry text-xs font-bold text-slate-600 hover:text-[#202938]">
-            &larr; Kembali ke Daftar Kejadian
+           class="font-telemetry text-xs font-bold link-text">
+            Kembali ke Daftar Kejadian
         </a>
     </nav>
 

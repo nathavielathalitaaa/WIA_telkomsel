@@ -39,7 +39,7 @@
 
         <a href="{{ route('internal.dashboard') }}"
            class="px-3.5 py-2 rounded-lg border border-slate-200/90 bg-white hover:bg-slate-50 text-[#202938] font-telemetry text-xs font-bold uppercase tracking-wider shrink-0">
-            &larr; Kembali ke Dashboard
+            Kembali ke Dashboard
         </a>
     </section>
 
@@ -185,9 +185,8 @@
 
                             <td class="py-3.5 px-4 align-top text-right whitespace-nowrap">
                                 <a href="{{ route('internal.reports.show', $report) }}"
-                                   class="px-3 py-1.5 rounded bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1">
+                                   class="px-3 py-1.5 rounded bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider inline-flex items-center">
                                     <span>{{ $roleVal === 'verifikator' ? 'Verifikasi' : ($roleVal === 'operator' ? 'Tautkan / Tinjau' : 'Kelola') }}</span>
-                                    <span>&rarr;</span>
                                 </a>
                             </td>
                         </tr>

@@ -10,8 +10,8 @@
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
                 <div class="flex items-center gap-2 mb-1">
-                    <a href="{{ route('internal.intelligence.index') }}" class="text-xs text-blue-600 hover:underline font-telemetry flex items-center gap-1">
-                        ← Kembali ke Pusat Intelijen
+                    <a href="{{ route('internal.intelligence.index') }}" class="link-text text-xs font-telemetry">
+                        Kembali ke Pusat Intelijen
                     </a>
                 </div>
                 <h1 class="text-xl sm:text-2xl font-bold font-telemetry text-[#202938] tracking-tight">

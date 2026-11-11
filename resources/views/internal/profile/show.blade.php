@@ -9,8 +9,8 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-200 pb-4">
         <div>
             <div class="flex items-center gap-2">
-                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-[#173B70] text-white font-bold text-sm">
-                    👤
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-[#173B70] text-white font-bold text-xs">
+                    ID
                 </span>
                 <h1 class="text-xl sm:text-2xl font-black text-[#202938] tracking-tight">
                     Profil Akun Internal
@@ -23,7 +23,7 @@
         <div class="flex items-center gap-2">
             <a href="{{ route('internal.dashboard') }}"
                class="px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition">
-                ← Kembali ke Dashboard
+                Kembali ke Dashboard
             </a>
         </div>
     </div>
@@ -118,7 +118,7 @@
             <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                 <div class="border-b border-slate-100 pb-3">
                     <h3 class="text-sm font-bold text-[#202938] uppercase tracking-wider flex items-center gap-2">
-                        <span>✏️</span> Ubah Nama Akun
+                        Ubah Nama Akun
                     </h3>
                     <p class="text-xs text-slate-500 mt-0.5">
                         Nama lengkap yang akan ditampilkan pada riwayat aktivitas, verifikasi, dan tindak lanjut.
@@ -170,7 +170,7 @@
             <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
                 <div class="border-b border-slate-100 pb-3">
                     <h3 class="text-sm font-bold text-[#202938] uppercase tracking-wider flex items-center gap-2">
-                        <span>🔒</span> Perbarui Kata Sandi
+                        Perbarui Kata Sandi
                     </h3>
                     <p class="text-xs text-slate-500 mt-0.5">
                         Gunakan kata sandi yang kuat dan unik minimal 8 karakter.
@@ -262,7 +262,7 @@
                     <ul class="space-y-1.5">
                         @foreach($permissionsList as $permission)
                             <li class="flex items-start gap-2 text-xs text-slate-700">
-                                <span class="text-emerald-600 font-bold shrink-0">✓</span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0 mt-1.5"></span>
                                 <span>{{ $permission }}</span>
                             </li>
                         @endforeach
@@ -275,7 +275,7 @@
                 <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                     <div>
                         <h3 class="text-sm font-bold text-[#202938] flex items-center gap-1.5">
-                            <span>📋</span> Riwayat Aktivitas Akun
+                            Riwayat Aktivitas Akun
                         </h3>
                         <p class="text-xs text-slate-500 mt-0.5">
                             Catatan audit aktivitas terbaru akun Anda
@@ -283,8 +283,8 @@
                     </div>
                     @if($user->isAdmin())
                         <a href="{{ route('internal.audit-logs.index') }}"
-                           class="text-xs font-bold text-amber-600 hover:text-amber-700 underline font-telemetry">
-                            Lihat Semua →
+                           class="link-text text-xs font-bold font-telemetry">
+                            Lihat semua
                         </a>
                     @endif
                 </div>

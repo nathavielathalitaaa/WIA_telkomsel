@@ -9,8 +9,8 @@
     <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 sm:p-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-                <a href="{{ route('internal.intelligence.index') }}" class="text-xs text-blue-600 hover:underline font-telemetry flex items-center gap-1 mb-1">
-                    ← Kembali ke Pusat Intelijen
+                <a href="{{ route('internal.intelligence.index') }}" class="link-text text-xs font-telemetry mb-1 inline-block">
+                    Kembali ke Pusat Intelijen
                 </a>
                 <h1 class="text-xl sm:text-2xl font-bold font-telemetry text-[#202938] tracking-tight">
                     Log Audit & Telemetri Pengambilan Data Eksternal

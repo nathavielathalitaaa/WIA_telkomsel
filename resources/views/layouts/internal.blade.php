@@ -108,8 +108,8 @@
                     <a href="{{ route('internal.profile.show') }}"
                        class="hidden lg:flex flex-col items-end px-2.5 py-1 rounded hover:bg-[#315D91]/60 transition {{ $internalMenu === 'profile' ? 'ring-1 ring-amber-400 bg-[#315D91]' : '' }}"
                        title="Kelola Profil Akun">
-                        <span class="text-xs font-bold text-white leading-none flex items-center gap-1">
-                            <span>👤</span> {{ auth()->user()->name }}
+                        <span class="text-xs font-bold text-white leading-none">
+                            {{ auth()->user()->name }}
                         </span>
                         <span class="font-telemetry text-[10px] text-amber-300 uppercase tracking-wider mt-0.5">
                             Role: {{ $roleLabel }}

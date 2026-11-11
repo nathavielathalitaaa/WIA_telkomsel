@@ -26,9 +26,8 @@
             </div>
             <div class="flex items-center gap-2.5 shrink-0 self-start sm:self-center">
                 <a href="{{ route('public.track') }}"
-                   class="px-4 py-2.5 rounded-lg border border-blue-300/40 hover:bg-[#315D91] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center gap-2 shadow-xs">
+                   class="px-4 py-2.5 rounded-lg border border-blue-300/40 hover:bg-[#315D91] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center shadow-xs">
                     <span>Lacak Tiket Sebelumnya</span>
-                    <span>&rarr;</span>
                 </a>
             </div>
         </div>
@@ -321,7 +320,6 @@
                             class="px-6 py-3 rounded-lg btn-brand-gradient font-telemetry text-xs font-bold uppercase tracking-wider min-h-[44px] inline-flex items-center gap-2 shadow-xs cursor-pointer">
                         <span class="font-extrabold text-sm leading-none">+</span>
                         <span>Kirim Laporan Masyarakat</span>
-                        <span>&rarr;</span>
                     </button>
                 </div>
             </form>

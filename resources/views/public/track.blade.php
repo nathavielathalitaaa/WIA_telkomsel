@@ -304,10 +304,9 @@
                             <div class="pt-2 border-t border-slate-100">
                                 <a href="{{ $aidResponse->evidence_url }}"
                                    target="_blank"
-                                   rel="noopener noreferrer"
-                                   class="font-telemetry text-xs font-bold text-[#173B70] hover:underline inline-flex items-center gap-1">
-                                    <span>Buka Tautan Bukti Dokumentasi Lapangan</span>
-                                    <span>&nearr;</span>
+                                   rel="noopener"
+                                   class="font-telemetry text-xs font-bold link-text">
+                                    Buka tautan bukti dokumentasi lapangan<span class="sr-only"> (membuka tab baru)</span>
                                 </a>
                             </div>
                         @endif
@@ -344,9 +343,8 @@
 
                             <div class="pt-2">
                                 <a href="{{ route('public.incidents.show', $aidResponse->incident->slug) }}"
-                                   class="px-3.5 py-1.5 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 transition">
-                                    <span>Lihat Detail Kejadian</span>
-                                    <span>&rarr;</span>
+                                   class="px-3.5 py-1.5 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider inline-flex items-center transition">
+                                    Lihat detail kejadian
                                 </a>
                             </div>
                         </section>
@@ -503,10 +501,9 @@
                             <div class="pt-2 border-t border-slate-100">
                                 <a href="{{ $report->evidence_url }}"
                                    target="_blank"
-                                   rel="noopener noreferrer"
-                                   class="font-telemetry text-xs font-bold text-[#173B70] hover:underline inline-flex items-center gap-1">
-                                    <span>Buka Tautan Sumber / Bukti Pendukung</span>
-                                    <span>&nearr;</span>
+                                   rel="noopener"
+                                   class="font-telemetry text-xs font-bold link-text">
+                                    Buka tautan sumber / bukti pendukung<span class="sr-only"> (membuka tab baru)</span>
                                 </a>
                             </div>
                         @endif
@@ -554,9 +551,8 @@
 
                             <div class="pt-2">
                                 <a href="{{ route('public.incidents.show', $report->incident->slug) }}"
-                                   class="px-3.5 py-1.5 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 transition">
-                                    <span>Lihat Detail Kejadian</span>
-                                    <span>&rarr;</span>
+                                   class="px-3.5 py-1.5 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider inline-flex items-center transition">
+                                    Lihat detail kejadian
                                 </a>
                             </div>
                         @else

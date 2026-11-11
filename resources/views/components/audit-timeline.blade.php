@@ -149,8 +149,8 @@
                 <div class="mt-2.5 pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500 font-telemetry">
                     <span>Pencatat / Pemberi Respons: <strong class="text-slate-700">{{ $entry['actor'] }}</strong></span>
                     @if(!empty($entry['evidence_url']))
-                        <a href="{{ $entry['evidence_url'] }}" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] hover:underline font-bold">
-                            Lihat Lampiran Dokumentasi &rarr;
+                        <a href="{{ $entry['evidence_url'] }}" target="_blank" rel="noopener" class="link-text font-bold">
+                            Lihat lampiran dokumentasi<span class="sr-only"> (membuka tab baru)</span>
                         </a>
                     @endif
                 </div>

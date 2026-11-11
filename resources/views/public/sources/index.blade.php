@@ -130,10 +130,9 @@
                                     <span class="px-1.5 py-0.2 rounded font-telemetry text-[10px] font-semibold bg-slate-100 text-slate-600 border border-slate-200 uppercase">
                                         {{ $provider->category === 'dalam_negeri' ? 'Dalam Negeri' : 'Internasional' }}
                                     </span>
-                                    <a href="{{ $provider->officialPortalUrl() }}" target="_blank" rel="noopener noreferrer"
-                                       class="text-blue-700 hover:underline font-telemetry text-[10px] inline-flex items-center gap-0.5">
-                                        <span>Portal Resmi</span>
-                                        <span aria-hidden="true">&nearr;</span>
+                                    <a href="{{ $provider->officialPortalUrl() }}" target="_blank" rel="noopener"
+                                       class="link-text font-telemetry text-[10px]">
+                                        Portal resmi<span class="sr-only"> (membuka tab baru)</span>
                                     </a>
                                 </div>
                             </td>
@@ -205,9 +204,9 @@
                                                             <div class="flex items-center justify-between text-[10px] text-slate-500 mt-1">
                                                                 <span class="truncate max-w-[160px]">{{ $sample->location_name ?: 'Indonesia' }}</span>
                                                                 <a href="{{ $sample->source_url ?: route('public.sources.show', $sample->id) }}"
-                                                                   target="_blank" rel="noopener noreferrer"
-                                                                   class="text-blue-700 hover:underline font-bold font-telemetry">
-                                                                    {{ $sample->source_url ?: 'Lihat Detail &rarr;' }}
+                                                                   @if($sample->source_url) target="_blank" rel="noopener" @endif
+                                                                   class="link-text font-bold font-telemetry">
+                                                                    {{ $sample->source_url ? 'Buka sumber asli' : 'Lihat detail' }}@if($sample->source_url)<span class="sr-only"> (membuka tab baru)</span>@endif
                                                                 </a>
                                                             </div>
                                                         </li>
@@ -226,8 +225,8 @@
 
                                         <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
                                             <a href="{{ route('public.sources.index', ['provider' => $provider->code]) }}"
-                                               class="text-blue-700 hover:underline font-telemetry text-xs font-bold uppercase">
-                                                Saring Data {{ $provider->code }} &rarr;
+                                               class="link-text font-telemetry text-xs font-bold uppercase">
+                                                Saring data {{ $provider->code }}
                                             </a>
                                         </div>
                                     </div>
@@ -375,9 +374,8 @@
                                     {{ $rec->provider?->name ? Str::limit($rec->provider->name, 16) : $rec->provider_code }}
                                 </span>
                                 <a href="{{ route('public.sources.show', $rec->id) }}"
-                                   class="text-[#173B70] hover:underline font-telemetry font-bold inline-flex items-center gap-0.5">
-                                    <span>Detail</span>
-                                    <span aria-hidden="true">&rarr;</span>
+                                   class="link-text font-telemetry font-bold text-xs">
+                                    Detail
                                 </a>
                             </div>
                         </article>

@@ -11,15 +11,15 @@
     <!-- Top Bar Navigation -->
     <nav class="flex flex-wrap items-center justify-between gap-3">
         <a href="{{ route('internal.incidents.index') }}"
-           class="font-telemetry text-xs font-bold text-slate-600 hover:text-[#202938]">
-            &larr; Kembali ke Daftar Kejadian
+           class="font-telemetry text-xs font-bold link-text">
+            Kembali ke Daftar Kejadian
         </a>
 
         <div class="flex items-center gap-2">
             <a href="{{ route('public.incidents.show', $incident->slug) }}"
-               target="_blank"
+               target="_blank" rel="noopener"
                class="px-3 py-1.5 rounded border border-slate-200/90 bg-white hover:bg-slate-50 text-[#202938] font-telemetry text-xs font-bold uppercase">
-                Lihat Halaman Publik &nearr;
+                Lihat Halaman Publik<span class="sr-only"> (membuka tab baru)</span>
             </a>
         </div>
     </nav>
@@ -236,8 +236,8 @@
                     <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
                         Laporan Masyarakat Terhubung ({{ $incident->reports->count() }})
                     </h2>
-                    <a href="{{ route('internal.reports.index') }}" class="font-telemetry text-xs font-bold text-[#2563EB] hover:underline">
-                        Kelola Semua Laporan &rarr;
+                    <a href="{{ route('internal.reports.index') }}" class="font-telemetry text-xs font-bold link-text">
+                        Kelola semua laporan
                     </a>
                 </div>
 
@@ -258,7 +258,7 @@
                         </div>
                         <a href="{{ route('internal.reports.show', $rep) }}"
                            class="px-3 py-1.5 rounded border border-slate-300 bg-white hover:bg-slate-100 font-telemetry text-xs font-bold">
-                            Detail Laporan &rarr;
+                            Detail Laporan
                         </a>
                     </div>
                 @empty

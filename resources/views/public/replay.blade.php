@@ -193,28 +193,28 @@
                             id="btn-replay-reset"
                             data-tooltip="Kembalikan replay ke awal timeline"
                             class="px-3 py-2 rounded-lg border border-slate-200/90 bg-white hover:bg-slate-50 text-[#202938] font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px] transition active:scale-95">
-                        &#8634; Reset ke Awal
+                        Reset ke Awal
                     </button>
 
                     <button type="button"
                             id="btn-replay-prev"
                             data-tooltip="Mundur satu peristiwa ke belakang"
                             class="px-3 py-2 rounded-lg border border-slate-200/90 bg-white hover:bg-slate-50 text-[#202938] font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px] transition active:scale-95">
-                        &larr; Tahap Sebelumnya
+                        Tahap Sebelumnya
                     </button>
 
                     <button type="button"
                             id="btn-replay-play"
                             data-tooltip="Mulai / jeda simulasi otomatis"
                             class="px-5 py-2 rounded-lg bg-[#D94350] hover:bg-[#C23541] text-white font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px] inline-flex items-center gap-2 transition active:scale-95 shadow-xs">
-                        <span id="btn-replay-play-label">&#9654; Putar Replay</span>
+                        <span id="btn-replay-play-label">Putar Replay</span>
                     </button>
 
                     <button type="button"
                             id="btn-replay-next"
                             data-tooltip="Maju satu peristiwa ke depan"
                             class="px-3 py-2 rounded-lg border border-slate-200/90 bg-white hover:bg-slate-50 text-[#202938] font-telemetry text-xs font-bold uppercase tracking-wider cursor-pointer min-h-[42px] transition active:scale-95">
-                        Tahap Berikutnya &rarr;
+                        Tahap Berikutnya
                     </button>
                 </div>
 
@@ -312,8 +312,8 @@
                     <div class="p-4 border-t border-slate-100 space-y-2 text-xs text-slate-600">
                         <div class="flex items-center justify-between">
                             <span>Kejadian Terpilih:</span>
-                            <a href="{{ route('public.incidents.show', $selectedIncident->slug) }}" class="font-telemetry font-bold text-[#173B70] hover:underline">
-                                Buka Halaman Detail &rarr;
+                            <a href="{{ route('public.incidents.show', $selectedIncident->slug) }}" class="font-telemetry font-bold link-text">
+                                Buka halaman detail
                             </a>
                         </div>
                         <p class="text-[11px] text-[#788397]">

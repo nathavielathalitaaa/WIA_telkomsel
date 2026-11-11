@@ -6,7 +6,7 @@
     $carouselId = 'regional-carousel-' . \Illuminate\Support\Str::uuid();
 @endphp
 
-<section id="{{ $carouselId }}" aria-label="Pemantauan Saat Ini" class="space-y-3">
+<section id="{{ $carouselId }}" aria-label="Pemantauan Saat Ini" class="space-y-2 sm:space-y-2.5">
     <div class="flex items-center justify-between gap-3">
         <div class="flex items-center gap-2 min-w-0">
             <span class="w-2 h-2 rounded-full bg-amber-500 shrink-0"></span>
@@ -16,13 +16,13 @@
         </div>
 
         <a href="{{ $allUrl }}"
-           class="text-xs font-telemetry font-bold text-[#173B70] hover:underline inline-flex items-center gap-1 shrink-0">
-            Lihat Semua <span aria-hidden="true">&rarr;</span>
+           class="text-xs font-telemetry font-bold link-text shrink-0">
+            Lihat semua
         </a>
     </div>
 
     @if($incidentsCollection->isEmpty())
-        <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 text-center text-xs text-slate-500">
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-5 text-center text-xs text-slate-500">
             <p class="font-medium text-slate-700">Belum ada kejadian yang tercatat.</p>
             <p class="mt-1 text-slate-400">Informasi kejadian akan ditampilkan di sini.</p>
         </div>
@@ -67,60 +67,52 @@
                             : 'bg-[#173B70] hover:bg-[#0F2A52]';
                     @endphp
 
-                    <article class="w-full shrink-0 min-w-0 {{ $cardBg }} border rounded-xl p-5 sm:p-6 flex flex-col justify-between gap-5"
+                    <article class="w-full shrink-0 min-w-0 {{ $cardBg }} border rounded-xl p-3 sm:p-3.5 flex flex-col justify-between gap-2"
                              aria-label="Kejadian {{ $index + 1 }} dari {{ $incidentsCollection->count() }}"
                              aria-roledescription="slide">
 
-                        <div class="space-y-4">
-                            <div class="flex items-center justify-between gap-3">
-                                <span class="px-3 py-1 rounded-md border text-[10px] sm:text-xs font-bold uppercase tracking-wider {{ $badgeBg }}">
+                        <!-- Baris 1: Status Tingkat, Sumber, Wilayah, & Waktu Kejadian -->
+                        <div class="flex items-center justify-between gap-2 min-w-0">
+                            <div class="flex items-center gap-1.5 sm:gap-2 min-w-0">
+                                <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider shrink-0 {{ $badgeBg }}">
                                     {{ $isUrgent ? 'Peringatan: ' : 'Situasi: ' }}{{ strtoupper($sevVal ?: 'TERCATAT') }}
                                 </span>
 
-                                <span class="px-2 py-1 rounded text-[9px] font-bold uppercase border
-                                    {{ $inc->is_simulation ? 'bg-slate-200 text-slate-700 border-slate-300' : 'bg-[#173B70] text-white border-[#173B70]' }}">
+                                <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase border shrink-0
+                                    {{ $inc->is_simulation ? 'bg-slate-200/80 text-slate-700 border-slate-300' : 'bg-[#173B70] text-white border-[#173B70]' }}">
                                     {{ $inc->is_simulation ? 'Simulasi' : 'Historis BNPB' }}
+                                </span>
+
+                                <span class="font-telemetry text-xs font-semibold text-[#173B70] truncate">
+                                    {{ $regionName }}
                                 </span>
                             </div>
 
-                            <div class="space-y-2">
-                                <p class="font-telemetry text-xs sm:text-sm font-bold text-[#173B70] uppercase tracking-wide">
-                                    <span aria-hidden="true">📍</span> {{ $regionName }}
-                                </p>
-
-                                <h3 class="text-lg sm:text-2xl font-bold text-[#202938] leading-snug">
-                                    {{ $inc->title }}
-                                </h3>
-                            </div>
-
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4 border-t border-slate-200/80">
-                                <div>
-                                    <p class="text-[10px] uppercase tracking-wider text-slate-400">Jenis kejadian</p>
-                                    <p class="text-xs sm:text-sm font-semibold text-slate-700 mt-1">{{ $typeTitle }}</p>
-                                </div>
-
-                                <div>
-                                    <p class="text-[10px] uppercase tracking-wider text-slate-400">Waktu kejadian</p>
-                                    <p class="text-xs sm:text-sm font-semibold text-slate-700 mt-1">{{ $timeStr }}</p>
-                                </div>
-
-                                <div>
-                                    <p class="text-[10px] uppercase tracking-wider text-slate-400">Status</p>
-                                    <p class="text-xs sm:text-sm font-semibold text-slate-700 mt-1">
-                                        {{ $verifLabel }} · {{ $followLabel }}
-                                    </p>
-                                </div>
-                            </div>
+                            <span class="text-[10px] sm:text-xs text-slate-500 font-telemetry shrink-0 whitespace-nowrap">
+                                {{ $timeStr }}
+                            </span>
                         </div>
 
-                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-3 border-t border-slate-200/80">
-                            <p class="text-[10px] text-slate-500">
-                                Kejadian {{ $index + 1 }} dari {{ $incidentsCollection->count() }}
-                            </p>
+                        <!-- Baris 2: Judul Kejadian -->
+                        <h3 class="text-sm sm:text-base font-bold text-[#202938] truncate leading-tight">
+                            <a href="{{ route('public.incidents.show', $inc->slug) }}" class="hover:text-[#173B70] hover:underline">
+                                {{ $inc->title }}
+                            </a>
+                        </h3>
+
+                        <!-- Baris 3: Metadata Status & Tombol Tindak Lanjut / Detail -->
+                        <div class="flex items-center justify-between gap-2 pt-1 border-t border-slate-200/70 min-w-0">
+                            <div class="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-slate-600 truncate min-w-0">
+                                <span class="font-semibold text-slate-800 shrink-0">{{ $typeTitle }}</span>
+                                <span class="text-slate-300">·</span>
+                                <span class="truncate">{{ $verifLabel }}</span>
+                                <span class="text-slate-300 hidden xs:inline">·</span>
+                                <span class="text-slate-500 truncate hidden xs:inline">{{ $followLabel }}</span>
+                            </div>
 
                             <a href="{{ route('public.incidents.show', $inc->slug) }}"
-                               class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg {{ $ctaBtn }} text-white text-xs font-bold uppercase tracking-wider transition">
-                                Lihat Kejadian <span aria-hidden="true">&rarr;</span>
+                               class="inline-flex items-center justify-center px-3 py-1 sm:px-3.5 sm:py-1 rounded-md {{ $ctaBtn }} text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider shrink-0 transition">
+                                Lihat kejadian
                             </a>
                         </div>
                     </article>
@@ -128,7 +120,7 @@
             </div>
 
             @if($incidentsCollection->count() > 1)
-                <div class="flex items-center justify-between gap-3 mt-3">
+                <div class="flex items-center justify-between gap-3 mt-2">
                     <div class="flex items-center gap-1.5 regional-carousel-dots" aria-label="Pilih kejadian">
                         @foreach($incidentsCollection as $index => $inc)
                             <button type="button"
@@ -142,17 +134,17 @@
 
                     <div class="flex items-center gap-2">
                         <button type="button"
-                                class="regional-carousel-prev w-8 h-8 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 flex items-center justify-center"
+                                class="regional-carousel-prev w-7 h-7 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 flex items-center justify-center"
                                 aria-label="Kejadian sebelumnya">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                             </svg>
                         </button>
 
                         <button type="button"
-                                class="regional-carousel-next w-8 h-8 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 flex items-center justify-center"
+                                class="regional-carousel-next w-7 h-7 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 flex items-center justify-center"
                                 aria-label="Kejadian berikutnya">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                             </svg>
                         </button>

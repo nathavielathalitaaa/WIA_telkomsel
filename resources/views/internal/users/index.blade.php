@@ -9,8 +9,8 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-200 pb-4">
         <div>
             <div class="flex items-center gap-2">
-                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-amber-400 text-[#173B70] font-bold text-sm">
-                    👥
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-amber-400 text-[#173B70] font-bold text-xs">
+                    USR
                 </span>
                 <h1 class="text-xl sm:text-2xl font-black text-[#202938] tracking-tight">
                     Direktori Akun Internal
@@ -23,15 +23,15 @@
         <div class="flex items-center gap-2">
             <button type="button"
                     onclick="document.getElementById('modal-create-user').classList.remove('hidden')"
-                    class="px-3.5 py-2 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white text-xs font-bold uppercase tracking-wider transition flex items-center gap-1.5 cursor-pointer shadow-sm">
-                <span>➕</span> Daftarkan Akun Baru
+                    class="px-3.5 py-2 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white text-xs font-bold uppercase tracking-wider transition flex items-center cursor-pointer shadow-sm">
+                Daftarkan Akun Baru
             </button>
         </div>
     </div>
 
     <!-- Security & Transparency Notice -->
     <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 text-xs text-blue-900 flex items-start gap-3">
-        <span class="text-base shrink-0">🛡️</span>
+        <span class="w-2 h-2 rounded-full bg-blue-600 shrink-0 mt-1"></span>
         <div>
             <strong class="font-bold">Prinsip Transparansi & Keamanan Pengelolaan Akun:</strong>
             <p class="mt-0.5 text-blue-800 leading-relaxed">
@@ -125,13 +125,13 @@
     <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-lg w-full overflow-hidden animate-in fade-in zoom-in-95 duration-150">
         <div class="bg-[#173B70] text-white px-6 py-4 flex items-center justify-between border-b border-[#315D91]">
             <div class="flex items-center gap-2">
-                <span>➕</span>
                 <h3 class="text-sm font-bold tracking-tight">Daftarkan Akun Tim Internal Baru</h3>
             </div>
             <button type="button"
                     onclick="document.getElementById('modal-create-user').classList.add('hidden')"
-                    class="text-slate-400 hover:text-white text-lg font-bold">
-                ✕
+                    class="text-slate-400 hover:text-white p-1"
+                    aria-label="Tutup">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
         </div>
 

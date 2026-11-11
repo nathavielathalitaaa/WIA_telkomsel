@@ -57,8 +57,8 @@
                     </p>
                 </div>
                 <div class="pt-2">
-                    <a href="{{ route('public.reports.create') }}" class="text-[11px] font-bold text-[#173B70] hover:underline font-telemetry">
-                        Form Lapor &rarr;
+                    <a href="{{ route('public.reports.create') }}" class="text-[11px] font-bold font-telemetry link-text">
+                        Form lapor
                     </a>
                 </div>
             </div>
@@ -93,8 +93,8 @@
                     </p>
                 </div>
                 <div class="pt-2">
-                    <a href="{{ route('public.track') }}" class="text-[11px] font-bold text-[#173B70] hover:underline font-telemetry">
-                        Lacak Tiket &rarr;
+                    <a href="{{ route('public.track') }}" class="text-[11px] font-bold font-telemetry link-text">
+                        Lacak tiket
                     </a>
                 </div>
             </div>
@@ -112,8 +112,8 @@
                     </p>
                 </div>
                 <div class="pt-2">
-                    <a href="{{ route('public.monitor') }}" class="text-[11px] font-bold text-[#173B70] hover:underline font-telemetry">
-                        Buka Peta &rarr;
+                    <a href="{{ route('public.monitor') }}" class="text-[11px] font-bold font-telemetry link-text">
+                        Buka peta
                     </a>
                 </div>
             </div>
@@ -178,9 +178,8 @@
                 Warga cukup membuka formulir pelaporan, memilih hierarki wilayah, mendeskripsikan situasi, dan mencentang kebutuhan mendesak. Tidak dipungut biaya dan tidak perlu login. Identitas pelapor dilindungi privasi.
             </p>
             <div class="pt-1">
-                <a href="{{ route('public.reports.create') }}" class="text-xs font-bold font-telemetry text-[#173B70] hover:underline inline-flex items-center gap-1">
-                    <span>Mulai Kirim Laporan</span>
-                    <span>&rarr;</span>
+                <a href="{{ route('public.reports.create') }}" class="text-xs font-bold font-telemetry link-text">
+                    Mulai kirim laporan
                 </a>
             </div>
         </section>
@@ -197,9 +196,8 @@
                 Nomor tiket (format <code class="font-bold text-[#173B70] bg-slate-100 px-1 py-0.5 rounded">RPT-SIM-XXXXXX</code> untuk laporan warga dan <code class="font-bold text-[#315D91] bg-slate-100 px-1 py-0.5 rounded">RSP-SIM-XXXXXX</code> untuk respons bantuan) dimasukkan pada kolom pencarian tiket untuk melihat catatan penanganan tanpa perlu autentikasi.
             </p>
             <div class="pt-1">
-                <a href="{{ route('public.track', ['ticket' => 'RPT-SIM-8K4M9P2X']) }}" class="text-xs font-bold font-telemetry text-[#173B70] hover:underline inline-flex items-center gap-1">
-                    <span>Coba Lacak: RPT-SIM-8K4M9P2X</span>
-                    <span>&rarr;</span>
+                <a href="{{ route('public.track', ['ticket' => 'RPT-SIM-8K4M9P2X']) }}" class="text-xs font-bold font-telemetry link-text">
+                    Coba lacak: RPT-SIM-8K4M9P2X
                 </a>
             </div>
         </section>

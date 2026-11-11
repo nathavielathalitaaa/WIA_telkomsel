@@ -18,10 +18,9 @@
             </span>
             <span>&copy; {{ date('Y') }} TanggapTerang.</span>
             <a href="{{ route('public.monitor') }}"
-               class="text-[#173B70] hover:text-[#315D91] hover:underline font-bold inline-flex items-center gap-0.5"
-               target="_blank">
-                <span>Buka Publik</span>
-                <span>&nearr;</span>
+               class="link-text font-bold"
+               target="_blank" rel="noopener">
+                Buka publik<span class="sr-only"> (membuka tab baru)</span>
             </a>
         </div>
     </div>

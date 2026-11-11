@@ -46,7 +46,6 @@
             <a href="{{ route('public.monitor') }}"
                class="px-5 py-2.5 rounded-lg bg-white hover:bg-slate-100 text-[#173B70] font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center gap-2 shadow-xs">
                 <span>Buka Peta Pantau</span>
-                <span>&rarr;</span>
             </a>
             <a href="{{ route('public.track') }}"
                class="px-4 py-2.5 rounded-lg border border-blue-300/40 hover:bg-[#315D91] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center gap-1.5">
@@ -73,8 +72,8 @@
                     Proses transparan dari penerimaan laporan hingga konfirmasi penyaluran di lapangan.
                 </p>
             </div>
-            <a href="{{ route('public.track') }}" class="text-xs font-bold font-telemetry text-[#173B70] hover:underline self-start sm:self-auto">
-                Lacak Status Tiket &rarr;
+            <a href="{{ route('public.track') }}" class="text-xs font-bold font-telemetry link-text self-start sm:self-auto">
+                Lacak status tiket
             </a>
         </div>
 
@@ -141,7 +140,6 @@
             <a href="{{ route('public.monitor') }}"
                class="px-4 py-2 rounded-lg bg-[#173B70] hover:bg-[#315D91] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition inline-flex items-center gap-1.5 self-start sm:self-auto shrink-0 shadow-xs">
                 <span>Buka Peta Pantau Penuh</span>
-                <span>&rarr;</span>
             </a>
         </div>
 
@@ -183,8 +181,8 @@
                     TanggapTerang mengolah data dari berbagai layanan eksternal untuk mendukung pemantauan situasi secara transparan.
                 </p>
             </div>
-            <a href="{{ route('public.sources.index') }}" class="text-xs font-bold font-telemetry text-[#173B70] hover:underline self-start sm:self-auto">
-                Detail Transparansi Data &rarr;
+            <a href="{{ route('public.sources.index') }}" class="text-xs font-bold font-telemetry link-text self-start sm:self-auto">
+                Detail transparansi data
             </a>
         </div>
 
@@ -273,8 +271,8 @@
                     Sampaikan kejadian dan kebutuhan darurat di wilayah Anda tanpa perlu akun. Identitas Anda dirahasiakan dari publik.
                 </p>
                 <div class="pt-1">
-                    <a href="{{ route('public.reports.create') }}" class="text-xs font-bold text-[#D94350] hover:underline font-telemetry">
-                        Kirim Laporan Sekarang &rarr;
+                    <a href="{{ route('public.reports.create') }}" class="text-xs font-bold link-text font-telemetry">
+                        Kirim laporan sekarang
                     </a>
                 </div>
             </div>
@@ -288,8 +286,8 @@
                     Gunakan kode tiket unik Anda untuk memantau status pemeriksaan verifikator dan kronologi tindak lanjut secara transparan.
                 </p>
                 <div class="pt-1">
-                    <a href="{{ route('public.track') }}" class="text-xs font-bold text-[#173B70] hover:underline font-telemetry">
-                        Buka Lacak Tiket &rarr;
+                    <a href="{{ route('public.track') }}" class="text-xs font-bold link-text font-telemetry">
+                        Buka lacak tiket
                     </a>
                 </div>
             </div>
@@ -303,8 +301,8 @@
                     Amati sebaran titik bencana, lokasi kebutuhan logistik, dan penyaluran bantuan masyarakat langsung pada peta interaktif.
                 </p>
                 <div class="pt-1">
-                    <a href="{{ route('public.monitor') }}" class="text-xs font-bold text-[#059669] hover:underline font-telemetry">
-                        Buka Peta Pantau &rarr;
+                    <a href="{{ route('public.monitor') }}" class="text-xs font-bold link-text font-telemetry">
+                        Buka peta pantau
                     </a>
                 </div>
             </div>
@@ -350,7 +348,7 @@
                             <div style="font-weight: 700; margin-bottom: 2px;">${item.title}</div>
                             <div style="color: #788397; font-size: 11px; margin-bottom: 6px;">${item.incident_type}</div>
                             <a href="/incidents/${item.slug}" style="display: block; text-align: center; background: #173B70; color: #FFF; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 10px; font-weight: 700; text-transform: uppercase;">
-                                Lihat Detail &rarr;
+                                Lihat detail
                             </a>
                         </div>
                     `);

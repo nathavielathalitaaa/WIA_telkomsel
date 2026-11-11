@@ -123,7 +123,7 @@
                         <div class="flex flex-wrap items-center gap-1.5 text-xs font-telemetry text-slate-600 pt-0.5">
                             @foreach($administrativeHierarchy as $idx => $item)
                                 @if($idx > 0)
-                                    <span class="text-slate-400">&rarr;</span>
+                                    <span class="text-slate-300 font-bold">/</span>
                                 @endif
                                 <span class="px-1.5 py-0.5 rounded bg-white border border-slate-200">
                                     {{ $item['tingkat'] }}: <strong>{{ $item['nama'] }}</strong>
@@ -307,10 +307,9 @@
                                     <div class="pt-1">
                                         <a href="{{ $incSource->reference_url }}"
                                            target="_blank"
-                                           rel="noopener noreferrer"
-                                           class="font-telemetry text-xs font-bold text-[#173B70] hover:underline inline-flex items-center gap-1">
-                                            <span>Buka Tautan Referensi</span>
-                                            <span>&rarr;</span>
+                                           rel="noopener"
+                                           class="font-telemetry text-xs font-bold link-text">
+                                            Buka tautan referensi<span class="sr-only"> (membuka tab baru)</span>
                                         </a>
                                     </div>
                                 @endif
@@ -390,8 +389,8 @@
                                             + Lapor Bantuan Diserahkan
                                         </a>
                                         <a href="{{ route('public.track', ['ticket' => $report->ticket_number]) }}"
-                                           class="text-[#173B70] hover:underline font-bold">
-                                            Lihat Status Tiket &rarr;
+                                           class="font-bold link-text">
+                                            Lihat status tiket
                                         </a>
                                     </div>
                                 </div>
@@ -588,10 +587,9 @@
                                             <div>
                                                 <a href="{{ $aid->evidence_url }}"
                                                    target="_blank"
-                                                   rel="noopener noreferrer"
-                                                   class="inline-flex items-center gap-1 font-telemetry text-[11px] font-bold text-[#173B70] hover:underline">
-                                                    <span>Lihat Tautan Bukti Dokumentasi</span>
-                                                    <span aria-hidden="true">&nearr;</span>
+                                                   rel="noopener"
+                                                   class="font-telemetry text-[11px] font-bold link-text">
+                                                    Lihat Tautan Bukti Dokumentasi<span class="sr-only"> (membuka tab baru)</span>
                                                 </a>
                                             </div>
                                         @endif
@@ -605,7 +603,7 @@
                                         @if($aid->report)
                                             • Tiket Kebutuhan: <strong class="text-blue-700">{{ $aid->report->ticket_number }}</strong>
                                         @endif
-                                        • <a href="{{ route('public.track', ['ticket' => $aid->reference_code]) }}" class="text-emerald-700 font-bold hover:underline">Lacak Tiket Respons &rarr;</a>
+                                        • <a href="{{ route('public.track', ['ticket' => $aid->reference_code]) }}" class="font-bold link-text">Lacak tiket respons</a>
                                     </span>
                                     <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
                                         @if($aid->delivered_at)

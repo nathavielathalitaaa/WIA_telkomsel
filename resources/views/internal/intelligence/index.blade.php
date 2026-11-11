@@ -226,8 +226,8 @@
                     </p>
                 </div>
                 <a href="{{ route('internal.intelligence.comparisons') }}"
-                   class="px-4 py-2 rounded-lg bg-white text-blue-950 hover:bg-blue-50 font-telemetry text-xs font-bold uppercase tracking-wider transition shrink-0 inline-flex items-center gap-1.5">
-                    Buka Matriks Perbandingan Lengkap →
+                   class="px-4 py-2 rounded-lg bg-white text-blue-950 hover:bg-blue-50 font-telemetry text-xs font-bold uppercase tracking-wider transition shrink-0 inline-flex items-center">
+                    Buka Matriks Perbandingan Lengkap
                 </a>
             </div>
 
@@ -301,8 +301,8 @@
                         <span class="w-2 h-2 rounded-full bg-amber-400"></span>
                         <span>{{ $weatherComparison['status_message'] ?? 'Tidak ditemukan slot waktu valid yang identik antara BMKG dan Open-Meteo saat ini.' }}</span>
                     </div>
-                    <a href="{{ route('internal.intelligence.comparisons') }}" class="underline hover:text-white font-bold font-telemetry shrink-0">
-                        Buka Matriks Lengkap &rarr;
+                    <a href="{{ route('internal.intelligence.comparisons') }}" class="underline hover:text-white text-blue-100 font-bold font-telemetry shrink-0">
+                        Buka matriks lengkap
                     </a>
                 </div>
             @endif

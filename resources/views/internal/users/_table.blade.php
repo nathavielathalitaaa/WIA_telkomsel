@@ -71,7 +71,7 @@
                             <button type="button"
                                     onclick="document.getElementById('modal-edit-user-{{ $item->id }}').classList.remove('hidden')"
                                     class="px-2.5 py-1 rounded border border-slate-300 bg-white hover:bg-slate-100 text-slate-800 text-[11px] font-bold transition cursor-pointer">
-                                ⚙️ Kelola
+                                Kelola
                             </button>
                         </td>
                     </tr>
@@ -81,13 +81,13 @@
                         <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-lg w-full overflow-hidden text-left">
                             <div class="bg-[#173B70] text-white px-6 py-4 flex items-center justify-between border-b border-[#315D91]">
                                 <div class="flex items-center gap-2">
-                                    <span>⚙️</span>
                                     <h3 class="text-sm font-bold tracking-tight">Kelola Akun: {{ $item->name }}</h3>
                                 </div>
                                 <button type="button"
                                         onclick="document.getElementById('modal-edit-user-{{ $item->id }}').classList.add('hidden')"
-                                        class="text-slate-400 hover:text-white text-lg font-bold">
-                                    ✕
+                                        class="text-slate-400 hover:text-white p-1"
+                                        aria-label="Tutup">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                                 </button>
                             </div>
 

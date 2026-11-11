@@ -156,8 +156,8 @@
         <!-- Footer Actions -->
         <footer class="bg-slate-50 px-5 sm:px-6 py-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
             <a href="{{ route('public.sources.index') }}"
-               class="px-4 py-2 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 text-slate-700 font-telemetry text-xs font-bold uppercase tracking-wider transition">
-                &larr; Kembali ke Transparansi Sumber Data
+               class="link-text font-telemetry text-xs font-bold uppercase tracking-wider">
+                Kembali ke Transparansi Sumber Data
             </a>
             <div class="flex items-center gap-2">
                 <a href="{{ route('public.monitor') }}"

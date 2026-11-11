@@ -190,14 +190,13 @@
 
                             <td class="py-3.5 px-4 align-top text-right whitespace-nowrap space-x-1.5">
                                 <a href="{{ route('public.incidents.show', $incident->slug) }}"
-                                   target="_blank"
+                                   target="_blank" rel="noopener"
                                    class="px-2.5 py-1.5 rounded border border-slate-300 text-slate-700 hover:bg-slate-100 font-telemetry text-xs font-bold uppercase inline-flex items-center">
-                                    Publik &nearr;
+                                    Publik<span class="sr-only"> (membuka tab baru)</span>
                                 </a>
                                 <a href="{{ route('internal.incidents.edit', $incident) }}"
-                                   class="px-3 py-1.5 rounded bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase inline-flex items-center gap-1">
+                                   class="px-3 py-1.5 rounded bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase inline-flex items-center">
                                     <span>{{ $roleVal === 'verifikator' ? 'Verifikasi & Tinjau' : ($roleVal === 'operator' ? 'Kelola Operasional' : 'Kelola') }}</span>
-                                    <span>&rarr;</span>
                                 </a>
                             </td>
                         </tr>

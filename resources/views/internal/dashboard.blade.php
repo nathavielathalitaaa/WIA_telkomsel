@@ -166,8 +166,8 @@
                     </span>
                 @endif
             </div>
-            <a href="{{ route('internal.reports.index') }}" class="font-telemetry text-xs font-bold text-[#2563EB] hover:underline">
-                {{ $isVerifikator ? 'Buka Antrean Verifikasi Laporan' : 'Lihat Semua Laporan' }} &rarr;
+            <a href="{{ route('internal.reports.index') }}" class="font-telemetry text-xs font-bold link-text">
+                {{ $isVerifikator ? 'Buka Antrean Verifikasi Laporan' : 'Lihat Semua Laporan' }}
             </a>
         </div>
 
@@ -191,8 +191,8 @@
                 <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#92400E]">Menunggu Verifikasi</span>
                 <div class="mt-3 flex items-baseline justify-between">
                     <span class="font-telemetry text-3xl font-bold text-[#D97706]">{{ $stats['pending_reports'] }}</span>
-                    <span class="font-telemetry text-xs font-bold text-[#92400E] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
-                        Periksa &rarr;
+                    <span class="font-telemetry text-xs font-bold text-[#92400E]">
+                        Periksa
                     </span>
                 </div>
             </a>
@@ -203,8 +203,8 @@
                 <span class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#1E40AF]">Laporan Terverifikasi</span>
                 <div class="mt-3 flex items-baseline justify-between">
                     <span class="font-telemetry text-3xl font-bold text-[#2563EB]">{{ $stats['verified_reports'] }}</span>
-                    <span class="font-telemetry text-xs font-bold text-[#1E40AF] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
-                        Filter &rarr;
+                    <span class="font-telemetry text-xs font-bold text-[#1E40AF]">
+                        Filter
                     </span>
                 </div>
             </a>
@@ -239,7 +239,7 @@
                 @endif
             </div>
             <a href="{{ route('internal.incidents.index') }}" class="font-telemetry text-xs font-bold text-[#2563EB] hover:underline">
-                {{ $isVerifikator ? 'Tinjau Kejadian & Sumber' : 'Kelola Semua Kejadian' }} &rarr;
+                {{ $isVerifikator ? 'Tinjau Kejadian & Sumber' : 'Kelola Semua Kejadian' }}
             </a>
         </div>
 
@@ -261,7 +261,7 @@
                 <div class="mt-3 flex items-baseline justify-between">
                     <span class="font-telemetry text-3xl font-bold text-slate-800">{{ $stats['unhandled_incidents'] }}</span>
                     <span class="font-telemetry text-xs font-bold text-slate-700 group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
-                        Filter &rarr;
+                        Filter
                     </span>
                 </div>
             </a>
@@ -273,7 +273,7 @@
                 <div class="mt-3 flex items-baseline justify-between">
                     <span class="font-telemetry text-3xl font-bold text-[#D97706]">{{ $stats['active_followup_incidents'] }}</span>
                     <span class="font-telemetry text-xs font-bold text-[#92400E] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
-                        Filter &rarr;
+                        Filter
                     </span>
                 </div>
             </a>
@@ -285,7 +285,7 @@
                 <div class="mt-3 flex items-baseline justify-between">
                     <span class="font-telemetry text-3xl font-bold text-[#059669]">{{ $stats['completed_incidents'] }}</span>
                     <span class="font-telemetry text-xs font-bold text-[#065F46] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
-                        Filter &rarr;
+                        Filter
                     </span>
                 </div>
             </a>
@@ -304,7 +304,7 @@
                 </span>
             </div>
             <a href="{{ route('internal.incidents.index') }}" class="font-telemetry text-xs font-bold text-[#2563EB] hover:underline">
-                Periksa pada Halaman Kejadian &rarr;
+                Periksa pada Halaman Kejadian
             </a>
         </div>
 
@@ -363,7 +363,7 @@
                     <p class="text-xs text-slate-500">Klik nomor tiket atau judul untuk meninjau detail &amp; aksi verifikasi.</p>
                 </div>
                 <a href="{{ route('internal.reports.index') }}" class="font-telemetry text-xs font-bold text-[#2563EB] hover:underline">
-                    Semua &rarr;
+                    Semua
                 </a>
             </div>
 
@@ -420,7 +420,7 @@
                     <p class="text-xs text-slate-500">Menampilkan status verifikasi dan status tindak lanjut secara terpisah.</p>
                 </div>
                 <a href="{{ route('internal.incidents.index') }}" class="font-telemetry text-xs font-bold text-[#2563EB] hover:underline">
-                    Semua &rarr;
+                    Semua
                 </a>
             </div>
 
@@ -455,7 +455,7 @@
                         <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-telemetry text-slate-500 pt-1">
                             <span>{{ $incident->reports_count }} Laporan • {{ $incident->sources_count }} Sumber • {{ $incident->aid_responses_count ?? 0 }} Respons Bantuan</span>
                             <a href="{{ route('internal.incidents.edit', $incident) }}" class="text-[#2563EB] font-bold hover:underline">
-                                {{ $isVerifikator ? 'Verifikasi & Tinjau' : ($isOperator ? 'Kelola Operasional' : 'Kelola Kejadian') }} &rarr;
+                                {{ $isVerifikator ? 'Verifikasi & Tinjau' : ($isOperator ? 'Kelola Operasional' : 'Kelola Kejadian') }}
                             </a>
                         </div>
                     </div>
@@ -525,7 +525,7 @@
                             @if($aid->incident)
                                 <a href="{{ route('internal.incidents.edit', $aid->incident) }}"
                                    class="px-3 py-1.5 rounded-lg border border-slate-200/90 bg-white hover:bg-slate-100 text-[#202938] font-telemetry text-xs font-bold uppercase tracking-wider">
-                                    {{ $user->canManageOperations() ? 'Periksa & Konfirmasi' : 'Tinjau pada Kejadian' }} &rarr;
+                                    {{ $user->canManageOperations() ? 'Periksa & Konfirmasi' : 'Tinjau pada Kejadian' }}
                                 </a>
                             @endif
                         </div>

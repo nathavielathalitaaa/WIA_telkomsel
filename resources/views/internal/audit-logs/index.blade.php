@@ -9,8 +9,8 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-200 pb-4">
         <div>
             <div class="flex items-center gap-2">
-                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-[#173B70] text-white font-bold text-sm">
-                    📜
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-[#173B70] text-white font-bold text-xs">
+                    LOG
                 </span>
                 <h1 class="text-xl sm:text-2xl font-black text-[#202938] tracking-tight">
                     Audit Log Aktivitas Internal
@@ -29,7 +29,7 @@
 
     <!-- Security & Integrity Notice -->
     <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-xs text-amber-900 flex items-start gap-3">
-        <span class="text-base shrink-0">🔒</span>
+        <span class="w-2 h-2 rounded-full bg-amber-600 shrink-0 mt-1"></span>
         <div>
             <strong class="font-bold">Integritas Riwayat Forensik:</strong>
             <p class="mt-0.5 text-amber-800 leading-relaxed">
@@ -145,7 +145,6 @@
     <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden">
         @if($logs->isEmpty())
             <div class="p-12 text-center space-y-2">
-                <span class="text-3xl block">🔍</span>
                 <p class="text-sm font-bold text-slate-700">Tidak ada catatan audit log yang sesuai.</p>
                 <p class="text-xs text-slate-400">Coba sesuaikan kriteria pencarian atau filter yang digunakan.</p>
             </div>
@@ -227,7 +226,7 @@
                                     <button type="button"
                                             onclick="document.getElementById('modal-audit-detail-{{ $log->id }}').classList.remove('hidden')"
                                             class="px-2 py-1 rounded border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 text-[11px] font-telemetry font-bold transition cursor-pointer">
-                                        Rincian ℹ️
+                                        Rincian
                                     </button>
                                 </td>
                             </tr>
@@ -237,13 +236,13 @@
                                 <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-lg w-full overflow-hidden text-left">
                                     <div class="bg-[#173B70] text-white px-6 py-4 flex items-center justify-between border-b border-[#315D91]">
                                         <div class="flex items-center gap-2">
-                                            <span>📜</span>
                                             <h3 class="text-sm font-bold tracking-tight">Rincian Audit Log #{{ $log->id }}</h3>
                                         </div>
                                         <button type="button"
                                                 onclick="document.getElementById('modal-audit-detail-{{ $log->id }}').classList.add('hidden')"
-                                                class="text-slate-400 hover:text-white text-lg font-bold">
-                                            ✕
+                                                class="text-slate-400 hover:text-white p-1"
+                                                aria-label="Tutup">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                                         </button>
                                     </div>
 

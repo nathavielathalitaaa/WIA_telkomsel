@@ -12,14 +12,14 @@
     <!-- Breadcrumb -->
     <nav class="flex flex-wrap items-center justify-between gap-3">
         <a href="{{ route('internal.reports.index') }}"
-           class="font-telemetry text-xs font-bold text-slate-600 hover:text-[#202938] inline-flex items-center gap-1">
-            <span>&larr; Kembali ke Daftar Laporan</span>
+           class="font-telemetry text-xs font-bold link-text">
+            Kembali ke Daftar Laporan
         </a>
         <div class="flex items-center gap-2">
             <a href="{{ route('public.track', ['ticket' => $report->ticket_number]) }}"
-               target="_blank"
+               target="_blank" rel="noopener"
                class="px-3 py-1.5 rounded border border-slate-200/90 bg-white hover:bg-slate-50 text-[#202938] font-telemetry text-xs font-bold uppercase tracking-wider">
-                Lihat Tampilan Lacak Publik &nearr;
+                Lihat Tampilan Lacak Publik<span class="sr-only"> (membuka tab baru)</span>
             </a>
         </div>
     </nav>
@@ -116,10 +116,9 @@
                     <div class="pt-1">
                         <a href="{{ $report->evidence_url }}"
                            target="_blank"
-                           rel="noopener noreferrer"
-                           class="font-telemetry text-xs font-bold text-[#2563EB] hover:underline inline-flex items-center gap-1">
-                            <span>Buka Tautan Bukti / Sumber Pendukung</span>
-                            <span>&nearr;</span>
+                           rel="noopener"
+                           class="font-telemetry text-xs font-bold link-text">
+                            Buka tautan bukti / sumber pendukung<span class="sr-only"> (membuka tab baru)</span>
                         </a>
                     </div>
                 @endif
@@ -339,7 +338,6 @@
                             <a href="{{ route('internal.incidents.create', ['from_report' => $report->id]) }}"
                                class="w-full px-4 py-2.5 rounded-lg border border-emerald-600 bg-emerald-50 hover:bg-emerald-100 text-emerald-950 font-telemetry text-xs font-bold uppercase tracking-wider transition inline-flex items-center justify-center gap-1.5">
                                 <span>+ Buat Kejadian Baru dari Laporan Ini</span>
-                                <span>&rarr;</span>
                             </a>
                         </div>
                     @endif

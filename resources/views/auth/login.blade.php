@@ -27,7 +27,6 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
                 </svg>
                 <span>Laporkan Kejadian</span>
-                <span class="text-xs opacity-90">&rarr;</span>
             </a>
 
             <a href="{{ route('public.monitor') }}"
@@ -189,7 +188,6 @@
                     <button type="submit"
                             class="w-full py-3 px-4 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] active:scale-[0.99] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center justify-center gap-2 cursor-pointer shadow-xs">
                         <span>Masuk ke Panel Internal</span>
-                        <span>&rarr;</span>
                     </button>
                 </div>
             </form>

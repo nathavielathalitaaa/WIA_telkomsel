@@ -25,8 +25,8 @@
             </div>
             <div class="flex items-center gap-2.5 shrink-0 self-start sm:self-center">
                 <a href="{{ route('public.monitor') }}"
-                   class="px-4 py-2.5 rounded-lg border border-blue-300/40 hover:bg-[#315D91] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center gap-2 shadow-xs">
-                    <span>&larr; Pantau Kebutuhan</span>
+                   class="px-4 py-2.5 rounded-lg border border-blue-300/40 hover:bg-[#315D91] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center shadow-xs">
+                    <span>Pantau Kebutuhan</span>
                 </a>
             </div>
         </div>
@@ -440,7 +440,6 @@
                         <span id="submit-btn-label">
                             {{ $activeSubmissionType === 'laporan_penyerahan' ? 'Kirim Laporan Bantuan Sudah Diberikan (Status Awal: Direncanakan)' : 'Catat Tawaran / Rencana Bantuan (Status Awal: Direncanakan)' }}
                         </span>
-                        <span>&rarr;</span>
                     </button>
                 </div>
             </form>

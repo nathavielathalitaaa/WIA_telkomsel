@@ -9,8 +9,8 @@
     <div class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 sm:p-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-                <a href="{{ route('internal.intelligence.index') }}" class="text-xs text-blue-600 hover:underline font-telemetry flex items-center gap-1 mb-1">
-                    ← Kembali ke Daftar Rekaman
+                <a href="{{ route('internal.intelligence.index') }}" class="link-text text-xs font-telemetry mb-1 inline-block">
+                    Kembali ke Daftar Rekaman
                 </a>
                 <div class="flex flex-wrap items-center gap-2">
                     <h1 class="text-lg sm:text-xl font-bold font-telemetry text-[#202938] tracking-tight">
@@ -25,9 +25,9 @@
                 </div>
             </div>
             @if($record->source_url)
-                <a href="{{ $record->source_url }}" target="_blank" rel="noopener noreferrer"
-                   class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-300 hover:bg-slate-50 text-slate-700 font-telemetry text-xs font-bold uppercase transition shrink-0">
-                    Buka URL Sumber Asli ↗
+                <a href="{{ $record->source_url }}" target="_blank" rel="noopener"
+                   class="inline-flex items-center px-3 py-1.5 rounded-lg border border-slate-300 hover:bg-slate-50 text-slate-700 font-telemetry text-xs font-bold uppercase transition shrink-0">
+                    Buka URL sumber asli<span class="sr-only"> (membuka tab baru)</span>
                 </a>
             @endif
         </div>

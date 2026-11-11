@@ -4,85 +4,144 @@
 ])
 
 @section('content')
-<div class="space-y-6">
-    <!-- Top Editorial Header (Clean, Light, Aligned with Master Design) -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200/80 pb-4">
-        <div class="space-y-1 max-w-2xl">
-            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#202938]">
-                Pantau Sebaran Kejadian Bencana
-            </h1>
-            <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
-                Pantau sebaran spasial kejadian bencana, kebutuhan mendesak warga, dan penyaluran bantuan di lapangan.
-            </p>
+<div class="space-y-10 sm:space-y-12 lg:space-y-14">
+    <!-- 2. Pembuka Halaman: Judul & Deskripsi Eksplorasi (Minimal, Modern, Humanis) -->
+    <section aria-label="Pengenalan Pemantauan" class="space-y-2 border-b border-slate-200/80 pb-5">
+        <div class="flex items-center gap-2">
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-[#173B70]/10 text-[#173B70] font-telemetry">
+                Papan Transparansi Informasi
+            </span>
+            <span class="text-xs text-slate-300">•</span>
+            <span class="text-xs font-telemetry text-slate-500">
+                Pembaruan Terverifikasi &amp; Lapangan
+            </span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#202938]">
+            Pantau Kejadian &amp; Transparansi Respons Bencana
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-500 max-w-3xl leading-relaxed">
+            Akses terbuka masyarakat untuk memantau sebaran bencana, memverifikasi keterkaitan fakta, dan menelusuri perkembangan penyaluran bantuan di lapangan secara akuntabel.
+        </p>
+    </section>
+
+    <!-- 3. Ringkasan Situasi: Metrik Kunci Telemetri & Filter Cepat -->
+    <section aria-label="Ringkasan Situasi Bencana" class="space-y-4">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            <!-- 1. Total Kejadian -->
+            <a href="{{ route('public.monitor') }}"
+               class="bg-white rounded-xl p-4 border border-slate-200/80 shadow-xs hover:border-[#173B70] transition flex flex-col justify-between group">
+                <div class="flex items-center justify-between gap-2">
+                    <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500">Total Kejadian</span>
+                    <span class="w-2 h-2 rounded-full bg-[#173B70]"></span>
+                </div>
+                <div class="mt-2 flex items-baseline gap-2">
+                    <span class="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#202938]">{{ $summary['total_incidents'] }}</span>
+                    <span class="text-[11px] font-telemetry text-slate-400">terdata</span>
+                </div>
+                <div class="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] font-telemetry text-slate-500">
+                    <span>{{ $summary['historical_incidents'] ?? 0 }} BNPB • {{ $summary['simulation_incidents'] ?? 0 }} Simulasi</span>
+                    <span class="text-[#173B70] font-bold group-hover:translate-x-0.5 transition-transform">&rarr;</span>
+                </div>
+            </a>
+
+            <!-- 2. Terverifikasi -->
+            <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['verification_status' => 'terverifikasi'])) }}"
+               class="bg-white rounded-xl p-4 border {{ request('verification_status') === 'terverifikasi' ? 'border-blue-600 ring-2 ring-blue-100' : 'border-slate-200/80' }} shadow-xs hover:border-blue-600 transition flex flex-col justify-between group">
+                <div class="flex items-center justify-between gap-2">
+                    <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500">Terverifikasi</span>
+                    <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                </div>
+                <div class="mt-2 flex items-baseline gap-2">
+                    <span class="text-2xl sm:text-3xl font-extrabold tracking-tight text-blue-700">{{ $summary['terverifikasi'] }}</span>
+                    <span class="text-[11px] font-telemetry text-slate-400">faktual</span>
+                </div>
+                <div class="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] font-telemetry text-slate-500">
+                    <span>Divalidasi Tim/Sumber Resmi</span>
+                    <span class="text-blue-600 font-bold group-hover:translate-x-0.5 transition-transform">&rarr;</span>
+                </div>
+            </a>
+
+            <!-- 3. Dalam Tindak Lanjut -->
+            <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['follow_up_status' => 'sedang_ditindaklanjuti'])) }}"
+               class="bg-white rounded-xl p-4 border {{ request('follow_up_status') === 'sedang_ditindaklanjuti' ? 'border-amber-600 ring-2 ring-amber-100' : 'border-slate-200/80' }} shadow-xs hover:border-amber-600 transition flex flex-col justify-between group">
+                <div class="flex items-center justify-between gap-2">
+                    <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500">Dalam Tindak Lanjut</span>
+                    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                </div>
+                <div class="mt-2 flex items-baseline gap-2">
+                    <span class="text-2xl sm:text-3xl font-extrabold tracking-tight text-amber-700">{{ $summary['sedang_ditindaklanjuti'] }}</span>
+                    <span class="text-[11px] font-telemetry text-slate-400">aktif</span>
+                </div>
+                <div class="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] font-telemetry text-slate-500">
+                    <span>Koordinasi Penanganan Lapangan</span>
+                    <span class="text-amber-600 font-bold group-hover:translate-x-0.5 transition-transform">&rarr;</span>
+                </div>
+            </a>
+
+            <!-- 4. Respons Bantuan -->
+            <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['aid_status' => 'terkonfirmasi'])) }}"
+               class="bg-white rounded-xl p-4 border {{ request('aid_status') === 'terkonfirmasi' ? 'border-emerald-600 ring-2 ring-emerald-100' : 'border-slate-200/80' }} shadow-xs hover:border-emerald-600 transition flex flex-col justify-between group">
+                <div class="flex items-center justify-between gap-2">
+                    <span class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-slate-500">Respons Bantuan</span>
+                    <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+                </div>
+                <div class="mt-2 flex items-baseline gap-2">
+                    <span class="text-2xl sm:text-3xl font-extrabold tracking-tight text-emerald-700">{{ $summary['total_aid_responses'] ?? 0 }}</span>
+                    <span class="text-[11px] font-telemetry text-slate-400">tercatat</span>
+                </div>
+                <div class="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] font-telemetry text-slate-500">
+                    <span>Tawaran &amp; Penyerahan Bantuan</span>
+                    <span class="text-emerald-600 font-bold group-hover:translate-x-0.5 transition-transform">&rarr;</span>
+                </div>
+            </a>
         </div>
 
-        <!-- Quick Action Buttons -->
-        <div class="flex flex-wrap items-center gap-2 shrink-0">
-            <a href="{{ route('public.track') }}"
-               class="px-3.5 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-telemetry text-xs font-bold uppercase tracking-wider transition inline-flex items-center gap-1.5 shadow-2xs min-h-[38px]">
-                <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                </svg>
-                <span>Lacak Tiket</span>
+        <!-- Filter Cepat Strip -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none text-xs font-telemetry" role="navigation" aria-label="Ringkasan dan Filter Cepat">
+            <span class="text-slate-400 font-bold uppercase tracking-wider text-[10px] shrink-0 mr-1">Status:</span>
+            <a href="{{ route('public.monitor') }}"
+               class="px-3 py-1.5 rounded-lg border transition shrink-0 inline-flex items-center gap-1.5 {{ empty(request()->except('page')) ? 'bg-[#173B70] text-white border-[#173B70] font-bold shadow-2xs' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200 font-medium' }}"
+               title="Tampilkan semua kejadian">
+                <span>Semua</span>
+                <span class="px-1.5 py-0.5 rounded text-[10px] {{ empty(request()->except('page')) ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-700 font-bold' }}">{{ $summary['total_incidents'] }}</span>
             </a>
-            <a href="{{ route('public.aid-responses.create') }}"
-               class="px-3.5 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-telemetry text-xs font-bold uppercase tracking-wider transition inline-flex items-center gap-1 shadow-2xs min-h-[38px]">
-                <span class="font-extrabold text-sm leading-none text-[#173B70]">+</span>
-                <span>Catat Bantuan</span>
+
+            <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['source_mode' => 'historical'])) }}"
+               class="px-3 py-1.5 rounded-lg border transition shrink-0 inline-flex items-center gap-1.5 {{ request('source_mode') === 'historical' ? 'bg-[#173B70] text-white border-[#173B70] font-bold shadow-2xs' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200 font-medium' }}"
+               title="Saring arsip historis resmi BNPB (DIBI)">
+                <span>Historis BNPB</span>
+                <span class="px-1.5 py-0.5 rounded text-[10px] {{ request('source_mode') === 'historical' ? 'bg-white/20 text-white' : 'bg-blue-50 text-blue-800 font-bold' }}">{{ $summary['historical_incidents'] ?? 0 }}</span>
             </a>
-            <a href="{{ route('public.reports.create') }}"
-               class="px-4 py-2 rounded-lg btn-brand-gradient text-white font-telemetry text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 shadow-xs transition min-h-[38px]">
-                <span class="font-extrabold text-sm leading-none">+</span>
-                <span>Kirim Laporan Warga</span>
+
+            <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['source_mode' => 'simulation'])) }}"
+               class="px-3 py-1.5 rounded-lg border transition shrink-0 inline-flex items-center gap-1.5 {{ request('source_mode') === 'simulation' ? 'bg-[#173B70] text-white border-[#173B70] font-bold shadow-2xs' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200 font-medium' }}"
+               title="Saring skenario simulasi">
+                <span>Simulasi</span>
+                <span class="px-1.5 py-0.5 rounded text-[10px] {{ request('source_mode') === 'simulation' ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-700 font-bold' }}">{{ $summary['simulation_incidents'] ?? 0 }}</span>
+            </a>
+
+            <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['verification_status' => 'terverifikasi'])) }}"
+               class="px-3 py-1.5 rounded-lg border transition shrink-0 inline-flex items-center gap-1.5 {{ request('verification_status') === 'terverifikasi' ? 'bg-blue-700 text-white border-blue-700 font-bold shadow-2xs' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200 font-medium' }}"
+               title="Saring kejadian terverifikasi">
+                <span>Terverifikasi</span>
+                <span class="px-1.5 py-0.5 rounded text-[10px] {{ request('verification_status') === 'terverifikasi' ? 'bg-white/20 text-white' : 'bg-blue-50 text-blue-700 font-bold' }}">{{ $summary['terverifikasi'] }}</span>
+            </a>
+
+            <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['follow_up_status' => 'sedang_ditindaklanjuti'])) }}"
+               class="px-3 py-1.5 rounded-lg border transition shrink-0 inline-flex items-center gap-1.5 {{ request('follow_up_status') === 'sedang_ditindaklanjuti' ? 'bg-emerald-700 text-white border-emerald-700 font-bold shadow-2xs' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200 font-medium' }}"
+               title="Saring kejadian sedang ditindaklanjuti">
+                <span>Ditindaklanjuti</span>
+                <span class="px-1.5 py-0.5 rounded text-[10px] {{ request('follow_up_status') === 'sedang_ditindaklanjuti' ? 'bg-white/20 text-white' : 'bg-emerald-50 text-emerald-700 font-bold' }}">{{ $summary['sedang_ditindaklanjuti'] }}</span>
+            </a>
+
+            <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['aid_status' => 'terkonfirmasi'])) }}"
+               class="px-3 py-1.5 rounded-lg border transition shrink-0 inline-flex items-center gap-1.5 {{ request('aid_status') === 'terkonfirmasi' ? 'bg-emerald-700 text-white border-emerald-700 font-bold shadow-2xs' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200 font-medium' }}"
+               title="Saring respons bantuan masyarakat">
+                <span>Respons Bantuan</span>
+                <span class="px-1.5 py-0.5 rounded text-[10px] {{ request('aid_status') === 'terkonfirmasi' ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-700 font-bold' }}">{{ $summary['total_aid_responses'] ?? 0 }}</span>
             </a>
         </div>
-    </div>
-
-    <!-- Ringkasan Jumlah Kejadian — Indikator Sederhana (Minimal Telemetry Strip) -->
-    <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none text-xs font-telemetry" role="navigation" aria-label="Ringkasan dan Filter Cepat">
-        <span class="text-slate-400 font-bold uppercase tracking-wider text-[10px] shrink-0 mr-1">Status:</span>
-        <a href="{{ route('public.monitor') }}"
-           class="px-3 py-1.5 rounded-lg border transition shrink-0 inline-flex items-center gap-1.5 {{ empty(request()->except('page')) ? 'bg-[#173B70] text-white border-[#173B70] font-bold shadow-2xs' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200 font-medium' }}"
-           title="Tampilkan semua kejadian">
-            <span>Semua</span>
-            <span class="px-1.5 py-0.5 rounded text-[10px] {{ empty(request()->except('page')) ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-700 font-bold' }}">{{ $summary['total_incidents'] }}</span>
-        </a>
-
-        <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['source_mode' => 'historical'])) }}"
-           class="px-3 py-1.5 rounded-lg border transition shrink-0 inline-flex items-center gap-1.5 {{ request('source_mode') === 'historical' ? 'bg-[#173B70] text-white border-[#173B70] font-bold shadow-2xs' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200 font-medium' }}"
-           title="Saring arsip historis resmi BNPB (DIBI)">
-            <span>Historis BNPB</span>
-            <span class="px-1.5 py-0.5 rounded text-[10px] {{ request('source_mode') === 'historical' ? 'bg-white/20 text-white' : 'bg-blue-50 text-blue-800 font-bold' }}">{{ $summary['historical_incidents'] ?? 0 }}</span>
-        </a>
-
-        <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['source_mode' => 'simulation'])) }}"
-           class="px-3 py-1.5 rounded-lg border transition shrink-0 inline-flex items-center gap-1.5 {{ request('source_mode') === 'simulation' ? 'bg-[#173B70] text-white border-[#173B70] font-bold shadow-2xs' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200 font-medium' }}"
-           title="Saring skenario simulasi">
-            <span>Simulasi</span>
-            <span class="px-1.5 py-0.5 rounded text-[10px] {{ request('source_mode') === 'simulation' ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-700 font-bold' }}">{{ $summary['simulation_incidents'] ?? 0 }}</span>
-        </a>
-
-        <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['verification_status' => 'terverifikasi'])) }}"
-           class="px-3 py-1.5 rounded-lg border transition shrink-0 inline-flex items-center gap-1.5 {{ request('verification_status') === 'terverifikasi' ? 'bg-blue-700 text-white border-blue-700 font-bold shadow-2xs' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200 font-medium' }}"
-           title="Saring kejadian terverifikasi">
-            <span>Terverifikasi</span>
-            <span class="px-1.5 py-0.5 rounded text-[10px] {{ request('verification_status') === 'terverifikasi' ? 'bg-white/20 text-white' : 'bg-blue-50 text-blue-700 font-bold' }}">{{ $summary['terverifikasi'] }}</span>
-        </a>
-
-        <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['follow_up_status' => 'sedang_ditindaklanjuti'])) }}"
-           class="px-3 py-1.5 rounded-lg border transition shrink-0 inline-flex items-center gap-1.5 {{ request('follow_up_status') === 'sedang_ditindaklanjuti' ? 'bg-emerald-700 text-white border-emerald-700 font-bold shadow-2xs' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200 font-medium' }}"
-           title="Saring kejadian sedang ditindaklanjuti">
-            <span>Ditindaklanjuti</span>
-            <span class="px-1.5 py-0.5 rounded text-[10px] {{ request('follow_up_status') === 'sedang_ditindaklanjuti' ? 'bg-white/20 text-white' : 'bg-emerald-50 text-emerald-700 font-bold' }}">{{ $summary['sedang_ditindaklanjuti'] }}</span>
-        </a>
-
-        <a href="{{ route('public.monitor', array_merge(request()->except('page'), ['aid_status' => 'terkonfirmasi'])) }}"
-           class="px-3 py-1.5 rounded-lg border transition shrink-0 inline-flex items-center gap-1.5 {{ request('aid_status') === 'terkonfirmasi' ? 'bg-emerald-700 text-white border-emerald-700 font-bold shadow-2xs' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200 font-medium' }}"
-           title="Saring respons bantuan masyarakat">
-            <span>Respons Bantuan</span>
-            <span class="px-1.5 py-0.5 rounded text-[10px] {{ request('aid_status') === 'terkonfirmasi' ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-700 font-bold' }}">{{ $summary['total_aid_responses'] ?? 0 }}</span>
-        </a>
-    </div>
+    </section>
 
     <!-- Filter Bar Ringkas (Satu Baris Rapi & Efisien) -->
     <section aria-label="Filter Kejadian" class="bg-white rounded-xl shadow-xs p-3 sm:p-4 border border-slate-200/80">
@@ -183,9 +242,6 @@
             </div>
         </form>
     </section>
-
-    <!-- Komponen Pemantauan Saat Ini (BMKG Nowcasting Alert Carousel) -->
-    <x-regional-incidents-carousel :incidents="$regionalIncidents" />
 
     <!-- Main View: PETA SEBAGAI AREA TERBESAR + Panel Pendamping -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
@@ -297,6 +353,9 @@
             @endif
         </section>
     </div>
+
+    <!-- 5. Kejadian Terbaru: Pemantauan Saat Ini (BMKG Nowcasting Alert Carousel) -->
+    <x-regional-incidents-carousel :incidents="$regionalIncidents" />
 
     <!-- Transparansi Kebutuhan & Respons Bantuan (Clean Editorial Presentation) -->
     <section aria-label="Transparansi Kebutuhan dan Respons Bantuan" class="bg-white rounded-2xl shadow-xs p-5 sm:p-6 space-y-5 border border-slate-200/80">

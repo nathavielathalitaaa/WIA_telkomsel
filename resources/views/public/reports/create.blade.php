@@ -4,6 +4,7 @@
 ])
 
 @section('content')
+<div class="space-y-8 sm:space-y-10 lg:space-y-12">
     <!-- Master Institutional Hero Header (Aligned with /welcome) -->
     <section class="bg-[#173B70] text-white border border-[#315D91] rounded-2xl p-5 sm:p-7 space-y-4 shadow-xs">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -384,6 +385,7 @@
             </div>
         </aside>
     </div>
+</div>
 @endsection
 
 @push('scripts')

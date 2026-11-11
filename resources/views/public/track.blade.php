@@ -4,7 +4,7 @@
 ])
 
 @section('content')
-<div class="space-y-6">
+<div class="space-y-8 sm:space-y-10 lg:space-y-12">
     <!-- Ticket Created Success Banner (Shown right after citizen submits a report) -->
     @if(session('created_ticket'))
         <section class="bg-[#ECFDF5] border border-emerald-300 rounded-2xl shadow-xs p-5 space-y-3" role="status">

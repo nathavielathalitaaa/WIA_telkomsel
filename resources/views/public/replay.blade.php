@@ -11,6 +11,7 @@
 @endphp
 
 @section('content')
+<div class="space-y-8 sm:space-y-10 lg:space-y-12">
     <!-- Master Institutional Hero Header (Aligned with /welcome) -->
     <section class="bg-[#173B70] text-white rounded-2xl shadow-xs border border-[#315D91] p-5 sm:p-7 space-y-4">
         <div class="flex flex-wrap items-center gap-2">
@@ -396,6 +397,7 @@
             </div>
         </div>
     @endif
+</div>
 @endsection
 
 @if($selectedIncident && !empty($eventsArray))

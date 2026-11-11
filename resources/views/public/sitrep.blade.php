@@ -4,6 +4,7 @@
 ])
 
 @section('content')
+<div class="space-y-8 sm:space-y-10 lg:space-y-12">
     <!-- Master Institutional Hero Header & Print Toolbar (Aligned with /welcome) -->
     <section class="bg-[#173B70] text-white border border-[#315D91] rounded-2xl p-5 sm:p-7 space-y-4 shadow-xs no-print">
         <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
@@ -395,4 +396,5 @@
             </ul>
         </footer>
     </article>
+</div>
 @endsection

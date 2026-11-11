@@ -47,7 +47,7 @@
             <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-3.5 flex flex-col justify-between">
                 <div>
                     <div class="font-telemetry text-[11px] font-bold uppercase text-[#315D91]">
-                        2. Integrasi API &amp; Sumber Terbuka
+                        2. Integrasi API &amp; Sumber Informasi Terbuka
                     </div>
                     <p class="text-[11px] text-[#202938]/85 mt-1.5 leading-relaxed">
                         TanggapTerang mengolah informasi dari berbagai layanan eksternal untuk mendukung pemantauan kejadian dan kondisi wilayah.

@@ -9,6 +9,7 @@
 @endphp
 
 @section('content')
+<div class="space-y-6 sm:space-y-8 lg:space-y-10">
     <!-- Breadcrumb & Back Action -->
     <nav aria-label="Breadcrumb" class="flex flex-wrap items-center justify-between gap-3 min-w-0">
         <div class="flex items-center gap-2 text-xs font-telemetry text-slate-600 min-w-0 max-w-full">
@@ -657,6 +658,7 @@
             </section>
         </div>
     </div>
+</div>
 @endsection
 
 @if($hasCoordinates)

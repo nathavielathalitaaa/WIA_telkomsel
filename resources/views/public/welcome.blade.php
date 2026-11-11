@@ -4,6 +4,7 @@
 ])
 
 @section('content')
+<div class="space-y-10 sm:space-y-12 lg:space-y-14">
     <!-- 1. Hero Section -->
     <section class="bg-[#173B70] text-white border border-[#315D91] rounded-2xl p-5 sm:p-7 space-y-4 shadow-xs">
         <div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5">
@@ -309,6 +310,7 @@
             </div>
         </div>
     </section>
+</div>
 
     <!-- Map Script Initialization for Welcome Preview -->
     @push('scripts')

@@ -4,7 +4,7 @@
 ])
 
 @section('content')
-<div class="space-y-6">
+<div class="space-y-8 sm:space-y-10 lg:space-y-12">
     <!-- Header Panduan (Clean, Light, Master Design Alignment) -->
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200/80 pb-4">
         <div class="space-y-1 max-w-2xl">

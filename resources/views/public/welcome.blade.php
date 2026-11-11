@@ -5,6 +5,9 @@
 
 @section('content')
 <div class="space-y-10 sm:space-y-12 lg:space-y-14">
+    <!-- Pemantauan Saat Ini (Regional Incidents Carousel) -->
+    <x-regional-incidents-carousel :incidents="$regionalIncidents" />
+
     <!-- 1. Hero Section -->
     <section class="bg-[#173B70] text-white border border-[#315D91] rounded-2xl p-5 sm:p-7 space-y-4 shadow-xs">
         <div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5">
@@ -122,9 +125,6 @@
             </div>
         </div>
     </section>
-
-    <!-- 2b. Komponen Pemantauan Saat Ini (BMKG Nowcasting Alert Carousel) -->
-    <x-regional-incidents-carousel :incidents="$regionalIncidents" />
 
     <!-- 3. Peta & Informasi Kejadian (Visual Element Utama) -->
     <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 overflow-hidden" aria-label="Preview Peta Kejadian">

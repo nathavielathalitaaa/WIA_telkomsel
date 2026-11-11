@@ -5,6 +5,9 @@
 
 @section('content')
 <div class="space-y-10 sm:space-y-12 lg:space-y-14">
+    <!-- Pemantauan Saat Ini (Regional Incidents Carousel) -->
+    <x-regional-incidents-carousel :incidents="$regionalIncidents" />
+
     <!-- 2. Pembuka Halaman: Judul & Deskripsi Eksplorasi (Minimal, Modern, Humanis) -->
     <section aria-label="Pengenalan Pemantauan" class="space-y-2 border-b border-slate-200/80 pb-5">
         <div class="flex items-center gap-2">
@@ -353,9 +356,6 @@
             @endif
         </section>
     </div>
-
-    <!-- 5. Kejadian Terbaru: Pemantauan Saat Ini (BMKG Nowcasting Alert Carousel) -->
-    <x-regional-incidents-carousel :incidents="$regionalIncidents" />
 
     <!-- Transparansi Kebutuhan & Respons Bantuan (Clean Editorial Presentation) -->
     <section aria-label="Transparansi Kebutuhan dan Respons Bantuan" class="bg-white rounded-2xl shadow-xs p-5 sm:p-6 space-y-5 border border-slate-200/80">

@@ -175,11 +175,23 @@
     const dots = Array.from(root.querySelectorAll('.regional-carousel-dot'));
     const prev = root.querySelector('.regional-carousel-prev');
     const next = root.querySelector('.regional-carousel-next');
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    try {
+        window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', (e) => {
+            reducedMotion = e.matches;
+            if (reducedMotion) {
+                stopTimer();
+                if (resumeTimeout) window.clearTimeout(resumeTimeout);
+            } else {
+                startTimer();
+            }
+        });
+    } catch (_) {}
 
     let current = 0;
     let timer = null;
-    let paused = false;
+    let resumeTimeout = null;
 
     function showSlide(index) {
         current = (index + slides.length) % slides.length;
@@ -202,53 +214,66 @@
 
     function startTimer() {
         stopTimer();
-        if (paused || reducedMotion || document.hidden) return;
-        timer = window.setInterval(() => showSlide(current + 1), 6000);
+        if (reducedMotion || document.hidden) return;
+        timer = window.setInterval(() => showSlide(current + 1), 3500);
+    }
+
+    function pauseAndResumeAfter(delay = 2000) {
+        stopTimer();
+        if (resumeTimeout) window.clearTimeout(resumeTimeout);
+        if (reducedMotion) return;
+        resumeTimeout = window.setTimeout(() => {
+            startTimer();
+        }, delay);
     }
 
     prev?.addEventListener('click', () => {
         showSlide(current - 1);
-        startTimer();
+        pauseAndResumeAfter(2000);
     });
 
     next?.addEventListener('click', () => {
         showSlide(current + 1);
-        startTimer();
+        pauseAndResumeAfter(2000);
     });
 
     dots.forEach((dot) => {
         dot.addEventListener('click', () => {
             showSlide(Number(dot.dataset.slide));
-            startTimer();
+            pauseAndResumeAfter(2000);
         });
     });
 
-    root.addEventListener('mouseenter', () => {
-        paused = true;
-        stopTimer();
-    });
+    // Berhenti saat hover, lanjut setelah 2 detik
+    root.addEventListener('mouseenter', () => pauseAndResumeAfter(2000));
+    root.addEventListener('mouseleave', () => pauseAndResumeAfter(2000));
 
-    root.addEventListener('mouseleave', () => {
-        paused = false;
-        startTimer();
-    });
-
-    root.addEventListener('focusin', () => {
-        paused = true;
-        stopTimer();
-    });
-
+    // Berhenti saat fokus, lanjut setelah 2 detik
+    root.addEventListener('focusin', () => pauseAndResumeAfter(2000));
     root.addEventListener('focusout', (event) => {
         if (!root.contains(event.relatedTarget)) {
-            paused = false;
+            pauseAndResumeAfter(2000);
+        }
+    });
+
+    // Berhenti saat sentuh, lanjut setelah 2 detik
+    root.addEventListener('touchstart', () => pauseAndResumeAfter(2000), { passive: true });
+    root.addEventListener('touchend', () => pauseAndResumeAfter(2000), { passive: true });
+    root.addEventListener('touchcancel', () => pauseAndResumeAfter(2000), { passive: true });
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            stopTimer();
+            if (resumeTimeout) window.clearTimeout(resumeTimeout);
+        } else if (!reducedMotion) {
             startTimer();
         }
     });
 
-    document.addEventListener('visibilitychange', startTimer);
-
     showSlide(0);
-    startTimer();
+    if (!reducedMotion) {
+        startTimer();
+    }
 })();
 </script>
 @endif

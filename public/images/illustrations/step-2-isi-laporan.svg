@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="100%" height="100%" fill="none">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad2" x1="0" y1="0" x2="400" y2="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#EFF6FF"/>
+      <stop offset="100%" stop-color="#DBEAFE"/>
+    </linearGradient>
+
+    <!-- Card Gradient -->
+    <linearGradient id="cardGrad2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F8FAFC"/>
+    </linearGradient>
+
+    <!-- Soft Shadow -->
+    <filter id="shadow2" x="-10%" y="-10%" width="125%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#173B70" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient Backdrop Circle -->
+  <circle cx="200" cy="150" r="125" fill="url(#bgGrad2)"/>
+  <circle cx="80" cy="80" r="14" fill="#BAE6FD" opacity="0.6"/>
+  <circle cx="330" cy="220" r="8" fill="#FCA5A5" opacity="0.5"/>
+
+  <!-- Person (Reporter) Sitting/Standing Profile (Left Side) -->
+  <!-- Torso & Shoulder -->
+  <path d="M70 280 C70 230 95 210 130 205 L160 215 C175 240 180 270 180 280 Z" fill="#173B70"/>
+  <!-- Collar / Shirt Accent -->
+  <path d="M125 206 L140 220 L150 208 Z" fill="#D94350"/>
+
+  <!-- Neck -->
+  <rect x="127" y="180" width="18" height="28" rx="4" fill="#F5D0C5"/>
+
+  <!-- Head & Hair -->
+  <circle cx="136" cy="155" r="26" fill="#F5D0C5"/>
+  <!-- Modern Hair -->
+  <path d="M110 155 C110 130 128 120 150 125 C162 128 165 140 162 152 C155 145 145 145 138 148 C130 150 120 158 110 155 Z" fill="#1E293B"/>
+
+  <!-- Facial Profile (Looking at Phone) -->
+  <circle cx="148" cy="153" r="2.5" fill="#1E293B"/> <!-- Eye -->
+  <path d="M152 163 C148 167 142 166 140 165" stroke="#1E293B" stroke-width="1.5" stroke-linecap="round"/> <!-- Smile -->
+  <path d="M128 152 C125 152 124 157 127 159" stroke="#E29578" stroke-width="1.5" stroke-linecap="round"/> <!-- Ear -->
+
+  <!-- Arm Extending Forward to Phone -->
+  <path d="M120 220 C140 235 160 235 180 225 L190 240 C165 255 135 250 110 235 Z" fill="#1E3A8A"/>
+  <!-- Hand Holding Phone Base -->
+  <path d="M180 225 C190 220 200 222 205 230 L205 240 C195 245 185 240 180 225 Z" fill="#F5D0C5"/>
+
+  <!-- Smartphone in Hand -->
+  <g transform="translate(190, 140) rotate(8)">
+    <rect width="48" height="95" rx="8" fill="#1E293B" filter="url(#shadow2)"/>
+    <rect x="2" y="3" width="44" height="89" rx="6" fill="#FFFFFF"/>
+    <!-- Screen Header -->
+    <rect x="2" y="3" width="44" height="14" rx="4" fill="#173B70"/>
+    <text x="24" y="13" font-family="'Poppins', sans-serif" font-size="5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Isi Data Kejadian</text>
+    <!-- Little input bars inside phone -->
+    <rect x="6" y="22" width="36" height="6" rx="2" fill="#EFF6FF" stroke="#93C5FD" stroke-width="0.5"/>
+    <rect x="6" y="32" width="36" height="6" rx="2" fill="#EFF6FF" stroke="#93C5FD" stroke-width="0.5"/>
+    <rect x="6" y="42" width="36" height="12" rx="2" fill="#F1F5F9"/>
+    <!-- Send button on mini phone -->
+    <rect x="6" y="60" width="36" height="8" rx="2" fill="#173B70"/>
+  </g>
+
+  <!-- Right Hand Fingers Typing on Phone Screen -->
+  <path d="M210 200 C215 195 225 198 222 208 C218 212 212 210 210 200 Z" fill="#E8B4A2"/>
+  <!-- Tap Ripple on Screen -->
+  <circle cx="218" cy="180" r="8" fill="#3B82F6" opacity="0.2"/>
+  <circle cx="218" cy="180" r="3" fill="#2563EB"/>
+
+  <!-- Large Expanded Floating Form Card (Right Side, Clear & Legible) -->
+  <g filter="url(#shadow2)" transform="translate(230, 48)">
+    <rect width="145" height="185" rx="12" fill="url(#cardGrad2)" stroke="#CBD5E1" stroke-width="1.2"/>
+
+    <!-- Form Top Bar -->
+    <rect width="145" height="30" rx="12" fill="#173B70"/>
+    <rect y="20" width="145" height="10" fill="#173B70"/> <!-- flatten bottom curve -->
+    <circle cx="16" cy="15" r="6" fill="#D94350"/>
+    <path d="M13.5 15 L15.5 17 L18.5 13" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round"/>
+    <text x="28" y="18" font-family="'Poppins', sans-serif" font-size="8.5" font-weight="700" fill="#FFFFFF">Detail Laporan</text>
+    <rect x="100" y="9" width="36" height="12" rx="3" fill="#2563EB"/>
+    <text x="118" y="17.5" font-family="'Poppins', sans-serif" font-size="6" font-weight="700" fill="#FFFFFF" text-anchor="middle">Langkah 2/4</text>
+
+    <!-- Field 1: Lokasi Terdata -->
+    <g transform="translate(10, 38)">
+      <text x="0" y="8" font-family="'Poppins', sans-serif" font-size="7" font-weight="700" fill="#64748B">WILAYAH KEJADIAN</text>
+      <rect y="12" width="125" height="24" rx="5" fill="#FFFFFF" stroke="#93C5FD" stroke-width="1"/>
+      <circle cx="12" cy="24" r="5" fill="#EFF6FF"/>
+      <circle cx="12" cy="24" r="2.5" fill="#173B70"/>
+      <text x="22" y="27" font-family="'Poppins', sans-serif" font-size="7.5" font-weight="600" fill="#1E293B">Bojonggede, Bogor</text>
+    </g>
+
+    <!-- Field 2: Jenis Kejadian & Kondisi -->
+    <g transform="translate(10, 80)">
+      <text x="0" y="8" font-family="'Poppins', sans-serif" font-size="7" font-weight="700" fill="#64748B">JENIS &amp; TINGGI AIR</text>
+      <rect y="12" width="125" height="24" rx="5" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+      <rect x="6" y="16" width="16" height="16" rx="3" fill="#FEF3C7"/>
+      <!-- Water Wave Icon -->
+      <path d="M9 25 C11 23 13 27 15 25 C17 23 19 27 21 25" stroke="#D97706" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+      <text x="26" y="27" font-family="'Poppins', sans-serif" font-size="7.5" font-weight="600" fill="#1E293B">Banjir Luapan (60 cm)</text>
+    </g>
+
+    <!-- Field 3: Kebutuhan Mendesak -->
+    <g transform="translate(10, 122)">
+      <text x="0" y="8" font-family="'Poppins', sans-serif" font-size="7" font-weight="700" fill="#64748B">KEBUTUHAN WARGA</text>
+      <rect y="12" width="125" height="24" rx="5" fill="#EFF6FF" stroke="#3B82F6" stroke-width="1"/>
+      <rect x="6" y="16" width="16" height="16" rx="3" fill="#DBEAFE"/>
+      <path d="M11 24 L13.5 26.5 L17.5 21.5" stroke="#173B70" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="26" y="27" font-family="'Poppins', sans-serif" font-size="7.5" font-weight="600" fill="#173B70">Perahu Karet &amp; Pangan</text>
+    </g>
+
+    <!-- Progress Tracker Bar at Bottom -->
+    <g transform="translate(10, 164)">
+      <rect width="125" height="4" rx="2" fill="#E2E8F0"/>
+      <rect width="95" height="4" rx="2" fill="#059669"/>
+      <text x="0" y="15" font-family="'Poppins', sans-serif" font-size="6" font-weight="600" fill="#059669">Tersimpan otomatis • Lanjut bukti</text>
+    </g>
+  </g>
+
+  <!-- Floating Edit Pencil Graphic -->
+  <g filter="url(#shadow2)" transform="translate(330, 25)">
+    <circle cx="16" cy="16" r="16" fill="#173B70"/>
+    <path d="M11 21 L13 21 L20 14 L18 12 L11 19 Z" fill="#FFFFFF"/>
+    <path d="M20 14 L21.5 12.5 C22 12 22 11 21.5 10.5 C21 10 20 10 19.5 10.5 L18 12 Z" fill="#FDE047"/>
+  </g>
+</svg>

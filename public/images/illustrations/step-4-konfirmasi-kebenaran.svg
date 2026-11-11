@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="100%" height="100%" fill="none">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad4" x1="0" y1="0" x2="400" y2="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#EFF6FF"/>
+      <stop offset="100%" stop-color="#DBEAFE"/>
+    </linearGradient>
+
+    <!-- Shield Gradient -->
+    <linearGradient id="shieldGrad4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+
+    <!-- Soft Shadow -->
+    <filter id="shadow4" x="-10%" y="-10%" width="125%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#173B70" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient Backdrop Circle -->
+  <circle cx="200" cy="150" r="125" fill="url(#bgGrad4)"/>
+  <circle cx="70" cy="60" r="14" fill="#BAE6FD" opacity="0.6"/>
+  <circle cx="340" cy="80" r="12" fill="#FED7AA" opacity="0.6"/>
+
+  <!-- Background Environment: Community Post / Posko & Trees -->
+  <path d="M40 250 L360 250" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <!-- Posko Tent Silhouette in Background -->
+  <polygon points="175,90 140,150 210,150" fill="#E2E8F0" opacity="0.7"/>
+  <line x1="175" y1="90" x2="175" y2="150" stroke="#94A3B8" stroke-width="1.5"/>
+  <circle cx="205" cy="115" r="15" fill="#BBF7D0" opacity="0.5"/> <!-- Tree in back -->
+
+  <!-- Top Floating Verification Badge (Header) -->
+  <g filter="url(#shadow4)" transform="translate(100, 20)">
+    <rect width="200" height="34" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+    <!-- Double Checkmark Circle -->
+    <circle cx="20" cy="17" r="9" fill="#ECFDF5"/>
+    <path d="M14 17 L17 20 L24 13" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="36" y="16" font-family="'Poppins', sans-serif" font-size="8" font-weight="700" fill="#173B70">KONFIRMASI SAKSI &amp; WARGA</text>
+    <text x="36" y="26" font-family="'Poppins', sans-serif" font-size="7" font-weight="500" fill="#64748B">Memastikan kronologi sejak awal valid</text>
+  </g>
+
+  <!-- PERSON 1: Pelapor (Left Character) -->
+  <g transform="translate(40, 100)">
+    <!-- Body & Shirt -->
+    <path d="M45 150 C45 110 65 95 90 92 L110 100 C120 120 125 145 125 150 Z" fill="#173B70"/>
+    <path d="M85 93 L95 105 L105 94 Z" fill="#D94350"/> <!-- Collar Accent -->
+
+    <!-- Neck -->
+    <rect x="86" y="70" width="16" height="24" rx="4" fill="#F5D0C5"/>
+
+    <!-- Head & Hair -->
+    <circle cx="94" cy="50" r="22" fill="#F5D0C5"/>
+    <path d="M72 50 C72 28 88 20 108 24 C118 26 120 36 118 46 C112 40 102 40 96 43 C88 45 80 52 72 50 Z" fill="#1E293B"/>
+
+    <!-- Facial Profile -->
+    <circle cx="104" cy="48" r="2" fill="#1E293B"/> <!-- Eye looking right -->
+    <path d="M102 58 C106 60 110 58 111 56" stroke="#1E293B" stroke-width="1.3" stroke-linecap="round"/> <!-- Smile -->
+
+    <!-- Arm Holding Smartphone for Note-Taking -->
+    <path d="M80 105 C95 120 115 125 130 115 L135 128 C115 140 90 135 70 120 Z" fill="#1E3A8A"/>
+    <!-- Hand & Phone -->
+    <rect x="130" y="105" width="18" height="32" rx="3" fill="#1E293B" transform="rotate(-15 130 105)"/>
+    <rect x="132" y="107" width="14" height="28" rx="2" fill="#FFFFFF" transform="rotate(-15 130 105)"/>
+    <circle cx="132" cy="120" r="6" fill="#F5D0C5"/>
+  </g>
+
+  <!-- PERSON 2: Tokoh Warga / Saksi Setempat (Right Character) -->
+  <g transform="translate(220, 95)">
+    <!-- Body with Community Vest (Rompi Warga Oranye-Biru) -->
+    <path d="M35 155 C35 115 55 100 80 97 L100 105 C110 125 115 150 115 155 Z" fill="#1E293B"/>
+    <!-- Volunteer / Community Vest -->
+    <path d="M45 155 L45 105 C55 102 65 101 80 101 L80 155 Z" fill="#D97706"/>
+    <path d="M85 101 C95 101 100 103 105 106 L105 155 L85 155 Z" fill="#D97706"/>
+    <!-- Vest Reflective Strip -->
+    <line x1="45" y1="130" x2="80" y2="130" stroke="#FEF08A" stroke-width="3"/>
+    <line x1="85" y1="130" x2="105" y2="130" stroke="#FEF08A" stroke-width="3"/>
+
+    <!-- Neck -->
+    <rect x="68" y="75" width="16" height="24" rx="4" fill="#E8B4A2"/>
+
+    <!-- Head & Cap/Hair (Friendly Elder/RT Figure) -->
+    <circle cx="76" cy="55" r="22" fill="#E8B4A2"/>
+    <!-- Cap / Peci or Clean Hair -->
+    <path d="M54 52 C54 32 70 24 92 27 C100 29 102 38 100 48 C94 42 84 42 78 45 C70 47 62 54 54 52 Z" fill="#173B70"/>
+
+    <!-- Facial Profile -->
+    <circle cx="66" cy="53" r="2" fill="#1E293B"/> <!-- Eye looking left -->
+    <path d="M68 62 C64 64 60 62 59 60" stroke="#1E293B" stroke-width="1.3" stroke-linecap="round"/> <!-- Talking Mouth -->
+
+    <!-- Arm Gesturing Forward (Explaining Location/History) -->
+    <path d="M65 105 C50 115 30 115 10 105 L5 118 C25 130 50 128 75 118 Z" fill="#1E293B"/>
+    <!-- Hand Open Gesture Pointing -->
+    <circle cx="8" cy="110" r="7" fill="#E8B4A2"/>
+    <path d="M6 108 L-4 105 C-8 103 -6 99 -2 101 L8 107 Z" fill="#E8B4A2"/>
+  </g>
+
+  <!-- Central Dialogue / Speech Bubble Between Them -->
+  <g filter="url(#shadow4)" transform="translate(130, 85)">
+    <!-- Speech Bubble Body -->
+    <rect width="140" height="65" rx="10" fill="#FFFFFF" stroke="#93C5FD" stroke-width="1.2"/>
+    <!-- Speech Triangle Pointer -->
+    <polygon points="120,65 130,75 110,65" fill="#FFFFFF"/>
+    <path d="M110 65 L130 75 L120 65" stroke="#93C5FD" stroke-width="1.2"/>
+
+    <!-- Dialogue Icon -->
+    <circle cx="18" cy="18" r="7" fill="#EFF6FF"/>
+    <path d="M14 17 C14 14 17 13 19 15 C21 17 19 19 17 19 L17 21" stroke="#2563EB" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+    <circle cx="17" cy="24" r="0.8" fill="#2563EB"/>
+
+    <!-- Text in Dialogue Bubble (Legible, Professional) -->
+    <text x="30" y="16" font-family="'Poppins', sans-serif" font-size="7.5" font-weight="700" fill="#173B70">Keterangan Saksi Warga</text>
+    <text x="12" y="34" font-family="'Poppins', sans-serif" font-size="6.8" font-weight="600" fill="#202938">"Tanggul jebol jam 17:30,</text>
+    <text x="12" y="44" font-family="'Poppins', sans-serif" font-size="6.8" font-weight="600" fill="#202938">warga lansia butuh evakuasi."</text>
+    <text x="12" y="55" font-family="'Poppins', sans-serif" font-size="6" font-weight="500" fill="#059669">Status: Fakta Kejadian Terkonfirmasi</text>
+  </g>
+
+  <!-- Mutual Agreement / Handshake Floating Badge (Bottom Center) -->
+  <g filter="url(#shadow4)" transform="translate(125, 225)">
+    <rect width="150" height="34" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+    <circle cx="18" cy="17" r="8" fill="#FEF3C7"/>
+    <!-- Checkmark Shield -->
+    <path d="M13 17 L17 21 L23 13" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="32" y="15" font-family="'Poppins', sans-serif" font-size="7.5" font-weight="700" fill="#173B70">VALIDITAS DATA TINGGI</text>
+    <text x="32" y="25" font-family="'Poppins', sans-serif" font-size="6.8" font-weight="500" fill="#64748B">Mencegah informasi simpang siur</text>
+  </g>
+</svg>

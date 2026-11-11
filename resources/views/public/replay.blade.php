@@ -12,7 +12,7 @@
 
 @section('content')
     <!-- Master Institutional Hero Header (Aligned with /welcome) -->
-    <section class="bg-[#173B70] text-white rounded-2xl shadow-xs border border-[#315D91] p-6 sm:p-8 space-y-5">
+    <section class="bg-[#173B70] text-white rounded-2xl shadow-xs border border-[#315D91] p-5 sm:p-7 space-y-4">
         <div class="flex flex-wrap items-center gap-2">
             <span class="px-2.5 py-1 rounded bg-[#315D91] text-white border border-blue-300/30 font-telemetry text-xs font-bold uppercase tracking-wider">
                 Linimasa Garis Waktu Interaktif
@@ -24,10 +24,10 @@
 
         <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 min-w-0 w-full">
             <div class="space-y-2 max-w-3xl min-w-0">
-                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight text-white">
+                <h1 class="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-white leading-tight">
                     Linimasa Perkembangan Kejadian
                 </h1>
-                <p class="text-sm sm:text-base text-blue-100 leading-relaxed">
+                <p class="text-xs sm:text-sm text-blue-100 leading-relaxed">
                     Putar kembali kronologi kejadian dari waktu ke waktu: mulai dari <strong class="text-white">waktu kejadian riil</strong>, konfirmasi <strong class="text-white">sumber resmi BNPB</strong>, hasil <strong class="text-white">verifikasi data</strong>, hingga <strong class="text-white">catatan tindak lanjut</strong> di lapangan.
                 </p>
             </div>

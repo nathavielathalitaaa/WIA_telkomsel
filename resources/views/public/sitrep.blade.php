@@ -5,7 +5,7 @@
 
 @section('content')
     <!-- Master Institutional Hero Header & Print Toolbar (Aligned with /welcome) -->
-    <section class="bg-[#173B70] text-white border border-[#315D91] rounded-2xl p-6 sm:p-8 space-y-5 shadow-xs no-print">
+    <section class="bg-[#173B70] text-white border border-[#315D91] rounded-2xl p-5 sm:p-7 space-y-4 shadow-xs no-print">
         <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
             <div class="space-y-2 max-w-3xl">
                 <div class="flex flex-wrap items-center gap-2">
@@ -28,10 +28,10 @@
                         </span>
                     @endif
                 </div>
-                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight text-white">
+                <h1 class="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-white leading-tight">
                     Laporan Ringkasan Situasi Kejadian &amp; Tindak Lanjut
                 </h1>
-                <p class="text-sm sm:text-base text-blue-100 leading-relaxed">
+                <p class="text-xs sm:text-sm text-blue-100 leading-relaxed">
                     Saring berdasarkan kejadian, wilayah, atau rentang waktu kejadian, lalu gunakan tombol <strong>Cetak / Simpan PDF</strong> untuk mencetak dokumen siap baca.
                 </p>
             </div>

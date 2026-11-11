@@ -59,6 +59,10 @@
                    class="px-3 xl:px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider whitespace-nowrap transition {{ $activeTab === 'sumber_data' ? 'nav-active-gradient' : 'text-[#788397] hover:bg-slate-100 hover:text-[#173B70]' }}">
                     Tentang Data
                 </a>
+                <a href="{{ route('public.guide') }}"
+                   class="px-3 xl:px-3.5 py-2 rounded-lg font-telemetry text-xs font-bold uppercase tracking-wider whitespace-nowrap transition {{ $activeTab === 'panduan' ? 'nav-active-gradient' : 'text-[#788397] hover:bg-slate-100 hover:text-[#173B70]' }}">
+                    Panduan
+                </a>
             </nav>
 
             <!-- Action Triggers (Report & Internal Portal) -->

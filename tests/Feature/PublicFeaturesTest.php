@@ -301,4 +301,19 @@ class PublicFeaturesTest extends TestCase
         $trackRes->assertDontSee($secretReporterPhone);
         $trackRes->assertDontSee($secretInternalReason);
     }
+
+    public function test_guide_page_renders_successfully_and_about_redirects(): void
+    {
+        $response = $this->get(route('public.guide'));
+        $response->assertStatus(200);
+        $response->assertSee('Panduan Penggunaan TanggapTerang');
+        $response->assertSee('Apa itu TanggapTerang?');
+        $response->assertSee('Bagaimana Masyarakat Melaporkan Kejadian?');
+        $response->assertSee('Bagaimana Kode Tiket Digunakan untuk Melacak Laporan?');
+        $response->assertSee('Apa Arti Status Verifikasi &amp; Tindak Lanjut?', false);
+        $response->assertSee('Apa Batasan Sistem TanggapTerang?');
+
+        $aboutResponse = $this->get('/about');
+        $aboutResponse->assertRedirect(route('public.guide'));
+    }
 }

@@ -7,7 +7,7 @@
 <div class="space-y-8">
     <!-- Master Institutional Header (Aligned with /welcome) -->
     <header class="bg-white border border-slate-100/90 rounded-2xl shadow-xs overflow-hidden">
-        <div class="bg-[#173B70] text-white px-6 sm:px-8 py-6 sm:py-8 border-b border-[#315D91] space-y-4">
+        <div class="bg-[#173B70] text-white px-5 sm:px-7 py-5 sm:py-6 border-b border-[#315D91] space-y-4">
             <div class="flex flex-wrap items-center gap-2">
                 <span class="px-2.5 py-1 rounded bg-[#315D91] text-white border border-blue-300/30 font-telemetry text-xs font-bold uppercase tracking-wider">
                     Transparansi Sumber Rujukan Terbuka
@@ -17,10 +17,10 @@
                 </span>
             </div>
             <div>
-                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight text-white">
+                <h1 class="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-white leading-tight">
                     Transparansi Sumber Data &amp; Integrasi API
                 </h1>
-                <p class="text-sm sm:text-base text-blue-100 mt-2 max-w-3xl leading-relaxed">
+                <p class="text-xs sm:text-sm text-blue-100 mt-2 max-w-3xl leading-relaxed">
                     Pemantauan publik status integrasi, waktu pembaruan, dan rekaman data dari layanan kebencanaan Dalam Negeri dan Internasional. Penilai dan masyarakat dapat menelusuri dasar informasi secara terbuka tanpa harus login.
                 </p>
             </div>

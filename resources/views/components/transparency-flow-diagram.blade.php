@@ -38,7 +38,7 @@
                         1. Data Pemerintah &amp; Wilayah
                     </div>
                     <p class="text-[11px] text-[#202938]/85 mt-1.5 leading-relaxed">
-                        Data kode dan hierarki wilayah administratif digunakan sebagai referensi lokasi. Informasi instansi pemerintah pada skenario demonstrasi yang belum terhubung langsung dengan sumber resmi diberi label <strong>Sumber Pemerintah (Simulasi)</strong>.
+                        Data kode dan hierarki wilayah administratif digunakan sebagai referensi lokasi. Informasi instansi pemerintah yang belum terhubung langsung dengan sumber resmi pada demonstrasi diberi label <strong>Sumber Pemerintah (Simulasi)</strong>.
                     </p>
                 </div>
             </div>
@@ -50,22 +50,22 @@
                         2. Integrasi API &amp; Sumber Terbuka
                     </div>
                     <p class="text-[11px] text-[#202938]/85 mt-1.5 leading-relaxed">
-                        Sistem mengambil informasi dari layanan eksternal melalui API, antara lain:
+                        TanggapTerang mengolah informasi dari berbagai layanan eksternal untuk mendukung pemantauan kejadian dan kondisi wilayah.
                     </p>
                     <ul class="text-[10px] text-[#202938]/85 mt-1.5 space-y-0.5 list-disc list-inside">
-                        <li><strong>BMKG:</strong> informasi gempa bumi dan prakiraan cuaca.</li>
-                        <li><strong>PetaBencana:</strong> laporan kejadian berbasis partisipasi masyarakat.</li>
-                        <li><strong>Open-Meteo:</strong> prakiraan cuaca dan indikator hidrologi.</li>
-                        <li><strong>GDACS:</strong> informasi peringatan multi-bahaya.</li>
-                        <li><strong>GDELT:</strong> referensi pemberitaan global, bergantung pada ketersediaan layanan.</li>
+                        <li><strong>BMKG</strong> — informasi gempa bumi dan prakiraan cuaca.</li>
+                        <li><strong>PetaBencana</strong> — laporan kejadian berbasis partisipasi masyarakat.</li>
+                        <li><strong>Open-Meteo</strong> — prakiraan cuaca dan indikator hidrologi.</li>
+                        <li><strong>GDACS</strong> — informasi peringatan multi-bahaya.</li>
+                        <li><strong>GDELT</strong> — referensi pemberitaan global.</li>
                     </ul>
                     <p class="text-[10px] text-[#788397] mt-2 leading-relaxed">
-                        Setiap sumber dilengkapi informasi status pengambilan, waktu pembaruan terakhir, jumlah data yang diterima, serta catatan keterbatasan sumber. Data yang berhasil diperoleh dapat ditelusuri melalui detail rekaman dan informasi sumbernya.
+                        Setiap sumber dilengkapi informasi status provider, waktu pembaruan terakhir, jumlah data yang diterima, serta catatan keterbatasan sumber.
                     </p>
                     <div class="mt-3 pt-2.5 border-t border-slate-200 flex items-center justify-between text-[11px] font-telemetry">
                         <span class="text-[#315D91] font-bold">Status 8 Provider</span>
                         <a href="{{ route('public.sources.index') }}" class="font-bold text-[#173B70] hover:underline inline-flex items-center gap-1">
-                            <span>Buka Detail</span>
+                            <span>Detail Sumber Data</span>
                             <span>&rarr;</span>
                         </a>
                     </div>
@@ -79,7 +79,7 @@
                         3. Laporan Warga
                     </div>
                     <p class="text-[11px] text-[#202938]/85 mt-1.5 leading-relaxed">
-                        Masyarakat dapat mengirimkan laporan kejadian dan kebutuhan tanpa akun menggunakan kode tiket unik non-sekuensial. Laporan menjadi informasi awal yang perlu melalui proses pengelolaan dan verifikasi.
+                        Masyarakat dapat melaporkan kejadian dan kebutuhan tanpa akun menggunakan kode tiket unik. Setiap laporan menjadi informasi awal yang perlu dikelola dan diverifikasi.
                     </p>
                 </div>
             </div>
@@ -91,7 +91,7 @@
                         4. Respons Bantuan Masyarakat
                     </div>
                     <p class="text-[11px] text-[#202938]/85 mt-1.5 leading-relaxed">
-                        Komunitas, relawan, dan masyarakat dapat mencatat partisipasi serta perkembangan respons bantuan melalui tahapan <em>Direncanakan</em>, <em>Dalam Penyaluran</em>, dan <em>Penyerahan Dikonfirmasi</em>.
+                        Komunitas dan relawan dapat mencatat partisipasi serta perkembangan bantuan melalui tahapan <em>Direncanakan</em>, <em>Dalam Penyaluran</em>, dan <em>Penyerahan Dikonfirmasi</em>.
                     </p>
                 </div>
             </div>

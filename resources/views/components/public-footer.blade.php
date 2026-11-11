@@ -78,6 +78,13 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('public.guide') }}"
+                           class="inline-flex items-center gap-1.5 text-[#788397] hover:text-[#173B70] focus:outline-hidden focus:text-[#173B70] transition-colors py-0.5">
+                            <span class="text-slate-400">&rsaquo;</span>
+                            <span>Panduan Penggunaan</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('public.welcome') }}"
                            class="inline-flex items-center gap-1.5 text-[#788397] hover:text-[#173B70] focus:outline-hidden focus:text-[#173B70] transition-colors py-0.5">
                             <span class="text-slate-400">&rsaquo;</span>

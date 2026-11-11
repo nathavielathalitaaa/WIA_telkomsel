@@ -5,7 +5,7 @@
 
 @section('content')
     <!-- Hero Introduction Card -->
-    <section class="bg-[#173B70] text-white border border-[#315D91] rounded-2xl p-6 sm:p-8 space-y-5 shadow-xs">
+    <section class="bg-[#173B70] text-white border border-[#315D91] rounded-2xl p-5 sm:p-7 space-y-4 shadow-xs">
         <div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5">
             <img src="{{ asset('images/logo-tanggap-terang.png') }}"
                  alt="Logo TanggapTerang"
@@ -25,31 +25,35 @@
             </div>
         </div>
 
-        <div class="max-w-3xl space-y-3">
-            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight">
+        <div class="max-w-3xl space-y-2">
+            <h1 class="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight leading-tight">
                 Papan Transparansi dan Koordinasi Informasi Kebencanaan
             </h1>
-            <p class="text-sm sm:text-base text-blue-100 leading-relaxed">
+            <p class="text-xs sm:text-sm text-blue-100 leading-relaxed">
                 TanggapTerang menghubungkan laporan warga, kebutuhan di lokasi bencana, dan catatan perkembangan respons tim dalam satu tempat. Terlihat sebarannya, terlacak prosesnya, dan terukur penanganannya.
             </p>
         </div>
 
         <div class="pt-2 flex flex-wrap items-center gap-3">
             <a href="{{ route('public.monitor') }}"
-               class="px-5 py-3 rounded-lg bg-white hover:bg-slate-100 text-[#173B70] font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center gap-2 shadow-xs">
+               class="px-5 py-2.5 rounded-lg bg-white hover:bg-slate-100 text-[#173B70] font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center gap-2 shadow-xs">
                 <span>Buka Peta Pantau Kejadian</span>
                 <span>&rarr;</span>
             </a>
             <a href="{{ route('public.reports.create') }}"
-               class="px-5 py-3 rounded-lg btn-brand-gradient font-telemetry text-xs font-bold uppercase tracking-wider min-h-[44px] inline-flex items-center gap-2 shadow-xs">
+               class="px-5 py-2.5 rounded-lg btn-brand-gradient font-telemetry text-xs font-bold uppercase tracking-wider min-h-[42px] inline-flex items-center gap-2 shadow-xs">
                 <span>+ Kirim Laporan Masyarakat</span>
             </a>
+            <a href="{{ route('public.guide') }}"
+               class="px-4 py-2.5 rounded-lg border border-blue-300/40 hover:bg-[#315D91] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center">
+                Panduan Penggunaan
+            </a>
             <a href="{{ route('public.replay') }}"
-               class="px-4 py-3 rounded-lg border border-blue-300/40 hover:bg-[#315D91] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center">
-                Mode Replay Simulasi
+               class="px-4 py-2.5 rounded-lg border border-blue-300/40 hover:bg-[#315D91] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center">
+                Mode Replay
             </a>
             <a href="{{ route('public.sitrep') }}"
-               class="px-4 py-3 rounded-lg border border-blue-300/40 hover:bg-[#315D91] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center">
+               class="px-4 py-2.5 rounded-lg border border-blue-300/40 hover:bg-[#315D91] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[42px] inline-flex items-center">
                 Laporan SitRep
             </a>
         </div>

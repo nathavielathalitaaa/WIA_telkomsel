@@ -43,7 +43,7 @@
     @endif
 
     <!-- Master Institutional Hero Header Card (Aligned with /welcome) -->
-    <section class="bg-[#173B70] text-white border border-[#315D91] rounded-2xl p-6 sm:p-8 space-y-5 shadow-xs">
+    <section class="bg-[#173B70] text-white border border-[#315D91] rounded-2xl p-5 sm:p-7 space-y-4 shadow-xs">
         <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
             <div class="space-y-2 max-w-3xl">
                 <div class="flex flex-wrap items-center gap-2">
@@ -54,11 +54,11 @@
                         Verifikasi &amp; Tindak Lanjut
                     </span>
                 </div>
-                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight text-white">
+                <h1 class="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-white leading-tight">
                     Lacak Status Laporan &amp; Respons Bantuan
                 </h1>
-                <p class="text-sm sm:text-base text-blue-100 leading-relaxed">
-                    Masukkan nomor tiket unik untuk memantau status pemeriksaan fakta oleh tim verifikator, penautan ke kejadian bencana, serta catatan perkembangan tindak lanjut secara transparan.
+                <p class="text-xs sm:text-sm text-blue-100 leading-relaxed">
+                    Lacak verifikasi, keterkaitan kejadian, dan perkembangan tindak lanjut melalui nomor tiket unik secara transparan.
                 </p>
             </div>
 

@@ -185,4 +185,12 @@ class PublicSitrepController extends Controller
             'summary' => $summary,
         ]);
     }
+
+    /**
+     * Halaman Panduan Penggunaan & Edukasi Publik (GET /panduan).
+     */
+    public function guide(): View
+    {
+        return view('public.guide');
+    }
 }

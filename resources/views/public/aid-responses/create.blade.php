@@ -5,7 +5,7 @@
 
 @section('content')
     <!-- Master Institutional Hero Header (Aligned with /welcome) -->
-    <section class="bg-[#173B70] text-white border border-[#315D91] rounded-2xl p-6 sm:p-8 space-y-4 shadow-xs">
+    <section class="bg-[#173B70] text-white border border-[#315D91] rounded-2xl p-5 sm:p-7 space-y-4 shadow-xs">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div class="space-y-2 max-w-2xl">
                 <div class="flex flex-wrap items-center gap-2">
@@ -16,10 +16,10 @@
                         Tercatat &amp; Terkoordinasi
                     </span>
                 </div>
-                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight text-white">
+                <h1 class="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-white leading-tight">
                     Catat Komitmen &amp; Respons Bantuan
                 </h1>
-                <p class="text-sm sm:text-base text-blue-100 leading-relaxed">
+                <p class="text-xs sm:text-sm text-blue-100 leading-relaxed">
                     Catat tawaran bantuan logistik, medis, evakuasi, atau bantuan yang telah disalurkan. Setiap catatan diverifikasi agar koordinasi bantuan terarah dan tidak tumpang tindih.
                 </p>
             </div>

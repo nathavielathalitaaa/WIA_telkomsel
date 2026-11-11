@@ -5,7 +5,7 @@
 
 @section('content')
     <!-- Master Institutional Hero Header Card (Aligned with /welcome) -->
-    <section class="bg-[#173B70] text-white border border-[#315D91] rounded-2xl p-6 sm:p-8 space-y-5 shadow-xs">
+    <section class="bg-[#173B70] text-white border border-[#315D91] rounded-2xl p-4 sm:p-6 space-y-4 shadow-xs">
         <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
             <div class="space-y-2 max-w-3xl">
                 <div class="flex flex-wrap items-center gap-2">
@@ -16,29 +16,29 @@
                         Data Terbuka &amp; Terverifikasi
                     </span>
                 </div>
-                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight text-white">
+                <h1 class="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-white leading-tight">
                     Peta Sebaran &amp; Perkembangan Respons
                 </h1>
-                <p class="text-sm sm:text-base text-blue-100 leading-relaxed">
-                    Pantau sebaran kejadian bencana, laporan kebutuhan warga, dan dokumentasi tindak lanjut di lapangan secara terpadu, transparan, dan terlacak.
+                <p class="text-xs sm:text-sm text-blue-100 leading-relaxed">
+                    Pantau sebaran kejadian bencana, laporan kebutuhan warga, dan dokumentasi tindak lanjut di lapangan secara terpadu dan terlacak.
                 </p>
             </div>
 
             <div class="flex flex-wrap items-center gap-2.5 shrink-0 pt-1 lg:pt-0">
                 <a href="{{ route('public.track') }}"
-                   class="px-4 py-2.5 rounded-lg border border-blue-300/40 hover:bg-[#315D91] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center gap-2 shadow-xs">
+                   class="px-4 py-2 rounded-lg border border-blue-300/40 hover:bg-[#315D91] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[40px] inline-flex items-center gap-2 shadow-xs">
                     <svg class="w-4 h-4 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                     </svg>
                     <span>Lacak Tiket</span>
                 </a>
                 <a href="{{ route('public.aid-responses.create') }}"
-                   class="px-4 py-2.5 rounded-lg border border-blue-300/40 hover:bg-[#315D91] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center gap-1.5 shadow-xs">
+                   class="px-4 py-2 rounded-lg border border-blue-300/40 hover:bg-[#315D91] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[40px] inline-flex items-center gap-1.5 shadow-xs">
                     <span class="font-extrabold text-sm leading-none">+</span>
                     <span>Catat Bantuan</span>
                 </a>
                 <a href="{{ route('public.reports.create') }}"
-                   class="px-5 py-2.5 rounded-lg btn-brand-gradient text-white font-telemetry text-xs font-bold uppercase tracking-wider min-h-[44px] inline-flex items-center gap-1.5 shadow-xs">
+                   class="px-4 py-2 rounded-lg btn-brand-gradient text-white font-telemetry text-xs font-bold uppercase tracking-wider min-h-[40px] inline-flex items-center gap-1.5 shadow-xs">
                     <span class="font-extrabold text-sm leading-none">+</span>
                     <span>Kirim Laporan Warga</span>
                 </a>

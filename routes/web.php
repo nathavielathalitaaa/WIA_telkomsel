@@ -55,6 +55,12 @@ Route::get('/sitrep', [PublicSitrepController::class, 'index'])
 Route::get('/welcome', [PublicSitrepController::class, 'welcome'])
     ->name('public.welcome');
 
+Route::get('/panduan', [PublicSitrepController::class, 'guide'])
+    ->name('public.guide');
+
+Route::get('/about', fn () => redirect()->route('public.guide'))
+    ->name('public.about');
+
 Route::get('/sumber-data', [PublicDataSourceController::class, 'index'])
     ->name('public.sources.index');
 

@@ -181,8 +181,17 @@ class PublicSitrepController extends Controller
             'sources_count' => Source::count(),
         ];
 
+        $previewIncidents = Incident::query()
+            ->where('verification_status', '!=', VerificationStatus::Ditolak->value)
+            ->whereNotNull('latitude')
+            ->whereNotNull('longitude')
+            ->orderByDesc('occurred_at')
+            ->take(6)
+            ->get(['id', 'title', 'slug', 'incident_type', 'latitude', 'longitude', 'is_simulation', 'severity']);
+
         return view('public.welcome', [
             'summary' => $summary,
+            'previewIncidents' => $previewIncidents,
         ]);
     }
 

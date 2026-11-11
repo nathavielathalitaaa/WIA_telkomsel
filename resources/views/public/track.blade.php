@@ -4,27 +4,28 @@
 ])
 
 @section('content')
-    <!-- Ticket Confirmation Banner (Shown right after submitting a new report) -->
+<div class="space-y-6">
+    <!-- Ticket Created Success Banner (Shown right after citizen submits a report) -->
     @if(session('created_ticket'))
         <section class="bg-[#ECFDF5] border border-emerald-300 rounded-2xl shadow-xs p-5 space-y-3" role="status">
             <div class="flex flex-wrap items-center justify-between gap-2">
                 <span class="px-2.5 py-1 rounded bg-[#059669] text-white font-telemetry text-xs font-bold uppercase tracking-wider">
-                    Laporan Berhasil Tercatat
+                    Laporan Berhasil Diterima
                 </span>
                 <span class="font-telemetry text-xs text-[#065F46] font-semibold">
-                    Status Awal: MENUNGGU VERIFIKASI
+                    Status: MENUNGGU VERIFIKASI
                 </span>
             </div>
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white border border-[#6EE7B7] rounded-xl p-4">
                 <div>
                     <div class="font-telemetry text-[11px] font-bold uppercase tracking-wider text-[#788397]">
-                        Nomor Tiket Pelaporan Anda
+                        Nomor Tiket Anda
                     </div>
                     <div class="font-telemetry text-2xl sm:text-3xl font-bold text-[#202938] tracking-wider mt-0.5 select-all">
                         {{ session('created_ticket') }}
                     </div>
-                    <p class="text-xs text-[#788397] mt-1">
-                        Simpan kode tiket ini untuk memeriksa perkembangan verifikasi dan penautan kejadian kapan saja.
+                    <p class="text-xs text-slate-500 mt-1">
+                        Simpan nomor tiket ini untuk melacak status verifikasi dan tindak lanjut kapan saja tanpa perlu login.
                     </p>
                 </div>
                 <div class="flex items-center gap-2 shrink-0">
@@ -42,38 +43,38 @@
         </section>
     @endif
 
-    <!-- Master Institutional Hero Header Card (Aligned with /welcome) -->
-    <section class="bg-[#173B70] text-white border border-[#315D91] rounded-2xl p-5 sm:p-7 space-y-4 shadow-xs">
-        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
-            <div class="space-y-2 max-w-3xl">
-                <div class="flex flex-wrap items-center gap-2">
-                    <span class="px-2.5 py-1 rounded bg-[#315D91] text-white border border-blue-300/30 font-telemetry text-xs font-bold uppercase tracking-wider">
-                        Pelacakan Mandiri Tanpa Akun
+    <!-- 1. Header & 2. Deskripsi & 3. Search Form (Clean Editorial Composition) -->
+    <section class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-5 sm:p-7 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+            <div class="space-y-1">
+                <div class="flex items-center gap-2">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-[#173B70]/10 text-[#173B70] font-telemetry">
+                        Pelacakan Mandiri
                     </span>
-                    <span class="px-2.5 py-1 rounded bg-amber-400 text-[#173B70] font-telemetry text-xs font-bold uppercase tracking-wider">
-                        Verifikasi &amp; Tindak Lanjut
-                    </span>
+                    <span class="text-xs text-slate-400">•</span>
+                    <span class="text-xs text-slate-500 font-telemetry">Tanpa Perlu Login</span>
                 </div>
-                <h1 class="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-white leading-tight">
-                    Lacak Status Laporan &amp; Respons Bantuan
+                <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#202938]">
+                    Lacak Tiket
                 </h1>
-                <p class="text-xs sm:text-sm text-blue-100 leading-relaxed">
-                    Lacak verifikasi, keterkaitan kejadian, dan perkembangan tindak lanjut melalui nomor tiket unik secara transparan.
+                <p class="text-xs sm:text-sm text-slate-500 max-w-2xl leading-relaxed">
+                    Lacak verifikasi, keterkaitan kejadian, dan perkembangan tindak lanjut melalui nomor tiket unik.
                 </p>
             </div>
 
-            <div class="flex items-center gap-2.5 shrink-0 pt-1 lg:pt-0">
+            <div class="shrink-0">
                 <a href="{{ route('public.reports.create') }}"
-                   class="px-5 py-2.5 rounded-lg btn-brand-gradient text-white font-telemetry text-xs font-bold uppercase tracking-wider min-h-[44px] inline-flex items-center gap-2 shadow-xs">
+                   class="px-4 py-2 rounded-lg btn-brand-gradient text-white font-telemetry text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 shadow-xs transition min-h-[38px]">
                     <span class="font-extrabold text-sm leading-none">+</span>
                     <span>Buat Laporan Baru</span>
                 </a>
             </div>
         </div>
 
-        <form method="GET" action="{{ route('public.track') }}" class="pt-2">
-            <div class="flex flex-col sm:flex-row gap-3">
-                <div class="flex-1">
+        <!-- Input Nomor Tiket dan Tombol Pencarian -->
+        <form method="GET" action="{{ route('public.track') }}" class="space-y-3">
+            <div class="flex flex-col sm:flex-row gap-2.5">
+                <div class="flex-1 relative">
                     <label for="ticket-input" class="sr-only">Nomor Tiket Laporan</label>
                     <input type="text"
                            id="ticket-input"
@@ -82,61 +83,66 @@
                            required
                            maxlength="32"
                            placeholder="Masukkan nomor tiket (contoh: RPT-SIM-8K4M9P2X atau RSP-SIM-7M2K8N4Q)"
-                           class="w-full min-h-[46px] px-4 py-2.5 bg-white text-[#202938] border border-transparent rounded-xl font-telemetry text-sm font-bold uppercase tracking-wider placeholder:font-normal placeholder:normal-case placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400">
+                           class="w-full min-h-[44px] px-4 py-2 bg-slate-50/60 border border-slate-200 rounded-xl font-telemetry text-sm font-bold uppercase tracking-wider placeholder:font-normal placeholder:normal-case placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-[#173B70]">
                 </div>
                 <button type="submit"
-                        class="px-6 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-[#173B70] font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[46px] inline-flex items-center justify-center gap-2 shadow-xs cursor-pointer">
-                    <svg class="w-4 h-4 text-[#173B70]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        class="px-6 py-2 rounded-xl bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider transition min-h-[44px] inline-flex items-center justify-center gap-2 shadow-xs cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                     </svg>
                     <span>Cari Tiket</span>
                 </button>
             </div>
-        </form>
 
-        <!-- Quick Demo Simulation Tickets for Testing/Jury Evaluation -->
-        <div class="pt-3 border-t border-blue-400/20 flex flex-wrap items-center gap-1.5 sm:gap-2 text-[11px] font-telemetry text-blue-200">
-            <span class="font-bold text-white text-[10px] sm:text-[11px] uppercase tracking-wider">Contoh Tiket:</span>
-            <a href="{{ route('public.track', ['ticket' => 'RPT-SIM-8K4M9P2X']) }}"
-               data-tooltip="Lacak contoh laporan terverifikasi"
-               class="px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 border border-white/15 text-white transition text-[10px] sm:text-[11px] font-medium">
-                RPT-SIM-8K4M9P2X (Terverifikasi)
-            </a>
-            <a href="{{ route('public.track', ['ticket' => 'RPT-SIM-6T9W4L8R']) }}"
-               data-tooltip="Lacak contoh laporan antrean verifikasi"
-               class="px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 border border-white/15 text-white transition text-[10px] sm:text-[11px] font-medium">
-                RPT-SIM-6T9W4L8R (Menunggu)
-            </a>
-            <a href="{{ route('public.track', ['ticket' => 'RPT-SIM-9P3F6Y2M']) }}"
-               data-tooltip="Lacak contoh laporan ditolak"
-               class="px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 border border-white/15 text-white transition text-[10px] sm:text-[11px] font-medium">
-                RPT-SIM-9P3F6Y2M (Ditolak)
-            </a>
-            <span class="font-bold text-white text-[10px] sm:text-[11px] uppercase tracking-wider ml-1">Respons:</span>
-            <a href="{{ route('public.track', ['ticket' => 'RSP-SIM-7M2K8N4Q']) }}"
-               data-tooltip="Lacak respons terverifikasi &amp; terkonfirmasi"
-               class="px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 border border-white/15 text-white transition text-[10px] sm:text-[11px] font-medium">
-                RSP-SIM-7M2K8N4Q
-            </a>
-            <a href="{{ route('public.track', ['ticket' => 'RSP-SIM-9V5P3W6X']) }}"
-               data-tooltip="Lacak respons dalam tahap penyaluran"
-               class="px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 border border-white/15 text-white transition text-[10px] sm:text-[11px] font-medium">
-                RSP-SIM-9V5P3W6X
-            </a>
-            <a href="{{ route('public.track', ['ticket' => 'RSP-SIM-2H8R4Y7L']) }}"
-               data-tooltip="Lacak respons menunggu verifikasi"
-               class="px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 border border-white/15 text-white transition text-[10px] sm:text-[11px] font-medium">
-                RSP-SIM-2H8R4Y7L
-            </a>
-        </div>
+            <!-- Monochrome Sample Ticket Chips -->
+            <div class="flex flex-wrap items-center gap-1.5 pt-1 text-xs font-telemetry text-slate-500">
+                <span class="font-semibold text-slate-400 text-[11px] uppercase mr-1">Contoh Tiket:</span>
+                <a href="{{ route('public.track', ['ticket' => 'RPT-SIM-8K4M9P2X']) }}"
+                   class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 transition text-[11px]">
+                    RPT-SIM-8K4M9P2X (Terverifikasi)
+                </a>
+                <a href="{{ route('public.track', ['ticket' => 'RPT-SIM-6T9W4L8R']) }}"
+                   class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 transition text-[11px]">
+                    RPT-SIM-6T9W4L8R (Menunggu)
+                </a>
+                <a href="{{ route('public.track', ['ticket' => 'RPT-SIM-9P3F6Y2M']) }}"
+                   class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 transition text-[11px]">
+                    RPT-SIM-9P3F6Y2M (Ditolak)
+                </a>
+                <span class="text-slate-300">|</span>
+                <a href="{{ route('public.track', ['ticket' => 'RSP-SIM-7M2K8N4Q']) }}"
+                   class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 transition text-[11px]">
+                    RSP-SIM-7M2K8N4Q (Respons)
+                </a>
+                <a href="{{ route('public.track', ['ticket' => 'RSP-SIM-9V5P3W6X']) }}"
+                   class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 transition text-[11px]">
+                    RSP-SIM-9V5P3W6X (Penyaluran)
+                </a>
+            </div>
+        </form>
     </section>
 
-    <!-- Search Results Area -->
-    @if($searched)
+    <!-- State Sebelum Pencarian (Bersih & Minimalis tanpa tumpukan kotak) -->
+    @if(!$searched)
+        <div class="bg-slate-50/60 rounded-2xl border border-slate-200/60 p-8 text-center space-y-2">
+            <div class="w-10 h-10 rounded-full bg-slate-200/80 text-slate-400 mx-auto flex items-center justify-center">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+            </div>
+            <p class="text-sm font-medium text-slate-600">
+                Masukkan nomor tiket pada kolom di atas untuk melihat status verifikasi dan perkembangan laporan Anda.
+            </p>
+            <p class="text-xs text-slate-400">
+                Format nomor tiket: <code class="font-mono bg-white px-1.5 py-0.5 rounded border border-slate-200 text-slate-600">RPT-SIM-XXXXXX</code> atau <code class="font-mono bg-white px-1.5 py-0.5 rounded border border-slate-200 text-slate-600">RSP-SIM-XXXXXX</code>
+            </p>
+        </div>
+    @else
+        <!-- Hasil Pencarian -->
         @if(!$report && !$aidResponse)
             <!-- Safe Not-Found Message -->
-            <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-8 text-center space-y-3" role="alert">
-                <div class="w-12 h-12 rounded-full bg-amber-100 text-[#D97706] mx-auto flex items-center justify-center">
+            <section class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-8 text-center space-y-3" role="alert">
+                <div class="w-12 h-12 rounded-full bg-amber-50 text-[#D97706] mx-auto flex items-center justify-center border border-amber-200">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4c-.77-1.33-2.69-1.33-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z"/>
                     </svg>
@@ -144,12 +150,15 @@
                 <h2 class="text-base sm:text-lg font-bold text-[#202938]">
                     Nomor Tiket / Kode Referensi Tidak Ditemukan
                 </h2>
-                <p class="text-sm text-[#788397] max-w-lg mx-auto leading-relaxed">
-                    Kode tiket <code class="font-telemetry font-bold text-[#202938] bg-slate-100 px-1.5 py-0.5 rounded">{{ $ticketQuery }}</code> tidak ditemukan di dalam sistem. Periksa kembali huruf dan angka pada kode tiket Anda.
+                <p class="text-xs sm:text-sm text-slate-500 max-w-md mx-auto leading-relaxed">
+                    Kode tiket <code class="font-telemetry font-bold text-[#202938] bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">{{ $ticketQuery }}</code> tidak terdaftar pada sistem. Periksa kembali huruf dan angka kode tiket Anda.
                 </p>
-                <p class="text-xs text-[#788397] max-w-md mx-auto">
-                    Informasi hanya ditampilkan jika kode tiket dimasukkan secara tepat untuk melindungi privasi.
-                </p>
+                <div class="pt-2">
+                    <a href="{{ route('public.track') }}"
+                       class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-telemetry text-xs font-bold uppercase tracking-wider inline-flex items-center transition">
+                        Cari Nomor Lain
+                    </a>
+                </div>
             </section>
         @elseif($aidResponse)
             @php
@@ -178,12 +187,13 @@
                 title="Progres Penanganan Respons Bantuan Ini"
                 subtitle="Tahapan dari pencatatan respons bantuan, pemeriksaan petugas, verifikasi bukti, hingga konfirmasi penyerahan" />
 
+            <!-- Informasi Hasil Pencarian: Sesuai Urutan Instruksi -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
-                <!-- Left Column (7 cols): Aid Response Details & Dual Status -->
-                <div class="lg:col-span-7 space-y-5">
-                    <!-- Aid Response Card -->
-                    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
-                        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3.5">
+                <!-- Left Column (7 cols): Identitas, Status Verifikasi, Keterkaitan, Status Tindak Lanjut -->
+                <div class="lg:col-span-7 space-y-4">
+                    <!-- 1. Identitas Tiket Respons -->
+                    <section class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-5 space-y-4">
+                        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
                             <div class="flex flex-wrap items-center gap-2">
                                 <span class="px-2.5 py-1 rounded bg-[#173B70] text-white font-telemetry text-xs font-bold tracking-wider inline-flex items-center gap-1.5">
                                     <span>{{ $aidResponse->reference_code }}</span>
@@ -198,62 +208,70 @@
                                     </button>
                                 </span>
                                 @if($aidResponse->is_simulation)
-                                    <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300 font-telemetry text-[10px] font-bold uppercase">
+                                    <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-300 font-telemetry text-[10px] font-bold uppercase">
                                         Data Simulasi
                                     </span>
                                 @endif
                                 <span class="px-2 py-0.5 rounded font-telemetry text-[10px] font-bold uppercase {{ $isDeliveredSubmission ? 'bg-indigo-50 text-indigo-900 border border-indigo-200' : 'bg-blue-50 text-[#173B70] border border-blue-200' }}">
                                     {{ $aidResponse->submissionTypeLabel() }}
                                 </span>
-                                <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 font-telemetry text-[10px] font-bold uppercase">
-                                    Respons Bantuan Masyarakat
-                                </span>
                             </div>
+
+                            <span class="font-telemetry text-xs text-slate-400">
+                                {{ $aidResponse->recorded_at?->format('d M Y, H:i') }} WIB
+                            </span>
                         </div>
 
-                        <!-- Dua Status Terpisah: Pemeriksaan vs Operasional -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-                            <!-- Status 1: Pemeriksaan / Verifikasi Informasi -->
-                            <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-3.5 space-y-2">
-                                <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-[#788397] block">
-                                    1. Status Pemeriksaan / Verifikasi
+                        <div>
+                            <h2 class="text-lg sm:text-xl font-bold text-[#202938]">
+                                {{ $aidResponse->aid_item_title }}
+                            </h2>
+                            <p class="text-xs text-slate-500 mt-0.5">
+                                Kategori: <strong class="text-slate-700">{{ $needLabel }}</strong> • Kuantitas: <strong class="text-slate-700">{{ $aidResponse->quantity_label }}</strong>
+                            </p>
+                            @if($aidResponse->aid_description)
+                                <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed whitespace-pre-line">{{ $aidResponse->aid_description }}</p>
+                            @endif
+                        </div>
+
+                        <!-- 2. Status Verifikasi & 4. Status Tindak Lanjut (Dua Status Dibedakan Secara Visual) -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                            <!-- Status Verifikasi (Pemeriksaan Informasi) -->
+                            <div class="bg-blue-50/40 border border-blue-200/70 rounded-xl p-3.5 space-y-1.5">
+                                <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-[#173B70] block">
+                                    Status Verifikasi Informasi
                                 </span>
                                 <div>
                                     <x-verification-badge :status="$aidResponse->verification_status" />
                                 </div>
                                 <p class="text-xs text-slate-600 leading-snug">
                                     @if($aidResponse->isVerified())
-                                        Informasi dan kelayakan respons telah diperiksa dan dinyatakan <strong>Terverifikasi</strong> oleh Tim Verifikator.
+                                        Informasi telah diperiksa dan dinyatakan <strong>Terverifikasi</strong> oleh Tim Verifikator.
                                     @elseif($aidResponse->isRejected())
                                         Pemeriksaan respons dinyatakan <strong>Ditolak</strong> oleh Tim Verifikator.
                                     @else
-                                        Menunggu pemeriksaan dan verifikasi kelayakan informasi oleh Tim Verifikator.
+                                        Menunggu pemeriksaan dan verifikasi kelayakan oleh Tim Verifikator.
                                     @endif
                                 </p>
                                 @if($aidResponse->verification_notes)
-                                    <div class="text-[11px] bg-white border border-slate-200 rounded p-2 text-slate-700">
-                                        <span class="font-telemetry font-bold uppercase text-[9px] text-[#788397] block">Catatan Verifikator:</span>
+                                    <div class="text-[11px] bg-white border border-blue-200 rounded p-2 text-slate-700 mt-1">
+                                        <span class="font-telemetry font-bold uppercase text-[9px] text-[#173B70] block">Catatan Verifikator:</span>
                                         {{ $aidResponse->verification_notes }}
                                     </div>
                                 @endif
-                                @if($aidResponse->verified_at)
-                                    <span class="font-telemetry text-[10px] text-[#788397] block">
-                                        Waktu Pemeriksaan: {{ $aidResponse->verified_at->format('d M Y, H:i') }} WIB
-                                    </span>
-                                @endif
                             </div>
 
-                            <!-- Status 2: Operasional Bantuan -->
-                            <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-3.5 space-y-2">
-                                <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-[#788397] block">
-                                    2. Status Operasional Bantuan
+                            <!-- Status Tindak Lanjut (Operasional Bantuan) -->
+                            <div class="bg-emerald-50/40 border border-emerald-200/70 rounded-xl p-3.5 space-y-1.5">
+                                <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-emerald-800 block">
+                                    Status Tindak Lanjut Bantuan
                                 </span>
                                 <div>
                                     <x-aid-status-badge :status="$aidResponse->status" />
                                 </div>
                                 <p class="text-xs text-slate-600 leading-snug">
                                     @if($aidResponse->isConfirmed())
-                                        Penyerahan bantuan telah <strong>Dikonfirmasi</strong> di lapangan berdasarkan verifikasi bukti dokumentasi.
+                                        Penyerahan bantuan telah <strong>Dikonfirmasi</strong> di lapangan berdasarkan verifikasi bukti serah terima.
                                     @elseif($aidResponse->isDelivering())
                                         Bantuan saat ini sedang dalam proses <strong>Penyaluran</strong> ke lokasi tujuan.
                                     @else
@@ -261,171 +279,89 @@
                                     @endif
                                 </p>
                                 @if($aidResponse->confirmation_notes)
-                                    <div class="text-[11px] bg-white border border-slate-200 rounded p-2 text-slate-700">
-                                        <span class="font-telemetry font-bold uppercase text-[9px] text-[#788397] block">Catatan Lapangan / Konfirmasi:</span>
+                                    <div class="text-[11px] bg-white border border-emerald-200 rounded p-2 text-slate-700 mt-1">
+                                        <span class="font-telemetry font-bold uppercase text-[9px] text-emerald-800 block">Catatan Lapangan:</span>
                                         {{ $aidResponse->confirmation_notes }}
                                     </div>
                                 @endif
-                                @if($aidResponse->confirmed_at)
-                                    <span class="font-telemetry text-[10px] text-[#788397] block">
-                                        Waktu Konfirmasi: {{ $aidResponse->confirmed_at->format('d M Y, H:i') }} WIB
-                                    </span>
-                                @endif
                             </div>
                         </div>
 
-                        <!-- Rincian Respons Bantuan -->
-                        <div class="space-y-2 pt-2">
-                            <div class="flex flex-wrap items-baseline justify-between gap-2">
-                                <h2 class="text-lg sm:text-xl font-bold text-[#202938]">
-                                    {{ $aidResponse->aid_item_title }}
-                                </h2>
-                                <span class="font-telemetry text-xs font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded">
-                                    Kapasitas / Jumlah: {{ $aidResponse->quantity_label }}
-                                </span>
+                        <!-- Metadata Singkat -->
+                        <div class="grid grid-cols-2 gap-2 text-xs text-slate-600 pt-1 border-t border-slate-100">
+                            <div>
+                                <span class="text-slate-400 font-telemetry text-[10px] uppercase block">Tujuan Penyaluran:</span>
+                                <span class="font-semibold text-slate-700">{{ $aidResponse->target_location }}</span>
                             </div>
-
-                            @if($aidResponse->aid_description)
-                                <p class="text-sm text-slate-700 leading-relaxed whitespace-pre-line">{{ $aidResponse->aid_description }}</p>
-                            @endif
-                        </div>
-
-                        <!-- Metadata Grid -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                            <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-3">
-                                <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-[#788397] block">
-                                    Kategori Kebutuhan
-                                </span>
-                                <span class="font-telemetry text-xs font-bold text-[#202938]">
-                                    {{ $needLabel }}
-                                </span>
-                            </div>
-
-                            <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-3">
-                                <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-[#788397] block">
-                                    Pemberi Respons
-                                </span>
-                                <span class="font-telemetry text-xs font-bold text-[#202938]">
-                                    {{ $aidResponse->publicResponderName() }}
-                                </span>
-                                <span class="font-telemetry text-[10px] text-[#788397] block">
-                                    {{ $responderTypes[$aidResponse->responder_type] ?? $aidResponse->responder_type }}
-                                </span>
-                            </div>
-
-                            <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-3">
-                                <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-[#788397] block">
-                                    Waktu Pencatatan
-                                </span>
-                                <span class="font-telemetry text-xs font-bold text-[#202938]">
-                                    {{ $aidResponse->recorded_at?->format('d M Y, H:i') ?? '-' }} WIB
-                                </span>
-                            </div>
-
-                            <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-3">
-                                <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-[#788397] block">
-                                    Waktu Penyerahan (Dilaporkan)
-                                </span>
-                                <span class="font-telemetry text-xs font-bold text-[#202938]">
-                                    {{ $aidResponse->delivered_at?->format('d M Y, H:i') ?? 'Belum diserahkan' }}
-                                    @if($aidResponse->delivered_at) WIB @endif
-                                </span>
-                            </div>
-
-                            <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-3 sm:col-span-2">
-                                <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-[#788397] block">
-                                    Lokasi / Wilayah Tujuan Penyaluran
-                                </span>
-                                <span class="text-xs font-bold text-[#202938] block mt-0.5">
-                                    {{ $aidResponse->target_location }}
-                                </span>
+                            <div>
+                                <span class="text-slate-400 font-telemetry text-[10px] uppercase block">Pemberi Respons:</span>
+                                <span class="font-semibold text-slate-700">{{ $aidResponse->publicResponderName() }}</span>
                             </div>
                         </div>
 
+                        <!-- 6. Informasi Sumber & Dokumentasi Pendukung -->
                         @if($aidResponse->evidence_url)
-                            <div class="pt-1">
+                            <div class="pt-2 border-t border-slate-100">
                                 <a href="{{ $aidResponse->evidence_url }}"
                                    target="_blank"
                                    rel="noopener noreferrer"
-                                   class="font-telemetry text-xs font-bold text-[#2563EB] hover:underline inline-flex items-center gap-1">
-                                   <span>Lihat Tautan Bukti Dokumentasi Lapangan</span>
-                                   <span>&rarr;</span>
+                                   class="font-telemetry text-xs font-bold text-[#173B70] hover:underline inline-flex items-center gap-1">
+                                    <span>Buka Tautan Bukti Dokumentasi Lapangan</span>
+                                    <span>&nearr;</span>
                                 </a>
                             </div>
                         @endif
-
-                        <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-600">
-                            <strong class="font-telemetry uppercase text-slate-700">Perlindungan Privasi:</strong>
-                            Kontak pribadi pemberi respons dirahasiakan dan tidak ditampilkan ke publik.
-                        </div>
                     </section>
 
-                    <!-- Linked Incident Card -->
+                    <!-- 3. Keterkaitan Kejadian -->
                     @if($aidResponse->incident)
-                        <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-3">
-                            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                                <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
+                        <section class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-4 sm:p-5 space-y-3">
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                                <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
                                     Kejadian Bencana Terkait
-                                </h2>
-                                <span class="px-2 py-0.5 rounded bg-[#ECFDF5] text-[#059669] border border-[#6EE7B7] font-telemetry text-[10px] font-bold uppercase">
+                                </h3>
+                                <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-telemetry text-[10px] font-bold uppercase">
                                     Terhubung
                                 </span>
                             </div>
 
-                            <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-4 space-y-3">
-                                <div class="flex flex-wrap items-center justify-between gap-2">
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
                                     <x-severity-badge :severity="$aidResponse->incident->severity" />
-                                    <span class="font-telemetry text-xs text-[#788397]">
-                                        Waktu Kejadian: {{ $aidResponse->incident->occurred_at?->format('d M Y, H:i') }} WIB
+                                    <span class="text-xs text-slate-400 font-telemetry">
+                                        {{ $aidResponse->incident->occurred_at?->format('d M Y, H:i') }} WIB
                                     </span>
                                 </div>
-
-                                <h3 class="text-base font-bold text-[#202938]">
+                                <h4 class="text-base font-bold text-[#202938]">
                                     <a href="{{ route('public.incidents.show', $aidResponse->incident->slug) }}" class="hover:text-[#173B70]">
                                         {{ $aidResponse->incident->title }}
                                     </a>
-                                </h3>
-
-                                <p class="text-xs text-slate-600">
-                                    Lokasi Kejadian: <strong>{{ $aidResponse->incident->location_name }}</strong>
+                                </h4>
+                                <p class="text-xs text-slate-500">
+                                    Lokasi: {{ $aidResponse->incident->location_name }}
                                 </p>
+                            </div>
 
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-                                    <div class="bg-white border border-slate-200 rounded p-2.5">
-                                        <span class="font-telemetry text-[10px] font-bold uppercase text-[#788397] block mb-1">
-                                             Status Verifikasi Kejadian
-                                        </span>
-                                        <x-verification-badge :status="$aidResponse->incident->verification_status" />
-                                    </div>
-                                    <div class="bg-white border border-slate-200 rounded p-2.5">
-                                        <span class="font-telemetry text-[10px] font-bold uppercase text-[#788397] block mb-1">
-                                             Status Tindak Lanjut Kejadian
-                                        </span>
-                                        <x-followup-badge :status="$aidResponse->incident->follow_up_status" />
-                                    </div>
-                                </div>
-
-                                <div class="pt-2">
-                                    <a href="{{ route('public.incidents.show', $aidResponse->incident->slug) }}"
-                                       class="px-4 py-2 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 shadow-xs transition">
-                                        <span>Buka Halaman Detail Kejadian</span>
-                                        <span>&rarr;</span>
-                                    </a>
-                                </div>
+                            <div class="pt-2">
+                                <a href="{{ route('public.incidents.show', $aidResponse->incident->slug) }}"
+                                   class="px-3.5 py-1.5 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 transition">
+                                    <span>Lihat Detail Kejadian</span>
+                                    <span>&rarr;</span>
+                                </a>
                             </div>
                         </section>
                     @endif
                 </div>
 
-                <!-- Right Column (5 cols): Audit Trail / Status Timeline -->
-                <div class="lg:col-span-5 space-y-5">
-                    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
+                <!-- Right Column (5 cols): 5. Timeline Perkembangan (Audit Trail) -->
+                <div class="lg:col-span-5 space-y-4">
+                    <section class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-5 space-y-4">
                         <div class="border-b border-slate-100 pb-3">
-                            <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
-                                Riwayat Perkembangan Respons Bantuan ({{ $aidResponse->reference_code }})
-                            </h2>
-                            <p class="text-xs text-[#788397] mt-0.5">
-                                Jejak transparan status pemeriksaan dan status operasional bantuan masyarakat.
+                            <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
+                                Riwayat Perkembangan Respons
+                            </h3>
+                            <p class="text-xs text-slate-400 mt-0.5">
+                                Jejak transparan verifikasi dan operasional bantuan.
                             </p>
                         </div>
 
@@ -463,12 +399,13 @@
                 title="Progres Penanganan Laporan Warga Ini"
                 subtitle="Tahapan dari penerimaan laporan, pemeriksaan awal, verifikasi silang, penautan kejadian, hingga konfirmasi penyelesaian" />
 
+            <!-- Informasi Hasil Pencarian: Sesuai Urutan Instruksi -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
-                <!-- Left Column (7 cols): Report Summary & Linked Incident -->
-                <div class="lg:col-span-7 space-y-5">
-                    <!-- Report Summary Card (Sanitized — NO Reporter PII) -->
-                    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
-                        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3.5">
+                <!-- Left Column (7 cols): Identitas, Status Verifikasi, Keterkaitan, Status Tindak Lanjut -->
+                <div class="lg:col-span-7 space-y-4">
+                    <!-- 1. Identitas Tiket Laporan Warga -->
+                    <section class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-5 space-y-4">
+                        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
                             <div class="flex flex-wrap items-center gap-2">
                                 <span class="px-2.5 py-1 rounded bg-[#173B70] text-white font-telemetry text-xs font-bold tracking-wider inline-flex items-center gap-1.5">
                                     <span>{{ $report->ticket_number }}</span>
@@ -483,154 +420,162 @@
                                     </button>
                                 </span>
                                 @if($report->is_simulation)
-                                    <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300 font-telemetry text-[10px] font-bold uppercase">
+                                    <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-300 font-telemetry text-[10px] font-bold uppercase">
                                         Data Simulasi
                                     </span>
                                 @endif
-                                <span class="px-2 py-0.5 rounded bg-slate-100 text-[#202938] border border-slate-200 font-telemetry text-xs font-bold uppercase">
+                                <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 font-telemetry text-xs font-bold uppercase">
                                     {{ $categoryLabel }}
                                 </span>
                             </div>
 
-                            <x-verification-badge :status="$report->verification_status" />
+                            <span class="font-telemetry text-xs text-slate-400">
+                                {{ $report->created_at?->format('d M Y, H:i') }} WIB
+                            </span>
                         </div>
 
-                        <div class="space-y-2">
+                        <div>
                             <h2 class="text-lg sm:text-xl font-bold text-[#202938]">
                                 {{ $report->title }}
                             </h2>
-                            <p class="text-sm text-slate-700 leading-relaxed whitespace-pre-line">{{ $report->description }}</p>
+                            <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed whitespace-pre-line">{{ $report->description }}</p>
                         </div>
 
-                        <!-- Metadata Grid -->
+                        <!-- 2. Status Verifikasi (Pemeriksaan Informasi) & 4. Status Tindak Lanjut -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                            <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-3">
-                                <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-[#788397] block">
-                                    Waktu Laporan Dibuat
+                            <!-- Status Verifikasi Laporan -->
+                            <div class="bg-blue-50/40 border border-blue-200/70 rounded-xl p-3.5 space-y-1.5">
+                                <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-[#173B70] block">
+                                    Status Verifikasi Informasi
                                 </span>
-                                <span class="font-telemetry text-xs font-bold text-[#202938]">
-                                    {{ $report->created_at?->format('d M Y, H:i') ?? '-' }} WIB
-                                </span>
+                                <div>
+                                    <x-verification-badge :status="$report->verification_status" />
+                                </div>
+                                <p class="text-xs text-slate-600 leading-snug">
+                                    @if($rVerif === 'terverifikasi')
+                                        Laporan telah diperiksa dan dinyatakan <strong>Terverifikasi</strong> oleh Tim Verifikator.
+                                    @elseif($rVerif === 'ditolak')
+                                        Laporan dinyatakan <strong>Ditolak</strong> berdasarkan hasil verifikasi silang.
+                                    @else
+                                        Laporan sedang menunggu pemeriksaan keabsahan informasi oleh Tim Verifikator.
+                                    @endif
+                                </p>
                             </div>
 
-                            <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-3">
-                                <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-[#788397] block">
-                                    Waktu Kejadian Diamati
+                            <!-- Status Tindak Lanjut Operasional -->
+                            <div class="bg-emerald-50/40 border border-emerald-200/70 rounded-xl p-3.5 space-y-1.5">
+                                <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-emerald-800 block">
+                                    Status Tindak Lanjut Kejadian
                                 </span>
-                                <span class="font-telemetry text-xs font-bold text-[#202938]">
-                                    {{ ($report->occurred_at ?? $report->created_at)?->format('d M Y, H:i') ?? '-' }} WIB
-                                </span>
-                            </div>
-
-                            <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-3 sm:col-span-2">
-                                <span class="font-telemetry text-[10px] font-bold uppercase tracking-wider text-[#788397] block">
-                                    Lokasi yang Dilaporkan
-                                </span>
-                                <span class="text-xs font-bold text-[#202938] block mt-0.5">
-                                    {{ $report->location_name }}
-                                </span>
-                                @if($report->wilayahAdministratif)
-                                    <span class="font-telemetry text-[11px] text-[#788397] block mt-0.5">
-                                        Wilayah Administratif: {{ $report->wilayahAdministratif->nama }}
-                                    </span>
-                                @endif
+                                <div>
+                                    @if($report->incident)
+                                        <x-followup-badge :status="$report->incident->follow_up_status" />
+                                    @else
+                                        <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-telemetry text-[11px] font-bold">
+                                            Menunggu Penautan
+                                        </span>
+                                    @endif
+                                </div>
+                                <p class="text-xs text-slate-600 leading-snug">
+                                    @if($report->incident)
+                                        Kejadian terkait berstatus: <strong>{{ $report->incident->follow_up_status?->label() ?? $report->incident->follow_up_status }}</strong> di lapangan.
+                                    @else
+                                        Tindak lanjut operasional dimulai setelah laporan diverifikasi dan ditautkan ke kejadian aktif.
+                                    @endif
+                                </p>
                             </div>
                         </div>
 
+                        <!-- Metadata Singkat -->
+                        <div class="grid grid-cols-2 gap-2 text-xs text-slate-600 pt-1 border-t border-slate-100">
+                            <div>
+                                <span class="text-slate-400 font-telemetry text-[10px] uppercase block">Lokasi:</span>
+                                <span class="font-semibold text-slate-700">{{ $report->location_name }}</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 font-telemetry text-[10px] uppercase block">Waktu Diamati:</span>
+                                <span class="font-semibold text-slate-700">{{ ($report->occurred_at ?? $report->created_at)?->format('d M Y, H:i') }} WIB</span>
+                            </div>
+                        </div>
+
+                        <!-- 6. Informasi Sumber & Dokumentasi Pendukung -->
                         @if($report->evidence_url)
-                            <div class="pt-1">
+                            <div class="pt-2 border-t border-slate-100">
                                 <a href="{{ $report->evidence_url }}"
                                    target="_blank"
                                    rel="noopener noreferrer"
                                    class="font-telemetry text-xs font-bold text-[#173B70] hover:underline inline-flex items-center gap-1">
-                                    <span>Lihat Tautan Sumber / Dokumentasi Pendukung</span>
-                                    <span>&rarr;</span>
+                                    <span>Buka Tautan Sumber / Bukti Pendukung</span>
+                                    <span>&nearr;</span>
                                 </a>
                             </div>
                         @endif
 
-                        <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-600">
-                            <strong class="font-telemetry uppercase text-slate-700">Perlindungan Privasi:</strong>
-                            Nama dan nomor kontak pelapor dirahasiakan untuk melindungi privasi warga.
+                        <div class="bg-slate-50 border border-slate-200/80 rounded-lg p-2.5 text-xs text-slate-500">
+                            <strong class="font-telemetry uppercase text-slate-600">Perlindungan Privasi:</strong>
+                            Identitas pribadi pelapor dirahasiakan dan tidak ditampilkan ke publik.
                         </div>
                     </section>
 
-                    <!-- Linked Incident Section -->
-                    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-3">
-                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                            <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
-                                Keterhubungan dengan Kejadian Publik
-                            </h2>
+                    <!-- 3. Keterkaitan Kejadian -->
+                    <section class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-4 sm:p-5 space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                            <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
+                                Keterkaitan dengan Kejadian Publik
+                            </h3>
                             @if($report->incident)
-                                <span class="px-2 py-0.5 rounded bg-[#ECFDF5] text-[#059669] border border-[#6EE7B7] font-telemetry text-[10px] font-bold uppercase">
+                                <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-telemetry text-[10px] font-bold uppercase">
                                     Terhubung ke Kejadian
                                 </span>
                             @else
-                                <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-300 font-telemetry text-[10px] font-bold uppercase">
+                                <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200 font-telemetry text-[10px] font-bold uppercase">
                                     Belum Terhubung ke Kejadian
                                 </span>
                             @endif
                         </div>
 
                         @if($report->incident)
-                            <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-4 space-y-3">
-                                <div class="flex flex-wrap items-center justify-between gap-2">
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
                                     <x-severity-badge :severity="$report->incident->severity" />
-                                    <span class="font-telemetry text-xs text-[#788397]">
-                                        Waktu Kejadian: {{ $report->incident->occurred_at?->format('d M Y, H:i') }} WIB
+                                    <span class="text-xs text-slate-400 font-telemetry">
+                                        {{ $report->incident->occurred_at?->format('d M Y, H:i') }} WIB
                                     </span>
                                 </div>
-
-                                <h3 class="text-base font-bold text-[#202938]">
+                                <h4 class="text-base font-bold text-[#202938]">
                                     <a href="{{ route('public.incidents.show', $report->incident->slug) }}" class="hover:text-[#173B70]">
                                         {{ $report->incident->title }}
                                     </a>
-                                </h3>
-
-                                <p class="text-xs text-slate-600">
-                                    Lokasi: <strong>{{ $report->incident->location_name }}</strong>
+                                </h4>
+                                <p class="text-xs text-slate-500">
+                                    Lokasi Kejadian: {{ $report->incident->location_name }}
                                 </p>
+                            </div>
 
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-                                    <div class="bg-white border border-slate-200 rounded p-2.5">
-                                        <span class="font-telemetry text-[10px] font-bold uppercase text-[#788397] block mb-1">
-                                            Status Verifikasi Kejadian
-                                        </span>
-                                        <x-verification-badge :status="$report->incident->verification_status" />
-                                    </div>
-                                    <div class="bg-white border border-slate-200 rounded p-2.5">
-                                        <span class="font-telemetry text-[10px] font-bold uppercase text-[#788397] block mb-1">
-                                            Status Tindak Lanjut Kejadian
-                                        </span>
-                                        <x-followup-badge :status="$report->incident->follow_up_status" />
-                                    </div>
-                                </div>
-
-                                <div class="pt-2">
-                                    <a href="{{ route('public.incidents.show', $report->incident->slug) }}"
-                                       class="px-4 py-2 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 shadow-xs transition">
-                                        <span>Buka Halaman Detail Kejadian</span>
-                                        <span>&rarr;</span>
-                                    </a>
-                                </div>
+                            <div class="pt-2">
+                                <a href="{{ route('public.incidents.show', $report->incident->slug) }}"
+                                   class="px-3.5 py-1.5 rounded-lg bg-[#173B70] hover:bg-[#0F2A52] text-white font-telemetry text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 transition">
+                                    <span>Lihat Detail Kejadian</span>
+                                    <span>&rarr;</span>
+                                </a>
                             </div>
                         @else
-                            <div class="bg-[#F8F9FC] border border-slate-100 rounded-xl p-4 text-xs text-slate-600 leading-relaxed">
-                                Laporan ini belum ditautkan ke kejadian tertentu. Tim verifikator sedang memeriksa kesesuaian laporan dengan kejadian aktif di sekitarnya.
-                            </div>
+                            <p class="text-xs text-slate-500 leading-relaxed">
+                                Laporan ini belum ditautkan ke kejadian tertentu. Tim verifikator sedang memeriksa laporan untuk penautan kejadian.
+                            </p>
                         @endif
                     </section>
                 </div>
 
-                <!-- Right Column (5 cols): Public Audit Trail for this Report -->
-                <div class="lg:col-span-5 space-y-5">
-                    <section class="bg-white rounded-2xl shadow-xs border border-slate-100/90 p-5 space-y-4">
+                <!-- Right Column (5 cols): 5. Timeline Perkembangan (Audit Trail) -->
+                <div class="lg:col-span-5 space-y-4">
+                    <section class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-5 space-y-4">
                         <div class="border-b border-slate-100 pb-3">
-                            <h2 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
-                                Riwayat Status Laporan ({{ $report->ticket_number }})
-                            </h2>
-                            <p class="text-xs text-[#788397] mt-0.5">
-                                Jejak perubahan status verifikasi dan catatan tindak lanjut yang aman untuk publik.
+                            <h3 class="font-telemetry text-xs font-bold uppercase tracking-wider text-[#202938]">
+                                Riwayat Status Laporan
+                            </h3>
+                            <p class="text-xs text-slate-400 mt-0.5">
+                                Jejak transparan verifikasi dan tindak lanjut laporan.
                             </p>
                         </div>
 
@@ -645,4 +590,5 @@
             </div>
         @endif
     @endif
+</div>
 @endsection

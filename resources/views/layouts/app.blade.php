@@ -118,11 +118,12 @@
                style="bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));"
                aria-label="Aksi Cepat Pelaporan">
             <a href="{{ route('public.reports.create') }}"
-               class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#D94350] hover:bg-[#C23541] active:scale-95 text-white font-telemetry text-xs font-bold uppercase tracking-wider shadow-lg shadow-red-950/20 transition transform duration-150 ease-out focus:outline-none focus:ring-2 focus:ring-[#D94350] focus:ring-offset-2">
-                <svg class="w-4 h-4 shrink-0 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+               title="Lapor Kejadian"
+               class="inline-flex items-center gap-1.5 px-3 py-2 rounded-full bg-[#D94350] hover:bg-[#C23541] active:scale-95 text-white font-telemetry text-xs font-bold uppercase tracking-wider shadow-md transition transform duration-150 ease-out focus:outline-none focus:ring-2 focus:ring-[#D94350]">
+                <svg class="w-3.5 h-3.5 shrink-0 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
                 </svg>
-                <span>Lapor Kejadian</span>
+                <span>Lapor</span>
             </a>
         </aside>
     @endif
